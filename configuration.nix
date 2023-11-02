@@ -73,6 +73,7 @@ environment.gnome.excludePackages = (with pkgs; [
 
   environment.systemPackages = with pkgs; [
   vim 
+  alacritty
   wget
   git
   ];
