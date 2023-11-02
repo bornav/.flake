@@ -11,7 +11,7 @@
     / move build to desired location
 
 ## rebuild config
-    sudo nixos-rebuild switch --flake .#bocmo
+    sudo nixos-rebuild switch --flake ~/.flake/#bocmo
 
 ## update flage dependancies
     nix flake update
