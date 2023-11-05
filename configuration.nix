@@ -9,7 +9,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "valium2"; # Define your hostname.
 
   networking.networkmanager.enable = true;
 
@@ -35,9 +35,9 @@
     xkbVariant = "";
   };
 
-  users.users.nixos = {
+  users.users.bocmo = {
     isNormalUser = true;
-    description = "nixos";
+    description = "bocmo";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
   };
