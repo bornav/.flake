@@ -10,7 +10,7 @@
     grub.efiSupport = true;
     grub.enable = true;
     grub.device = "nodev";
-    efi.efiSysMountPoint = "/boot/efi";
+    #efi.efiSysMountPoint = "/boot/efi";
     efi.canTouchEfiVariables = true;
   };
   networking.hostName = "valium2"; # Define your hostname.
@@ -42,7 +42,7 @@
   users.users.bocmo = {
     isNormalUser = true;
     description = "bocmo";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
   };
 
@@ -87,7 +87,9 @@ environment.gnome.excludePackages = (with pkgs; [
    enableSSHSupport = true;
  };
 
+  virtualisation.docker.enable = true;
 
+  services.flatpak.enable = true;
   services.openssh.enable = true;
   services.sshd.enable = true;
 
