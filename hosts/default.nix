@@ -33,13 +33,12 @@ in
             inherit system unstable hyprland vars;
             host = {
                 hostName = "vallium";
-                # mainMonitor = "eDP-1";
-                # secondMonitor = "";
             };
         };
         modules = [ 
           nur.nixosModules.nur
           ./configuration.nix
+          ./vallium
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -51,25 +50,4 @@ in
         # };
         
     };
-#     desktop = lib.nixosSystem {                               # DEPRECATED Desktop Profile 
-#     inherit system;
-#     specialArgs = {
-#       inherit inputs system unstable hyprland vars;
-#       host = {
-#         hostName = "desktop";
-#         mainMonitor = "HDMI-A-1";
-#         secondMonitor = "HDMI-A-2";
-#       };
-#     };
-#     modules = [
-#       nur.nixosModules.nur
-#       ./desktop
-#       ./configuration.nix
-
-#       home-manager.nixosModules.home-manager {
-#         home-manager.useGlobalPkgs = true;
-#         home-manager.useUserPackages = true;
-#       }
-#     ];
-#   };
 }

@@ -5,42 +5,34 @@
     {
       nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";                     # Stable Nix Packages (Default)
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";         # Unstable Nix Packages
-
       home-manager = {                                                      # User Environment Manager
         url = "github:nix-community/home-manager/release-23.05";
         inputs.nixpkgs.follows = "nixpkgs";
       };
-
       darwin = {                                                            # MacOS Package Management
         url = "github:lnl7/nix-darwin/master";
         inputs.nixpkgs.follows = "nixpkgs";
       };
-
       nur = {                                                               # NUR Community Packages
         url = "github:nix-community/NUR";                                   # Requires "nur.nixosModules.nur" to be added to the host modules
       };
-
       nixgl = {                                                             # Fixes OpenGL With Other Distros.
         url = "github:guibou/nixGL";
         inputs.nixpkgs.follows = "nixpkgs";
       };
-
       emacs-overlay = {                                                     # Emacs Overlays
         url = "github:nix-community/emacs-overlay";
         flake = false;
       };
-
       doom-emacs = {                                                        # Nix-Community Doom Emacs
         url = "github:nix-community/nix-doom-emacs";
         inputs.nixpkgs.follows = "nixpkgs";
         inputs.emacs-overlay.follows = "emacs-overlay";
       };
-
       hyprland = {                                                          # Official Hyprland Flake
         url = "github:hyprwm/Hyprland";                                     # Requires "hyprland.nixosModules.default" to be added the host modules
         inputs.nixpkgs.follows = "nixpkgs-unstable";
       };
-
       plasma-manager = {                                                    # KDE Plasma User Settings Generator
         url = "github:pjones/plasma-manager";                               # Requires "inputs.plasma-manager.homeManagerModules.plasma-manager" to be added to the home-manager.users.${user}.imports
         inputs.nixpkgs.follows = "nixpkgs";
@@ -60,31 +52,7 @@
 	#   pkgs = import nixpkgs { inherit system; config.allowUnfree = true;};
 	#   lib = nixpkgs.lib;
 	in {
-		# nixosConfigurations = {
-		# 	vallium = lib.nixosSystem { 
-		# 		inherit system; 
-		# 		specialArgs = {
-		# 			inherit inputs;
-		# 			host = {
-		# 				hostName = "vallium";
-		# 				# mainMonitor = "eDP-1";
-		# 				# secondMonitor = "";
-		# 			};
-		# 		};
-		# 		modules = [ ./configuration.nix];
-		# 		# home-manager.nixosModules.home-manager {
-		# 		# 	home-manager.useGlobalPkgs = true;
-		# 		# 	home-manager.useUserPackages = true;
-		# 		# };
-				
-		# 	};
-		# 	laptop = lib.nixosSystem { 
-		# 		inherit system; modules = [ ./configuration.nix];
-		# 			};
-
-		# };
-		nixosConfigurations = (                                               # NixOS Configurations
-			# import /home/bocmo/.flake/hosts {
+		nixosConfigurations = (
 			import ./hosts {
 			inherit (nixpkgs) lib;
 			inherit inputs nixpkgs nixpkgs-unstable home-manager nur hyprland plasma-manager vars;   # Inherit inputs

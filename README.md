@@ -15,6 +15,12 @@
 
 ## update flage dependancies
     nix flake update
-sudo nixos-rebuild switch --flake ~/.flake/#vallium1
+sudo nixos-rebuild switch --flake ~/.flake/#vallium
 efibootmgr -c -d /dev/nvme0n1p4 -p 1 -L NixOS-boot -l '\EFI\NixOS-boot\grubx64.efi'
 sudo nixos-rebuild switch --impure --flake ~/.flake/#vallium
+
+
+
+### bootstrap TODO
+
+mount /mnt and /mnt/boot acordingly then proceed with nixos-install
