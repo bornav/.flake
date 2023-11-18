@@ -23,3 +23,5 @@ sudo nixos-rebuild switch --impure --flake ~/.flake/#vallium
 
 ### bootstrap TODO
     curl -s https://raw.githubusercontent.com/bornav/.flake/main/deployment.sh | bash
+
+    curl -L https://raw.githubusercontent.com/bornav/.flake/main/deployment.sh | sh -s -- --daemon --yes
