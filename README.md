@@ -22,5 +22,4 @@ sudo nixos-rebuild switch --impure --flake ~/.flake/#vallium
 
 
 ### bootstrap TODO
-
-mount /mnt and /mnt/boot acordingly then proceed with nixos-install
+curl -s https://raw.githubusercontent.com/bornav/.flake/main/deployment.sh | bash
