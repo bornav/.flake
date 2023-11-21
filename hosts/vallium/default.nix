@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 
 {
   imports =
@@ -50,6 +50,11 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
   };
+  environment.sessionVariables = {
+    
+    NIXOS_CONFIG="$HOME/.flake";
+    # NIXOS_CONFIG="/home/${vars.user}/.flake";
+  };
 
   nixpkgs.config.allowUnfree = true;
   ###################################################
@@ -78,8 +83,12 @@
   ]);
   #####################################################
   environment.systemPackages = with pkgs; [
-    alacritty
-    #firefox
+  vim 
+  alacritty
+  wget
+  git
+  #firefox
+  efibootmgr
   ];
 
  programs.gnupg.agent = {

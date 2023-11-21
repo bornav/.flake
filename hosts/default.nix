@@ -39,6 +39,7 @@ in
           nur.nixosModules.nur
           ./configuration.nix
           ./vallium
+          ./custom.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
