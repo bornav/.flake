@@ -78,12 +78,8 @@
   ]);
   #####################################################
   environment.systemPackages = with pkgs; [
-  vim 
-  alacritty
-  wget
-  git
-  #firefox
-  efibootmgr
+    alacritty
+    #firefox
   ];
 
  programs.gnupg.agent = {
