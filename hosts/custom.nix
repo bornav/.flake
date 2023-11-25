@@ -1,5 +1,5 @@
 {
-  description= "Thorium using Nix Flake";
+  # description= "Thorium using Nix Flake";
   inputs={
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };

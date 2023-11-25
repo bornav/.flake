@@ -87,8 +87,8 @@
   alacritty
   wget
   git
-  #firefox
-  efibootmgr
+  vscode
+  firefox
   ];
 
  programs.gnupg.agent = {
