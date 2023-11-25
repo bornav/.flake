@@ -17,14 +17,13 @@
     { device = "/dev/disk/by-label/NIXOS";
       fsType = "ext4";
     };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
   fileSystems."/home" =
     { device = "/dev/disk/by-label/home_partition";
-      fsType = "vfat";
+      fsType = "ext4";
     };
 
   swapDevices = [ ];
