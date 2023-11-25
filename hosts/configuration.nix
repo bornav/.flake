@@ -1,4 +1,4 @@
-{ config, pkgs, vars, ... }:
+{ config, pkgs, unstable, vars, ... }:
 
 {
   time.timeZone = "Europe/Vienna";
@@ -21,7 +21,7 @@
       EDITOR = "${vars.editor}";
       VISUAL = "${vars.editor}";
     };
-    systemPackages = with pkgs; [           # System-Wide Packages
+    systemPackages = with unstable; [           # System-Wide Packages
       # Terminal
       htop              # Resource Manager
       coreutils         # GNU Utilities
@@ -37,6 +37,7 @@
       wget              # Retriever
       curl
       efibootmgr
+      e2fsprogs
       # Video/Audio
       # alsa-utils        # Audio Control
       # feh               # Image Viewer
