@@ -22,6 +22,10 @@
     { device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
+  fileSystems."/home" =
+    { device = "/dev/disk/by-label/home_partition";
+      fsType = "vfat";
+    };
 
   swapDevices = [ ];
 
