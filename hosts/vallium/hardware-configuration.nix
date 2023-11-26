@@ -39,5 +39,14 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
+  
+  #nvidia
+  hardware.nvidia = {
+	modesetting.enable = true;
+	powerManagement.enable = true;
+	powerManagement.finegrained = false;
+	open = false;
+	nvidiaSettings = true;
+	package = config.boot.kernelPackages.nvidiaPackages.stable;
+	};
 }

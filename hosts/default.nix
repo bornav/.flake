@@ -19,7 +19,7 @@ let
     config.allowUnfree = true;                              # Allow Proprietary Software
   };
 
-  unstable = import nixpkgs-unstable {
+  pkgs-unstable = import nixpkgs-unstable {
     inherit system;
     config.allowUnfree = true;
   };
@@ -30,7 +30,7 @@ in
     vallium = lib.nixosSystem { 
         inherit system; 
         specialArgs = {
-            inherit system unstable hyprland vars;
+            inherit system pkgs-unstable hyprland vars;
             host = {
                 hostName = "vallium";
             };

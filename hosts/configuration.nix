@@ -1,6 +1,8 @@
-{ config, pkgs, unstable, vars, ... }:
+{ config, pkgs, pkgs-unstable, vars, ... }:
 
 {
+  imports = ( import ../modules/shell);
+  
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -21,8 +23,9 @@
       EDITOR = "${vars.editor}";
       VISUAL = "${vars.editor}";
     };
-    systemPackages = with unstable; [           # System-Wide Packages
+    systemPackages = with pkgs; [           # System-Wide Packages
       # Terminal
+      tree
       htop              # Resource Manager
       coreutils         # GNU Utilities
       git               # Version Control
@@ -37,7 +40,6 @@
       wget              # Retriever
       curl
       efibootmgr
-      e2fsprogs
       # Video/Audio
       # alsa-utils        # Audio Control
       # feh               # Image Viewer
@@ -66,12 +68,34 @@
       # Other Packages Found @
       # - ./<host>/default.nix
       # - ../modules
-    ];
-    # ] ++
-    # (with unstable; [
-    #   # Apps
-    #   # firefox           # Browser
-    # ]);
+    
+    ] ++
+    (with pkgs-unstable; [
+      e2fsprogs
+      # firefox           # Browser
+    ]);
+  };
+  hardware.pulseaudio.enable = false;
+  services = {
+    printing = {                            # CUPS
+      enable = true;
+    };
+    pipewire = {                            # Sound
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      jack.enable = true;
+    };
+    openssh = {                             # SSH
+      enable = true;
+      allowSFTP = true;                     # SFTP
+      extraConfig = ''
+        HostKeyAlgorithms +ssh-rsa
+      '';
+    };
   };
 
   system.stateVersion = "23.11";# Did you read the comment?

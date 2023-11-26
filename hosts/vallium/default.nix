@@ -1,8 +1,11 @@
-{ config, pkgs, vars, ... }:
+{ config, pkgs, pkgs-unstable, vars, ... }:
 
 {
-  imports =
-    [ ./hardware-configuration.nix];
+  imports = [ 
+    ./hardware-configuration.nix
+    ./devops.nix
+    ./network-shares.nix
+  ];
   boot.loader = {
     #systemd-boot.enable = true;
     grub.efiSupport = true;
@@ -13,24 +16,23 @@
     #grub.useOSProber = true;
     grub.extraEntries = ''
         menuentry 'Windows Boot Manager (on /dev/nvme0n1p1)' --class windows --class os $menuentry_id_option 'windows' {
-                savedefault
-                insmod part_gpt
-                insmod fat
-                search --no-floppy --label BOOT
-                chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+          savedefault
+          insmod part_gpt
+          insmod fat
+          search --no-floppy --label BOOT
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
         }
-          menuentry 'Arch Linux, with Linux linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-109c9c71-abfc-46d9-b983-9dd681b53ce4' {
-            savedefault
-                        load_video
-                        set gfxpayload=keep
-                        insmod gzio
-                        insmod part_gpt
-                        insmod fat
-                        search --no-floppy --label GRUB
-                        echo    'Loading Linux linux ...'
-                        linux   /vmlinuz-linux root=LABEL=root_partition rw  loglevel=3 nvidia-drm.modeset=1 iommu=pt
-                        echo    'Loading initial ramdisk ...'
-                        initrd  /amd-ucode.img /initramfs-linux.img
+        menuentry 'Arch Linux, with Linux linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-109c9c71-abfc-46d9-b983-9dd681b53ce4' {
+          savedefault
+          set gfxpayload=keep
+          insmod gzio
+          insmod part_gpt
+          insmod fat
+          search --no-floppy --label BOOT
+          echo    'Loading Linux linux ...'
+          linux   /vmlinuz-linux root=LABEL=root_partition rw  loglevel=3 nvidia-drm.modeset=1 iommu=pt
+          echo    'Loading initial ramdisk ...'
+          initrd  /amd-ucode.img /initramfs-linux.img
         }
     '';
   };
@@ -43,10 +45,10 @@
     layout = "us";
     xkbVariant = "";
   };
-
-  users.users.bocmo = {
+  users.defaultUserShell = pkgs.zsh;
+  users.users.${vars.user} = {
     isNormalUser = true;
-    description = "bocmo";
+    description = "${vars.user}";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
   };
@@ -87,9 +89,16 @@
   alacritty
   wget
   git
-  vscode
-  firefox
-  ];
+  neofetch
+  gnumake
+  haruna
+  ] ++
+    (with pkgs-unstable; [
+      vscode
+      zsh
+      zsh-completions
+      zsh-autocomplete
+    ]);
 
  programs.gnupg.agent = {
    enable = true;
@@ -102,23 +111,23 @@
   services.openssh.enable = true;
   services.sshd.enable = true;
 
+
+  #steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+  hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
+  ##
+  #nvidia
   hardware.opengl = {
 	enable = true;
 	#dirSupport = true;
 	#dirSupport32Bit = true;
   };
   services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-	modesetting.enable = true;
-
-	powerManagement.enable = true;
-	powerManagement.finegrained = false;
-	open = false;
-	nvidiaSettings = true;
-	package = config.boot.kernelPackages.nvidiaPackages.stable;
-	};
-
+  ##
 
 }
 
