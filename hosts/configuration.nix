@@ -25,6 +25,7 @@
     };
     systemPackages = with pkgs; [           # System-Wide Packages
       # Terminal
+      bash
       tree
       htop              # Resource Manager
       coreutils         # GNU Utilities
@@ -97,7 +98,7 @@
       '';
     };
   };
-
+  
   system.stateVersion = "23.11";# Did you read the comment?
   nix = {
 	package = pkgs.nixFlakes;

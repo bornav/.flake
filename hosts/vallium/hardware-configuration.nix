@@ -25,12 +25,16 @@
     { device = "/dev/disk/by-label/home_partition";
       fsType = "ext4";
     };
-  fileSystems."/home/${vars.user}/.share/ssd_ext4" =
+  # fileSystems."/home/${vars.user}/.share/ssd_ext4" =
+  fileSystems."/mnt/ssd_ext4" =
     { device = "/dev/disk/by-label/ssd_ext4";
       fsType = "ext4";
       options = [
+        # "user"
+        "rw"
+        "noatime"
+        "relatime"
         "x-systemd.automount"
-        "user"
         "x-systemd.idle-timeout=60"
         "x-systemd.device-timeout=5s"
         "x-systemd.mount-timeout=5s"

@@ -92,6 +92,9 @@
   neofetch
   gnumake
   haruna
+  kate
+  jq
+  openssl
   ] ++
     (with pkgs-unstable; [
       vscode
@@ -128,6 +131,7 @@
   };
   services.xserver.videoDrivers = ["nvidia"];
   ##
-
+  ##gargabe collection
+  
 }
 
