@@ -3,8 +3,9 @@
 {
   imports = [ 
     ./hardware-configuration.nix
-    ./devops.nix
     ./network-shares.nix
+    ./devops.nix
+    ./virtualization.nix
   ];
   boot.loader = {
     #systemd-boot.enable = true;
