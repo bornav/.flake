@@ -16,6 +16,9 @@
   fileSystems."/" =
     { device = "/dev/disk/by-label/NIXOS";
       fsType = "ext4";
+      options = [
+        "noatime"
+      ];
     };
   fileSystems."/boot" =
     { device = "/dev/disk/by-label/BOOT";
@@ -24,6 +27,9 @@
   fileSystems."/home" =
     { device = "/dev/disk/by-label/home_partition";
       fsType = "ext4";
+      options = [
+        "noatime"
+      ];
     };
   # fileSystems."/home/${vars.user}/.share/ssd_ext4" =
   fileSystems."/mnt/ssd_ext4" =
@@ -38,7 +44,7 @@
         "x-systemd.idle-timeout=60"
         "x-systemd.device-timeout=5s"
         "x-systemd.mount-timeout=5s"
-        ];
+      ];
     };
 
 

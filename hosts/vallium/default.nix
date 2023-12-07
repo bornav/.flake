@@ -82,11 +82,13 @@
     iagno # go game
     hitori # sudoku game
     atomix # puzzle game
+    # nautilus
   ]);
   #####################################################
   environment.systemPackages = with pkgs; [
   vim 
   alacritty
+  libsForQt5.dolphin
   wget
   git
   neofetch
