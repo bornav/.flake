@@ -83,13 +83,15 @@
     iagno # go game
     hitori # sudoku game
     atomix # puzzle game
-    # nautilus
+    nautilus
   ]);
   #####################################################
   environment.systemPackages = with pkgs; [
   vim 
   alacritty
   libsForQt5.dolphin
+  libsForQt5.ark
+  # libsForQt5.xdg-desktop-portal-kde
   wget
   git
   neofetch
@@ -135,6 +137,6 @@
   services.xserver.videoDrivers = ["nvidia"];
   ##
   ##gargabe collection
-  
+  programs.dconf.enable = true;
 }
 

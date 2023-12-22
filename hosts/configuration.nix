@@ -70,9 +70,9 @@
       # - ./<host>/default.nix
       # - ../modules
     
+      e2fsprogs
     ] ++
     (with pkgs-unstable; [
-      e2fsprogs
       # firefox           # Browser
     ]);
   };

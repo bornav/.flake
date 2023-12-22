@@ -6,6 +6,11 @@
     kubectl
     sops
     age
-    k9s
-  ];
+    ansible
+    kubernetes-helm
+  ] ++
+    (with pkgs-unstable; [
+      k9s
+      # firefox           # Browser
+    ]);
 }
