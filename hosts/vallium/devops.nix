@@ -8,6 +8,9 @@
     age
     ansible
     kubernetes-helm
+    kustomize
+    kustomize-sops
+    lens
   ] ++
     (with pkgs-unstable; [
       k9s

@@ -6,6 +6,7 @@
     ./network-shares.nix
     ./devops.nix
     ./virtualization.nix
+    ./vpn.nix
   ];
   boot.loader = {
     #systemd-boot.enable = true;
@@ -91,6 +92,7 @@
   alacritty
   libsForQt5.dolphin
   libsForQt5.ark
+  unrar
   # libsForQt5.xdg-desktop-portal-kde
   wget
   git
