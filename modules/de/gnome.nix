@@ -79,30 +79,17 @@ with lib;
           favorite-apps = [
             "org.gnome.settings.desktop"
             "alacritty.desktop"
-    #         "firefox.desktop"
-    #         "emacs.desktop"
-    #         "org.gnome.nautilus.desktop"
-    #         "com.obsproject.studio.desktop"
-    #         "plexmediaplayer.desktop"
-    #         "smartcode-stremio.desktop"
-    #         "discord.desktop"
             "steam.desktop"
-    #         "retroarch.desktop"
-    #         "com.parsecgaming.parsec.desktop"
-    #         "org.remmina.remmina.desktop"
-    #         "virt-manager.desktop"
-    #         # "blueman-manager.desktop"
-    #         # "pavucontrol.desktop"
           ];
           disable-user-extensions = false;
-    #       enabled-extensions = [
-    #         "trayiconsreloaded@selfmade.pl"
+          enabled-extensions = [
+            "trayiconsreloaded@selfmade.pl"
     #         "blur-my-shell@aunetx"
     #         "drive-menu@gnome-shell-extensions.gcampax.github.com"
     #         "dash-to-panel@jderose9.github.com"
     #         "just-perfection-desktop@just-perfection"
     #         "caffeine@patapon.info"
-    #         "clipboard-indicator@tudmotu.com"
+            "clipboard-indicator@tudmotu.com"
     #         "horizontal-workspace-indicator@tty2.io"
     #         "bluetooth-quick-connect@bjarosze.gmail.com"
     #         "battery-indicator@jgotti.org"
@@ -111,7 +98,7 @@ with lib;
     #         "forge@jmmaranan.com"
     #         # "dash-to-dock@micxgx.gmail.com"           # Alternative Dash-to-Panel
     #         # "fullscreen-avoider@noobsai.github.com"   # Dash-to-Panel Incompatable
-    #       ];
+          ];
         };
 
     #     "org/gnome/desktop/interface" = {

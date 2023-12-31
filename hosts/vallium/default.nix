@@ -107,8 +107,8 @@
     (with pkgs-unstable; [
       vscode
       zsh
-      zsh-completions
-      zsh-autocomplete
+      # zsh-completions
+      # zsh-autocomplete
     ]);
 
  programs.gnupg.agent = {
