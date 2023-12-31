@@ -59,7 +59,7 @@
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
   };
-
+  gnome.enable = true;
   nixpkgs.config.allowUnfree = true;
   ###################################################
   #gnome part
@@ -67,25 +67,25 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  environment.gnome.excludePackages = (with pkgs; [
-    gnome-photos
-    gnome-tour
-  ]) ++ (with pkgs.gnome; [
-    cheese # webcam tool
-    gnome-music
-    gnome-terminal
-    gedit # text editor
-    epiphany # web browser
-    geary # email reader
-    evince # document viewer
-    gnome-characters
-    totem # video player
-    tali # poker game
-    iagno # go game
-    hitori # sudoku game
-    atomix # puzzle game
-    nautilus
-  ]);
+  # environment.gnome.excludePackages = (with pkgs; [
+  #   gnome-photos
+  #   gnome-tour
+  # ]) ++ (with pkgs.gnome; [
+  #   cheese # webcam tool
+  #   gnome-music
+  #   gnome-terminal
+  #   gedit # text editor
+  #   epiphany # web browser
+  #   geary # email reader
+  #   evince # document viewer
+  #   gnome-characters
+  #   totem # video player
+  #   tali # poker game
+  #   iagno # go game
+  #   hitori # sudoku game
+  #   atomix # puzzle game
+  #   nautilus
+  # ]);
   #####################################################
   environment.systemPackages = with pkgs; [
   vim 
@@ -101,6 +101,7 @@
   haruna
   kate
   jq
+  firefox
   openssl
   ] ++
     (with pkgs-unstable; [

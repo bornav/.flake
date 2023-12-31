@@ -1,7 +1,8 @@
 { config, pkgs, pkgs-unstable, vars, ... }:
 
 {
-  imports = ( import ../modules/shell);
+  imports = ( import ../modules/shell ++
+              import ../modules/de);
   
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -98,11 +99,33 @@
       '';
     };
   };
-  
-  system.stateVersion = "23.11";# Did you read the comment?
+  system = {                                # NixOS Settings
+    #autoUpgrade = {                        # Allow Auto Update (not useful in flakes)
+    #  enable = true;
+    #  channel = "https://nixos.org/channels/nixos-unstable";
+    #};
+    stateVersion = "23.11";
+  };
+
+  home-manager.users.${vars.user} = {       # Home-Manager Settings
+    home = {
+      stateVersion = "23.11";
+    };
+    programs = {
+      home-manager.enable = true;
+    };
+  };
   nix = {
-	package = pkgs.nixFlakes;
-	extraOptions = "experimental-features = nix-command flakes";
+    settings ={
+      auto-optimise-store = true;
+    };
+    gc = {                                  # Garbage Collection
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+    package = pkgs.nixFlakes;
+    extraOptions = "experimental-features = nix-command flakes";
   };
 }
 
