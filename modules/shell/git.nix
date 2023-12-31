@@ -3,16 +3,14 @@
 #
 
 { config, lib, pkgs, vars, ... }:
-with lib;
 {
-    home.packages = with pkgs;[
-    git 
-    ];
-
-    programs.git = {
-        package = pkgs.gitAndTools.gitFull;
-        enable = true;
-        userName  = "my_git_username";
-        userEmail = "my_git_username@gmail.com";
+    home-manager.users.${vars.user} = {
+        home.packages = [ pkgs.git-lfs ];
+        programs.git = {
+            package = pkgs.gitAndTools.gitFull;
+            enable = true;
+            userName  = "bornav";
+            userEmail = "borna.vincek1@gmail.com";
+        };
     };
 }
