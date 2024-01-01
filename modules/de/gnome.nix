@@ -167,6 +167,7 @@ with lib;
           custom-keybindings = [
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -178,6 +179,11 @@ with lib;
           binding = "<super>e";
           command = "dolphin";
           name = "open-file-browser";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+          binding = "<super>b";
+          command = "thorium";
+          name = "open-web-browser";
         };
 
         # "org/gnome/shell/extension/dash-to-panel" = {   # Set Manually
