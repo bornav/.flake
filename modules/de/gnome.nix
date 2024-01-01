@@ -79,7 +79,6 @@ with lib;
           favorite-apps = [
             "org.gnome.settings.desktop"
             "alacritty.desktop"
-            "steam.desktop"
           ];
           disable-user-extensions = false;
           enabled-extensions = [
