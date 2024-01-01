@@ -104,21 +104,15 @@
     #  enable = true;
     #  channel = "https://nixos.org/channels/nixos-unstable";
     #};
-    stateVersion = "23.11";
+    stateVersion = "${vars.stateVersion}";
   };
 
   home-manager.users.${vars.user} = {       # Home-Manager Settings
-    home = {
-      stateVersion = "23.11";
-    };
-    programs = {
-      home-manager.enable = true;
-    };
+    home.stateVersion = "${vars.stateVersion}";
+    programs.home-manager.enable = true;
   };
   nix = {
-    settings ={
-      auto-optimise-store = true;
-    };
+    settings.auto-optimise-store = true;
     gc = {                                  # Garbage Collection
       automatic = true;
       dates = "weekly";

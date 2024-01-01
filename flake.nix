@@ -46,6 +46,7 @@
 			location = "$HOME/.flake";
 			terminal = "alacritty";
 			editor = "vim";
+      stateVersion = "23.11";
 		};
 	#   system = "x86_64-linux";
 	#   user = "bocmo";
