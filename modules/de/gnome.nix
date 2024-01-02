@@ -96,22 +96,21 @@ with lib;
     #         "pip-on-top@rafostar.github.com"
     #         "forge@jmmaranan.com"
     #         # "dash-to-dock@micxgx.gmail.com"           # Alternative Dash-to-Panel
-    #         # "fullscreen-avoider@noobsai.github.com"   # Dash-to-Panel Incompatable
           ];
         };
 
-    #     "org/gnome/desktop/interface" = {
-    #       color-scheme = "prefer-dark";
-    #       enable-hot-corners = false;
-    #       clock-show-weekday = true;
-    #       # gtk-theme = "adwaita-dark";
-    #     };
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          enable-hot-corners = false;
+          clock-show-weekday = true;
+          gtk-theme = "adwaita-dark";
+        };
     #     # "org/gnome/desktop/session" = {               # Not Working
     #     #   idle-delay = "uint32 900";
     #     # };
-    #     "org/gnome/desktop/privacy" = {
-    #       report-technical-problems = "false";
-    #     };
+        "org/gnome/desktop/privacy" = {
+          report-technical-problems = "false";
+        };
     #     "org/gnome/desktop/calendar" = {
     #       show-weekdate = true;
     #     };
@@ -159,9 +158,9 @@ with lib;
         #   toggle-tiled-right = ["@as []"];
         # };
 
-        # "org/gnome/settings-daemon/plugins/power" = {
-        #   sleep-interactive-ac-type = "nothing";
-        # };
+        "org/gnome/settings-daemon/plugins/power" = {
+          sleep-interactive-ac-type = "nothing";
+        };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
