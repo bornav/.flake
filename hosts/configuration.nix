@@ -2,6 +2,7 @@
 
 {
   imports = ( import ../modules/shell ++
+              import ../modules/terminalEmulators ++
               import ../modules/de);
   
   time.timeZone = "Europe/Vienna";
