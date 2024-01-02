@@ -58,6 +58,7 @@
     
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
+    QT_STYLE_OVERRIDE="kvantum";
   };
   gnome.enable = true;
   nixpkgs.config.allowUnfree = true;
@@ -67,33 +68,39 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # environment.gnome.excludePackages = (with pkgs; [
-  #   gnome-photos
-  #   gnome-tour
-  # ]) ++ (with pkgs.gnome; [
-  #   cheese # webcam tool
-  #   gnome-music
-  #   gnome-terminal
-  #   gedit # text editor
-  #   epiphany # web browser
-  #   geary # email reader
-  #   evince # document viewer
-  #   gnome-characters
-  #   totem # video player
-  #   tali # poker game
-  #   iagno # go game
-  #   hitori # sudoku game
-  #   atomix # puzzle game
-  #   nautilus
-  # ]);
+  environment.gnome.excludePackages = (with pkgs; [
+    gnome-photos
+    gnome-tour
+  ]) ++ (with pkgs.gnome; [
+    cheese # webcam tool
+    gnome-music
+    gnome-terminal
+    gedit # text editor
+    epiphany # web browser
+    geary # email reader
+    evince # document viewer
+    gnome-characters
+    totem # video player
+    tali # poker game
+    iagno # go game
+    hitori # sudoku game
+    atomix # puzzle game
+    nautilus
+  ]);
   #####################################################
   environment.systemPackages = with pkgs; [
   vim 
   alacritty
   libsForQt5.dolphin
+  libsForQt5.qtstyleplugin-kvantum
+  libsForQt5.qtstyleplugins
   libsForQt5.ark
+  libsForQt5.breeze-icons
+  libsForQt5.breeze-qt5
+  libsForQt5.breeze-gtk
+  libsForQt5.xdg-desktop-portal-kde
+  libsForQt5.kde-gtk-config
   unrar
-  # libsForQt5.xdg-desktop-portal-kde
   wget
   git
   neofetch
@@ -101,7 +108,6 @@
   haruna
   kate
   jq
-  firefox
   openssl
   ] ++
     (with pkgs-unstable; [
@@ -110,17 +116,14 @@
       # zsh-completions
       # zsh-autocomplete
     ]);
-
  programs.gnupg.agent = {
    enable = true;
-   enableSSHSupport = true;
+   enableSSHSupport = false;
  };
 
   virtualisation.docker.enable = true;
 
   services.flatpak.enable = true;
-  services.openssh.enable = true;
-  services.sshd.enable = true;
 
 
   #steam

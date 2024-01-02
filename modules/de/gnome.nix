@@ -181,7 +181,7 @@ with lib;
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
           binding = "<super>b";
-          command = "thorium";
+          command = "thorium --enable-blink-features=MiddleClickAutoscroll";
           name = "open-web-browser";
         };
 
