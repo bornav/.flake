@@ -4,6 +4,9 @@
 
 { pkgs, vars, ... }:
 let 
+  dot_zsh_exports = ''
+    export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt
+  '';
   dot_zsh_aliases = ''
     alias ls='ls --color=auto'
     alias man-list="man \$(apropos --long . | dmenu -i -l 30 | awk '{print \$2, \$1}' | tr -d '()')"
@@ -33,15 +36,15 @@ let
     alias ka="kubectl apply"
     alias kd="kubectl delete"
     # #sops
-    # SOPS_AGE_PUBLIC_KEY=$(cat $SOPS_AGE_KEY_FILE | grep -oP "public key: \K(.*)") # tasking for execution
-    # alias sops_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY -i"
-    # alias sops_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY -i"
-    # alias sops_stringData_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|stringData)$' --in-place"
-    # alias sops_stringData_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|stringData)$' --in-place"
-    # alias sops_data_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|data)$' --in-place"
-    # alias sops_file_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --in-place"
-    # alias sops_file_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY --in-place"
-    # alias sops_value_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(values)$' --in-place"
+    SOPS_AGE_PUBLIC_KEY=$(cat $SOPS_AGE_KEY_FILE | grep -oP "public key: \K(.*)") # tasking for execution
+    alias sops_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY -i"
+    alias sops_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY -i"
+    alias sops_stringData_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|stringData)$' --in-place"
+    alias sops_stringData_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|stringData)$' --in-place"
+    alias sops_data_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|data)$' --in-place"
+    alias sops_file_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --in-place"
+    alias sops_file_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY --in-place"
+    alias sops_value_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(values)$' --in-place"
     #flux
     alias flux_get_states="flux get all -A --status-selector ready=false" #gets debug state of deployed serivces helm
     alias flux_update_repo="flux reconcile source git fluxcd-kubernetes; flux reconcile kustomization cluster; flux reconcile kustomization cluster-apps"
@@ -93,7 +96,9 @@ in
       history.save = 50000;
       initExtra=''
           ${dot_zsh_binds}
+          ${dot_zsh_exports}
           ${dot_zsh_aliases}
+          unset SSH_AUTH_SOCK   # fuck you gnome keyring
           PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}>%b%f '
       '';   
       # initExtra="zstyle ':vcs_info:git:*' formats '%b'\nsetopt PROMPT_SUBST\nPROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{red}\${vcs_info_msg_0_}%F{purple}>%b%f '";
@@ -101,5 +106,10 @@ in
       # oh-my-zsh.theme = "";
     };
     services.gpg-agent.enableZshIntegration = true;
+    services.gpg-agent = {
+      enable = true;
+      defaultCacheTtl = 1800;
+      enableSshSupport = true;
+    };
   };
 }
