@@ -109,10 +109,15 @@
   kate
   jq
   openssl
+  distrobox
+  qjournalctl
+  xorg.xkill
+
   ] ++
     (with pkgs-unstable; [
       vscode
       zsh
+      orca-slicer
       # zsh-completions
       # zsh-autocomplete
     ]);

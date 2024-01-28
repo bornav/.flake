@@ -52,14 +52,16 @@ let
   '';
   dot_zsh_binds = ''
     bindkey  "^[[H"   beginning-of-line
+    bindkey "^[OH" beginning-of-line
     bindkey  "^[[F"   end-of-line
+    bindkey "^[OF" end-of-line
     bindkey  "^[[3~"  delete-char
     bindkey "^[[1;5C" vi-forward-word
     bindkey "^[[1;5D" vi-backward-word
     bindkey "^[[1;6C" forward-word
     bindkey "^[[1;6D" backward-word
     bindkey "^H" vi-backward-kill-word
-    # bindkey "5~" kill-word 
+    bindkey "5~" kill-word 
     # [[3;5~
   '';
 in 

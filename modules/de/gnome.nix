@@ -15,7 +15,6 @@ with lib;
       };
     };
   };
-
   config = mkIf (config.gnome.enable) {
     programs = {
       zsh.enable = true;
@@ -32,7 +31,7 @@ with lib;
         # libinput.enable = true;
         # modules = [ pkgs.xf86_input_wacom ];
         # wacom.enable = true;
-
+        # displayManager.lightdm.enable = true;               # Display Manager
         displayManager.gdm.enable = true;               # Display Manager
         desktopManager.gnome.enable = true;             # Desktop Environment
       };
@@ -40,7 +39,6 @@ with lib;
         gnome.gnome-settings-daemon
       ];
     };
-
     environment = {
       systemPackages = with pkgs; [                     # System-Wide Packages
         gnome.adwaita-icon-theme
@@ -83,12 +81,12 @@ with lib;
           disable-user-extensions = false;
           enabled-extensions = [
             "trayiconsreloaded@selfmade.pl"
+            "clipboard-indicator@tudmotu.com"
     #         "blur-my-shell@aunetx"
     #         "drive-menu@gnome-shell-extensions.gcampax.github.com"
     #         "dash-to-panel@jderose9.github.com"
     #         "just-perfection-desktop@just-perfection"
     #         "caffeine@patapon.info"
-            "clipboard-indicator@tudmotu.com"
     #         "horizontal-workspace-indicator@tty2.io"
     #         "bluetooth-quick-connect@bjarosze.gmail.com"
     #         "battery-indicator@jgotti.org"
@@ -171,6 +169,7 @@ with lib;
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -188,7 +187,15 @@ with lib;
           command = "thorium --enable-blink-features=MiddleClickAutoscroll";
           name = "open-web-browser";
         };
-
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+          binding = "<ctrl><alt>Escape";
+          command = "xkill";
+          name = "xkill";
+        };
+        "org/gnome/shell/extensions/clipboard-indicator" = {
+          history-size = 100;
+          toggle-menu = ["<Super>v"];
+        };
         # "org/gnome/shell/extension/dash-to-panel" = {   # Set Manually
         #   panel-position = ''{"0":"top","1":"top"}'';
         #   panel-sizes = ''{"0":24,"1":24}'';
@@ -270,16 +277,15 @@ with lib;
         #   scroll-action = "cycle-windows";
         # };
       };
-
       home.packages = with pkgs.gnomeExtensions; [
         tray-icons-reloaded
+        clipboard-indicator
     #     blur-my-shell
     #     removable-drive-menu
     #     dash-to-panel
     #     battery-indicator-upower
     #     just-perfection
     #     caffeine
-        clipboard-indicator
     #     workspace-indicator-2
     #     bluetooth-quick-connect
     #     gsconnect

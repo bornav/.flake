@@ -11,9 +11,12 @@
     kustomize
     kustomize-sops
     lens
+    bfg-repo-cleaner
+    terraform
   ] ++
     (with pkgs-unstable; [
       k9s
+      istioctl
       # firefox           # Browser
     ]);
 }

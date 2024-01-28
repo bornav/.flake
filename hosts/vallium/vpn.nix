@@ -1,5 +1,5 @@
 { config, pkgs, pkgs-unstable, vars, lib, ... }:
-{
+{   #zerotier-one -d run this to enable the svc
     environment.systemPackages = with pkgs; [ 
         zerotierone
     ];
