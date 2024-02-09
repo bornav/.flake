@@ -4,7 +4,7 @@
   imports = ( import ../modules/shell ++
               import ../modules/terminalEmulators ++
               import ../modules/de);
-  
+  # thorium-browser = ;
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -69,14 +69,13 @@
       # zip               # Zip
 
       # Other Packages Found @
-      # - ./<host>/default.nix
-      # - ../modules
-    
+      (pkgs.callPackage ./package.nix {}) #thorium browser self compiled
       e2fsprogs
     ] ++
     (with pkgs-unstable; [
       # firefox           # Browser
     ]);
+    # ]) ++ ([ pkgs.firefox ]);  ## syntax for adding one without pkgs appended
   };
   hardware.pulseaudio.enable = false;
   services = {

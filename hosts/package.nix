@@ -47,7 +47,7 @@
   wget,
   xdg-utils,
   xfce,
-  xorg,
+  xorg, pkgs ? import <nixpkgs> {}
 }:
 stdenv.mkDerivation rec {
   pname = "thorium-browser";

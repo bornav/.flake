@@ -85,7 +85,7 @@ with lib;
     #         "blur-my-shell@aunetx"
     #         "drive-menu@gnome-shell-extensions.gcampax.github.com"
     #         "dash-to-panel@jderose9.github.com"
-    #         "just-perfection-desktop@just-perfection"
+            "just-perfection-desktop@just-perfection"
     #         "caffeine@patapon.info"
     #         "horizontal-workspace-indicator@tty2.io"
     #         "bluetooth-quick-connect@bjarosze.gmail.com"
@@ -184,7 +184,7 @@ with lib;
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
           binding = "<super>b";
-          command = "thorium --enable-blink-features=MiddleClickAutoscroll";
+          command = "thorium-browser --enable-blink-features=MiddleClickAutoscroll";
           name = "open-web-browser";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
@@ -209,13 +209,13 @@ with lib;
         #   animate-appicon-hover-animation-travel = "{'simple': 0.14999999999999999, 'ripple': 0.40000000000000002, 'plank': 0.0}";
         #   isolate-monitors = true;
         # };
-        # "org/gnome/shell/extensions/just-perfection" = {
-        #   theme = true;
-        #   activities-button = false;
-        #   app-menu = false;
-        #   clock-menu-position = 1;
-        #   clock-menu-position-offset = 7;
-        # };
+        "org/gnome/shell/extensions/just-perfection" = {
+          theme = true;
+          activities-button = true;
+          app-menu = false;
+          clock-menu-position = 1;
+          clock-menu-position-offset = 7;
+        };
         # "org/gnome/shell/extensions/caffeine" = {
         #   enable-fullscreen = true;
         #   restore-state = true;
@@ -284,7 +284,7 @@ with lib;
     #     removable-drive-menu
     #     dash-to-panel
     #     battery-indicator-upower
-    #     just-perfection
+        just-perfection
     #     caffeine
     #     workspace-indicator-2
     #     bluetooth-quick-connect
