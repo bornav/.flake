@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
     ./network-shares.nix
     ./devops.nix
-    ./virtualization.nix
     ./vpn.nix
   ];
   boot.loader = {
@@ -60,7 +59,12 @@
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
     QT_STYLE_OVERRIDE="kvantum";
   };
+
+  #modules
   gnome.enable = true;
+  virtualization.enable = true;
+
+
   nixpkgs.config.allowUnfree = true;
   ###################################################
   #gnome part
@@ -121,7 +125,7 @@
       openrgb
       # zsh-completions
       # zsh-autocomplete
-      # gpt4all-chat
+      gpt4all-chat
     ]);
  programs.gnupg.agent = {
    enable = true;
