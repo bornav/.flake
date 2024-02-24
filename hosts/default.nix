@@ -39,6 +39,7 @@ in
           nur.nixosModules.nur
           ./configuration.nix
           ./vallium
+          ./stealth
           # ./custom.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
