@@ -44,9 +44,9 @@
       wget              # Retriever
       curl
       efibootmgr
+      feh               # Image Viewer
       # Video/Audio
       # alsa-utils        # Audio Control
-      # feh               # Image Viewer
       # mpv               # Media Player
       # pavucontrol       # Audio Control
       # pipewire          # Audio Server/Control
@@ -55,25 +55,29 @@
       # stremio           # Media Streamer
 
       # Apps
-      # appimage-run      # Runs AppImages on NixOS
-      # google-chrome     # Browser
-      # remmina           # XRDP & VNC Client
-
+      discord
+      appimage-run      # Runs AppImages on NixOS
+      remmina           # XRDP & VNC Client
+      sublime-merge
       # File Management
       # gnome.file-roller # Archive Manager
-      # okular            # PDF Viewer
+      okular            # PDF Viewer
+      zip               # Zip
+      p7zip             # Zip Encryption
+      unzip             # Zip Files
+      unrar             # Rar Files
       # pcmanfm           # File Browser
-      # p7zip             # Zip Encryption
       # rsync             # Syncer - $ rsync -r dir1/ dir2/
-      # unzip             # Zip Files
-      # unrar             # Rar Files
-      # zip               # Zip
-
+      kdiskmark
       # Other Packages Found @
+      # (pkgs.callPackage https://github.com/NixOS/nixpkgs/blob/d48979f4e62d5e98a171f8c0ebf839997ea714f0/pkgs/tools/misc/ollama-webui/default.nix {})
       (pkgs.callPackage ./package.nix {}) #thorium browser self compiled
-      e2fsprogs
+      # e2fsprogs
+      # gparted
+      ntfs3g
     ] ++
     (with pkgs-unstable; [
+      ollama
       # firefox           # Browser
     ]);
     # ]) ++ ([ pkgs.firefox ]);  ## syntax for adding one without pkgs appended
