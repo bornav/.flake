@@ -4,6 +4,7 @@
   imports = ( import ../modules/shell ++
               import ../modules/terminalEmulators ++
               import ../modules/virtualization ++
+              import ../modules ++
               import ../modules/de);
   # thorium-browser = ;
   time.timeZone = "Europe/Vienna";
