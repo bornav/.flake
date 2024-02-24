@@ -16,7 +16,6 @@
     '';
   };
   networking.hostName = "stealth"; # Define your hostname.
-
   networking.networkmanager.enable = true;
  
   # Configure keymap in X11
@@ -32,7 +31,7 @@
     packages = with pkgs; [];
   };
   environment.sessionVariables = {
-    
+    flake_name="stealth";
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
     QT_STYLE_OVERRIDE="kvantum";
