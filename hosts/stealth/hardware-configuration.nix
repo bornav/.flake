@@ -8,9 +8,9 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "thunderbolt" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -31,21 +31,6 @@
         "noatime"
       ];
     };
-  # fileSystems."/home/${vars.user}/.share/ssd_ext4" =
-  fileSystems."/mnt/ssd_ext4" =
-    { device = "/dev/disk/by-label/ssd_ext4";
-      fsType = "ext4";
-      options = [
-        # "user"
-        "rw"
-        "noatime"
-        "relatime"
-        "x-systemd.automount"
-        "x-systemd.idle-timeout=60"
-        "x-systemd.device-timeout=5s"
-        "x-systemd.mount-timeout=5s"
-      ];
-    };
 
 
   swapDevices = [ ];
@@ -60,21 +45,6 @@
   # networking.interfaces.wlp8s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  #nvidia
-  hardware.nvidia = {
-	modesetting.enable = true;
-	powerManagement.enable = true;
-	powerManagement.finegrained = false;
-	open = false;
-	nvidiaSettings = true;
-	package = config.boot.kernelPackages.nvidiaPackages.stable;
-	};
-  hardware.opengl = {
-	enable = true;
-	#dirSupport = true;
-	#dirSupport32Bit = true;
-  };
-  services.xserver.videoDrivers = ["nvidia"];
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

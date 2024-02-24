@@ -3,8 +3,6 @@
 {
   imports = [ 
     ./hardware-configuration.nix
-    ./network-shares.nix
-    ./vpn.nix
   ];
   boot.loader = {
     #systemd-boot.enable = true;
@@ -15,28 +13,9 @@
     efi.canTouchEfiVariables = true;
     #grub.useOSProber = true;
     grub.extraEntries = ''
-        menuentry 'Windows Boot Manager (on /dev/nvme0n1p1)' --class windows --class os $menuentry_id_option 'windows' {
-          savedefault
-          insmod part_gpt
-          insmod fat
-          search --no-floppy --label BOOT
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
-        menuentry 'Arch Linux, with Linux linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-109c9c71-abfc-46d9-b983-9dd681b53ce4' {
-          savedefault
-          set gfxpayload=keep
-          insmod gzio
-          insmod part_gpt
-          insmod fat
-          search --no-floppy --label BOOT
-          echo    'Loading Linux linux ...'
-          linux   /vmlinuz-linux root=LABEL=root_partition rw  loglevel=3 nvidia-drm.modeset=1 iommu=pt
-          echo    'Loading initial ramdisk ...'
-          initrd  /amd-ucode.img /initramfs-linux.img
-        }
     '';
   };
-  networking.hostName = "vallium"; # Define your hostname.
+  networking.hostName = "stealth"; # Define your hostname.
 
   networking.networkmanager.enable = true;
  
@@ -135,7 +114,6 @@
 
   services.flatpak.enable = true;
 
-
   #steam
   programs.steam = {
     enable = true;
@@ -143,13 +121,11 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
   hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
-  ##
   
   ##
   ##gargabe collection
   programs.dconf.enable = true;
 
-  #finalmouse udev rules for browser access
   services.udev.extraRules = ''
     # Finalmouse ULX devices
     # This file should be installed to /etc/udev/rules.d so that you can access the Finalmouse ULX devices without being root.

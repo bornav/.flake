@@ -12,6 +12,6 @@
 
 [
 #   ./git.nix
-  ./dev
+  ./dev/devops.nix #TODO
 #   ./direnv.nix
 ]
