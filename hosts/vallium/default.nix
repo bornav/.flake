@@ -4,7 +4,6 @@
   imports = [ 
     ./hardware-configuration.nix
     ./network-shares.nix
-    ./devops.nix
     ./vpn.nix
   ];
   boot.loader = {
@@ -63,7 +62,7 @@
   #modules
   gnome.enable = true;
   virtualization.enable = true;
-
+  devops.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   ###################################################
