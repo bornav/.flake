@@ -39,17 +39,29 @@ in
           nur.nixosModules.nur
           ./configuration.nix
           ./vallium
-          ./stealth
           # ./custom.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
           }
+          ];        
+    };
+    stealth = lib.nixosSystem { 
+        inherit system; 
+        specialArgs = {
+            inherit system pkgs-unstable hyprland vars;
+            host = {
+                hostName = "stealth";
+            };
+        };
+        modules = [ 
+          nur.nixosModules.nur
+          ./configuration.nix
+          ./stealth
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+          }
           ];
-        # home-manager.nixosModules.home-manager {
-        # 	home-manager.useGlobalPkgs = true;
-        # 	home-manager.useUserPackages = true;
-        # };
-        
     };
 }
