@@ -74,7 +74,7 @@
       # (pkgs.callPackage https://github.com/NixOS/nixpkgs/blob/d48979f4e62d5e98a171f8c0ebf839997ea714f0/pkgs/tools/misc/ollama-webui/default.nix {})
       (pkgs.callPackage ./package.nix {}) #thorium browser self compiled
       # e2fsprogs
-      # gparted
+      gparted
       ntfs3g
     ] ++
     (with pkgs-unstable; [

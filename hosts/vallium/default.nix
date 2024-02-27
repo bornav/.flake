@@ -53,7 +53,7 @@
     packages = with pkgs; [];
   };
   environment.sessionVariables = {
-    flake_name="stealth";
+    flake_name="vallium";
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
     QT_STYLE_OVERRIDE="kvantum";
