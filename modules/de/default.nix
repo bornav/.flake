@@ -13,5 +13,6 @@
 [
 #   ./git.nix
   ./gnome.nix
+  ./cosmic-desktop.nix
 #   ./direnv.nix
 ]
