@@ -63,18 +63,21 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   #nvidia
-  hardware.nvidia = {
-	modesetting.enable = true;
-	powerManagement.enable = true;
-	powerManagement.finegrained = false;
-	open = false;
-	nvidiaSettings = true;
-	package = config.boot.kernelPackages.nvidiaPackages.stable;
-	};
-  hardware.opengl = {
-	enable = true;
-	#dirSupport = true;
-	#dirSupport32Bit = true;
+  hardware = {
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
+    };
+   opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    };
   };
   services.xserver.videoDrivers = ["nvidia"];
 }

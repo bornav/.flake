@@ -61,6 +61,7 @@
 
   #modules
   gnome.enable = true;
+  cosmic-desktop.enable = true;
   virtualization.enable = true;
   devops.enable = true;
 
@@ -71,51 +72,31 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  environment.gnome.excludePackages = (with pkgs; [
-    gnome-photos
-    gnome-tour
-  ]) ++ (with pkgs.gnome; [
-    cheese # webcam tool
-    gnome-music
-    gnome-terminal
-    gedit # text editor
-    epiphany # web browser
-    geary # email reader
-    evince # document viewer
-    gnome-characters
-    totem # video player
-    tali # poker game
-    iagno # go game
-    hitori # sudoku game
-    atomix # puzzle game
-    nautilus
-  ]);
   #####################################################
   environment.systemPackages = with pkgs; [
-  vim 
-  alacritty
-  libsForQt5.dolphin
-  libsForQt5.qtstyleplugin-kvantum
-  libsForQt5.qtstyleplugins
-  libsForQt5.ark
-  libsForQt5.breeze-icons
-  libsForQt5.breeze-qt5
-  libsForQt5.breeze-gtk
-  libsForQt5.xdg-desktop-portal-kde
-  libsForQt5.kde-gtk-config
-  unrar
-  wget
-  git
-  neofetch
-  gnumake
-  haruna
-  kate
-  jq
-  openssl
-  distrobox
-  qjournalctl
-  xorg.xkill
-
+    vim 
+    alacritty
+    libsForQt5.dolphin
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.qtstyleplugins
+    libsForQt5.ark
+    libsForQt5.breeze-icons
+    libsForQt5.breeze-qt5
+    libsForQt5.breeze-gtk
+    libsForQt5.xdg-desktop-portal-kde
+    libsForQt5.kde-gtk-config
+    unrar
+    wget
+    git
+    neofetch
+    gnumake
+    haruna
+    kate
+    jq
+    openssl
+    distrobox
+    qjournalctl
+    xorg.xkill
   ] ++
     (with pkgs-unstable; [
       vscode
@@ -124,7 +105,7 @@
       openrgb
       # zsh-completions
       # zsh-autocomplete
-      gpt4all-chat
+      gpt4all
     ]);
  programs.gnupg.agent = {
    enable = true;

@@ -11,15 +11,6 @@ with lib;
     };
   };
   config = mkIf (config.cosmic-desktop.enable) {
-    programs = {
-      zsh.enable = true;
-      
-    };
-    services = {
-    #   xserver = {
-    #     enable = true;
-    #   };
-    };
     environment = {
       systemPackages = with pkgs-unstable; [
         cosmic-applets
@@ -44,6 +35,7 @@ with lib;
         cosmic-term
         cosmic-randr
         cosmic-files 
-      ]; 
+      ];
+    };
   };
 }
