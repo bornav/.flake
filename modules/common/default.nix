@@ -12,7 +12,6 @@
 
 [
 #   ./git.nix
-  ./gnome.nix
-  ./cosmic-desktop.nix
+  ./rar.nix
 #   ./direnv.nix
 ]
