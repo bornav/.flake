@@ -106,10 +106,28 @@
       ollama
       gpt4all
     ]);
- programs.gnupg.agent = {
-   enable = true;
-   enableSSHSupport = false;
- };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = false;
+  };
+
+  ## for setting the default apps
+  ## definition https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.mimeApps.defaultApplications
+  home-manager.users.${vars.user} = {
+    xdg.mime.enable = true;
+    xdg.mimeApps.enable = true;
+    ## this may be neccesary sometimes
+    # xdg.configFile."mimeapps.list".force = true;
+    ## from limited testing it is only applied if both sides are valid
+    xdg.mimeApps.defaultApplications."text/html" = "thorium-browser.desktop";
+    xdg.mimeApps.defaultApplications = {
+      "text/xml" = [ "thorium-browser.desktop" ];
+      "x-scheme-handler/http" = [ "thorium-browser.desktop" ];
+      "x-scheme-handler/https" = [ "thorium-browser.desktop" ];
+      "inode/directory" = "org.kde.dolphin.desktop";
+    };
+  };
+  
 
   virtualisation.docker.enable = true;
 

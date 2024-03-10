@@ -52,6 +52,7 @@
       neofetch
       gnumake
       openssl
+      xdg-utils
     ] ++
     (with pkgs-unstable; [
       
