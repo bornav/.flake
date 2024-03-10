@@ -37,10 +37,14 @@
     QT_STYLE_OVERRIDE="kvantum";
   };
 
-  #modules
+  #### modules
   gnome.enable = true;
+  cosmic-desktop.enable = false;
   virtualization.enable = true;
   devops.enable = true;
+  steam.enable = false;
+  rar.enable = true;
+  ####
 
   nixpkgs.config.allowUnfree = true;
   ###################################################
@@ -70,29 +74,28 @@
   ]);
   #####################################################
   environment.systemPackages = with pkgs; [
-  vim 
-  alacritty
-  libsForQt5.dolphin
-  libsForQt5.qtstyleplugin-kvantum
-  libsForQt5.qtstyleplugins
-  libsForQt5.ark
-  libsForQt5.breeze-icons
-  libsForQt5.breeze-qt5
-  libsForQt5.breeze-gtk
-  libsForQt5.xdg-desktop-portal-kde
-  libsForQt5.kde-gtk-config
-  unrar
-  wget
-  git
-  neofetch
-  gnumake
-  haruna
-  kate
-  jq
-  openssl
-  distrobox
-  qjournalctl
-  xorg.xkill
+    vim 
+    alacritty
+    libsForQt5.dolphin
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.qtstyleplugins
+    libsForQt5.ark
+    libsForQt5.breeze-icons
+    libsForQt5.breeze-qt5
+    libsForQt5.breeze-gtk
+    libsForQt5.xdg-desktop-portal-kde
+    libsForQt5.kde-gtk-config
+    wget
+    git
+    neofetch
+    gnumake
+    haruna
+    kate
+    jq
+    openssl
+    distrobox
+    qjournalctl
+    xorg.xkill
 
   ] ++
     (with pkgs-unstable; [
@@ -103,6 +106,7 @@
       # zsh-completions
       # zsh-autocomplete
       gpt4all-chat
+      (pkgs.callPackage ../thorium.nix {}) #thorium browser self compiled
     ]);
  programs.gnupg.agent = {
    enable = true;

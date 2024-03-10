@@ -6,30 +6,31 @@
               import ../modules/virtualization ++
               import ../modules/dev ++
               import ../modules/gaming ++
+              import ../modules/common ++
               import ../modules/de);
-  # thorium-browser = ;
   time.timeZone = "Europe/Vienna";
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_AT.UTF-8";
-    LC_IDENTIFICATION = "de_AT.UTF-8";
-    LC_MEASUREMENT = "de_AT.UTF-8";
-    LC_MONETARY = "de_AT.UTF-8";
-    LC_NAME = "de_AT.UTF-8";
-    LC_NUMERIC = "de_AT.UTF-8";
-    LC_PAPER = "de_AT.UTF-8";
-    LC_TELEPHONE = "de_AT.UTF-8";
-    LC_TIME = "de_AT.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "de_AT.UTF-8";
+      LC_IDENTIFICATION = "de_AT.UTF-8";
+      LC_MEASUREMENT = "de_AT.UTF-8";
+      LC_MONETARY = "de_AT.UTF-8";
+      LC_NAME = "de_AT.UTF-8";
+      LC_NUMERIC = "de_AT.UTF-8";
+      LC_PAPER = "de_AT.UTF-8";
+      LC_TELEPHONE = "de_AT.UTF-8";
+      LC_TIME = "de_AT.UTF-8";
+    };
   };
-
   environment = {
-    variables = {                           # Environment Variables
+    variables = {
       TERMINAL = "${vars.terminal}";
       EDITOR = "${vars.editor}";
       VISUAL = "${vars.editor}";
     };
-    systemPackages = with pkgs; [           # System-Wide Packages
-      # Terminal
+    systemPackages = with pkgs; [
+      wget
       bash
       tree
       htop              # Resource Manager
@@ -47,48 +48,19 @@
       curl
       efibootmgr
       feh               # Image Viewer
-      # Video/Audio
-      # alsa-utils        # Audio Control
-      # mpv               # Media Player
-      # pavucontrol       # Audio Control
-      # pipewire          # Audio Server/Control
-      # pulseaudio        # Audio Server/Control
-      # vlc               # Media Player
-      # stremio           # Media Streamer
-
-      # Apps
-      discord
-      appimage-run      # Runs AppImages on NixOS
-      remmina           # XRDP & VNC Client
-      sublime-merge
-      # File Management
-      # gnome.file-roller # Archive Manager
-      okular            # PDF Viewer
-      zip               # Zip
-      p7zip             # Zip Encryption
-      unzip             # Zip Files
-      unrar             # Rar Files
-      # pcmanfm           # File Browser
-      # rsync             # Syncer - $ rsync -r dir1/ dir2/
-      kdiskmark
-      # Other Packages Found @
-      # (pkgs.callPackage https://github.com/NixOS/nixpkgs/blob/d48979f4e62d5e98a171f8c0ebf839997ea714f0/pkgs/tools/misc/ollama-webui/default.nix {})
-      (pkgs.callPackage ./package.nix {}) #thorium browser self compiled
-      # e2fsprogs
-      gparted
       ntfs3g
+      neofetch
+      gnumake
+      openssl
     ] ++
     (with pkgs-unstable; [
-      ollama
-      # firefox           # Browser
+      
     ]);
     # ]) ++ ([ pkgs.firefox ]);  ## syntax for adding one without pkgs appended
   };
   hardware.pulseaudio.enable = false;
   services = {
-    printing = {                            # CUPS
-      enable = true;
-    };
+    printing.enable = true;
     pipewire = {                            # Sound
       enable = true;
       alsa = {

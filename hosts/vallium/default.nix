@@ -59,23 +59,16 @@
     QT_STYLE_OVERRIDE="kvantum";
   };
 
-  #modules
+  #### modules
   gnome.enable = true;
-  cosmic-desktop.enable = true;
+  cosmic-desktop.enable = false;
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
-
+  rar.enable = true;
+  ####
   nixpkgs.config.allowUnfree = true;
-  ###################################################
-  #gnome part
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  #####################################################
-  environment.systemPackages = with pkgs; [
-    vim 
+  environment.systemPackages = with pkgs; [ 
     alacritty
     libsForQt5.dolphin
     libsForQt5.qtstyleplugin-kvantum
@@ -86,26 +79,31 @@
     libsForQt5.breeze-gtk
     libsForQt5.xdg-desktop-portal-kde
     libsForQt5.kde-gtk-config
-    unrar
-    wget
-    git
-    neofetch
-    gnumake
+    okular            # PDF Viewer
     haruna
     kate
     jq
-    openssl
+    kdiskmark
+    appimage-run      # Runs AppImages on NixOS
     distrobox
     qjournalctl
     xorg.xkill
+    remmina           # XRDP & VNC Client
+    sublime-merge
+    gparted
+    teamspeak_client
   ] ++
     (with pkgs-unstable; [
       vscode
       zsh
       orca-slicer
       openrgb
+      (pkgs.callPackage ../thorium.nix {}) #thorium browser self compiled
+      # (pkgs.callPackage https://github.com/NixOS/nixpkgs/blob/d48979f4e62d5e98a171f8c0ebf839997ea714f0/pkgs/tools/misc/ollama-webui/default.nix {})
+      # (import ./package2.nix)    
       # zsh-completions
       # zsh-autocomplete
+      ollama
       gpt4all
     ]);
  programs.gnupg.agent = {
@@ -116,17 +114,7 @@
   virtualisation.docker.enable = true;
 
   services.flatpak.enable = true;
-
-
-  # #steam
-  # programs.steam = {
-  #   enable = true;
-  #   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-  #   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  # };
-  # hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
-  ##
-  
+   
   ##
   ##gargabe collection
   programs.dconf.enable = true;
