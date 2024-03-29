@@ -12,9 +12,19 @@ with lib;
   config = mkIf (config.steam.enable) {
     programs.steam = {
       enable = true;
-      package = pkgs-unstable.steam;
+      # package = pkgs-unstable.steam;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      package = pkgs-unstable.steam.override {
+        extraPkgs = pkgs: 
+          with pkgs; [
+            mangohud
+            openssl
+            libpng
+            icu
+            gamemode
+          ];
+      };
     };
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
       "steam"
@@ -23,5 +33,9 @@ with lib;
     ];
     environment.systemPackages = with pkgs; [
       openssl
+      libpng
+      icu 
+      mangohud
+      gamemode
     ];
 };}

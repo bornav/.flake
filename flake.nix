@@ -4,10 +4,11 @@
   inputs =                                                                  # References Used by Flake
     {
       nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";                     # Stable Nix Packages (Default)
+      # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; 
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";         # Unstable Nix Packages
       home-manager = {                                                      # User Environment Manager
         url = "github:nix-community/home-manager/release-23.11";
-        inputs.nixpkgs.follows = "nixpkgs";
+        inputs.nixpkgs.follows = "nixpkgs-unstable";
       };
       darwin = {                                                            # MacOS Package Management
         url = "github:lnl7/nix-darwin/master";
@@ -36,10 +37,14 @@
       plasma-manager = {                                                    # KDE Plasma User Settings Generator
         url = "github:pjones/plasma-manager";                               # Requires "inputs.plasma-manager.homeManagerModules.plasma-manager" to be added to the home-manager.users.${user}.imports
         inputs.nixpkgs.follows = "nixpkgs";
-        inputs.home-manager.follows = "nixpkgs";
+        inputs.home-manager.follows = "nixpkgs-unstable";
+      };
+      nixos-cosmic = {
+        url = "github:lilyinstarlight/nixos-cosmic";
+        inputs.nixpkgs.follows = "nixpkgs-unstable";
       };
     };
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, darwin, nur, nixgl, doom-emacs, hyprland, plasma-manager, ... }:   # Function telling flake which inputs to use
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, darwin, nur, nixgl, doom-emacs, hyprland, plasma-manager, nixos-cosmic, ... }:   # Function telling flake which inputs to use
 	let 
 		vars = {                                                              # Variables Used In Flake
 			user = "bocmo";
@@ -56,7 +61,7 @@
 		nixosConfigurations = (
 			import ./hosts {
 			inherit (nixpkgs) lib;
-			inherit inputs nixpkgs nixpkgs-unstable home-manager nur hyprland plasma-manager vars;   # Inherit inputs
+			inherit inputs nixpkgs nixpkgs-unstable home-manager nur hyprland plasma-manager nixos-cosmic vars;   # Inherit inputs
 			}
 		);
 		# darwinConfigurations = (                                              # Darwin Configurations

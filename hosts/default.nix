@@ -9,7 +9,7 @@
 #           └─ default.nix 
 #
 
-{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, nur, hyprland, plasma-manager, vars, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, nur, home-manager, hyprland, plasma-manager, nixos-cosmic, vars, ... }:
 
 let
   system = "x86_64-linux";                                  # System Architecture
@@ -41,9 +41,17 @@ in
           ./vallium
           # ./custom.nix
           home-manager.nixosModules.home-manager {
+            # home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
           }
+          # {
+          # nix.settings = {
+          #     substituters = [ "https://cosmic.cachix.org/" ];
+          #     trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+          #   };
+          # }
+          # nixos-cosmic.nixosModules.default
           ];        
     };
     stealth = lib.nixosSystem { 
