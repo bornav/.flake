@@ -1,15 +1,4 @@
-#
-#  These are the different profiles that can be used when building NixOS.
-#
-#  flake.nix 
-#   └─ ./hosts  
-#       ├─ default.nix *
-#       ├─ configuration.nix
-#       └─ ./<host>.nix
-#           └─ default.nix 
-#
-
-{ lib, inputs, nixpkgs, nixpkgs-unstable, nur, home-manager, hyprland, plasma-manager, nixos-cosmic, vars, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixos-cosmic, vars, ... }:
 
 let
   system = "x86_64-linux";                                  # System Architecture
@@ -23,11 +12,9 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-
-  lib = nixpkgs.lib;
 in
 {
-    vallium = lib.nixosSystem { 
+    vallium = nixpkgs.lib.nixosSystem { 
         inherit system; 
         specialArgs = {
             inherit system pkgs-unstable hyprland vars;
@@ -36,12 +23,10 @@ in
             };
         };
         modules = [ 
-          nur.nixosModules.nur
+          # nur.nixosModules.nur
           ./configuration.nix
           ./vallium
-          # ./custom.nix
           home-manager.nixosModules.home-manager {
-            # home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
           }
@@ -54,7 +39,7 @@ in
           # nixos-cosmic.nixosModules.default
           ];        
     };
-    stealth = lib.nixosSystem { 
+    stealth = nixpkgs.lib.nixosSystem { 
         inherit system; 
         specialArgs = {
             inherit system pkgs-unstable hyprland vars;
@@ -63,7 +48,7 @@ in
             };
         };
         modules = [ 
-          nur.nixosModules.nur
+          # nur.nixosModules.nur
           ./configuration.nix
           ./stealth
           home-manager.nixosModules.home-manager {

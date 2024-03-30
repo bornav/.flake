@@ -20,8 +20,10 @@
  
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    # layout = "us";
+    xkb.layout = "us";
+    # xkbVariant = "";
+    xkb.variant = "";
   };
   users.defaultUserShell = pkgs.zsh;
   users.users.${vars.user} = {
@@ -40,39 +42,14 @@
   #### modules
   gnome.enable = true;
   cosmic-desktop.enable = false;
-  virtualization.enable = true;
+  virtualization.enable = false;
   devops.enable = true;
   steam.enable = false;
   rar.enable = true;
   ####
 
-  nixpkgs.config.allowUnfree = true;
-  ###################################################
-  #gnome part
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  nixpkgs.config.allowUnfree = true; 
 
-  environment.gnome.excludePackages = (with pkgs; [
-    gnome-photos
-    gnome-tour
-  ]) ++ (with pkgs.gnome; [
-    cheese # webcam tool
-    gnome-music
-    gnome-terminal
-    # gedit # text editor
-    epiphany # web browser
-    geary # email reader
-    evince # document viewer
-    gnome-characters
-    totem # video player
-    tali # poker game
-    iagno # go game
-    hitori # sudoku game
-    atomix # puzzle game
-    nautilus
-  ]);
-  #####################################################
   environment.systemPackages = with pkgs; [
     vim 
     alacritty
@@ -101,11 +78,11 @@
     (with pkgs-unstable; [
       vscode
       zsh
-      orca-slicer
-      openrgb
+      # orca-slicer
+      # openrgb
       # zsh-completions
       # zsh-autocomplete
-      gpt4all-chat
+      # gpt4all-chat
       (pkgs.callPackage ../thorium.nix {}) #thorium browser self compiled
     ]);
  programs.gnupg.agent = {
@@ -113,18 +90,8 @@
    enableSSHSupport = false;
  };
 
-  virtualisation.docker.enable = true;
-
   services.flatpak.enable = true;
 
-  #steam
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
-  hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
-  
   ##
   ##gargabe collection
   programs.dconf.enable = true;

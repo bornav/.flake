@@ -26,7 +26,8 @@ with lib;
     services = {
       xserver = {
         enable = true;
-        layout = "us";
+        # layout = "us";
+        xkb.layout = "us";
         # xkbOptions = "eurosign:e";
         # libinput.enable = true;
         # modules = [ pkgs.xf86_input_wacom ];

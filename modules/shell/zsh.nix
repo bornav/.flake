@@ -87,7 +87,8 @@ in
     programs.zsh = {
       enable=true;
       defaultKeymap = "emacs"; #emacs vicmd viins
-      enableAutosuggestions = true;
+      # enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       # enableVteIntegration = true; #notsure ,but seems usefull

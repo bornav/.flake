@@ -45,8 +45,10 @@
  
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    # layout = "us";
+    xkb.layout = "us";
+    # xkbVariant = "";
+    xkb.variant = "";
   };
   users.defaultUserShell = pkgs.zsh;
   users.users.${vars.user} = {
