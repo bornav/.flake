@@ -40,18 +40,19 @@
   };
 
   #### modules
-  gnome.enable = true;
+  gnome.enable = false;
   cosmic-desktop.enable = false;
   virtualization.enable = false;
   devops.enable = true;
   steam.enable = false;
   rar.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
   ####
 
   nixpkgs.config.allowUnfree = true; 
 
   environment.systemPackages = with pkgs; [
-    vim 
     alacritty
     libsForQt5.dolphin
     libsForQt5.qtstyleplugin-kvantum
@@ -62,8 +63,6 @@
     libsForQt5.breeze-gtk
     libsForQt5.xdg-desktop-portal-kde
     libsForQt5.kde-gtk-config
-    wget
-    git
     neofetch
     gnumake
     haruna
@@ -73,7 +72,6 @@
     distrobox
     qjournalctl
     xorg.xkill
-
   ] ++
     (with pkgs-unstable; [
       vscode
@@ -89,7 +87,7 @@
    enable = true;
    enableSSHSupport = false;
  };
-
+  programs.zsh.enable = true;
   services.flatpak.enable = true;
 
   ##

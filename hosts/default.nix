@@ -36,7 +36,7 @@ in
           #     trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
           #   };
           # }
-          # nixos-cosmic.nixosModules.default
+          nixos-cosmic.nixosModules.default
           ];        
     };
     stealth = nixpkgs.lib.nixosSystem { 
@@ -55,6 +55,7 @@ in
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
           }
+          nixos-cosmic.nixosModules.default
           ];
     };
 }

@@ -40,14 +40,11 @@
       nano              # Text Editor
       vim
       nix-tree          # Browse Nix Store
-      pciutils          # Manage PCI
-      ranger            # File Manager
       tldr              # Helper
       usbutils          # Manage USB
       wget              # Retriever
       curl
       efibootmgr
-      feh               # Image Viewer
       ntfs3g
       neofetch
       gnumake

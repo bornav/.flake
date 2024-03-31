@@ -70,6 +70,7 @@
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
+  virtualisation.docker.enable = true;
   rar.enable = true;
 
   # services.desktopManager.cosmic.enable = true;
@@ -144,8 +145,6 @@
       "inode/directory" = "org.kde.dolphin.desktop";
     };
   };
-
-  virtualisation.docker.enable = true;
 
   services.flatpak.enable = true;
    
