@@ -7,6 +7,7 @@
               import ../modules/dev ++
               import ../modules/gaming ++
               import ../modules/common ++
+              import ../modules/vpn ++
               import ../modules/de);
   time.timeZone = "Europe/Vienna";
   i18n = {
