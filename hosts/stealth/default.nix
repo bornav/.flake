@@ -42,12 +42,16 @@
   #### modules
   gnome.enable = false;
   cosmic-desktop.enable = false;
-  virtualization.enable = false;
+  virtualization.enable = true;
   devops.enable = true;
   steam.enable = false;
   rar.enable = true;
+  wg-home.enable = true;
+
+
   services.desktopManager.cosmic.enable = true;
   services.displayManager.cosmic-greeter.enable = true;
+
   ####
 
   nixpkgs.config.allowUnfree = true; 

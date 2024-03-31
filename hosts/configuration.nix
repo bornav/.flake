@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, vars, ... }:
+{inputs, config, pkgs, pkgs-unstable, vars, ... }:
 
 {
   imports = ( import ../modules/shell ++
@@ -78,10 +78,15 @@
     };
   };
   system = {                                # NixOS Settings
-    #autoUpgrade = {                        # Allow Auto Update (not useful in flakes)
-    #  enable = true;
-    #  channel = "https://nixos.org/channels/nixos-unstable";
-    #};
+    autoUpgrade = {                        # Allow Auto Update (not useful in flakes)
+     enable = true;
+     flake = inputs.self.outPath;
+     flags = [
+       "--update-input"
+       "nixpkgs"
+       "-L"
+     ];
+    };
     stateVersion = "${vars.stateVersion}";
   };
 

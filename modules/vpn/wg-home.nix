@@ -18,7 +18,7 @@ with lib;
           
           peers = [
             {
-              publicKeyFile = "/home/bocmo/.ssh/wg/pub.key";
+              publicKey = "ijU4YxKoxbBwGZBIxuo8SXYtd9mU3Fug77ZdpM+0OUo=";
               allowedIPs = [ "10.0.0.0/0"];
               endpoint = "home.local.icylair.com:51820";
               persistentKeepalive = 25;

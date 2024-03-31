@@ -4,7 +4,6 @@
   imports = [ 
     ./hardware-configuration.nix
     ./network-shares.nix
-    ./vpn.nix
   ];
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
