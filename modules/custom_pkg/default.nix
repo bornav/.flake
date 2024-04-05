@@ -1,0 +1,3 @@
+[
+  ./thorium.nix
+]

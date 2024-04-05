@@ -7,7 +7,7 @@
   ];
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
+  # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
     #systemd-boot.enable = true;
     grub.efiSupport = true;
@@ -71,9 +71,14 @@
   steam.enable = true;
   virtualisation.docker.enable = true;
   rar.enable = true;
+  wg-home.enable = false;
 
-  # services.desktopManager.cosmic.enable = true;
-  # services.displayManager.cosmic-greeter.enable = true;
+
+  services.desktopManager.cosmic.enable = false;
+  services.displayManager.cosmic-greeter.enable = false;
+
+    # services.desktopManager.cosmic.enable = true;
+    # services.displayManager.cosmic-greeter.enable = true;
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -103,7 +108,7 @@
     qjournalctl
     xorg.xkill
     remmina           # XRDP & VNC Client
-    sublime-merge
+    # sublime-merge
     gparted
     teamspeak_client
     nordic
@@ -112,22 +117,31 @@
     (with pkgs-unstable; [
       vscode
       zsh
-      linux
+      # linux
       # orca-slicer
       # openrgb
       (pkgs.callPackage ../thorium.nix {}) #thorium browser self compiled
       # (pkgs.callPackage https://github.com/NixOS/nixpkgs/blob/d48979f4e62d5e98a171f8c0ebf839997ea714f0/pkgs/tools/misc/ollama-webui/default.nix {})
-      # (import ./package2.nix)    
+      # (import ./package2.nix)
       # zsh-completions
       # zsh-autocomplete
       # ollama
-      # gpt4all
+      gpt4all
     ]);
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = false;
   };
   programs.zsh.enable = true;
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      # add any missing dynamic libraries for unpacked programs here, not in the enviroment.systemPackages
+    ];
+  };
+
+
   ## for setting the default apps
   ## definition https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.mimeApps.defaultApplications
   home-manager.users.${vars.user} = {

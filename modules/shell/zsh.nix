@@ -41,6 +41,8 @@ let
     alias sops_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY -i"
     alias sops_stringData_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|stringData)$' --in-place"
     alias sops_stringData_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|stringData)$' --in-place"
+    alias sops_multivalue_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|stringData|spec)$' --in-place"
+    alias sops_multivalue_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|stringData|spec)$' --in-place"
     alias sops_data_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --encrypted-regex '^(data|data)$' --in-place"
     alias sops_file_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY --in-place"
     alias sops_file_decrypt="sops --decrypt --age $SOPS_AGE_PUBLIC_KEY --in-place"
@@ -87,22 +89,26 @@ in
     programs.zsh = {
       enable=true;
       defaultKeymap = "emacs"; #emacs vicmd viins
-      # enableAutosuggestions = true;
       autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       # enableVteIntegration = true; #notsure ,but seems usefull
       completionInit = "autoload -U colors && colors\nautoload -U compinit && compinit\nautoload -Uz vcs_info";
       dotDir=".config/zsh";
-      # history.share = true;
+      
       history.size = 50000;
       history.save = 50000;
+      history.path = "$HOME/.zsh_history";
+      history.ignoreDups = true; # aaabaaaa -> aba
+      history.ignoreAllDups = false; # abcda -> bcda
+      history.ignoreSpace = true;
+      history.share = true; #?
       initExtra=''
           ${dot_zsh_binds}
           ${dot_zsh_exports}
           ${dot_zsh_aliases}
           unset SSH_AUTH_SOCK   # fuck you gnome keyring
-          PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}>%b%f '
+          PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}>%b%f'
       '';   
       # initExtra="zstyle ':vcs_info:git:*' formats '%b'\nsetopt PROMPT_SUBST\nPROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{red}\${vcs_info_msg_0_}%F{purple}>%b%f '";
       # oh-my-zsh.enable = true;
