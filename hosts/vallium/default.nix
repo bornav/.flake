@@ -120,7 +120,7 @@
       # linux
       # orca-slicer
       # openrgb
-      (pkgs.callPackage ../thorium.nix {}) #thorium browser self compiled
+      (pkgs.callPackage ../../modules/custom_pkg/thorium.nix {}) #thorium browser self compiled
       # (pkgs.callPackage https://github.com/NixOS/nixpkgs/blob/d48979f4e62d5e98a171f8c0ebf839997ea714f0/pkgs/tools/misc/ollama-webui/default.nix {})
       # (import ./package2.nix)
       # zsh-completions
