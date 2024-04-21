@@ -5,7 +5,7 @@ let
     thorium-flags_dot_conf = ''
         --enable-blink-features=MiddleClickAutoscroll 
         --gtk-version=4 
-        --custom-ntp=https://google.com 
+        --custom-ntp=https://dashboard.icylair.com 
     '';
 in
 {
