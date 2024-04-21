@@ -39,14 +39,11 @@
     '';
   };
   networking.hostName = "vallium"; # Define your hostname.
-
   networking.networkmanager.enable = true;
  
   # Configure keymap in X11
   services.xserver = {
-    # layout = "us";
     xkb.layout = "us";
-    # xkbVariant = "";
     xkb.variant = "";
   };
   users.defaultUserShell = pkgs.zsh;
@@ -58,27 +55,23 @@
   };
   environment.sessionVariables = {
     flake_name="vallium";
+    FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
     QT_STYLE_OVERRIDE="kvantum";
+    WLR_NO_HARDWARE_CURSORS = "1"; # look into removing
+    NIXOS_OZONE_WL = "1"; #Hint electron apps to use wayland
   };
 
   #### modules
   gnome.enable = true;
-  # cosmic-desktop.enable = true;
+  cosmic-desktop.enable = false;
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
   virtualisation.docker.enable = true;
   rar.enable = true;
   wg-home.enable = false;
-
-
-  services.desktopManager.cosmic.enable = false;
-  services.displayManager.cosmic-greeter.enable = false;
-
-    # services.desktopManager.cosmic.enable = true;
-    # services.displayManager.cosmic-greeter.enable = true;
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -96,7 +89,7 @@
     libsForQt5.breeze-icons
     libsForQt5.breeze-qt5
     libsForQt5.breeze-gtk
-    libsForQt5.xdg-desktop-portal-kde
+    # libsForQt5.xdg-desktop-portal-kde
     libsForQt5.kde-gtk-config
     okular            # PDF Viewer
     haruna
@@ -113,6 +106,7 @@
     teamspeak_client
     nordic
     papirus-nord
+    pciutils # lspci
   ] ++
     (with pkgs-unstable; [
       vscode
@@ -134,12 +128,12 @@
   };
   programs.zsh.enable = true;
 
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      # add any missing dynamic libraries for unpacked programs here, not in the enviroment.systemPackages
-    ];
-  };
+  # programs.nix-ld = {
+  #   enable = true;
+  #   libraries = with pkgs; [
+  #     # add any missing dynamic libraries for unpacked programs here, not in the enviroment.systemPackages
+  #   ];
+  # };
 
 
   ## for setting the default apps
@@ -181,6 +175,9 @@
     KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0100", MODE="0666"
     KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0101", MODE="0666"
     KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0102", MODE="0666"
+
+    #removing amd vga device
+    ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
   '';
 }
 

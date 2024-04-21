@@ -3,16 +3,18 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, vars, pkgs, pkgs-unstable, modulesPath, ... }:
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
+  boot = {
+    initrd.availableKernelModules = [ "nvme" "thunderbolt" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-amd" ];
+    kernelParams = [
+      "nvidia-drm.modeset=1"
     ];
-
-  boot.initrd.availableKernelModules = [ "nvme" "thunderbolt" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
-
+    extraModulePackages = [ ];
+    blacklistedKernelModules = ["amdgpu"];
+  };
+  
   fileSystems."/" =
     { device = "/dev/disk/by-label/NIXOS";
       fsType = "ext4";
@@ -47,7 +49,7 @@
       ];
     };
 
-
+  # services.fstrim.enable = lib.mkDefault true;
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -60,29 +62,25 @@
   # networking.interfaces.wlp8s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   #nvidia
   hardware = {
     nvidia = {
       modesetting.enable = true;
-      powerManagement.enable = false;
-      powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = true;
       # package = config.boot.kernelPackages.nvidiaPackages.stable;
       package = config.boot.kernelPackages.nvidiaPackages.latest;
       # forceFullCompositionPipeline = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      # prime = {
+      #   offload.enable = true;
+      #   #sync.enable = true;
+      #   amdgpuBusId = "PCI:108:0:0"; # lspci value, converted hex to decimal
+      #   nvidiaBusId = "PCI:1:0:0";
+      # };
     };
-    # nvidia.prime = {
-    # # offload = {
-    # #   enable = true;
-    # #   enableOffloadCmd = true;
-    # # };
-    # sync.enable = true;
-    # intelBusId = "PCI:0:2:0";
-    # nvidiaBusId = "PCI:1:0:0";
-    # };
     opengl = {
       enable = true;
       driSupport = true;
@@ -92,4 +90,5 @@
   environment.systemPackages = with pkgs-unstable; [ linuxKernel.packages.linux_6_8.nvidia_x11 ];
 
   services.xserver.videoDrivers = ["nvidia"];
+
 }

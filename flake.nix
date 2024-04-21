@@ -1,11 +1,11 @@
 {
   description = "A very basic flake";
 
-  inputs =                                                                  # References Used by Flake
-    {
+  inputs = {                                                              # References Used by Flake
       # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";                     # Stable Nix Packages (Default)
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; 
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";         # Unstable Nix Packages
+      nixos-hardware.url = "github:NixOS/nixos-hardware/master"; #https://github.com/NixOS/nixos-hardware/tree/master
       home-manager = {                                                      # User Environment Manager
         url = "github:nix-community/home-manager";
         inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +19,7 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
     };
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixos-cosmic, ... }:   # Function telling flake which inputs to use
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixos-cosmic, nixos-hardware, ... } @ inputs:   # Function telling flake which inputs to use
 	let 
 		vars = {                                                              # Variables Used In Flake
 			user = "bocmo";
@@ -32,7 +32,7 @@
 		nixosConfigurations = (
 			import ./hosts {
 			inherit (nixpkgs) lib;
-			inherit inputs nixpkgs nixpkgs-unstable home-manager hyprland nixos-cosmic vars;   # Inherit inputs
+			inherit inputs nixpkgs nixpkgs-unstable home-manager hyprland nixos-cosmic nixos-hardware self vars;   # Inherit inputs
 			}
 		);
 		# homeConfigurations = (

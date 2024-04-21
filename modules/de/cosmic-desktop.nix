@@ -40,32 +40,34 @@ with lib;
     };
   };
   config = mkIf (config.cosmic-desktop.enable) {
-    environment = {
-      systemPackages = with pkgs-unstable; [
-        cosmic-applets
-        cosmic-applibrary
-        cosmic-bg
-        cosmic-comp
-        cosmic-icons
-        cosmic-launcher
-        cosmic-notifications
-        cosmic-osd
-        cosmic-panel
-        cosmic-session
-        cosmic-settings 
-        cosmic-settings-daemon
-        cosmic-workspaces-epoch 
-        xdg-desktop-portal-cosmic
-        cosmic-greeter
-        cosmic-protocols
-        cosmic-edit 
-        cosmic-screenshot 
-        cosmic-design-demo 
-        cosmic-term
-        cosmic-randr
-        cosmic-files
-        cosmic-store
-      ];
-    };
+    services.desktopManager.cosmic.enable = true;
+    services.displayManager.cosmic-greeter.enable = true;
+  #   environment = {
+  #     systemPackages = with pkgs-unstable; [
+  #       cosmic-applets
+  #       cosmic-applibrary
+  #       cosmic-bg
+  #       cosmic-comp
+  #       cosmic-icons
+  #       cosmic-launcher
+  #       cosmic-notifications
+  #       cosmic-osd
+  #       cosmic-panel
+  #       cosmic-session
+  #       cosmic-settings 
+  #       cosmic-settings-daemon
+  #       cosmic-workspaces-epoch 
+  #       xdg-desktop-portal-cosmic
+  #       cosmic-greeter
+  #       cosmic-protocols
+  #       cosmic-edit 
+  #       cosmic-screenshot 
+  #       cosmic-design-demo 
+  #       cosmic-term
+  #       cosmic-randr
+  #       cosmic-files
+  #       cosmic-store
+  #     ];
+  #   };
   };
 }

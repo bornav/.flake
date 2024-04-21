@@ -20,9 +20,7 @@
  
   # Configure keymap in X11
   services.xserver = {
-    # layout = "us";
     xkb.layout = "us";
-    # xkbVariant = "";
     xkb.variant = "";
   };
   users.defaultUserShell = pkgs.zsh;
@@ -34,28 +32,24 @@
   };
   environment.sessionVariables = {
     flake_name="stealth";
+    FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
     QT_STYLE_OVERRIDE="kvantum";
+    NIXOS_OZONE_WL = "1";
   };
 
   #### modules
   gnome.enable = false;
-  cosmic-desktop.enable = false;
+  cosmic-desktop.enable = true;
   virtualization.enable = true;
   devops.enable = true;
-  steam.enable = false;
+  steam.enable = true;
+  virtualisation.docker.enable = true;
   rar.enable = true;
-  wg-home.enable = true;
-
-
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
-
+  wg-home.enable = false;
   ####
-
   nixpkgs.config.allowUnfree = true; 
-
   environment.systemPackages = with pkgs; [
     alacritty
     libsForQt5.dolphin
@@ -87,12 +81,28 @@
       # gpt4all-chat
       (pkgs.callPackage ../../modules/custom_pkg/thorium.nix {}) #thorium browser self compiled
     ]);
- programs.gnupg.agent = {
-   enable = true;
-   enableSSHSupport = false;
- };
-  programs.zsh.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = false;
+  };
   services.flatpak.enable = true;
+
+    home-manager.users.${vars.user} = {
+    xdg.mime.enable = true;
+    xdg.mimeApps.enable = true;
+    ## this may be neccesary sometimes
+    # xdg.configFile."mimeapps.list".force = true;
+    ## from limited testing it is only applied if both sides are valid
+    xdg.mimeApps.defaultApplications."text/html" = "thorium-browser.desktop";
+    xdg.mimeApps.defaultApplications = {
+      "text/xml" = [ "thorium-browser.desktop" ];
+      "x-scheme-handler/http" = [ "thorium-browser.desktop" ];
+      "x-scheme-handler/https" = [ "thorium-browser.desktop" ];
+      "inode/directory" = "org.kde.dolphin.desktop";
+    };
+  };
+  
+  programs.zsh.enable = true;
 
   ##
   ##gargabe collection

@@ -2,7 +2,6 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, vars, pkgs, modulesPath, ... }:
-
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
@@ -31,7 +30,6 @@
         "noatime"
       ];
     };
-
 
   swapDevices = [ {
     device = "/var/lib/swapfile";

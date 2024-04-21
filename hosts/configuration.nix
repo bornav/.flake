@@ -1,5 +1,4 @@
 {inputs, config, pkgs, pkgs-unstable, vars, ... }:
-
 {
   imports = ( import ../modules/shell ++
               import ../modules/terminalEmulators ++
@@ -51,6 +50,7 @@
       gnumake
       openssl
       xdg-utils
+      nh
     ] ++
     (with pkgs-unstable; [
       
