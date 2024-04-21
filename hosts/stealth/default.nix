@@ -79,7 +79,7 @@
       # zsh-completions
       # zsh-autocomplete
       # gpt4all-chat
-      (pkgs.callPackage ../../modules/custom_pkg/thorium.nix {}) #thorium browser self compiled
+      (pkgs.callPackage ../../modules/custom_pkg/thorium2.nix {}) #thorium browser self compiled
     ]);
   programs.gnupg.agent = {
     enable = true;
