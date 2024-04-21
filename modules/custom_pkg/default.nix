@@ -1,4 +1,4 @@
 [
-  ./thorium.nix
-  ./thorium2.nix
+  # ./thorium.nix
+  ./install_thorium.nix
 ]

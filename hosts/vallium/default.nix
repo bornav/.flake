@@ -71,6 +71,7 @@
   steam.enable = true;
   virtualisation.docker.enable = true;
   rar.enable = true;
+  thorium.enable = true;
   wg-home.enable = false;
   xdg.portal = {
     enable = true;
@@ -114,10 +115,6 @@
       # linux
       # orca-slicer
       # openrgb
-      # (pkgs.callPackage ../../modules/custom_pkg/thorium.nix {}) #thorium browser self compiled
-      (pkgs.callPackage ../../modules/custom_pkg/thorium2.nix {}) #thorium browser self compiled
-      # (pkgs.callPackage https://github.com/NixOS/nixpkgs/blob/d48979f4e62d5e98a171f8c0ebf839997ea714f0/pkgs/tools/misc/ollama-webui/default.nix {})
-      # (import ./package2.nix)
       # zsh-completions
       # zsh-autocomplete
       # ollama
@@ -145,11 +142,7 @@
     ## this may be neccesary sometimes
     # xdg.configFile."mimeapps.list".force = true;
     ## from limited testing it is only applied if both sides are valid
-    xdg.mimeApps.defaultApplications."text/html" = "thorium-browser.desktop";
     xdg.mimeApps.defaultApplications = {
-      "text/xml" = [ "thorium-browser.desktop" ];
-      "x-scheme-handler/http" = [ "thorium-browser.desktop" ];
-      "x-scheme-handler/https" = [ "thorium-browser.desktop" ];
       "inode/directory" = "org.kde.dolphin.desktop";
     };
   };

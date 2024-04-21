@@ -45,6 +45,7 @@
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
+  thorium.enable = true;
   virtualisation.docker.enable = true;
   rar.enable = true;
   wg-home.enable = false;
@@ -79,7 +80,6 @@
       # zsh-completions
       # zsh-autocomplete
       # gpt4all-chat
-      (pkgs.callPackage ../../modules/custom_pkg/thorium2.nix {}) #thorium browser self compiled
     ]);
   programs.gnupg.agent = {
     enable = true;

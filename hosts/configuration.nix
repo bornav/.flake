@@ -7,6 +7,7 @@
               import ../modules/gaming ++
               import ../modules/common ++
               import ../modules/vpn ++
+              import ../modules/custom_pkg ++
               import ../modules/de);
   time.timeZone = "Europe/Vienna";
   i18n = {
@@ -93,6 +94,17 @@
   home-manager.users.${vars.user} = {       # Home-Manager Settings
     home.stateVersion = "${vars.stateVersion}";
     programs.home-manager.enable = true;
+    xdg.enable= true;
+    # xdg.desktopEntries = {
+    #   thoooor = {
+    #     name = "thoooor";
+    #     genericName = "Web Browser";
+    #     exec = "thorium ";
+    #     terminal = false;
+    #     categories = [ "Application" "Network" "WebBrowser" ];
+    #     mimeType = [ "text/html" "text/xml" ];
+    #   };
+    # };
   };
   nix = {
     settings.auto-optimise-store = true;
