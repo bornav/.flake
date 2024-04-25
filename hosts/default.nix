@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, vars, ... }:
+{ lib, inputs, vars, ... }:
 
 let
   system = "x86_64-linux";                                  # System Architecture
@@ -14,15 +14,15 @@ let
   };
 in
 {
-    vallium = inputs.nixpkgs.lib.nixosSystem { 
-        inherit system; 
+    vallium = inputs.nixpkgs.lib.nixosSystem {
+        inherit system;
         specialArgs = {
             inherit system pkgs-unstable vars inputs;
             host = {
                 hostName = "vallium";
             };
         };
-        modules = [ 
+        modules = [
           # nur.nixosModules.nur
           ./configuration.nix
           ./vallium
@@ -35,17 +35,18 @@ in
           inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
           inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
           inputs.nixos-hardware.nixosModules.common-pc-ssd
-          ];        
+          inputs.nix-flatpak.nixosModules.nix-flatpak
+          ];
     };
-    stealth = inputs.nixpkgs.lib.nixosSystem { 
-        inherit system; 
+    stealth = inputs.nixpkgs.lib.nixosSystem {
+        inherit system;
         specialArgs = {
             inherit system pkgs-unstable vars inputs;
             host = {
                 hostName = "stealth";
             };
         };
-        modules = [ 
+        modules = [
           # nur.nixosModules.nur
           ./configuration.nix
           ./stealth

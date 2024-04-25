@@ -1,7 +1,7 @@
 { config, pkgs, pkgs-unstable, vars, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
     ./network-shares.nix
   ];
@@ -40,7 +40,7 @@
   };
   networking.hostName = "vallium"; # Define your hostname.
   networking.networkmanager.enable = true;
- 
+
   # Configure keymap in X11
   services.xserver = {
     xkb.layout = "us";
@@ -50,7 +50,7 @@
   users.users.${vars.user} = {
     isNormalUser = true;
     description = "${vars.user}";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" ];
     packages = with pkgs; [];
   };
   environment.sessionVariables = {
@@ -81,7 +81,7 @@
   };
   ####
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [ 
+  environment.systemPackages = with pkgs; [
     alacritty
     libsForQt5.dolphin
     libsForQt5.qtstyleplugin-kvantum
@@ -111,13 +111,19 @@
   ] ++
     (with pkgs-unstable; [
       vscode
+      vscodium
       zsh
+      zed-editor
+      wireshark
       # linux
       # orca-slicer
       # openrgb
       # zsh-completions
       # zsh-autocomplete
       # ollama
+      godot_4
+
+      lmstudio
       gpt4all
     ]);
   programs.gnupg.agent = {
@@ -126,12 +132,12 @@
   };
   programs.zsh.enable = true;
 
-  # programs.nix-ld = {
-  #   enable = true;
-  #   libraries = with pkgs; [
-  #     # add any missing dynamic libraries for unpacked programs here, not in the enviroment.systemPackages
-  #   ];
-  # };
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      # add any missing dynamic libraries for unpacked programs here, not in the enviroment.systemPackages
+    ];
+  };
 
 
   ## for setting the default apps
@@ -148,7 +154,17 @@
   };
 
   services.flatpak.enable = true;
-   
+  services.flatpak.packages = [
+      # { appId = "com.brave.Browser"; origin = "flathub";  }
+      # "com.obsproject.Studio"
+      # "im.riot.Riot"
+      "com.github.tchx84.Flatseal"
+      "app/org.kicad.KiCad/x86_64/stable"
+    ];
+  services.flatpak.update.auto = {
+    enable = true;
+    onCalendar = "daily"; # Default value
+  };
   ##
   ##gargabe collection
   programs.dconf.enable = true;
@@ -174,4 +190,3 @@
     ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
   '';
 }
-

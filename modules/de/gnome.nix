@@ -33,6 +33,7 @@ with lib;
         # modules = [ pkgs.xf86_input_wacom ];
         # wacom.enable = true;
         displayManager.gdm.enable = true;               # Display Manager
+        displayManager.gdm.autoSuspend = false;
         desktopManager.gnome.enable = true;             # Desktop Environment
       };
       udev.packages = with pkgs; [
