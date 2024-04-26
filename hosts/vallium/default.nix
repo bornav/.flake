@@ -120,7 +120,7 @@
       # openrgb
       # zsh-completions
       # zsh-autocomplete
-      # ollama
+      ollama
       godot_4
 
       lmstudio
