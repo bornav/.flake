@@ -1,3 +1,4 @@
 [
   ./devops.nix
+  ./ai.nix
 ]

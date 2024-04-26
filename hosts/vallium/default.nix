@@ -73,6 +73,7 @@
   rar.enable = true;
   thorium.enable = true;
   wg-home.enable = false;
+  ai.enable = true;
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -120,11 +121,10 @@
       # openrgb
       # zsh-completions
       # zsh-autocomplete
-      ollama
       godot_4
-
-      lmstudio
-      gpt4all
+      # ollama
+      # lmstudio
+      # gpt4all
     ]);
   programs.gnupg.agent = {
     enable = true;
