@@ -6,7 +6,7 @@
     ./network-shares.nix
   ];
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
     #systemd-boot.enable = true;
@@ -116,7 +116,7 @@
       zsh
       zed-editor
       wireshark
-      linux
+      # linux
       # orca-slicer
       # openrgb
       # zsh-completions
