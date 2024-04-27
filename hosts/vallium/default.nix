@@ -116,7 +116,7 @@
       zsh
       zed-editor
       wireshark
-      # linux
+      linux
       # orca-slicer
       # openrgb
       # zsh-completions
