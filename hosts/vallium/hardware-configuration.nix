@@ -8,13 +8,13 @@
     initrd.availableKernelModules = [ "nvme" "thunderbolt" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-amd" ];
-    kernelParams = [
-      "nvidia-drm.modeset=1"
-    ];
+    # kernelParams = [
+    #   "nvidia-drm.modeset=1"
+    # ];
     extraModulePackages = [ ];
     blacklistedKernelModules = ["amdgpu"];
   };
-  
+
   fileSystems."/" =
     { device = "/dev/disk/by-label/NIXOS";
       fsType = "ext4";
