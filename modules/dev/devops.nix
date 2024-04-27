@@ -22,7 +22,7 @@ with lib;
       kustomize-sops
       lens
       bfg-repo-cleaner
-      terraform
+      # terraform
       inetutils
       dig
     ] ++
