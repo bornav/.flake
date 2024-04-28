@@ -3,7 +3,7 @@
 #
 
 { pkgs, vars, ... }:
-let 
+let
   dot_zsh_exports = ''
     export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt
   '';
@@ -35,7 +35,7 @@ let
     alias gm='EDITOR=vim git commit -m'
     alias gp='EDITOR=vim git push --force-with-lease'
     #kubecli
-    alias k=kubectl 
+    alias k=kubectl
     alias ka="kubectl apply"
     alias kd="kubectl delete"
     # #sops
@@ -66,10 +66,10 @@ let
     bindkey "^[[1;6C" forward-word
     bindkey "^[[1;6D" backward-word
     bindkey "^H" vi-backward-kill-word
-    bindkey "5~" kill-word 
+    bindkey "5~" kill-word
     # [[3;5~
   '';
-in 
+in
 {
   users.users.${vars.user} = {
     shell = pkgs.zsh;
@@ -98,7 +98,7 @@ in
       # enableVteIntegration = true; #notsure ,but seems usefull
       completionInit = "autoload -U colors && colors\nautoload -U compinit && compinit\nautoload -Uz vcs_info";
       dotDir=".config/zsh";
-      
+
       history.size = 50000;
       history.save = 50000;
       history.path = "$HOME/.zsh_history";
@@ -112,11 +112,12 @@ in
           ${dot_zsh_aliases}
           unset SSH_AUTH_SOCK   # fuck you gnome keyring
           PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}>%b%f'
-      '';   
+      '';
       # initExtra="zstyle ':vcs_info:git:*' formats '%b'\nsetopt PROMPT_SUBST\nPROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{red}\${vcs_info_msg_0_}%F{purple}>%b%f '";
       # oh-my-zsh.enable = true;
       # oh-my-zsh.theme = "";
-    };   
+    };
+    #
     services.gpg-agent.enableZshIntegration = true;
     services.gpg-agent = {
       enable = true;
@@ -124,4 +125,6 @@ in
       enableSshSupport = true;
     };
   };
+    #Enable zsh completion. Don’t forget to add
+    environment.pathsToLink = [ "/share/zsh" ];
 }
