@@ -115,6 +115,11 @@ in
           PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}>%b%f'
       '';
 
+      prezto = {
+        enable = true;
+        autosuggestions.color = "fg=blue";
+      };
+
       # historySubstringSearch = { #unknown how to test/what it's supposed to do
       #   enable = true;
       #   searchUpKey = ["^[[B"];
