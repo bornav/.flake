@@ -130,12 +130,11 @@
     enable = true;
     enableSSHSupport = false;
   };
-  programs.zsh.enable = true;
 
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-      # add any missing dynamic libraries for unpacked programs here, not in the enviroment.systemPackages
+      # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     ];
   };
 

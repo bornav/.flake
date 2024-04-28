@@ -1,7 +1,7 @@
 { config, pkgs, pkgs-unstable, vars, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
   ];
   boot.loader = {
@@ -17,7 +17,7 @@
   };
   networking.hostName = "stealth"; # Define your hostname.
   networking.networkmanager.enable = true;
- 
+
   # Configure keymap in X11
   services.xserver = {
     xkb.layout = "us";
@@ -50,7 +50,7 @@
   rar.enable = true;
   wg-home.enable = false;
   ####
-  nixpkgs.config.allowUnfree = true; 
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     alacritty
     libsForQt5.dolphin
@@ -101,8 +101,6 @@
       "inode/directory" = "org.kde.dolphin.desktop";
     };
   };
-  
-  programs.zsh.enable = true;
 
   ##
   ##gargabe collection
@@ -125,4 +123,3 @@
     KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0102", MODE="0666"
   '';
 }
-
