@@ -68,6 +68,16 @@ let
     bindkey "^H" vi-backward-kill-word
     bindkey "5~" kill-word
     # [[3;5~
+    function git_branch_name()
+    {
+      branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+      if [[ $branch == "" ]];
+      then
+        :
+      else
+        echo '- ('$branch')'
+      fi
+    }
   '';
 in
 {
@@ -99,20 +109,21 @@ in
       enableVteIntegration = true; #notsure ,but seems usefull
       completionInit = "autoload -U colors && colors\nautoload -U compinit && compinit\nautoload -Uz vcs_info";
       dotDir=".config/zsh";
-
-      history.size = 50000;
-      history.save = 50000;
-      history.path = "$HOME/.zsh_history";
-      history.ignoreDups = true; # aaabaaaa -> aba
-      history.ignoreAllDups = true; # abcda -> bcda
-      history.ignoreSpace = true;
-      history.share = true; #?
+      history = {
+        size = 50000;
+        save = 50000;
+        path = "$HOME/.zsh_history";
+        ignoreDups = true; # aaabaaaa -> aba
+        ignoreAllDups = true; # abcda -> bcda
+        ignoreSpace = true;
+        share = true; #?
+      };
       initExtra=''
           ${dot_zsh_binds}
           ${dot_zsh_exports}
           ${dot_zsh_aliases}
           unset SSH_AUTH_SOCK   # fuck you gnome keyring
-          PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}>%b%f'
+          PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}$(git_branch_name)>%b%f'
       '';
 
       # prezto = { #seems bloated but might be worth considering
