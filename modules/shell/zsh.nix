@@ -134,6 +134,7 @@ in
           ${dot_zsh_binds}
           ${dot_zsh_exports}
           ${dot_zsh_aliases}
+          ${dot_zsh_extra_functions}
           unset SSH_AUTH_SOCK   # fuck you gnome keyring
           PROMPT='%B%F{current_user_color}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}$(git_branch_name)>%b%f'
       '';
