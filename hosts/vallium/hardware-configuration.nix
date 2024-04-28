@@ -72,7 +72,7 @@
       # package = config.boot.kernelPackages.nvidiaPackages.stable;
       # package = config.boot.kernelPackages.nvidiaPackages.production;
       # package = config.boot.kernelPackages.nvidiaPackages.latest;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
       # forceFullCompositionPipeline = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
