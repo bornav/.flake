@@ -69,8 +69,9 @@
       modesetting.enable = true;
       open = false;
       nvidiaSettings = true;
-      # package = config.boot.kernelPackages.nvidiaPackages.stable;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      # package = config.boot.kernelPackages.nvidiaPackages.production;
+      # package = config.boot.kernelPackages.nvidiaPackages.latest;
       # forceFullCompositionPipeline = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
