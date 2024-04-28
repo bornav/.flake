@@ -36,7 +36,6 @@
       tree
       htop              # Resource Manager
       coreutils         # GNU Utilities
-      git               # Version Control
       killall           # Process Killer
       nano              # Text Editor
       vim
@@ -54,7 +53,7 @@
       nh
     ] ++
     (with pkgs-unstable; [
-      
+
     ]);
     # ]) ++ ([ pkgs.firefox ]);  ## syntax for adding one without pkgs appended
   };
@@ -117,4 +116,3 @@
     extraOptions = "experimental-features = nix-command flakes";
   };
 }
-
