@@ -77,16 +77,17 @@ let
         then
         :
         else
-        echo '- ('$branch')'
+        echo %f %F{#691593}$branch%f
         fi
     }
     function current_user_color()
     {
-        if [[ $EUID -ne 0 ]]; then
-            color = red
+        if [[ $EUID == 0 ]]; then
+            user_color=red
         else
-            color = cyan
+            user_color=cyan
         fi
+        echo $user_color
     }
   '';
 in
@@ -134,7 +135,7 @@ in
           ${dot_zsh_aliases}
           ${dot_zsh_extra_functions}
           unset SSH_AUTH_SOCK   # fuck you gnome keyring
-          PROMPT='%B%F{$(current_user_color)}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}$(git_branch_name)>%b%f'
+          PROMPT='%B%F{$(current_user_color)}%n%f@%F{blue}%M:%F{magenta}%~%f$(git_branch_name)%f>%b%f'
       '';
 
       # prezto = { #seems bloated but might be worth considering
@@ -154,7 +155,6 @@ in
         plugins = [
             "git"
         ];
-        # theme = "";
       };
     };
     #
