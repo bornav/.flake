@@ -103,7 +103,7 @@ in
       history.save = 50000;
       history.path = "$HOME/.zsh_history";
       history.ignoreDups = true; # aaabaaaa -> aba
-      history.ignoreAllDups = false; # abcda -> bcda
+      history.ignoreAllDups = true; # abcda -> bcda
       history.ignoreSpace = true;
       history.share = true; #?
       initExtra=''
