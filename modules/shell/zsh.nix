@@ -93,7 +93,7 @@ in
       enable=true;
       defaultKeymap = "emacs"; #emacs vicmd viins
       autosuggestion.enable = true;
-      autosuggestion.highlight = "fg=#ff00ff,bg=cyan,bold,underline";
+      # autosuggestion.highlight = "fg=#ff00ff,bg=cyan,bold,underline";
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       enableVteIntegration = true; #notsure ,but seems usefull
