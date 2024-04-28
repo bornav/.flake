@@ -115,10 +115,10 @@ in
           PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}>%b%f'
       '';
 
-      prezto = {
-        enable = true;
-        autosuggestions.color = "fg=blue";
-      };
+      # prezto = { #seems bloated but might be worth considering
+      #   enable = true;
+      #   autosuggestions.color = "fg=blue";
+      # };
 
       # historySubstringSearch = { #unknown how to test/what it's supposed to do
       #   enable = true;
@@ -127,8 +127,13 @@ in
       # };
 
       # initExtra="zstyle ':vcs_info:git:*' formats '%b'\nsetopt PROMPT_SUBST\nPROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{red}\${vcs_info_msg_0_}%F{purple}>%b%f '";
-      # oh-my-zsh.enable = true;
-      # oh-my-zsh.theme = "";
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+            "git"
+        ];
+        # theme = "";
+      };
     };
     #
     services.gpg-agent.enableZshIntegration = true;
