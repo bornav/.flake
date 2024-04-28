@@ -14,6 +14,7 @@ with lib;
         ollama
         lmstudio
         gpt4all
+        nvidia-container-toolkit # TODO
       ];
   };
 }
