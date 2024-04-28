@@ -15,8 +15,7 @@ with lib;
         lmstudio
         gpt4all
         # tabby
-        nvidia-container-toolkit # TODO breaks normal docker(overwrites)
-        docker
+        # nvidia-container-toolkit # TODO breaks normal docker(overwrites)
       ];
     # services.tabby.enable = true;
   };
