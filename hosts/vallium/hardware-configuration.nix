@@ -88,7 +88,7 @@
       driSupport32Bit = true;
     };
   };
-  environment.systemPackages = with pkgs-unstable; [ linuxKernel.packages.linux_6_8.nvidia_x11 ];
+  # environment.systemPackages = with pkgs-unstable; [ linuxKernel.packages.linux_6_8.nvidia_x11 ];
 
   services.xserver.videoDrivers = ["nvidia"];
 
