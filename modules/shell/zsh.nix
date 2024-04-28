@@ -95,7 +95,7 @@ in
       autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
-      # enableVteIntegration = true; #notsure ,but seems usefull
+      enableVteIntegration = true; #notsure ,but seems usefull
       completionInit = "autoload -U colors && colors\nautoload -U compinit && compinit\nautoload -Uz vcs_info";
       dotDir=".config/zsh";
 
@@ -114,11 +114,12 @@ in
           PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}>%b%f'
       '';
 
-      historySubstringSearch = {
-        enable = true;
-        searchUpKey = ["^[[B"];
-        searchDownKey = ["^[[B"];
-      };
+      # historySubstringSearch = { #unknown how to test/what it's supposed to do
+      #   enable = true;
+      #   searchUpKey = ["^[[B"];
+      #   searchDownKey = ["^[[B"];
+      # };
+
       # initExtra="zstyle ':vcs_info:git:*' formats '%b'\nsetopt PROMPT_SUBST\nPROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{red}\${vcs_info_msg_0_}%F{purple}>%b%f '";
       # oh-my-zsh.enable = true;
       # oh-my-zsh.theme = "";
