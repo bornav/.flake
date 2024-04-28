@@ -68,15 +68,27 @@ let
     bindkey "^H" vi-backward-kill-word
     bindkey "5~" kill-word
     # [[3;5~
+  '';
+  dot_zsh_extra_functions = ''
     function git_branch_name()
     {
-      branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
-      if [[ $branch == "" ]];
-      then
+        branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+        if [[ $branch == "" ]];
+        then
         :
-      else
+        else
         echo '- ('$branch')'
-      fi
+        fi
+    }
+    function current_user_color()
+    {
+        color
+        if [[ $EUID -ne 0 ]]; then
+            color = red
+        else
+            color = cyan
+        fi
+        return color
     }
   '';
 in
@@ -123,7 +135,7 @@ in
           ${dot_zsh_exports}
           ${dot_zsh_aliases}
           unset SSH_AUTH_SOCK   # fuck you gnome keyring
-          PROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}$(git_branch_name)>%b%f'
+          PROMPT='%B%F{current_user_color}%n%f@%F{blue}%M:%F{magenta}%~%F{purple}$(git_branch_name)>%b%f'
       '';
 
       # prezto = { #seems bloated but might be worth considering
