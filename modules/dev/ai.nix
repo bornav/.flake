@@ -18,5 +18,14 @@ with lib;
         # nvidia-container-toolkit # TODO breaks normal docker(overwrites)
       ];
     # services.tabby.enable = true;
+
+    virtualisation.containers.cdi.dynamic.nvidia.enable = true;
+    virtualisation.docker.enableNvidia = true;
+
+    networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [ 8080 ];
+      allowedUDPPorts = [ 8080 ];
+    };
   };
 }
