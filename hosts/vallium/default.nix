@@ -65,7 +65,7 @@
 
   #### modules
   gnome.enable = true;
-  # woothing.enable = true;
+  woothing.enable = true;
   finalmouse.enable = true;
   cosmic-desktop.enable = false;
   virtualization.enable = true;
