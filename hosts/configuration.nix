@@ -52,6 +52,7 @@
       openssl
       xdg-utils
       nh
+      tmux
     ] ++
     (with pkgs-unstable; [
 
