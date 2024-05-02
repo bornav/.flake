@@ -95,20 +95,7 @@ in
   users.users.${vars.user} = {
     shell = pkgs.zsh;
   };
-  # programs = {
-  #   zsh = {
-  #     enable = true;
-  #     # shellInit = ''
-  #     #   # Spaceship
-  #     #   #source ~/.config/zsh/.zshrc
-  #     #   # autoload -U promptinit; promptinit
-  #     #   # Hook direnv
-  #     #   #emulate zsh -c "$(direnv hook zsh)"
-
-  #     #   #eval "$(direnv hook zsh)"
-  #     # '';                                       # Theming
-  #   };
-  # };
+  programs.zsh.enable = true;
   home-manager.users.${vars.user} = {
     programs.zsh = {
       enable=true;

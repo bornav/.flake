@@ -65,8 +65,6 @@
 
   #### modules
   gnome.enable = true;
-  woothing.enable = true;
-  finalmouse.enable = true;
   cosmic-desktop.enable = false;
   virtualization.enable = true;
   devops.enable = true;
@@ -76,6 +74,10 @@
   thorium.enable = true;
   wg-home.enable = false;
   ai.enable = true;
+
+  woothing.enable = true;
+  finalmouse.enable = true;
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -115,7 +117,6 @@
     (with pkgs-unstable; [
       vscode
       vscodium
-      zsh
       zed-editor
       wireshark
       # linux
