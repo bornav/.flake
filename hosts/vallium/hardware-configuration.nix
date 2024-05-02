@@ -82,6 +82,12 @@
       #   amdgpuBusId = "PCI:108:0:0"; # lspci value, converted hex to decimal
       #   nvidiaBusId = "PCI:1:0:0";
       # };
+      # prime = {
+      #   # For people who want to use sync instead of offload. Especially for AMD CPU users
+      #   sync.enable = lib.mkOverride 990 true;
+      #   amdgpuBusId = "";
+      #   nvidiaBusId = "";
+      # };
     };
     opengl = {
       enable = true;
