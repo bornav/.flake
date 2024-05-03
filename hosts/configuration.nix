@@ -91,7 +91,9 @@
     };
     stateVersion = "${vars.stateVersion}";
   };
-
+  systemd.extraConfig = ''
+    DefaultTimeoutStopSec=5s
+  ''; # sets the systemd stopjob timeout to somethng else than 90 seconds
   home-manager.users.${vars.user} = {       # Home-Manager Settings
     home.stateVersion = "${vars.stateVersion}";
     programs.home-manager.enable = true;
