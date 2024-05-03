@@ -60,4 +60,27 @@ in
           inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
           ];
     };
+    dockeropen = inputs.nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+            inherit system pkgs-unstable vars inputs;
+            host = {
+                hostName = "dockeropen";
+            };
+        };
+        modules = [
+            # nur.nixosModules.nur
+            ./configuration.nix
+            ./dockeropen
+            inputs.home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            }
+            inputs.nixos-hardware.nixosModules.common-cpu-amd
+            inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+            inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+            inputs.nixos-hardware.nixosModules.common-pc-ssd
+            inputs.nix-flatpak.nixosModules.nix-flatpak
+            ];
+    };
 }
