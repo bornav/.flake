@@ -17,7 +17,7 @@ with lib;
         remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
         dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
         package = pkgs-unstable.steam.override {
-          extraPkgs = pkgs: 
+          extraPkgs = pkgs:
             with pkgs; [
               mangohud
               openssl
@@ -37,8 +37,10 @@ with lib;
     ];
     environment.systemPackages = with pkgs; [
       openssl
+      vkd3d
+      vkd3d-proton
       libpng
-      icu 
+      icu
       mangohud
       gamemode
     ];
