@@ -39,6 +39,7 @@ with lib;
       openssl
       vkd3d
       vkd3d-proton
+      protonup
       libpng
       icu
       mangohud
@@ -48,5 +49,8 @@ with lib;
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+    };
+    environment.sessionVariables = {
+        STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
     };
 };}
