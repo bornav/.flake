@@ -76,6 +76,7 @@ in
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             }
+            inputs.nixos-cosmic.nixosModules.default
             inputs.nixos-hardware.nixosModules.common-cpu-amd
             inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
             inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime

@@ -39,18 +39,18 @@
 
   #### modules
   gnome.enable = false;
-cosmic-desktop.enable = false;
-virtualization.enable = true;
-devops.enable = false;
-steam.enable = false;
-virtualisation.docker.enable = true;
-rar.enable = true;
-thorium.enable = false;
-wg-home.enable = false;
-ai.enable = false;
+  cosmic-desktop.enable = false;
+  virtualization.enable = true;
+  devops.enable = false;
+  steam.enable = false;
+  virtualisation.docker.enable = true;
+  rar.enable = true;
+  thorium.enable = false;
+  wg-home.enable = false;
+  ai.enable = false;
 
-woothing.enable = false;
-finalmouse.enable = false;
+  woothing.enable = false;
+  finalmouse.enable = false;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
