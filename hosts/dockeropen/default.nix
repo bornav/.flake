@@ -10,7 +10,8 @@
     grub.efiSupport = true;
     grub.enable = true;
     grub.device = "nodev";
-    efi.canTouchEfiVariables = true;
+    # grub.efiInstallAsRemovable = false;
+    # efi.canTouchEfiVariables = true;
   };
 
   networking.hostName = "dockeropen"; # Define your hostname.
