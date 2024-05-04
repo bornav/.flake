@@ -82,6 +82,7 @@ in
             inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
             inputs.nixos-hardware.nixosModules.common-pc-ssd
             inputs.nix-flatpak.nixosModules.nix-flatpak
+            inputs.disko.nixosModules.disko
             ];
     };
 }
