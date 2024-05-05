@@ -53,6 +53,8 @@
       xdg-utils
       nh
       tmux
+      # dbus
+      # dbus-broker
     ] ++
     (with pkgs-unstable; [
 
