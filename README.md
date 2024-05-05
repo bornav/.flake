@@ -28,4 +28,4 @@ sudo nixos-rebuild switch --impure --flake ~/.flake/#vallium
 
     nix run --extra-experimental-features nix-command --extra-experimental-features flakes github:numtide/nixos-anywhere -- --flake /home/nixos/.flake#dockeropen --vm-test
 
-    nix run github:numtide/nixos-anywhere -- --flake ~/.flake#dockeropen root@10.2.11.26
+    nix run github:numtide/nixos-anywhere -- --flake ~/.flake#dockeropen root@10.2.11.33
