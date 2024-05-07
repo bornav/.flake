@@ -54,6 +54,9 @@ let
     alias flux_get_states="flux get all -A --status-selector ready=false" #gets debug state of deployed serivces helm
     alias flux_update_repo="flux reconcile source git fluxcd-kubernetes; flux reconcile kustomization cluster; flux reconcile kustomization cluster-apps"
     alias ls='ls --color=auto'
+
+    #uncommon
+    alias avahi_discover_local="avahi-browse --all --ignore-local --resolve --terminate"   #discovers local mdns records
   '';
   dot_zsh_binds = ''
     bindkey  "^[[H"   beginning-of-line

@@ -125,6 +125,8 @@
       # zsh-completions
       # zsh-autocomplete
       godot_4
+      kdeconnect
+      avahi
       # ollama
       # lmstudio
       # gpt4all
