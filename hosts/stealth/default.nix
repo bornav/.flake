@@ -62,7 +62,6 @@
     libsForQt5.breeze-gtk
     libsForQt5.xdg-desktop-portal-kde
     libsForQt5.kde-gtk-config
-    neofetch
     gnumake
     haruna
     kate
