@@ -161,6 +161,7 @@
       # "im.riot.Riot"
       "com.github.tchx84.Flatseal"
       "app/org.kicad.KiCad/x86_64/stable"
+      "it.mijorus.gearlever"
     ];
   services.flatpak.update.auto = {
     enable = true;
