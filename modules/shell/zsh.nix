@@ -55,6 +55,8 @@ let
     alias flux_update_repo="flux reconcile source git fluxcd-kubernetes; flux reconcile kustomization cluster; flux reconcile kustomization cluster-apps"
     alias ls='ls --color=auto'
 
+    alias neofetch="fastfetch"
+
     #uncommon
     alias avahi_discover_local="avahi-browse --all --ignore-local --resolve --terminate"   #discovers local mdns records
   '';

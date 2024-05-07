@@ -47,7 +47,7 @@
       curl
       efibootmgr
       ntfs3g
-      neofetch
+      fastfetch #neofetch
       gnumake
       openssl
       xdg-utils
