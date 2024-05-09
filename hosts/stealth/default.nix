@@ -48,7 +48,7 @@
   thorium.enable = true;
   virtualisation.docker.enable = true;
   rar.enable = true;
-  wg-home.enable = false;
+  wg-home.enable = true;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -106,20 +106,46 @@
   ##gargabe collection
   programs.dconf.enable = true;
 
-  services.udev.extraRules = ''
-    # Finalmouse ULX devices
-    # This file should be installed to /etc/udev/rules.d so that you can access the Finalmouse ULX devices without being root.
-    #
-    # type this at the command prompt: sudo cp 99-finalmouse.rules /etc/udev/rules.d
+  # services.udev.extraRules = ''
+  #   # Finalmouse ULX devices
+  #   # This file should be installed to /etc/udev/rules.d so that you can access the Finalmouse ULX devices without being root.
+  #   #
+  #   # type this at the command prompt: sudo cp 99-finalmouse.rules /etc/udev/rules.d
 
-    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0100", MODE="0666"
-    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0101", MODE="0666"
-    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0102", MODE="0666"
-    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0103", MODE="0666"
-    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0111", MODE="0666"
+  #   SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0100", MODE="0666"
+  #   SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0101", MODE="0666"
+  #   SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0102", MODE="0666"
+  #   SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0103", MODE="0666"
+  #   SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0111", MODE="0666"
 
-    KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0100", MODE="0666"
-    KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0101", MODE="0666"
-    KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0102", MODE="0666"
+  #   KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0100", MODE="0666"
+  #   KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0101", MODE="0666"
+  #   KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0102", MODE="0666"
+  # '';
+
+  nix.buildMachines = [ {
+	 hostName = "builder";
+	 system = "x86_64-linux";
+                   protocol = "ssh-ng";
+	 # if the builder supports building for multiple architectures, 
+	 # replace the previous line by, e.g.
+	 # systems = ["x86_64-linux" "aarch64-linux"];
+	 maxJobs = 1;
+	 speedFactor = 2;
+	 supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+	 mandatoryFeatures = [ ];
+	}] ;
+	nix.distributedBuilds = true;
+	# optional, useful when the builder has a faster internet connection than yours
+	nix.extraOptions = ''
+	  builders-use-substitutes = true
+	'';
+  programs.ssh.extraConfig = ''
+    Host builder
+      HostName 10.2.11.33
+      Port 22
+      User bocmo
+      IdentitiesOnly yes
+      IdentityFile /home/bocmo/.ssh/cdn_key_pwless
   '';
 }
