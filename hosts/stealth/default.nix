@@ -130,8 +130,8 @@
 	 # if the builder supports building for multiple architectures, 
 	 # replace the previous line by, e.g.
 	 # systems = ["x86_64-linux" "aarch64-linux"];
-	 maxJobs = 1;
-	 speedFactor = 2;
+	 maxJobs = 4;
+	 speedFactor = 8;
 	 supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
 	 mandatoryFeatures = [ ];
 	}] ;
@@ -144,8 +144,9 @@
     Host builder
       HostName 10.2.11.33
       Port 22
-      User bocmo
+      User root
       IdentitiesOnly yes
+      StrictHostKeyChecking no
       IdentityFile /home/bocmo/.ssh/cdn_key_pwless
   '';
 }
