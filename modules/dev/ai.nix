@@ -12,7 +12,7 @@ with lib;
   config = mkIf (config.ai.enable) {
     environment.systemPackages = with pkgs; [
         ollama
-        lmstudio
+        # lmstudio
         gpt4all
         # tabby
         # nvidia-container-toolkit # TODO breaks normal docker(overwrites)
