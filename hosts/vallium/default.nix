@@ -185,7 +185,7 @@
 	 # replace the previous line by, e.g.
 	 # systems = ["x86_64-linux" "aarch64-linux"];
 	 maxJobs = 4;
-	 speedFactor = 8;
+	 speedFactor = 2;
 	 supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
 	 mandatoryFeatures = [ ];
 	}] ;
