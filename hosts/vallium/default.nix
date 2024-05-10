@@ -177,23 +177,25 @@
   services.udev.extraRules = ''
     ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
   '';
-  nix.buildMachines = [ {
-	 hostName = "builder";
-	 system = "x86_64-linux";
-                   protocol = "ssh-ng";
-	 # if the builder supports building for multiple architectures, 
-	 # replace the previous line by, e.g.
-	 # systems = ["x86_64-linux" "aarch64-linux"];
-	 maxJobs = 4;
-	 speedFactor = 2;
-	 supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-	 mandatoryFeatures = [ ];
-	}] ;
-	nix.distributedBuilds = true;
-	# optional, useful when the builder has a faster internet connection than yours
-	nix.extraOptions = ''
-	  builders-use-substitutes = true
-	'';
+  nix = {
+    buildMachines = [ {
+      hostName = "builder";
+      system = "x86_64-linux";
+      protocol = "ssh-ng";
+      # if the builder supports building for multiple architectures, 
+      # replace the previous line by, e.g.
+      # systems = ["x86_64-linux" "aarch64-linux"];
+      maxJobs = 2;
+      speedFactor = 2;
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      mandatoryFeatures = [ ];
+      }] ;
+	  distributedBuilds = true;
+    # optional, useful when the builder has a faster internet connection than yours
+	  extraOptions = ''
+      builders-use-substitutes = true
+    '';
+  };
   programs.ssh.extraConfig = ''
     Host builder
       HostName 10.2.11.33
