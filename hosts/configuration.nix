@@ -121,7 +121,6 @@
     };
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
-    maxJobs = 4;
-    # speedFactor = 2;
+    settings.max-jobs = 4;
   };
 }
