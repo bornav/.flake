@@ -74,6 +74,7 @@
   thorium.enable = true;
   wg-home.enable = false;
   ai.enable = true;
+  builder.enable = true;
 
   woothing.enable = true;
   finalmouse.enable = true;
@@ -200,7 +201,7 @@
     Host builder
       HostName 10.2.11.33
       Port 22
-      User root
+      User nixbuilder
       IdentitiesOnly yes
       StrictHostKeyChecking no
       IdentityFile /home/bocmo/.ssh/cdn_key_pwless

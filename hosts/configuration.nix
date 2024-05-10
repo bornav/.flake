@@ -9,6 +9,7 @@
               import ../modules/vpn ++
               import ../modules/custom_pkg ++
               import ../modules/devices ++
+              import ../modules/nix ++
               import ../modules/de);
   time.timeZone = "Europe/Vienna";
   i18n = {
