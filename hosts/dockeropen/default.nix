@@ -51,6 +51,7 @@
   thorium.enable = false;
   wg-home.enable = false;
   ai.enable = false;
+  builder.enable = true;
 
   woothing.enable = false;
   finalmouse.enable = false;
