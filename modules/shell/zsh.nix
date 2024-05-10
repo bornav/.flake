@@ -22,7 +22,7 @@ let
     alias kubectl='EDITOR=vim kubectl'
     alias kubectl_pod_status="kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'"
     #nixos
-    alias nixos_config_update="nh os switch ~/.flake -H $flake_name"
+    alias nixos_config_update="nh os switch ~/.flake -H $flake_name --ask"
     alias nixos_rebuild="~/.flake/rebuild.sh"
     alias nixos_update="nix_update"
     alias nix_update="nixos_config_update --update"
