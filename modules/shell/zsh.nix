@@ -93,8 +93,10 @@ let
         elif [[ $USER == "bocmo" && $HOST == "vallium" ]]; then
             user_color=cyan
         else
-            hex_chars="${USER:0:2}"
-            user_color=$(printf "%d" "0x$hex_chars")
+            # export hex_chars="''${!USER:0:2}"
+            # export user_color=$(printf "%d" "0x$hex_chars")
+            user_color=5
+            # 183
         fi
         echo $user_color
     }
