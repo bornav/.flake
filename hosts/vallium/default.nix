@@ -114,6 +114,7 @@
     nordic
     papirus-nord
     pciutils # lspci
+    pika-backup
   ] ++
     (with pkgs-unstable; [
       vscode
