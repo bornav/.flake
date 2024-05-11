@@ -52,7 +52,7 @@
       gnumake
       openssl
       xdg-utils
-      nh
+      # nh
       tmux
       # dbus
       # dbus-broker
@@ -62,6 +62,7 @@
     ]);
     # ]) ++ ([ pkgs.firefox ]);  ## syntax for adding one without pkgs appended
   };
+  programs.nh.enable = true;
   hardware.pulseaudio.enable = false;
   services = {
     printing.enable = true;
