@@ -88,10 +88,25 @@ let
     }
     function current_user_color()
     {
+        # # Input string
+        # input="1A2B3C"
+
+        # # Extract first two characters
+        # hex_chars="${input:0:2}"
+
+        # # Convert hex to decimal
+        # decimal=$(printf "%d" "0x$hex_chars")
+
+        echo "Hex: $hex_chars"
+        echo "Decimal: $decimal"
+
         if [[ $EUID == 0 ]]; then
             user_color=red
-        else
+        elif [[ $USER == "bocmo"]]
             user_color=cyan
+        else
+            hex_chars="${USER:0:2}"
+            user_color=$(printf "%d" "0x$hex_chars")
         fi
         echo $user_color
     }
