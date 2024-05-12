@@ -75,6 +75,8 @@
   ai.enable = true;
   builder.enable = true;
 
+  portainer.enable = false;
+
   woothing.enable = true;
   finalmouse.enable = true;
 
