@@ -50,6 +50,7 @@
   wg-home.enable = false;
   ai.enable = false;
   builder.enable = true;
+  portainer.enable = true;
 
   woothing.enable = false;
   finalmouse.enable = false;

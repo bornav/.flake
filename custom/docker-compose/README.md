@@ -6,6 +6,6 @@ after change top of the compose to this
 ```{ lib, config, pkgs, pkgs-unstable, inputs, vars, ... }:
 with lib;```
 
-and wrap the content inside od {} with the conditiona example if ```docker-name.enabled == true```
+and wrap the content inside od {} with the conditional example if ```docker-name.enabled == true```
 
 ```config = mkIf (config.docker-name.enable) { ```
