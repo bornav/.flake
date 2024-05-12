@@ -46,7 +46,6 @@
   devops.enable = true;
   steam.enable = true;
   thorium.enable = true;
-  virtualisation.docker.enable = true;
   rar.enable = true;
   wg-home.enable = true;
   ####

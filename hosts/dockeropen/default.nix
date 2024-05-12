@@ -43,9 +43,8 @@
   gnome.enable = false;
   cosmic-desktop.enable = false;
   virtualization.enable = true;
-  devops.enable = false;
+  devops.enable = true;
   steam.enable = false;
-  virtualisation.docker.enable = true;
   rar.enable = true;
   thorium.enable = false;
   wg-home.enable = false;

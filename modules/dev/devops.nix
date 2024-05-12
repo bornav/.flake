@@ -1,4 +1,4 @@
-{ lib, config, pkgs, pkgs-unstable, vars, ... }:
+{ lib, config, pkgs, pkgs-unstable, inputs, vars, ... }:
 with lib;
 {
   options = {
@@ -22,14 +22,16 @@ with lib;
       kustomize-sops
       lens
       bfg-repo-cleaner
-      # terraform
       inetutils
       dig
+      inputs.compose2nix.packages.x86_64-linux.default
     ] ++
       (with pkgs-unstable; [
         k9s
-        istioctl
-        # firefox           # Browser
       ]);
+    # environment.systemPackages = [
+    #   compose2nix.packages.x86_64-linux.default
+    # ];
+    virtualisation.docker.enable = true;
   };
 }

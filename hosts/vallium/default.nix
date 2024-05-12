@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, vars, ... }:
+{ config, pkgs, lib, pkgs-unstable, vars, ... }:
 
 {
   imports = [
@@ -69,7 +69,6 @@
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
-  virtualisation.docker.enable = true;
   rar.enable = true;
   thorium.enable = true;
   wg-home.enable = false;
@@ -200,4 +199,44 @@
       StrictHostKeyChecking no
       IdentityFile /home/bocmo/.ssh/cdn_key_pwless
   '';
+
+
+  # virtualisation.oci-containers = {
+  #   backend = lib.mkForce "docker";
+  #   containers = {
+  #     portainer = {
+  #       image = "portainer/portainer-ce:2.20.2";
+  #       ports = [
+  #         "8000:8000"
+  #         "9000:9000"
+  #         "9443:9443"
+  #       ];
+  #       volumes = [
+  #         "/usr/docker_config/portainer/data:/data"
+  #         "/var/run/docker.sock:/var/run/docker.sock"
+  #       ];
+  #       labels = {
+  #         "traefik.enable" = "true";
+  #         "traefik.http.routers.portainer.entrypoints" = "http";
+  #         "traefik.http.routers.portainer.rule" = "Host(`portainer.icylair.com`)";
+  #         "traefik.http.middlewares.portainer-https-redirect.redirectscheme.scheme" = "https";
+  #         "traefik.http.routers.portainer.middlewares" = "portainer-https-redirect";
+  #         "traefik.http.routers.portainer-secure.entrypoints" = "https";
+  #         "traefik.http.routers.portainer-secure.rule" = "Host(`portainer.icylair.com`)";
+  #         "traefik.http.routers.portainer-secure.tls" = "true";
+  #         "traefik.http.routers.portainer-secure.service" = "portainer";
+  #         "traefik.http.services.portainer.loadbalancer.server.port" = "9000";
+  #         "traefik.docker.network" = "frontend";
+  #       };
+  #       networks = {
+  #         frontend = {
+  #           ipv4Address = "172.18.255.254";
+  #         };
+  #         vlan11 = {
+  #           ipv4Address = "10.2.11.199";
+  #         };
+  #       };
+  #     };
+  #   };
+  # }; 
 }

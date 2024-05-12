@@ -22,8 +22,10 @@
       nur.url = "github:nix-community/NUR";
       disko.url = "github:nix-community/disko";
       disko.inputs.nixpkgs.follows = "nixpkgs";
+      compose2nix.url = "github:aksiksi/compose2nix";
+      compose2nix.inputs.nixpkgs.follows = "nixpkgs";
     };
-  outputs = { self, nur, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixos-cosmic, nixos-hardware, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
+  outputs = { self, nur, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
 	let
 		vars = {                                                              # Variables Used In Flake
 			user = "bocmo";

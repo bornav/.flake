@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "compose2nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1715222527,
+        "narHash": "sha256-bRmQjmjgle7ENv3gWwQMuL48DU2EZd4xkauiXQIXzas=",
+        "owner": "aksiksi",
+        "repo": "compose2nix",
+        "rev": "d20f7ace1e8d51b537ea02b67a0ff02b9c6f26ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aksiksi",
+        "repo": "compose2nix",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -288,6 +308,7 @@
     },
     "root": {
       "inputs": {
+        "compose2nix": "compose2nix",
         "disko": "disko",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
