@@ -24,7 +24,7 @@ with lib;
       bfg-repo-cleaner
       inetutils
       dig
-      yaml-language-server
+      yaml-language-server  # TODO look into
       inputs.compose2nix.packages.x86_64-linux.default
     ] ++
       (with pkgs-unstable; [
