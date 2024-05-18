@@ -37,6 +37,7 @@ let
     alias gp='EDITOR=vim git push --force-with-lease'
     alias git_check='git diff --cached'   #displays diff of added but not commited files
     alias git_check_commited='git diff @{u}.. --name-only && git diff @{u}'  #displays diff of commited files but not pushed
+    alias git_squash='#TODO' squashes current commit to previous one
     #kubecli
     alias k=kubectl
     alias ka="kubectl apply"
