@@ -2,6 +2,7 @@
 
 with lib;
 let
+    # note to check if valid, make sure otherl like middleclickscroll work, on one being bad all features will stop working
     thorium-flags_dot_conf = ''
         --enable-blink-features=MiddleClickAutoscroll 
         --gtk-version=4 
