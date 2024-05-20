@@ -122,7 +122,7 @@
   # '';
 
   nix.buildMachines = [ {
-    hostName = "builder";
+    hostName = "nixbuilder_dockeropen";
     system = "x86_64-linux";
     protocol = "ssh-ng";
     # if the builder supports building for multiple architectures, 
@@ -134,12 +134,12 @@
     mandatoryFeatures = [ ];
   }] ;
   programs.ssh.extraConfig = ''
-    Host builder
+    Host nixbuilder_dockeropen
       HostName 10.2.11.33
       Port 22
-      User root
+      User nixbuilder
       IdentitiesOnly yes
       StrictHostKeyChecking no
-      IdentityFile /home/bocmo/.ssh/cdn_key_pwless
+      IdentityFile ~/.ssh/id_local
   '';
 }
