@@ -179,7 +179,7 @@
     ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
   '';
   nix.buildMachines = [ {
-    hostName = "builder";
+    hostName = "nixbuilder_dockeropen";
     system = "x86_64-linux";
     protocol = "ssh-ng";
     # if the builder supports building for multiple architectures, 
@@ -191,13 +191,13 @@
     mandatoryFeatures = [ ];
   }] ;
   programs.ssh.extraConfig = ''
-    Host builder
+    Host nixbuilder_dockeropen
       HostName 10.2.11.33
       Port 22
       User nixbuilder
       IdentitiesOnly yes
       StrictHostKeyChecking no
-      IdentityFile /home/bocmo/.ssh/cdn_key_pwless
+      IdentityFile ~/.ssh/id_local
   '';
 
 
