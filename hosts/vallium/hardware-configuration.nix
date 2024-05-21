@@ -71,8 +71,17 @@
       nvidiaSettings = true;
       # package = config.boot.kernelPackages.nvidiaPackages.stable;
       # package = config.boot.kernelPackages.nvidiaPackages.production;
-      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest; #currently seems to be unused
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
+
+      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest; #currently seems to be unused
+
+      # package = (pkgs.linuxPackages.nvidiaPackages.beta.overrideAttrs (old: {
+      #             version = "555.42.02"; # replace with the latest version number
+      #             src = pkgs.fetchurl {
+      #               url = "https://us.download.nvidia.com/XFree86/Linux-x86_64/555.42.02/NVIDIA-Linux-x86_64-555.42.02.run";
+      #               sha256 = "0aavhxa4jy7jixq1v5km9ihkddr2v91358wf9wk9wap5j3fhidwk";
+      #             };}));
+
       # forceFullCompositionPipeline = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
@@ -93,6 +102,8 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+      # extraPackages = with pkgs; [
+      # ];
     };
   };
   # environment.systemPackages = with pkgs-unstable; [ linuxKernel.packages.linux_6_8.nvidia_x11 ];
@@ -100,3 +111,10 @@
   services.xserver.videoDrivers = ["nvidia"];
 
 }
+# (pkgs.linuxPackages_latest.nvidia_x11.overrideAttrs (old: {
+#   version = "555.42.02"; # replace with the latest version number
+#   src = pkgs.fetchurl {
+#     url = "https://us.download.nvidia.com/XFree86/Linux-x86_64/555.42.02/NVIDIA-Linux-x86_64-555.42.02.run";
+#     sha256 = "0aavhxa4jy7jixq1v5km9ihkddr2v91358wf9wk9wap5j3fhidwk";
+#   };
+# })) 

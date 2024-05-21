@@ -1,5 +1,4 @@
 { config, pkgs, lib, pkgs-unstable, vars, ... }:
-
 {
   imports = [
     ./hardware-configuration.nix
@@ -130,7 +129,7 @@
       avahi
       # ollama
       # lmstudio
-      # gpt4all
+      # gpt4all     
     ]);
   programs.gnupg.agent = {
     enable = true;
