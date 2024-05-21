@@ -192,7 +192,7 @@
   }] ;
   programs.ssh.extraConfig = ''
     Host nixbuilder_dockeropen
-      HostName 10.2.11.33
+      HostName builder1.nix.local.icylair.com
       Port 22
       User nixbuilder
       IdentitiesOnly yes
