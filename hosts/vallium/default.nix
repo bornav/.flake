@@ -63,8 +63,8 @@
   };
 
   #### modules
-  gnome.enable = false;
-  cosmic-desktop.enable = true;
+  gnome.enable = true;
+  cosmic-desktop.enable = false;
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
