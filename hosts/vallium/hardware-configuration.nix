@@ -71,19 +71,12 @@
       nvidiaSettings = true;
       # package = config.boot.kernelPackages.nvidiaPackages.stable;
       # package = config.boot.kernelPackages.nvidiaPackages.production;
-      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest; #currently seems to be unused
 
-      # package = (pkgs.linuxPackages.nvidiaPackages.beta.overrideAttrs (old: {
-      #             version = "555.42.02"; # replace with the latest version number
-      #             src = pkgs.fetchurl {
-      #               url = "https://us.download.nvidia.com/XFree86/Linux-x86_64/555.42.02/NVIDIA-Linux-x86_64-555.42.02.run";
-      #               sha256 = "0aavhxa4jy7jixq1v5km9ihkddr2v91358wf9wk9wap5j3fhidwk";
-      #             };}));
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver { # how we overwritten the driver
         version = "555.42.02";
-        # sha256 = "0aavhxa4jy7jixq1v5km9ihkddr2v91358wf9wk9wap5j3fhidwk";
         sha256_64bit = "sha256-k7cI3ZDlKp4mT46jMkLaIrc2YUx1lh1wj/J4SVSHWyk=";
         sha256_aarch64 = "sha256-3ae31/egyMKpqtGEqgtikWcwMwfcqMv2K4MVFa70Bqs=";
         openSha256 = "sha256-rtDxQjClJ+gyrCLvdZlT56YyHQ4sbaL+d5tL4L4VfkA=";

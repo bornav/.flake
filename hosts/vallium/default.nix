@@ -113,6 +113,7 @@
     papirus-nord
     pciutils # lspci
     pika-backup
+    btop
   ] ++
     (with pkgs-unstable; [
       vscode
