@@ -117,7 +117,7 @@
   ] ++
     (with pkgs-unstable; [
       vscode
-      vscodium
+      # vscodium
       zed-editor
       wireshark
       # linux

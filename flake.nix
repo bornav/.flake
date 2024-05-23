@@ -5,6 +5,7 @@
       # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";                     # Stable Nix Packages (Default)
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";         # Unstable Nix Packages
+      nixpkgs-master.url = "github:nixos/nixpkgs/master"; 
       nixos-hardware.url = "github:NixOS/nixos-hardware/master"; #https://github.com/NixOS/nixos-hardware/tree/master
       home-manager = {                                                      # User Environment Manager
         url = "github:nix-community/home-manager";
@@ -25,7 +26,7 @@
       compose2nix.url = "github:aksiksi/compose2nix";
       compose2nix.inputs.nixpkgs.follows = "nixpkgs";
     };
-  outputs = { self, nur, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
+  outputs = { self, nur, nixpkgs, nixpkgs-unstable, nixpkgs-master, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
 	let
 		vars = {                                                              # Variables Used In Flake
 			user = "bocmo";
