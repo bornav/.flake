@@ -165,6 +165,7 @@
       "com.github.tchx84.Flatseal"
       "app/org.kicad.KiCad/x86_64/stable"
       "it.mijorus.gearlever"
+      "app/com.usebottles.bottles/x86_64/stable"
     ];
   services.flatpak.update.auto = {
     enable = true;
