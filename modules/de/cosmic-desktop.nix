@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, vars, ... }:
+{ config, lib, vars, ... }:
 
 # {
 #   inputs = {
