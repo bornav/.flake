@@ -3,9 +3,7 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, inputs, vars, modulesPath, ... }:
 let
-  pkgs-master = import inputs.nixpkgs-master {
-    config.allowUnfree = true;
-  };
+  pkgs-master = import inputs.nixpkgs-master {};
 in
 {
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
