@@ -1,5 +1,15 @@
-{ config, pkgs, pkgs-unstable, vars, ... }:
-
+{ config, inputs, vars, ... }:
+let
+  system = "x86_64-linux";
+  pkgs = import inputs.nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix

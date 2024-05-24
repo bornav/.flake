@@ -1,4 +1,15 @@
-{inputs, config, pkgs, pkgs-unstable, vars, ... }:
+{inputs, config, vars, ... }:
+let
+  system = "x86_64-linux";
+  pkgs = import inputs.nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports = ( import ../modules/shell ++
               import ../modules/terminalEmulators ++

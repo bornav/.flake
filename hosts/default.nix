@@ -3,15 +3,20 @@
 let
   system = "x86_64-linux";                                  # System Architecture
 
-  pkgs = import inputs.nixpkgs {
-    inherit system;
-    config.allowUnfree = true;                              # Allow Proprietary Software
-  };
+  # pkgs = import inputs.nixpkgs {
+  #   inherit system;
+  #   config.allowUnfree = true;                              # Allow Proprietary Software
+  # };
 
   pkgs-unstable = import inputs.nixpkgs-unstable {
     inherit system;
     config.allowUnfree = true;
   };
+
+  # pkgs-master = import inputs.nixpkgs-master {
+  #   inherit system;
+  #   config.allowUnfree = true;
+  # };
 in
 {
     vallium = inputs.nixpkgs.lib.nixosSystem {
