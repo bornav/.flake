@@ -29,3 +29,6 @@ sudo nixos-rebuild switch --impure --flake ~/.flake/#vallium
     nix run --extra-experimental-features nix-command --extra-experimental-features flakes github:nix-community/nixos-anywhere -- --flake /home/nixos/.flake#dockeropen --vm-test
 
     nix run github:nix-community/nixos-anywhere -- --flake ~/.flake#dockeropen root@10.2.11.33
+
+### rebuild remote from local
+    sudo nixos-rebuild switch --flake ~/.flake#dockeropen --target-host nixbuilder_dockeropen

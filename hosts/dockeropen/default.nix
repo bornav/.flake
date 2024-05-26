@@ -12,6 +12,13 @@ let
 in
 {
   imports = [
+    inputs.nixos-cosmic.nixosModules.default
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+    inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
   ];
 
@@ -37,7 +44,7 @@ in
     isNormalUser = true;
     description = "${vars.user}";
     extraGroups = [ "networkmanager" "wheel" "docker"];
-    packages = with pkgs; [];
+    # packages = with pkgs; [];
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   };
   environment.sessionVariables = {
@@ -75,8 +82,8 @@ in
 
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [
-      # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
-    ];
+    # libraries = with pkgs; [
+    #   # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
+    # ];
   };
 }

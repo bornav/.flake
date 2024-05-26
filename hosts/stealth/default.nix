@@ -12,6 +12,11 @@ let
 in
 {
   imports = [
+    inputs.nixos-cosmic.nixosModules.default
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
+
     ./hardware-configuration.nix
   ];
   boot.loader = {

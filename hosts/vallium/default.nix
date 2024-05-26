@@ -12,6 +12,12 @@ let
 in
 {
   imports = [
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-cosmic.nixosModules.default
+    inputs.nix-flatpak.nixosModules.nix-flatpak
     ./hardware-configuration.nix
     ./network-shares.nix
   ];
