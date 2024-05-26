@@ -1,4 +1,10 @@
-{ config, pkgs, pkgs-unstable, vars, lib, ... }:
+{ config, inputs, vars, lib, ... }:
+let
+    pkgs = import inputs.nixpkgs-unstable {
+        config.allowUnfree = true;
+        system = "x86_64-linux";
+    };
+in
 {   #zerotier-one -d run this to enable the svc
     environment.systemPackages = with pkgs; [ 
         zerotierone

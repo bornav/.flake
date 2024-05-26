@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, vars, lib, ... }:
+{ config, lib, ... }:
 with lib;
 {   
     options = {

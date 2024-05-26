@@ -1,4 +1,10 @@
-{ config, pkgs, pkgs-unstable, vars, lib, ... }:
+{ config, inputs, vars, lib, ... }:
+let
+    pkgs = import inputs.nixpkgs-unstable {
+        config.allowUnfree = true;
+        system = "x86_64-linux";
+    };
+in
 # let
 #   srcDir = "/home/${vars.user}/libvirt";  # Replace this with the path to your source directory
 #   destDir = "/var/lib/libvirt";  # Replace this with the path to your destination directory

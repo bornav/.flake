@@ -30,14 +30,12 @@
 			editor = "vim";
       stateVersion = "24.05";
 		};
-    vars_dest = {
-      
-    };
+    inherit (self) outputs;
 	in {
 		nixosConfigurations = (
 			import ./hosts {
 			inherit (nixpkgs) lib;
-			inherit inputs self vars;   # Inherit inputs
+			inherit inputs outputs self vars;   # Inherit inputs
 			}
 		);
 		# homeConfigurations = (
