@@ -1,28 +1,24 @@
 { lib, inputs, vars, ... }:
 
 let
-  system = "x86_64-linux";                                  # System Architecture
-
   # pkgs = import inputs.nixpkgs {
-  #   inherit system;
   #   config.allowUnfree = true;                              # Allow Proprietary Software
   # };
 
   pkgs-unstable = import inputs.nixpkgs-unstable {
-    inherit system;
     config.allowUnfree = true;
+    system = "x86_64-linux";
   };
 
   # pkgs-master = import inputs.nixpkgs-master {
-  #   inherit system;
   #   config.allowUnfree = true;
   # };
 in
 {
     vallium = inputs.nixpkgs.lib.nixosSystem {
-        inherit system;
+        system = "x86_64-linux";  
         specialArgs = {
-            inherit system pkgs-unstable vars inputs;
+            inherit  pkgs-unstable vars inputs;
             host = {
                 hostName = "vallium";
             };
@@ -50,9 +46,9 @@ in
           ];
     };
     stealth = inputs.nixpkgs.lib.nixosSystem {
-        inherit system;
+        system = "x86_64-linux";  
         specialArgs = {
-            inherit system pkgs-unstable vars inputs;
+            inherit  pkgs-unstable vars inputs;
             host = {
                 hostName = "stealth";
             };
@@ -78,9 +74,9 @@ in
           ];
     };
     dockeropen = inputs.nixpkgs.lib.nixosSystem {
-        inherit system;
+        system = "x86_64-linux";  
         specialArgs = {
-            inherit system pkgs-unstable vars inputs;
+            inherit pkgs-unstable vars inputs;
             host = {
                 hostName = "dockeropen";
             };
