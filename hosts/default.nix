@@ -28,10 +28,6 @@ in
           # nur.nixosModules.nur
           ./configuration.nix
           ./vallium
-          inputs.home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-          }
           {
             nix.settings = {
               substituters = [ "https://cosmic.cachix.org/" ];
@@ -52,10 +48,7 @@ in
           # nur.nixosModules.nur
           ./configuration.nix
           ./stealth
-          inputs.home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-          }
+          
           {
             nix.settings = {
               substituters = [ "https://cosmic.cachix.org/" ];
@@ -76,10 +69,7 @@ in
             # nur.nixosModules.nur
             ./configuration.nix
             ./dockeropen
-            inputs.home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            }
+            
             ];
     };
 }
