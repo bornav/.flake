@@ -25,12 +25,28 @@ in
     ./hardware-configuration.nix
     ./network-shares.nix
   ];
-
+  fonts = { ## TODO entire block untested if even used, would like to use the Hack font
+    fontDir.enable = true;
+    fontconfig.enable = true;
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      (nerdfonts.override { fonts = [ "Hack" ]; })
+    ];
+    fontconfig = {
+      defaultFonts = {
+        serif = [  "Liberation Serif" "Vazirmatn" ];
+        sansSerif = [ "Ubuntu" "Vazirmatn" ];
+        monospace = [ "Ubuntu Mono" ];
+      };
+    };
+  };
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
     #systemd-boot.enable = true;
-    grub.efiSupport = true;
+    grub.efiSupport = true; 
     grub.enable = true;
     grub.device = "nodev";
     #efi.efiSysMountPoint = "/boot/EFI";
