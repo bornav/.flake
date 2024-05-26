@@ -1,4 +1,10 @@
-{ lib, config, pkgs, pkgs-unstable, vars, ... }:
+{ config, inputs, vars, lib, ... }:
+let
+    pkgs = import inputs.nixpkgs-unstable {
+        config.allowUnfree = true;
+        system = "x86_64-linux";
+    };
+in
 with lib;
 {
   options = {
@@ -13,10 +19,9 @@ with lib;
     programs = {
       steam = {
         enable = true;
-        # package = pkgs-unstable.steam;
         remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
         dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-        package = pkgs-unstable.steam.override {
+        package = pkgs.steam.override {
           extraPkgs = pkgs:
             with pkgs; [
               mangohud

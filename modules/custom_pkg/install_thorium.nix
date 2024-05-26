@@ -1,5 +1,10 @@
-{ config, lib, pkgs, pkgs-unstable, vars, ... }:
-
+{ config, inputs, vars, lib, ... }:
+let
+    pkgs = import inputs.nixpkgs-unstable {
+        config.allowUnfree = true;
+        system = "x86_64-linux";
+    };
+in
 with lib;
 let
     # note to check if valid, make sure otherl like middleclickscroll work, on one being bad all features will stop working

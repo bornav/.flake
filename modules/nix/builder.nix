@@ -1,4 +1,4 @@
-{ lib, config, pkgs, pkgs-unstable, vars, ... }:
+{ config, inputs, vars, lib, ... }:
 # creates a user with only responsibility being to be a builder
 with lib;
 {

@@ -1,8 +1,10 @@
-#
-#  Git
-#
-
-{ config, lib, pkgs, vars, ... }:
+{ config, inputs, vars, lib, ... }:
+let
+    pkgs = import inputs.nixpkgs-unstable {
+        config.allowUnfree = true;
+        system = "x86_64-linux";
+    };
+in
 {
     home-manager.users.${vars.user} = {
         home.packages = [ pkgs.git-lfs ];
