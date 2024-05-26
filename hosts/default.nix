@@ -10,12 +10,13 @@ let
     system = "x86_64-linux";
   };
 
-  # pkgs-master = import inputs.nixpkgs-master {
-  #   config.allowUnfree = true;
-  # };
+  pkgs-master = import inputs.nixpkgs-master {
+    config.allowUnfree = true;
+    system = "x86_64-linux";
+  };
 in
 {
-    vallium = inputs.nixpkgs.lib.nixosSystem {
+    vallium = inputs.nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";  
         specialArgs = {
             inherit  pkgs-unstable vars inputs;

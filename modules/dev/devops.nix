@@ -25,6 +25,7 @@ with lib;
       inetutils
       dig
       yaml-language-server  # TODO look into
+      nil # TODO move into ide
       inputs.compose2nix.packages.x86_64-linux.default
     ] ++
       (with pkgs-unstable; [
