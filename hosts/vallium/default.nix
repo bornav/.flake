@@ -100,8 +100,18 @@ in
   };
 
   #### modules
-  gnome.enable = true;
-  cosmic-desktop.enable = false;
+  specialisation = {
+    gnome.configuration = {
+      gnome.enable = true;
+      cosmic-desktop.enable =  lib.mkForce false;
+    };
+    # cosmic.configuration = {
+    #   cosmic-desktop.enable = true;
+    #   gnome.enable = lib.mkForce false;
+    # };
+  };
+  gnome.enable = lib.mkDefault false;
+  cosmic-desktop.enable = lib.mkDefault true;
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
