@@ -101,17 +101,17 @@ in
 
   #### modules
   specialisation = {
-    gnome.configuration = {
-      gnome.enable = true;
-      cosmic-desktop.enable =  lib.mkForce false;
-    };
-    # cosmic.configuration = {
-    #   cosmic-desktop.enable = true;
-    #   gnome.enable = lib.mkForce false;
+    # gnome.configuration = {
+    #   gnome.enable = true;
+    #   cosmic-desktop.enable =  lib.mkForce false;
     # };
+    cosmic.configuration = {
+      cosmic-desktop.enable = true;
+      gnome.enable = lib.mkForce false;
+    };
   };
-  gnome.enable = lib.mkDefault false;
-  cosmic-desktop.enable = lib.mkDefault true;
+  gnome.enable = lib.mkDefault true;
+  cosmic-desktop.enable = lib.mkDefault false;
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
