@@ -1,3 +1,4 @@
 [
   ./steam.nix
+  ./apps.nix
 ]

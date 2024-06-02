@@ -84,6 +84,7 @@ in
   };
   users.defaultUserShell = pkgs.zsh;
   users.users.${vars.user} = {
+    initialPassword = "nixos";
     isNormalUser = true;
     description = "${vars.user}";
     extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" ];
@@ -115,6 +116,7 @@ in
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
+  games.applications.enable = false;
   rar.enable = true;
   thorium.enable = true;
   wg-home.enable = false;
