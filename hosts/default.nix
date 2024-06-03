@@ -86,6 +86,7 @@ in
         # nur.nixosModules.nur
         # ./configuration.nix
         ./k3s-local
+        # { disko.devices.disk.disk1.device = "/dev/sda"; }
     ];
   };
 }
