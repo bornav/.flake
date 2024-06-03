@@ -1,4 +1,4 @@
-{ lib, inputs, vars, ... }:
+{ inputs, vars, ... }:
 
 let
   # pkgs = import inputs.nixpkgs {
@@ -16,9 +16,10 @@ let
   };
 in
 {
-    vallium = lib.nixosSystem {
+    vallium = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";  
         specialArgs = {
+            # inherit (inputs.nixpkgs-unstable) lib;
             inherit  pkgs-unstable vars inputs;
             host = {
                 hostName = "vallium";
