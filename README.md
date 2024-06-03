@@ -26,7 +26,7 @@ sudo nixos-rebuild switch --impure --flake ~/.flake/#vallium
 
     curl -L https://raw.githubusercontent.com/bornav/.flake/main/deployment.sh | sh -s -- --daemon --yes
 
-    nix run --extra-experimental-features nix-command --extra-experimental-features flakes github:nix-community/nixos-anywhere -- --flake /home/nixos/.flake#dockeropen --vm-test
+    nix run --extra-experimental-features nix-command --extra-experimental-features flakes github:nix-community/nixos-anywhere -- --flake ~/.flake#dockeropen --vm-test
 
     nix run github:nix-community/nixos-anywhere -- --flake ~/.flake#dockeropen root@10.2.11.33
 
