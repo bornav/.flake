@@ -16,7 +16,7 @@ let
   };
 in
 {
-    vallium = inputs.nixpkgs.lib.nixosSystem {
+    vallium = inputs.nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";  
         specialArgs = {
             # inherit (inputs.nixpkgs-unstable) lib;
@@ -37,7 +37,7 @@ in
           }
           ];
     };
-    stealth = inputs.nixpkgs.lib.nixosSystem {
+    stealth = inputs.nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";  
         specialArgs = {
             inherit  pkgs-unstable vars inputs;
@@ -58,7 +58,7 @@ in
           }
           ];
     };
-    dockeropen = inputs.nixpkgs.lib.nixosSystem {
+    dockeropen = inputs.nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";  
         specialArgs = {
             inherit pkgs-unstable vars inputs;
