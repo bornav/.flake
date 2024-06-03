@@ -24,6 +24,8 @@ in
     inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
+    ./disk-config.nix
+    {_module.args.disks = [ "/dev/vdb" ];}
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -62,20 +64,20 @@ in
   };
 
   #### modules
-  gnome.enable = false;
-  cosmic-desktop.enable = false;
-  virtualization.enable = false;
-  devops.enable = false;
-  steam.enable = false;
-  rar.enable = true;
-  thorium.enable = false;
-  wg-home.enable = false;
-  ai.enable = false;
-  builder.enable = true;
-  portainer.enable = false;
+  # gnome.enable = false;
+  # cosmic-desktop.enable = false;
+  # virtualization.enable = false;
+  # devops.enable = false;
+  # steam.enable = false;
+  # rar.enable = true;
+  # thorium.enable = false;
+  # wg-home.enable = false;
+  # ai.enable = false;
+  # builder.enable = true;
+  # portainer.enable = false;
 
-  woothing.enable = false;
-  finalmouse.enable = false;
+  # woothing.enable = false;
+  # finalmouse.enable = false;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [

@@ -84,9 +84,8 @@ in
     };
     modules = [
         # nur.nixosModules.nur
-        ./configuration.nix
-        ./dockeropen
-        
+        # ./configuration.nix
+        ./k3s-local
     ];
   };
 }
