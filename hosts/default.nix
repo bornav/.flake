@@ -41,7 +41,7 @@ in
   stealth = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "x86_64-linux";  
     specialArgs = {
-        inherit  pkgs-unstable vars inputs;
+        inherit  vars inputs;
         host = {
             hostName = "stealth";
         };

@@ -14,7 +14,7 @@
       hyprland = {url = "github:hyprwm/Hyprland";                                     # Requires "hyprland.nixosModules.default" to be added the host modules
                   inputs.nixpkgs.follows = "nixpkgs";};
       nixos-cosmic = {url = "github:lilyinstarlight/nixos-cosmic";
-                      inputs.nixpkgs.follows = "nixpkgs";};
+                      inputs.nixpkgs.follows = "nixpkgs-stable";};
       nur.url = "github:nix-community/NUR";
       disko = {url = "github:nix-community/disko";
                inputs.nixpkgs.follows = "nixpkgs";};
