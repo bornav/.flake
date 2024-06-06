@@ -34,3 +34,6 @@ sudo nixos-rebuild switch --impure --flake ~/.flake/#vallium
 
 ### rebuild remote from local
     sudo nixos-rebuild switch --flake ~/.flake#dockeropen --target-host nixbuilder_dockeropen
+
+### build from remote host only
+    sudo nixos-rebuild switch --flake ~/.flake#$flake_name --builders "ssh://nixbuilder_dockeropen" --build-host nixbuilder_dockeropen
