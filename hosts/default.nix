@@ -30,12 +30,6 @@ in
       # nur.nixosModules.nur
       ./configuration.nix
       ./vallium
-      {
-        nix.settings = {
-          substituters = [ "https://cosmic.cachix.org/" ];
-          trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-        };
-      }
     ];
   };
   stealth = inputs.nixpkgs-unstable.lib.nixosSystem {
@@ -51,12 +45,6 @@ in
       ./configuration.nix
       ./stealth
       
-      {
-        nix.settings = {
-          substituters = [ "https://cosmic.cachix.org/" ];
-          trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-        };
-      }
     ];
   };
   dockeropen = inputs.nixpkgs-unstable.lib.nixosSystem {
