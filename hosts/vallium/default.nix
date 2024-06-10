@@ -240,15 +240,15 @@ in
     supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     mandatoryFeatures = [ ];
   }] ;
-  programs.ssh.extraConfig = ''
-    Host nixbuilder_dockeropen
-      HostName builder1.nix.local.icylair.com
-      Port 22
-      User nixbuilder
-      IdentitiesOnly yes
-      StrictHostKeyChecking no
-      IdentityFile ~/.ssh/id_local
-  '';
+  # programs.ssh.extraConfig = ''
+  #   Host nixbuilder_dockeropen
+  #     HostName builder1.nix.local.icylair.com
+  #     Port 22
+  #     User nixbuilder
+  #     IdentitiesOnly yes
+  #     StrictHostKeyChecking no
+  #     IdentityFile ~/.ssh/id_local
+  # '';
 
 
   # virtualisation.oci-containers = {

@@ -13,5 +13,6 @@
 [
 #   ./git.nix
   ./rar.nix
+  ./ssh-hosts.nix
 #   ./direnv.nix
 ]
