@@ -23,7 +23,7 @@ in
     inputs.nixos-cosmic.nixosModules.default
     inputs.nix-flatpak.nixosModules.nix-flatpak
     ./hardware-configuration.nix
-    ./network-shares.nix
+    # ./network-shares.nix
   ];
   fonts = { ## TODO entire block untested if even used, would like to use the Hack font
     fontDir.enable = true;
@@ -125,6 +125,8 @@ in
 
   woothing.enable = true;
   finalmouse.enable = true;
+
+  storagefs.share.vega_nfs = true;
 
   xdg.portal = {
     enable = true;

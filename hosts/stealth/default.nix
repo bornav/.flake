@@ -67,6 +67,7 @@ in
   thorium.enable = true;
   rar.enable = true;
   wg-home.enable = true;
+  storagefs.share.vega_nfs = true;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
