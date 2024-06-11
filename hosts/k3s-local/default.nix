@@ -14,21 +14,17 @@ in
   imports = [
     inputs.home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-    }
-    # inputs.nixos-cosmic.nixosModules.default
-    # inputs.nixos-hardware.nixosModules.common-cpu-amd
-    # inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-    # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+      home-manager.useUserPackages = true;}
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
     ./disk-config.nix
+    ./k3s-server.nix
     {_module.args.disks = [ "/dev/sda" ];}
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
     grub.enable = true;
@@ -41,31 +37,18 @@ in
 
   networking.hostName = "k3s-local"; # Define your hostname.
   networking.networkmanager.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb.layout = "us";
-    xkb.variant = "";
-  };
   programs.nh.enable = true;
-  hardware.pulseaudio.enable = false;
   services = {
-    printing.enable = true;
-    pipewire = {                            # Sound
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-      jack.enable = true;
-    };
     openssh = {                             # SSH
       enable = true;
       allowSFTP = true;                     # SFTP
       extraConfig = ''
         HostKeyAlgorithms +ssh-rsa
       '';
+    };
+    xserver = {
+      xkb.layout = "us";
+      xkb.variant = "";
     };
   };
   users.users.root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
@@ -98,26 +81,8 @@ in
     FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
-    QT_STYLE_OVERRIDE="kvantum";
-    WLR_NO_HARDWARE_CURSORS = "1"; # look into removing
-    NIXOS_OZONE_WL = "1"; #Hint electron apps to use wayland
   };
 
-  #### modules
-  # gnome.enable = false;
-  # cosmic-desktop.enable = false;
-  # virtualization.enable = false;
-  # devops.enable = false;
-  # steam.enable = false;
-  # rar.enable = true;
-  # thorium.enable = false;
-  # wg-home.enable = false;
-  # ai.enable = false;
-  # builder.enable = true;
-  # portainer.enable = false;
-
-  # woothing.enable = false;
-  # finalmouse.enable = false;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -126,12 +91,7 @@ in
     pciutils # lspci
   ];
 
-  programs.nix-ld = {
-    enable = true;
-    # libraries = with pkgs; [
-    #   # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
-    # ];
-  };
+  programs.nix-ld.enable = true;
   system = {                                # NixOS Settings
     # autoUpgrade = {                        # Allow Auto Update (not useful in flakes)
     #  enable = true;

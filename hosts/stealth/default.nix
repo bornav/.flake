@@ -68,6 +68,7 @@ in
   rar.enable = true;
   wg-home.enable = true;
   storagefs.share.vega_nfs = true;
+  storagefs.share.vega_smb = true;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
