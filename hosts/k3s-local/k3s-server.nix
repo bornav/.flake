@@ -9,32 +9,62 @@ let
     inherit system;
     config.allowUnfree = true;
   };
+  master3 = ''
+    ---
+    #master3
+    token: xxxxx
+    flannel-backend: none
+    disable-kube-proxy: true
+    disable-network-policy: true
+    cluster-init: true
+    disable:
+      - servicelb
+      - traefik
+    tls-san:
+      - 10.0.0.71
+      - 10.0.0.100
+      - 10.2.11.24
+      - 10.2.11.36
+      - 10.99.10.12
+      - 10.99.10.11
+      - 10.99.10.10
+      - lb.cloud.icylair.com
+      - oraclearm1.cloud.icylair.com
+      - oraclearm2.cloud.icylair.com
+    server: https://10.99.10.12:6443
+    node-ip: 10.99.10.10
+  '';
 in
 {
 
   # k3s specific
-
-  networking.firewall.allowedTCPPorts = [
-    6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
-    2379 # k3s, etcd clients: required if using a "High Availability Embedded etcd" configuration
-    2380 # k3s, etcd peers: required if using a "High Availability Embedded etcd" configuration
-    443
-    80
-  ];
-  networking.firewall.allowedUDPPorts = [
-    8472 # k3s, flannel: required if using multi-node for inter-node networking
-    443
-    80
-  ];
-  services.k3s = {
-    enable = true;
-    role = "server";
-    token = "<randomized common secret>";
-    # clusterInit = true;
-    extraFlags = toString [
-      "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
-    # "--kubelet-arg=v=4" # Optionally add additional args to k3s
+  environment.etc."install_config.yaml".source = pkgs.writeText "install_config.yaml" master3;
+  systemd.network.enable = true;
+  networking.firewall = {
+    allowedTCPPorts = [
+      6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
+      2379 # k3s, etcd clients: required if using a "High Availability Embedded etcd" configuration
+      2380 # k3s, etcd peers: required if using a "High Availability Embedded etcd" configuration
+      443
+      80
     ];
+    allowedUDPPorts = [
+      8472 # k3s, flannel: required if using multi-node for inter-node networking
+      443
+      80
+    ];
+  };
+  services.k3s = {
+    package = pkgs.k3s_1_30;
+    enable = true;
+    # role = "server";
+    # token = "<randomized common secret>";
+    # clusterInit = true;
+    # extraFlags = toString [
+    #   "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
+    # # "--kubelet-arg=v=4" # Optionally add additional args to k3s
+    # ];
+    configPath = "/etc/install_config.yaml";
     # serverAddr = "https://<ip of first node>:6443";
   };
   services.openiscsi = {
@@ -43,6 +73,8 @@ in
   };
   environment.systemPackages = with pkgs; [
     nfs-utils
+    wireguard-tools
+    python3
   ];
   boot.supportedFilesystems = [ "nfs" ];
   services.rpcbind.enable = true;

@@ -121,7 +121,8 @@ in
   thorium.enable = true;
   wg-home.enable = false;
   ai.enable = true;
-  builder.enable = true;
+  builder.builder1.remote = true;
+  
 
   woothing.enable = true;
   finalmouse.enable = true;
@@ -230,18 +231,6 @@ in
   services.udev.extraRules = ''
     ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
   '';
-  nix.buildMachines = [ {
-    hostName = "nixbuilder_dockeropen";
-    system = "x86_64-linux";
-    protocol = "ssh-ng";
-    # if the builder supports building for multiple architectures, 
-    # replace the previous line by, e.g.
-    # systems = ["x86_64-linux" "aarch64-linux"];
-    maxJobs = 2;
-    speedFactor = 2;
-    supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-    mandatoryFeatures = [ ];
-  }] ;
   # programs.ssh.extraConfig = ''
   #   Host nixbuilder_dockeropen
   #     HostName builder1.nix.local.icylair.com

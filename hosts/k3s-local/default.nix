@@ -45,6 +45,9 @@ in
       extraConfig = ''
         HostKeyAlgorithms +ssh-rsa
       '';
+      settings.PasswordAuthentication = true;
+      settings.KbdInteractiveAuthentication = true;
+      settings.PermitRootLogin = "yes";
     };
     xserver = {
       xkb.layout = "us";

@@ -4,13 +4,20 @@ with lib;
 {
   options = {
     builder = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
+      builder1 = {
+        self = mkOption {
+          type = types.bool;
+          default = false;
+        };
+        remote = mkOption {
+          type = types.bool;
+          default = false;
+        }; 
       };
     };
   };
-  config = mkIf (config.builder.enable) {
+  config = lib.mkMerge [
+  (lib.mkIf (config.builder.builder1.self) {
     users = {
       users.nixbuilder = {
         isSystemUser = true;
@@ -42,5 +49,20 @@ with lib;
     nix.extraOptions = ''
       builders-use-substitutes = true
     '';
-  };
+  })
+  (lib.mkIf (config.builder.builder1.remote) {
+    nix.buildMachines = [ {
+      hostName = "nixbuilder_dockeropen";
+      system = "x86_64-linux";
+      protocol = "ssh-ng";
+      # if the builder supports building for multiple architectures, 
+      # replace the previous line by, e.g.
+      # systems = ["x86_64-linux" "aarch64-linux"];
+      maxJobs = 2;
+      speedFactor = 2;
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      mandatoryFeatures = [ ];
+    }] ;
+  })
+  ];
 }

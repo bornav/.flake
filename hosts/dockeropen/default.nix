@@ -62,20 +62,11 @@ in
   };
 
   #### modules
-  gnome.enable = false;
-  cosmic-desktop.enable = false;
   virtualization.enable = true;
   devops.enable = true;
-  steam.enable = false;
   rar.enable = true;
-  thorium.enable = false;
-  wg-home.enable = false;
-  ai.enable = false;
-  builder.enable = true;
+  builder.builder1.self = true;
   portainer.enable = true;
-
-  woothing.enable = false;
-  finalmouse.enable = false;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
