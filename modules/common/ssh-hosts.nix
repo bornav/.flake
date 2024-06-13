@@ -21,7 +21,7 @@ in
         User root
         IdentitiesOnly yes
         StrictHostKeyChecking no
-        IdentityFile ~/.ssh/id_local
+        IdentityFile ~/.ssh/cdn_key_pwless
     '';
 }
 

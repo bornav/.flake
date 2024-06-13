@@ -92,6 +92,14 @@ in
     jq
     gparted
     pciutils # lspci
+    zip
+    p7zip
+    unzip
+    unrar
+    gnutar
+    ser2net
+    par2cmdline
+    rsync
   ];
 
   programs.nix-ld.enable = true;

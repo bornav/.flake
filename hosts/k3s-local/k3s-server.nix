@@ -12,7 +12,7 @@ let
   master3 = ''
     ---
     #master3
-    token: xxxxx
+    token: xxxxxxx
     flannel-backend: none
     disable-kube-proxy: true
     disable-network-policy: true
@@ -48,10 +48,16 @@ in
       443
       80
     ];
+    allowedTCPPortRanges = [
+    { from = 4; to = 65535; }
+    ];
     allowedUDPPorts = [
       8472 # k3s, flannel: required if using multi-node for inter-node networking
       443
       80
+    ];
+    allowedUDPPortRanges = [
+    { from = 4; to = 65535; }
     ];
   };
   services.k3s = {
@@ -78,7 +84,10 @@ in
   ];
   boot.supportedFilesystems = [ "nfs" ];
   services.rpcbind.enable = true;
+  services.kubernetes.apiserver.allowPrivileged = true;
+  virtualisation.docker.logDriver = "json-file";
   boot.kernelModules = [ "rbd" ];
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   virtualisation.containerd = {
     enable = true;
     settings =
