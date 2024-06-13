@@ -89,6 +89,7 @@ in
     description = "${vars.user}";
     extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" ];
     packages = with pkgs; [];
+    openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   };
   environment.sessionVariables = {
     flake_name="vallium";

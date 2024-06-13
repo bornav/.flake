@@ -42,6 +42,17 @@ let
     alias k=kubectl
     alias ka="kubectl apply"
     alias kd="kubectl delete"
+    remove_namespace() {  # example klubectl_nuke_namespace $NAMESPACE
+      NAMESPACE=$1
+      kubectl proxy & 
+      PROXY_PID=$!
+      sleep 2
+      kubectl get namespace $NAMESPACE -o json | jq '.spec = {"finalizers":[]}' > temp.json
+      curl -k -H "Content-Type: application/json" -X PUT --data-binary @temp.json 127.0.0.1:8001/api/v1/namespaces/$NAMESPACE/finalize
+      kill $PROXY_PID
+      rm temp.json
+    }
+    alias kubectl_nuke_namespace="remove_namespace"
     # #sops
     SOPS_AGE_PUBLIC_KEY=$(cat $SOPS_AGE_KEY_FILE | grep -oP "public key: \K(.*)") # tasking for execution
     alias sops_encrypt="sops --encrypt --age $SOPS_AGE_PUBLIC_KEY -i"

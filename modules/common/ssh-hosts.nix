@@ -16,12 +16,19 @@ in
         StrictHostKeyChecking no
         IdentityFile ~/.ssh/id_local
     Host k3s-local
-        HostName k3s-local.nix.local.icylair.com
+        HostName k3s-local.local.icylair.com
         Port 22
         User root
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile ~/.ssh/cdn_key_pwless
+    Host vallium
+        HostName vallium.local.icylair.com
+        Port 22
+        User bocmo
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile ~/.ssh/id_local
     '';
 }
 
