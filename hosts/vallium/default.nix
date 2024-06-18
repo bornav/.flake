@@ -122,7 +122,7 @@ in
   thorium.enable = true;
   wg-home.enable = false;
   ai.enable = true;
-  builder.builder1.remote = true;
+  builder.builder1.remote = false;
   
 
   woothing.enable = true;
