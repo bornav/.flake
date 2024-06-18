@@ -117,7 +117,7 @@ in
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
-  games.applications.enable = false;
+  games.applications.enable = true;
   rar.enable = true;
   thorium.enable = true;
   wg-home.enable = false;
