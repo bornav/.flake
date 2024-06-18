@@ -63,6 +63,7 @@ with lib;
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
     }] ;
+    nix.distributedBuilds = true;
   })
   ];
 }

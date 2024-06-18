@@ -56,9 +56,6 @@ in
     FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
-    QT_STYLE_OVERRIDE="kvantum";
-    WLR_NO_HARDWARE_CURSORS = "1"; # look into removing
-    NIXOS_OZONE_WL = "1"; #Hint electron apps to use wayland
   };
 
   #### modules
@@ -66,6 +63,7 @@ in
   devops.enable = true;
   rar.enable = true;
   builder.builder1.self = true;
+  # builder.builder1.remote = true;
   portainer.enable = true;
   ####
   nixpkgs.config.allowUnfree = true;

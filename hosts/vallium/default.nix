@@ -167,6 +167,7 @@ in
     pciutils # lspci
     pika-backup
     btop
+    filelight
   ] ++
     (with pkgs-unstable; [
       vscode

@@ -18,5 +18,6 @@ with lib;
   config = mkIf (config.games.applications.enable) {
     environment.systemPackages = with pkgs; [
       airshipper
+      heroic
     ];
 };}

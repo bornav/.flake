@@ -23,6 +23,7 @@ let
     alias kubectl_pod_status="kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'"
     #nixos
     alias nixos_config_update="nh os switch ~/.flake -H $flake_name --ask"
+    #                         "nh os switch ~/.flake -H $flake_name --ask -- --builders ssh://nixbuilder_dockeropen"
     alias nixos_rebuild="~/.flake/rebuild.sh"
     alias nixos_rebuild_remote="sudo nixos-rebuild switch --flake ~/.flake#dockeropen --use-remote-sudo --target-host nixbuilder_dockeropen"
     alias nixos_update="nix_update"
