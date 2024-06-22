@@ -18,7 +18,7 @@ with lib;
   config = mkIf (config.gnome.enable) {
     programs = {
       kdeconnect = {                                    # GSConnect
-        enable = true;
+        enable = lib.mkForce true;
         package = pkgs.gnomeExtensions.gsconnect;
       };
     };
@@ -131,8 +131,8 @@ with lib;
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
           binding = "<super>b";
-          # command = ''sh -c "thorium $(cat /home/bocmo/.config/thorium-flags.conf) \"$@\""'';
-          command = ''sh -c "thorium $(cat ~/.config/thorium-flags.conf) \"$@\""'';
+          command = "thorium";
+          # command = ''sh -c "thorium $(cat ~/.config/thorium-flags.conf) \"$@\""'';
           name = "open-web-browser";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {

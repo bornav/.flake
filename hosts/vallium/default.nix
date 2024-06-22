@@ -110,9 +110,16 @@ in
     cosmic.configuration = {
       cosmic-desktop.enable = true;
       gnome.enable = lib.mkForce false;
+      plasma.enable = lib.mkForce false;
+    };
+    plasma.configuration = {
+      cosmic-desktop.enable = lib.mkForce false;
+      gnome.enable = lib.mkForce false;
+      plasma.enable = lib.mkForce true;
     };
   };
   gnome.enable = lib.mkDefault true;
+  plasma.enable = lib.mkDefault false;
   cosmic-desktop.enable = lib.mkDefault false;
   virtualization.enable = true;
   devops.enable = true;
@@ -180,7 +187,6 @@ in
       # zsh-completions
       # zsh-autocomplete
       godot_4
-      kdeconnect
       avahi
       # ollama
       # lmstudio

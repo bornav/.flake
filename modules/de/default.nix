@@ -14,5 +14,6 @@
 #   ./git.nix
   ./gnome.nix
   ./cosmic-desktop.nix
+  ./plasma.nix
 #   ./direnv.nix
 ]
