@@ -35,7 +35,7 @@ in
     grub.efiInstallAsRemovable = lib.mkForce true;
   };
 
-  networking.hostName = "k3s-local"; # Define your hostname.
+  networking.hostName = "k3s-local-01"; # Define your hostname.
   networking.networkmanager.enable = true;
   programs.nh.enable = true;
   services = {
@@ -80,7 +80,7 @@ in
     };
   };
   environment.sessionVariables = {
-    flake_name="k3s-local";
+    flake_name="k3s-local-01";
     FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";

@@ -50,11 +50,6 @@ with lib;
       mangohud
       gamemode
     ];
-    hardware.opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
     environment.sessionVariables = {
         STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
     };
