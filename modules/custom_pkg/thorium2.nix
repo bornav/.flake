@@ -229,13 +229,22 @@ in
       gappsWrapperArgs+=(
         --prefix LD_LIBRARY_PATH : ${rpath}
         --prefix PATH : ${binpath}
-        --suffix PATH : ${lib.makeBinPath [xdg-utils vivaldi-ffmpeg-codecs]}
-        ${optionalString (enableFeatures != []) ''
-        --add-flags "--enable-features=${strings.concatStringsSep "," enableFeatures}"
-      ''}
-        ${optionalString (disableFeatures != []) ''
-        --add-flags "--disable-features=${strings.concatStringsSep "," disableFeatures}"
-      ''}
+        --suffix PATH : ${
+        lib.makeBinPath [
+          xdg-utils
+          vivaldi-ffmpeg-codecs
+        ]
+      }
+        ${
+        optionalString (enableFeatures != []) ''
+          --add-flags "--enable-features=${strings.concatStringsSep "," enableFeatures}"
+        ''
+      }
+        ${
+        optionalString (disableFeatures != []) ''
+          --add-flags "--disable-features=${strings.concatStringsSep "," disableFeatures}"
+        ''
+      }
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
         ${optionalString vulkanSupport ''
         --prefix XDG_DATA_DIRS  : "${addOpenGLRunpath.driverLink}/share"
