@@ -259,7 +259,7 @@ in
       # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     ];
   };
-
+  
   ## for setting the default apps
   ## definition https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.mimeApps.defaultApplications
   home-manager.users.${vars.user} = {
@@ -291,57 +291,9 @@ in
   ##gargabe collection
   programs.dconf.enable = true;
 
-  #finalmouse udev rules for browser access
   services.udev.extraRules = ''
     ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
   '';
-  # programs.ssh.extraConfig = ''
-  #   Host nixbuilder_dockeropen
-  #     HostName builder1.nix.local.icylair.com
-  #     Port 22
-  #     User nixbuilder
-  #     IdentitiesOnly yes
-  #     StrictHostKeyChecking no
-  #     IdentityFile ~/.ssh/id_local
-  # '';
 
-
-  # virtualisation.oci-containers = {
-  #   backend = lib.mkForce "docker";
-  #   containers = {
-  #     portainer = {
-  #       image = "portainer/portainer-ce:2.20.2";
-  #       ports = [
-  #         "8000:8000"
-  #         "9000:9000"
-  #         "9443:9443"
-  #       ];
-  #       volumes = [
-  #         "/usr/docker_config/portainer/data:/data"
-  #         "/var/run/docker.sock:/var/run/docker.sock"
-  #       ];
-  #       labels = {
-  #         "traefik.enable" = "true";
-  #         "traefik.http.routers.portainer.entrypoints" = "http";
-  #         "traefik.http.routers.portainer.rule" = "Host(`portainer.icylair.com`)";
-  #         "traefik.http.middlewares.portainer-https-redirect.redirectscheme.scheme" = "https";
-  #         "traefik.http.routers.portainer.middlewares" = "portainer-https-redirect";
-  #         "traefik.http.routers.portainer-secure.entrypoints" = "https";
-  #         "traefik.http.routers.portainer-secure.rule" = "Host(`portainer.icylair.com`)";
-  #         "traefik.http.routers.portainer-secure.tls" = "true";
-  #         "traefik.http.routers.portainer-secure.service" = "portainer";
-  #         "traefik.http.services.portainer.loadbalancer.server.port" = "9000";
-  #         "traefik.docker.network" = "frontend";
-  #       };
-  #       networks = {
-  #         frontend = {
-  #           ipv4Address = "172.18.255.254";
-  #         };
-  #         vlan11 = {
-  #           ipv4Address = "10.2.11.199";
-  #         };
-  #       };
-  #     };
-  #   };
-  # }; 
+  virtualisation.waydroid.enable = true;
 }
