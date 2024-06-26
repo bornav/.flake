@@ -7,7 +7,7 @@ let
   dot_zsh_exports = ''
     export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt
   '';
-  dot_zsh_aliases = ''
+  dot_zsh_aliases = /*bash*/ ''
     alias ls='ls --color=auto'
     alias man-list="man \$(apropos --long . | dmenu -i -l 30 | awk '{print \$2, \$1}' | tr -d '()')"
     alias update_grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"

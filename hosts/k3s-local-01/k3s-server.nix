@@ -17,6 +17,7 @@ let
     disable-kube-proxy: true
     disable-network-policy: true
     cluster-init: true
+    write-kubeconfig-mode: "0644"
     disable:
       - servicelb
       - traefik
@@ -32,20 +33,24 @@ let
       - lb.cloud.icylair.com
       - oraclearm1.cloud.icylair.com
       - oraclearm2.cloud.icylair.com
-    server: https://10.99.10.12:6443
-    node-ip: 10.99.10.10
+      - k3s-local-01.local.icylair.com
+      - k3s-local-01
+    node-ip: 10.2.11.25
   '';
   master4 = ''
     ---
     #master3
     token: xxxxxxx
-    flannel-backend: none
-    disable-kube-proxy: true
-    disable-network-policy: true
     cluster-init: true
+    write-kubeconfig-mode: "0644"
     disable:
-      - servicelb
-      - traefik
+      - rke2-kube-proxy
+      - rke2-canal
+      - rke2-coredns
+      - rke2-ingress-nginx
+      - rke2-metrics-server
+      - rke2-service-lb
+      - rke2-traefik
     tls-san:
       - 10.0.0.71
       - 10.0.0.100
@@ -66,7 +71,6 @@ in
 {
 
   # k3s specific
-  environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master4;
   systemd.network.enable = true;
   networking.firewall = {
     allowedTCPPorts = [
@@ -88,19 +92,26 @@ in
     { from = 4; to = 65535; }
     ];
   };
-  services.k3s = {
-    package = pkgs.k3s_1_30;
+  environment.etc."rancher/rke2/config.yaml".source = pkgs.writeText "config.yaml" master4;
+  services.rke2 = {
+    package = pkgs.rke2;
     enable = true;
-    # # role = "server";
-    # # token = "<randomized common secret>";
-    # # clusterInit = true;
-    # # extraFlags = toString [
-    # #   "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
-    # # # "--kubelet-arg=v=4" # Optionally add additional args to k3s
-    # # ];
-    configPath = "/etc/rancher/k3s/config.yaml";
-    # # serverAddr = "https://<ip of first node>:6443";
+    cni = "cilium";
   };
+  # environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master3;
+  # services.k3s = {
+  #   package = pkgs.k3s_1_30;
+  #   enable = true;
+  #   # # role = "server";
+  #   # # token = "<randomized common secret>";
+  #   # # clusterInit = true;
+  #   # # extraFlags = toString [
+  #   # #   "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
+  #   # # # "--kubelet-arg=v=4" # Optionally add additional args to k3s
+  #   # # ];
+  #   configPath = "/etc/rancher/k3s/config.yaml";
+  #   # # serverAddr = "https://<ip of first node>:6443";
+  # };
   services.openiscsi = {
     enable = true;
     name = "${config.networking.hostName}-initiatorhost";
@@ -109,9 +120,10 @@ in
     nfs-utils
     wireguard-tools
     python3
+    cilium-cli
     
     kubectl
-    rke2
+    # rke2
     k9s
   ];
   boot.supportedFilesystems = [ "nfs" ];

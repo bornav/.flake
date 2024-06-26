@@ -62,10 +62,10 @@ in
         
     ];
   };
-  k3s-local-01 = inputs.nixpkgs-stable.lib.nixosSystem {
+  k3s-local-01 = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "x86_64-linux";  
     specialArgs = {
-        inherit pkgs-stable vars inputs;
+        inherit pkgs-unstable vars inputs;
         host = {
             hostName = "k3s-local-01";
         };
@@ -77,4 +77,19 @@ in
         # { disko.devices.disk.disk1.device = "/dev/sda"; }
     ];
   };
+  # k3s-local = inputs.nixpkgs-stable.lib.nixosSystem {
+  #   system = "x86_64-linux";  
+  #   specialArgs = {
+  #       inherit pkgs-stable vars inputs;
+  #       host = {
+  #           hostName = "k3s-local-01";
+  #       };
+  #   };
+  #   modules = [
+  #       # nur.nixosModules.nur
+  #       # ./configuration.nix
+  #       ./k3s-local-01
+  #       # { disko.devices.disk.disk1.device = "/dev/sda"; }
+  #   ];
+  # };
 }

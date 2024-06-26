@@ -91,6 +91,7 @@ in
     packages = with pkgs; [];
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   };
+
   environment.sessionVariables = {
     flake_name="vallium";
     FLAKE="$HOME/.flake";
@@ -175,6 +176,7 @@ in
     pika-backup
     btop
     filelight
+    nix-index
   ] ++
     (with pkgs-unstable; [
       vscode
@@ -196,10 +198,64 @@ in
     enable = true;
     enableSSHSupport = false;
   };
-
+  
+  environment.variables = {
+    LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
+  };
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
+      alsa-lib
+      at-spi2-atk
+      at-spi2-core
+      atk
+      cairo
+      cups
+      curl
+      dbus
+      expat
+      fontconfig
+      freetype
+      fuse3
+      gdk-pixbuf
+      glib
+      gtk3
+      icu
+      libGL
+      libappindicator-gtk3
+      libdrm
+      libglvnd
+      libnotify
+      libpulseaudio
+      libunwind
+      libusb1
+      libuuid
+      libxkbcommon
+      libxml2
+      mesa
+      nspr
+      nss
+      openssl
+      pango
+      pipewire
+      stdenv.cc.cc
+      systemd
+      vulkan-loader
+      xorg.libX11
+      xorg.libXScrnSaver
+      xorg.libXcomposite
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libxcb
+      xorg.libxkbfile
+      xorg.libxshmfence
+      zlib
       # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     ];
   };
