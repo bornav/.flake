@@ -156,6 +156,7 @@ with lib;
         tray-icons-reloaded
         clipboard-indicator
         just-perfection
+        impatience
       ];
     };
   };
