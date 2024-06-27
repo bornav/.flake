@@ -104,24 +104,24 @@ in
 
   #### modules
   specialisation = {
-    gnome.configuration = {
-      gnome.enable = lib.mkForce true;
-      cosmic-desktop.enable =  lib.mkForce false;
-      plasma.enable = lib.mkForce false;
-    };
+    # gnome.configuration = {
+    #   gnome.enable = lib.mkForce true;
+    #   cosmic-desktop.enable =  lib.mkForce false;
+    #   plasma.enable = lib.mkForce false;
+    # };
     cosmic.configuration = {
-      cosmic-desktop.enable = true;
+      cosmic-desktop.enable = lib.mkForce true;
       gnome.enable = lib.mkForce false;
       plasma.enable = lib.mkForce false;
     };
-    # plasma.configuration = {
-    #   cosmic-desktop.enable = lib.mkForce false;
-    #   gnome.enable = lib.mkForce false;
-    #   plasma.enable = lib.mkForce true;
-    # };
+    plasma.configuration = {
+      cosmic-desktop.enable = lib.mkForce false;
+      gnome.enable = lib.mkForce false;
+      plasma.enable = lib.mkForce true;
+    };
   };
-  gnome.enable = lib.mkDefault false;
-  plasma.enable = lib.mkDefault true;
+  gnome.enable = lib.mkDefault true;
+  plasma.enable = lib.mkDefault false;
   cosmic-desktop.enable = lib.mkDefault false;
   virtualization.enable = true;
   devops.enable = true;

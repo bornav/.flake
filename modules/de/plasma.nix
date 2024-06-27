@@ -17,8 +17,8 @@ with lib;
   };
   config = mkIf (config.plasma.enable) {
     services.xserver.enable = true;
-    # services.xserver.displayManager.gdm.enable = lib.mkDefault false;
-    services.xserver.displayManager.sddm.enable = true;
+    # services.xserver.displayManager.gdm.enable = lib.mkForce false;
+    services.xserver.displayManager.sddm.enable = lib.mkDefault true;
     services.xserver.desktopManager.plasma6.enable = true;
     hardware.bluetooth.enable = true;
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
