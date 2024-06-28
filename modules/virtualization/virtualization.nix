@@ -17,9 +17,14 @@ with lib;
         type = types.bool;
         default = false;
       };
+      waydroid = mkOption {
+        type = types.bool;
+        default = false;
+      };
     };
     };
-    config = mkIf (config.virtualization.enable) {
+    config = lib.mkMerge [
+    (lib.mkIf (config.virtualization.enable) {
         users.users.${vars.user}.extraGroups = [ "libvirtd" ];
         virtualisation.libvirtd.enable = true;
         programs.dconf.enable = true; # virt-manager requires dconf to remember settings
@@ -29,7 +34,14 @@ with lib;
             qemu
             spice
         ];
-    };
+    })
+    (lib.mkIf (config.virtualization.waydroid) {
+        virtualisation.waydroid.enable = true;
+    })
+    ];
+    
+
+
     #look into 
     # boot.extraModprobeConfig = "options kvm_intel nested=1";
     ##

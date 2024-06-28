@@ -102,24 +102,24 @@ in
     NIXOS_OZONE_WL = "1"; #Hint electron apps to use wayland
   };
 
-  #### modules
-  specialisation = {
-    # gnome.configuration = {
-    #   gnome.enable = lib.mkForce true;
-    #   cosmic-desktop.enable =  lib.mkForce false;
-    #   plasma.enable = lib.mkForce false;
-    # };
-    cosmic.configuration = {
-      cosmic-desktop.enable = lib.mkForce true;
-      gnome.enable = lib.mkForce false;
-      plasma.enable = lib.mkForce false;
-    };
-    plasma.configuration = {
-      cosmic-desktop.enable = lib.mkForce false;
-      gnome.enable = lib.mkForce false;
-      plasma.enable = lib.mkForce true;
-    };
-  };
+  # #### modules
+  # specialisation = {
+  #   # gnome.configuration = {
+  #   #   gnome.enable = lib.mkForce true;
+  #   #   cosmic-desktop.enable =  lib.mkForce false;
+  #   #   plasma.enable = lib.mkForce false;
+  #   # };
+  #   cosmic.configuration = {
+  #     cosmic-desktop.enable = lib.mkForce true;
+  #     gnome.enable = lib.mkForce false;
+  #     plasma.enable = lib.mkForce false;
+  #   };
+  #   plasma.configuration = {
+  #     cosmic-desktop.enable = lib.mkForce false;
+  #     gnome.enable = lib.mkForce false;
+  #     plasma.enable = lib.mkForce true;
+  #   };
+  # };
   gnome.enable = lib.mkDefault true;
   plasma.enable = lib.mkDefault false;
   cosmic-desktop.enable = lib.mkDefault false;
@@ -296,5 +296,4 @@ in
     ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
   '';
 
-  virtualisation.waydroid.enable = true;
 }
