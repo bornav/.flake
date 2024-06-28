@@ -70,7 +70,9 @@ with lib;
         nautilus
       ]);
     };
-
+    environment.variables = {
+      GNOME_SHELL_SLOWDOWN_FACTOR="0.3"; #impatience gnome extention
+    };
     home-manager.users.${vars.user} = {
       dconf.settings = {
         "org/gnome/shell" = {
@@ -152,11 +154,13 @@ with lib;
           clock-menu-position-offset = 7;
         };
       };
+      
       home.packages = with pkgs.gnomeExtensions; [
         tray-icons-reloaded
         clipboard-indicator
         just-perfection
         impatience
+        xwayland-indicator
       ];
     };
   };
