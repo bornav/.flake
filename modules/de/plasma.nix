@@ -26,6 +26,12 @@ with lib;
       konsole
       oxygen
     ];
+    environment = {
+      systemPackages = with pkgs; [  
+      ];};
+    environment.variables = {
+      KWIN_DRM_NO_AMS=lib.mkForce "1"; ## allow tearing if enabled in settings
+    };
     home-manager.users.${vars.user} = {
       
     };

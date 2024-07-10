@@ -3,7 +3,8 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, inputs, vars, modulesPath, ... }:
 let
-  pkgs-master = import inputs.nixpkgs-master {};
+  pkgs-master = import inputs.nixpkgs-master {
+  system = "x86_64-linux";};
 in
 {
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
@@ -76,16 +77,16 @@ in
       # package = config.boot.kernelPackages.nvidiaPackages.production;
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
 
-      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest; #currently seems to be unused
+      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest; #currently seems to be unused
 
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "555.58";
-        sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
-        sha256_aarch64 = lib.fakeSha256;
-        openSha256 = lib.fakeSha256;
-        settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-        persistencedSha256 = "sha256-lyYxDuGDTMdGxX3CaiWUh1IQuQlkI2hPEs5LI20vEVw=";
-      };
+      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #   version = "555.58";
+      #   sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
+      #   sha256_aarch64 = lib.fakeSha256;
+      #   openSha256 = lib.fakeSha256;
+      #   settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+      #   persistencedSha256 = "sha256-lyYxDuGDTMdGxX3CaiWUh1IQuQlkI2hPEs5LI20vEVw=";
+      # };
 
       # forceFullCompositionPipeline = true;
       powerManagement.enable = false;

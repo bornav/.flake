@@ -15,6 +15,7 @@ with lib;
       };
     };
   };
+  
   config = mkIf (config.gnome.enable) {
     programs = {
       kdeconnect = {                                    # GSConnect
@@ -31,7 +32,7 @@ with lib;
         # libinput.enable = true;
         # modules = [ pkgs.xf86_input_wacom ];
         # wacom.enable = true;
-        displayManager.gdm.enable = true;               # Display Manager
+        displayManager.gdm.enable = lib.mkDefault true;               # Display Manager
         displayManager.gdm.autoSuspend = false;
         desktopManager.gnome.enable = true;             # Desktop Environment
       };
