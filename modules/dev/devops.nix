@@ -34,6 +34,7 @@ with lib;
       yaml-language-server  # TODO look into
       nil # TODO move into ide
       inputs.compose2nix.packages.x86_64-linux.default
+      thttpd # htpasswd
     ];
     # environment.systemPackages = [
     #   compose2nix.packages.x86_64-linux.default
