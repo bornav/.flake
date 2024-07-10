@@ -132,6 +132,7 @@ in
   wg-home.enable = false;
   ai.enable = true;
   builder.builder1.remote = false;
+  ide.vscode = true;
   
 
   woothing.enable = true;
@@ -180,8 +181,6 @@ in
     nix-index
   ] ++
     (with pkgs-unstable; [
-      vscode
-      vscode-extensions.continue.continue
       # vscodium
       zed-editor
       wireshark

@@ -9,18 +9,29 @@ with lib;
 {
   options = {
     ide = {
-      enable = mkOption {
+      vscode = mkOption {
+        type = types.bool;
+        default = false;
+      };
+      zed = mkOption {
         type = types.bool;
         default = false;
       };
     };
   };
-  config = mkIf (config.ide.enable) {
-    environment.systemPackages = with pkgs; [
+  config = lib.mkMerge [
+
+    (lib.mkIf (config.ide.vscode) {
+      environment.systemPackages = with pkgs; [
         vscode
         vscode-extensions.continue.continue
-        istioctl
-        # firefox           # Browser
       ];
-  };
+     })
+    (lib.mkIf (config.ide.zed) {
+      environment.systemPackages = with pkgs; [
+        zed
+      ];
+     })
+    (lib.mkIf (config.ide) { })
+  ]; 
 }
