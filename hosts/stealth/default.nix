@@ -69,7 +69,8 @@ in
   rar.enable = true;
   wg-home.enable = true;
   storagefs.share.vega_nfs = true;
-  storagefs.share.vega_smb = true;
+  # storagefs.share.vega_smb = true;
+  ide.vscode = true;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -93,7 +94,6 @@ in
     xorg.xkill
   ] ++
     (with pkgs-unstable; [
-      vscode
       zsh
       # orca-slicer
       # openrgb
