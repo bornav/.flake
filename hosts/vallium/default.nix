@@ -181,6 +181,7 @@ in
   ] ++
     (with pkgs-unstable; [
       vscode
+      vscode-extensions.continue.continue
       # vscodium
       zed-editor
       wireshark

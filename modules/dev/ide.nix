@@ -18,6 +18,7 @@ with lib;
   config = mkIf (config.ide.enable) {
     environment.systemPackages = with pkgs; [
         vscode
+        vscode-extensions.continue.continue
         istioctl
         # firefox           # Browser
       ];
