@@ -133,6 +133,7 @@ in
   ai.enable = true;
   builder.builder1.remote = false;
   ide.vscode = true;
+  ide.zed = true;
   
 
   woothing.enable = true;
@@ -181,8 +182,6 @@ in
     nix-index
   ] ++
     (with pkgs-unstable; [
-      # vscodium
-      zed-editor
       wireshark
       # linux
       # orca-slicer

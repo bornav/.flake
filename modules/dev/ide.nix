@@ -73,7 +73,7 @@ with lib;
     (lib.mkIf (config.ide.zed) {
       ide.enable = true;
       environment.systemPackages = with pkgs; [
-        zed
+        zed-editor
       ];
      })
     (lib.mkIf (config.ide.enable) {

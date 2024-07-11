@@ -29,6 +29,20 @@ in
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
+    Host holo
+        HostName holo.local.icylair.com
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile /home/bocmo/.ssh/id_local
+    Host proxmox
+        HostName proxmox.local.icylair.com
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile /home/bocmo/.ssh/id_local
     '';
 }
 
