@@ -1,4 +1,4 @@
-{ config, inputs, vars, ... }:
+{ config, lib, inputs, vars, ... }:
 let
   system = "x86_64-linux";
   pkgs = import inputs.nixpkgs-unstable {
@@ -17,11 +17,13 @@ in
       home-manager.useUserPackages = true;
     }
     inputs.nixos-cosmic.nixosModules.default
+    inputs.disko.nixosModules.disko
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-
+    inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
+    # ./disk-config.nix
     ./hardware-configuration.nix
+    # {_module.args.disks = [ "/dev/nvme0n1" ];}
   ];
   boot.loader = {
     #systemd-boot.enable = true;
@@ -29,7 +31,7 @@ in
     grub.enable = true;
     grub.device = "nodev";
     #efi.efiSysMountPoint = "/boot/EFI";
-    efi.canTouchEfiVariables = true;
+    grub.efiInstallAsRemovable = lib.mkForce true;
     #grub.useOSProber = true;
     grub.extraEntries = ''
     '';
@@ -42,6 +44,7 @@ in
     xkb.layout = "us";
     xkb.variant = "";
   };
+  users.users.root.initialPassword = "nixos";
   users.defaultUserShell = pkgs.zsh;
   users.users.${vars.user} = {
     isNormalUser = true;
@@ -95,6 +98,7 @@ in
   ] ++
     (with pkgs-unstable; [
       zsh
+      btop
       # orca-slicer
       # openrgb
       # zsh-completions
@@ -107,7 +111,7 @@ in
   };
   services.flatpak.enable = true;
 
-    home-manager.users.${vars.user} = {
+  home-manager.users.${vars.user} = {
     xdg.mime.enable = true;
     xdg.mimeApps.enable = true;
     ## this may be neccesary sometimes

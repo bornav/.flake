@@ -25,8 +25,9 @@
       compose2nix = {url = "github:aksiksi/compose2nix";
                     #  inputs.nixpkgs.follows = "nixpkgs-unstable";
                      };
+      wirenix.url = "sourcehut:~msalerno/wirenix";
     };
-  outputs = { self, nur, nixpkgs-unstable, nixpkgs-stable, nixpkgs-master, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
+  outputs = { self, nur, wirenix, nixpkgs-unstable, nixpkgs-stable, nixpkgs-master, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
 	let
 		vars = {                                                              # Variables Used In Flake
 			user = "bocmo";

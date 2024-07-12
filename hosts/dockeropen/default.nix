@@ -70,6 +70,7 @@ in
   environment.systemPackages = with pkgs; [
     jq
     gparted
+    btop
     pciutils # lspci
   ];
 

@@ -134,7 +134,10 @@ in
   builder.builder1.remote = false;
   ide.vscode = true;
   ide.zed = true;
-  
+  boot.binfmt.emulatedSystems = 
+    [
+      "aarch64-linux"
+    ]; # TODO remove me
 
   woothing.enable = true;
   finalmouse.enable = true;
@@ -180,6 +183,7 @@ in
     btop
     filelight
     nix-index
+    kfind
   ] ++
     (with pkgs-unstable; [
       wireshark

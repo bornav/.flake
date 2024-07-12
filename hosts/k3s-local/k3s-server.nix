@@ -17,7 +17,6 @@ let
     disable-kube-proxy: true
     disable-network-policy: true
     write-kubeconfig-mode: "0644"
-    cluster-init: true
     disable:
       - servicelb
       - traefik
@@ -37,8 +36,8 @@ let
       - k3s-local-01
       - k3s-local.local.icylair.com
       - k3s-local
-    node-ip: 10.99.10.13
-    server: https://10.99.10.11:6443
+    node-ip: 10.2.11.36
+    server: https://10.2.11.25:6443
   '';
   master4 = ''
     ---
@@ -70,7 +69,7 @@ let
       - k3s-local-01
       - k3s-local.local.icylair.com
       - k3s-local
-    node-ip: 10.2.11.25
+    node-ip: 10.2.11.36
   '';
   master5 = ''
     ---
@@ -94,26 +93,14 @@ let
       - lb.cloud.icylair.com
       - oraclearm1.cloud.icylair.com
       - oraclearm2.cloud.icylair.com
-    node-ip: 10.2.11.25
-    server: https://10.2.11.36:6443
+    node-ip: 10.2.11.36
+    server: https://10.2.11.25:6443
   '';
 in
 {
 
   # k3s specific
   # systemd.network.enable = true;
-  networking.useNetworkd = true;
-  systemd.network.networks."10-wan" = {
-    matchConfig.Name = "enp1s0";
-    networkConfig = {
-      # start a DHCP Client for IPv4 Addressing/Routing
-      DHCP = "ipv4";
-      # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
-      IPv6AcceptRA = true;
-    };
-    # make routing on this interface a dependency for network-online.target
-    linkConfig.RequiredForOnline = "routable";
-  };
   networking.firewall.enable = false;  ## this was the shit that was making it fail...
   # networking.firewall = {
   #   allowedTCPPorts = [
@@ -146,10 +133,10 @@ in
   systemd.tmpfiles.rules = [
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
   ];
-  # environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master5;
+  environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master5;
 
 
-  environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master3;
+  # environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master3;
   services.k3s = {
     package = pkgs.k3s_1_30;
     enable = true;

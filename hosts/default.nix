@@ -77,6 +77,36 @@ in
         # { disko.devices.disk.disk1.device = "/dev/sda"; }
     ];
   };
+  k3s-local = inputs.nixpkgs-unstable.lib.nixosSystem {
+    system = "x86_64-linux";  
+    specialArgs = {
+        inherit pkgs-unstable vars inputs;
+        host = {
+            hostName = "k3s-local";
+        };
+    };
+    modules = [
+        # nur.nixosModules.nur
+        # ./configuration.nix
+        ./k3s-local
+        # { disko.devices.disk.disk1.device = "/dev/sda"; }
+    ];
+  };
+  k3s-oraclearm2 = inputs.nixpkgs-unstable.lib.nixosSystem {
+    system = "aarch64-linux";  
+    specialArgs = {
+        inherit pkgs-unstable vars inputs;
+        host = {
+            hostName = "k3s-oraclearm2";
+        };
+    };
+    modules = [
+        # nur.nixosModules.nur
+        # ./configuration.nix
+        ./k3s-oraclearm2
+        # { disko.devices.disk.disk1.device = "/dev/sda"; }
+    ];
+  };
   # k3s-local = inputs.nixpkgs-stable.lib.nixosSystem {
   #   system = "x86_64-linux";  
   #   specialArgs = {

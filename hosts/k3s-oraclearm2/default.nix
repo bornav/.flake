@@ -1,6 +1,6 @@
 { config, lib, inputs, vars, ... }:
 let
-  system = "x86_64-linux";
+  system = "aarch64-linux";
   pkgs = import inputs.nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
@@ -18,9 +18,11 @@ in
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.disko.nixosModules.disko
+    # inputs.wirenix.nixosModules.default
     ./hardware-configuration.nix
     ./disk-config.nix
     ./k3s-server.nix
+    # ./mesh.nix
     {_module.args.disks = [ "/dev/sda" ];}
   ];
 
@@ -35,7 +37,7 @@ in
     grub.efiInstallAsRemovable = lib.mkForce true;
   };
 
-  networking.hostName = "k3s-local-01"; # Define your hostname.
+  networking.hostName = "k3s-oraclearm2"; # Define your hostname.
   networking.networkmanager.enable = true;
   programs.nh.enable = true;
   services = {
@@ -80,7 +82,7 @@ in
     };
   };
   environment.sessionVariables = {
-    flake_name="k3s-local-01";
+    flake_name="k3s-oraclearm2";
     FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${vars.user}/.flake";
@@ -100,9 +102,6 @@ in
     ser2net
     par2cmdline
     rsync
-
-
-    systemd # TODO testing
   ];
   system = {                                # NixOS Settings
     # autoUpgrade = {                        # Allow Auto Update (not useful in flakes)
@@ -130,9 +129,6 @@ in
     extraOptions = "experimental-features = nix-command flakes";
     settings.max-jobs = 4;
   };
-
-
-
 
   environment.variables = {
     LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
@@ -194,4 +190,13 @@ in
       # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     ];
   };
+
+  # wirenix = {
+  #   enable = true;
+  #   peerName = "node1"; # defaults to hostname otherwise
+  #   configurer = "static"; # defaults to "static", could also be "networkd"
+  #   keyProviders = ["acl"]; # could also be ["agenix-rekey"] or ["acl" "agenix-rekey"]
+  #   # secretsDir = ./secrets; # only if you're using agenix-rekey
+  #   aclConfig = import ./mesh.nix;
+  # };
 }

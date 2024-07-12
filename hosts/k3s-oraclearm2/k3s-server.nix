@@ -1,6 +1,6 @@
 { config, lib, inputs, vars, ... }:
 let
-  system = "x86_64-linux";
+  system = "aarch64-linux";
   pkgs = import inputs.nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
@@ -9,9 +9,9 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-  master3 = ''
+  master1 = ''
     ---
-    #master3
+    #master1
     token: xxxx
     flannel-backend: none
     disable-kube-proxy: true
@@ -37,71 +37,12 @@ let
       - k3s-local-01
       - k3s-local.local.icylair.com
       - k3s-local
-    node-ip: 10.99.10.13
-    server: https://10.99.10.11:6443
-  '';
-  master4 = ''
-    ---
-    #master3
-    token: xxxxxxx
-    cluster-init: true
-    write-kubeconfig-mode: "0644"
-    disable:
-      - rke2-kube-proxy
-      - rke2-canal
-      - rke2-coredns
-      - rke2-ingress-nginx
-      - rke2-metrics-server
-      - rke2-service-lb
-      - rke2-traefik
-    tls-san:
-      - 10.0.0.71
-      - 10.0.0.100
-      - 10.2.11.24
-      - 10.2.11.25
-      - 10.2.11.36
-      - 10.99.10.12
-      - 10.99.10.11
-      - 10.99.10.10
-      - lb.cloud.icylair.com
-      - oraclearm1.cloud.icylair.com
-      - oraclearm2.cloud.icylair.com
-      - k3s-local-01.local.icylair.com
-      - k3s-local-01
-      - k3s-local.local.icylair.com
-      - k3s-local
-    node-ip: 10.2.11.25
-  '';
-  master5 = ''
-    ---
-    #master4
-    token: "xxxx"
-    flannel-backend: "none"
-    disable-kube-proxy: true
-    disable-network-policy: true
-    cluster-init: true
-    disable:
-      - servicelb
-      - traefik
-    tls-san:
-      - 10.0.0.71
-      - 10.0.0.100
-      - 10.2.11.23
-      - 10.2.11.25
-      - 10.99.10.12
-      - 10.99.10.11
-      - 10.99.10.10
-      - lb.cloud.icylair.com
-      - oraclearm1.cloud.icylair.com
-      - oraclearm2.cloud.icylair.com
-    node-ip: 10.2.11.25
-    server: https://10.2.11.36:6443
+    node-ip: 10.99.10.11
   '';
 in
 {
 
   # k3s specific
-  # systemd.network.enable = true;
   networking.useNetworkd = true;
   systemd.network.networks."10-wan" = {
     matchConfig.Name = "enp1s0";
@@ -146,10 +87,7 @@ in
   systemd.tmpfiles.rules = [
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
   ];
-  # environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master5;
-
-
-  environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master3;
+  environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master1;
   services.k3s = {
     package = pkgs.k3s_1_30;
     enable = true;
