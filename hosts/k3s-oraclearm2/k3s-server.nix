@@ -84,6 +84,14 @@ in
   #   cni = "none";
   # };
 
+  # # Given that our systems are headless, emergency mode is useless.
+  # # We prefer the system to attempt to continue booting so
+  # # that we can hopefully still access it remotely.
+  # systemd.enableEmergencyMode = false;
+  system.activationScripts.usrlocalbin = ''
+      mkdir -m 0755 -p /usr/local
+      ln -nsf /run/current-system/sw/bin /usr/local/
+  '';
   systemd.tmpfiles.rules = [
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
   ];
@@ -103,47 +111,93 @@ in
   };
   services.openiscsi = {
     enable = true;
-    name = "${config.networking.hostName}-initiatorhost";
+    name = "iqn.2000-05.edu.example.iscsi:${config.networking.hostName}";
   };
+  # services.nfs.server.enable = true;
   environment.systemPackages = with pkgs; [
     nfs-utils
     wireguard-tools
     python3
     cilium-cli
     cni-plugins
-    
+    cifs-utils
+    git
     kubectl
+    k3s_1_30
+    vim
+    nano
     # rke2
     k9s
+
+    util-linux ## longhorn nsenter, seems nsenter is available without this
+
   ];
-  boot.supportedFilesystems = [ "nfs" ];
+  boot.supportedFilesystems = [
+    "ext4"
+    "btrfs"
+    "xfs"
+    #"zfs"
+    "ntfs"
+    "fat"
+    "vfat"
+    "exfat"
+    "nfs" # required by longhorn
+  ];
   services.rpcbind.enable = true;
   services.kubernetes.apiserver.allowPrivileged = true;
   boot.kernelModules = [ "rbd" "br_netfilter" ];
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   virtualisation.docker.logDriver = "json-file";
-  virtualisation.containerd = {
-    enable = true;
-    # settings =
-    #   let
-    #     fullCNIPlugins = pkgs.buildEnv {
-    #       name = "full-cni";
-    #       paths = with pkgs;[
-    #         cni-plugins
-    #         cni-plugin-flannel
-    #       ];
-    #     };
-    #   in {
-    #     plugins."io.containerd.grpc.v1.cri".cni = {
-    #       bin_dir = "${fullCNIPlugins}/bin";
-    #       conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
-    #     };
-    #     # Optionally set private registry credentials here instead of using /etc/rancher/k3s/registries.yaml
-    #     # plugins."io.containerd.grpc.v1.cri".registry.configs."registry.example.com".auth = {
-    #     #  username = "";
-    #     #  password = "";
-    #     # };
-    # };
-  }; 
+  # virtualisation.containerd = {
+  #   enable = true;
+  #   # settings =
+  #   #   let
+  #   #     fullCNIPlugins = pkgs.buildEnv {
+  #   #       name = "full-cni";
+  #   #       paths = with pkgs;[
+  #   #         cni-plugins
+  #   #         cni-plugin-flannel
+  #   #       ];
+  #   #     };
+  #   #   in {
+  #   #     plugins."io.containerd.grpc.v1.cri".cni = {
+  #   #       bin_dir = "${fullCNIPlugins}/bin";
+  #   #       conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
+  #   #     };
+  #   #     # Optionally set private registry credentials here instead of using /etc/rancher/k3s/registries.yaml
+  #   #     # plugins."io.containerd.grpc.v1.cri".registry.configs."registry.example.com".auth = {
+  #   #     #  username = ""; 
+  #   #     # };
+  #   # };
+  # }; 
+
+
+
+
+
+  # TODO lookinto
+  # https://github.com/ryan4yin/nix-config/blob/36ba5a4efcc523f45f391342ef49bee07261c22d/lib/genKubeVirtHostModule.nix#L62
+  # boot.kernel.sysctl = {
+  #   # --- filesystem --- #
+  #   # increase the limits to avoid running out of inotify watches
+  #   "fs.inotify.max_user_watches" = 524288;
+  #   "fs.inotify.max_user_instances" = 1024;
+
+  #   # --- network --- #
+  #   "net.bridge.bridge-nf-call-iptables" = 1;
+  #   "net.core.somaxconn" = 32768;
+  #   "net.ipv4.ip_forward" = 1;
+  #   "net.ipv4.conf.all.forwarding" = 1;
+  #   "net.ipv4.neigh.default.gc_thresh1" = 4096;
+  #   "net.ipv4.neigh.default.gc_thresh2" = 6144;
+  #   "net.ipv4.neigh.default.gc_thresh3" = 8192;
+  #   "net.ipv4.neigh.default.gc_interval" = 60;
+  #   "net.ipv4.neigh.default.gc_stale_time" = 120;
+
+  #   "net.ipv6.conf.all.disable_ipv6" = 1; # disable ipv6
+
+  #   # --- memory --- #
+  #   "vm.swappiness" = 0; # don't swap unless absolutely necessary
+  # };
 }
