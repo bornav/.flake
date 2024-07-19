@@ -2,24 +2,46 @@
 
 
 hosts=("k3s-oraclearm2" "k3s-oraclearm1" "k3s-local-01")
+
 prepare(){
     cd custom
     ansible-playbook prepare-cloud.yaml -i ../wireguard-mesh/automation-wireguard/inventories/inventory.yml
     cd ..
 }
 update(){
-    nixos-rebuild switch --flake ~/.flake#k3s-oraclearm2 --target-host oraclearm2
-    nixos-rebuild switch --flake ~/.flake#k3s-oraclearm1 --target-host oraclearm1
-    nixos-rebuild switch --flake ~/.flake#k3s-local-01 --target-host k3s-local-01
+    echo "running switch"
+    for host in "${hosts[@]}"; do
+        nixos-rebuild switch --flake ~/.flake#$host --target-host $host
+        if [ $? -eq 0 ]; then
+            echo "Command executed successfully."
+        else
+            echo "Command failed."
+            exit
+        fi
+    done
 }
 try_update(){
-    nixos-rebuild test --flake ~/.flake#k3s-oraclearm2 --target-host oraclearm2
-    nixos-rebuild test --flake ~/.flake#k3s-oraclearm1 --target-host oraclearm1
-    nixos-rebuild test --flake ~/.flake#k3s-local-01 --target-host k3s-local-01
+    echo "running test"
+    for host in "${hosts[@]}"; do
+        nixos-rebuild test --flake ~/.flake#$host --target-host $host
+        if [ $? -eq 0 ]; then
+            echo "Command executed successfully."
+        else
+            echo "Command failed."
+            exit
+        fi
+    done
 }
 build(){
+    echo "running builds"
     for host in "${hosts[@]}"; do
-    nixos-rebuild build --flake ~/.flake#$host --target-host $host
+        nixos-rebuild build --flake ~/.flake#$host --target-host $host
+        if [ $? -eq 0 ]; then
+            echo "Command executed successfully."
+        else
+            echo "Command failed."
+            exit
+        fi
     done
 }
 wg-mesh(){
