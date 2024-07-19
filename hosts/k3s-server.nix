@@ -1,6 +1,5 @@
-{ config, lib, inputs, vars, ... }:
+{ config, lib, system, inputs, node_config, vars, ... }:
 let
-  system = "aarch64-linux";
   pkgs = import inputs.nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
@@ -9,52 +8,10 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-  master1 = ''
-    ---
-    #master1
-    token: xxxx
-    flannel-backend: none
-    disable-kube-proxy: true
-    disable-network-policy: true
-    write-kubeconfig-mode: "0644"
-    cluster-init: true
-    disable:
-      - servicelb
-      - traefik
-    tls-san:
-      - 10.0.0.71
-      - 10.0.0.100
-      - 10.2.11.24
-      - 10.2.11.25
-      - 10.2.11.36
-      - 10.99.10.12
-      - 10.99.10.11
-      - 10.99.10.10
-      - lb.cloud.icylair.com
-      - oraclearm1.cloud.icylair.com
-      - oraclearm2.cloud.icylair.com
-      - k3s-local-01.local.icylair.com
-      - k3s-local-01
-      - k3s-local.local.icylair.com
-      - k3s-local
-    node-ip: 10.99.10.11
-  '';
 in
 {
-
   # k3s specific
   networking.useNetworkd = true;
-  systemd.network.networks."10-wan" = {
-    matchConfig.Name = "enp1s0";
-    networkConfig = {
-      # start a DHCP Client for IPv4 Addressing/Routing
-      DHCP = "ipv4";
-      # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
-      IPv6AcceptRA = true;
-    };
-    # make routing on this interface a dependency for network-online.target
-    linkConfig.RequiredForOnline = "routable";
-  };
   networking.firewall.enable = false;  ## this was the shit that was making it fail...
   # networking.firewall = {
   #   allowedTCPPorts = [
@@ -88,14 +45,14 @@ in
   # # We prefer the system to attempt to continue booting so
   # # that we can hopefully still access it remotely.
   # systemd.enableEmergencyMode = false;
-  system.activationScripts.usrlocalbin = ''
+  system.activationScripts.usrlocalbin = ''  
       mkdir -m 0755 -p /usr/local
       ln -nsf /run/current-system/sw/bin /usr/local/
-  '';
+  ''; # TODO look into, potentialy undeeded
   systemd.tmpfiles.rules = [
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
   ];
-  environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" master1;
+  environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" node_config;
   services.k3s = {
     package = pkgs.k3s_1_30;
     enable = true;

@@ -9,6 +9,36 @@ let
     inherit system;
     config.allowUnfree = true;
   };
+  master1 = ''
+    ---
+    #master1
+    token: xxxx
+    flannel-backend: none
+    disable-kube-proxy: true
+    disable-network-policy: true
+    write-kubeconfig-mode: "0644"
+    cluster-init: true
+    disable:
+      - servicelb
+      - traefik
+    tls-san:
+      - 10.0.0.71
+      - 10.0.0.100
+      - 10.2.11.24
+      - 10.2.11.25
+      - 10.2.11.36
+      - 10.99.10.12
+      - 10.99.10.11
+      - 10.99.10.10
+      - lb.cloud.icylair.com
+      - oraclearm1.cloud.icylair.com
+      - oraclearm2.cloud.icylair.com
+      - k3s-local-01.local.icylair.com
+      - k3s-local-01
+      - k3s-local.local.icylair.com
+      - k3s-local
+    node-ip: 10.99.10.11
+  '';
 in
 {
   imports = [
@@ -21,7 +51,8 @@ in
     # inputs.wirenix.nixosModules.default
     ./hardware-configuration.nix
     ./disk-config.nix
-    ./k3s-server.nix
+    (import ../k3s-server.nix {inherit inputs vars config lib system;node_config = master1;})
+    # ./k3s-server.nix
     # ./mesh.nix
     {_module.args.disks = [ "/dev/sda" ];}
   ];
@@ -44,6 +75,18 @@ in
     # grub.efiInstallAsRemovable = lib.mkForce false;
     grub.efiSupport = true;
     grub.efiInstallAsRemovable = lib.mkForce true;
+  };
+
+  systemd.network.networks."10-wan" = {
+    matchConfig.Name = "enp1s0";
+    networkConfig = {
+      # start a DHCP Client for IPv4 Addressing/Routing
+      DHCP = "ipv4";
+      # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
+      IPv6AcceptRA = true;
+    };
+    # make routing on this interface a dependency for network-online.target
+    linkConfig.RequiredForOnline = "routable";
   };
 
   networking.hostName = "k3s-oraclearm2"; # Define your hostname.
