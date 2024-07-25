@@ -13,7 +13,9 @@ let
         --enable-blink-features=MiddleClickAutoscroll 
         --enable-features=VaapiOnNvidiaGPUs
         --gtk-version=4 
-        --custom-ntp=https://dashboard.icylair.com 
+        --custom-ntp=https://dashboard.icylair.com
+        --enable-features=UseOzonePlatform 
+        --ozone-platform=wayland
     '';
 in
 {

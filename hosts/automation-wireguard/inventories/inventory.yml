@@ -41,4 +41,5 @@ all:
     ansible_become_method: su 
     wireguard_mask_bits: 24
     wireguard_port: 51872
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 

@@ -33,14 +33,6 @@ in
   #   { from = 4; to = 65535; }
   #   ];
   # };
-  # environment.etc."rancher/rke2/config.yaml".source = pkgs.writeText "config.yaml" master4;
-  # services.rke2 = {
-  #   package = pkgs.rke2;
-  #   enable = true;
-  #   # cni = "cilium";
-  #   cni = "none";
-  # };
-
   # # Given that our systems are headless, emergency mode is useless.
   # # We prefer the system to attempt to continue booting so
   # # that we can hopefully still access it remotely.
@@ -53,21 +45,31 @@ in
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
   ];
   systemd.watchdog.rebootTime = "3m";
-  environment.etc."rancher/k3s/config.yaml".source = pkgs.writeText "config.yaml" node_config;
-  services.k3s = {
-    package = pkgs.k3s_1_30;
+
+  environment.etc."rancher/rke2/config.yaml".source = pkgs.writeText "config.yaml" node_config;
+  services.rke2 = {
+    package = pkgs-unstable.rke2_latest;
+    # clusterInit=true;
+    # role="server";
+    tokenFile ="/var/token";
     enable = true;
-    # tokenFile="/var/token";
-    # # role = "server";
-    # # token = "<randomized common secret>";
-    # # clusterInit = true;
-    # # extraFlags = toString [
-    # #   "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
-    # # # "--kubelet-arg=v=4" # Optionally add additional args to k3s
-    # # ];
-    configPath = "/etc/rancher/k3s/config.yaml";
-    # # serverAddr = "https://<ip of first node>:6443";
+    cni = "cilium";
+    # cni = "none";
+
+    # extraFlags = toString ([
+	  #   "--write-kubeconfig-mode \"0644\""
+	  #   "--disable rke2-kube-proxy"
+	  #   "--disable rke2-canal"
+	  #   "--disable rke2-coredns"
+    #   "--disable rke2-ingress-nginx"
+    #   "--disable rke2-metrics-server"
+    #   "--disable rke2-service-lb"
+    #   "--disable rke2-traefik"
+    # ] ++ (if meta.hostname == "homelab-0" then [] else [
+	  #     "--server https://homelab-0:6443"
+    # ]));
   };
+
   services.openiscsi = {
     enable = true;
     name = "iqn.2000-05.edu.example.iscsi:${config.networking.hostName}";
@@ -82,7 +84,7 @@ in
     cifs-utils
     git
     kubectl
-    k3s_1_30
+    # k3s_1_30
     vim
     nano
     # rke2

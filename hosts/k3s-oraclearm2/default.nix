@@ -11,8 +11,6 @@ let
   };
   master1 = ''
     ---
-    #master1
-    token: xxxx
     flannel-backend: none
     disable-kube-proxy: true
     disable-network-policy: true
@@ -37,6 +35,40 @@ let
       - k3s-local-01
       - k3s-local.local.icylair.com
       - k3s-local
+      - k3s-oraclearm1
+      - k3s-oraclearm2
+    node-ip: 10.99.10.11
+  '';
+  master1_rke = ''
+    ---
+    cluster-init: true
+    write-kubeconfig-mode: "0644"
+    # disable-cloud-controller: true
+    # disable-kube-proxy: true
+    disable:
+      - rke2-kube-proxy
+      - rke2-canal
+      - rke2-ingress-nginx
+      - rke2-metrics-server
+      - rke2-service-lb
+    tls-san:
+      - 10.0.0.71
+      - 10.0.0.100
+      - 10.2.11.24
+      - 10.2.11.25
+      - 10.2.11.36
+      - 10.99.10.12
+      - 10.99.10.11
+      - 10.99.10.10
+      - lb.cloud.icylair.com
+      - oraclearm1.cloud.icylair.com
+      - oraclearm2.cloud.icylair.com
+      - k3s-local-01.local.icylair.com
+      - k3s-local-01
+      - k3s-local.local.icylair.com
+      - k3s-local
+      - k3s-oraclearm1
+      - k3s-oraclearm2
     node-ip: 10.99.10.11
   '';
 in
@@ -51,7 +83,8 @@ in
     # inputs.wirenix.nixosModules.default
     ./hardware-configuration.nix
     ./disk-config.nix
-    (import ../k3s-server.nix {inherit inputs vars config lib system;node_config = master1;})
+    # (import ../k3s-server.nix {inherit inputs vars config lib system;node_config = master1;})
+    (import ../rke2-server.nix {inherit inputs vars config lib system;node_config = master1_rke;})
     # ./k3s-server.nix
     # ./mesh.nix
     {_module.args.disks = [ "/dev/sda" ];}

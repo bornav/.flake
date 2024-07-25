@@ -18,6 +18,7 @@ with lib;
   config = mkIf (config.plasma.enable) {
     services.xserver.enable = true;
     # services.xserver.displayManager.gdm.enable = lib.mkForce false;
+    services.displayManager.sddm.wayland.enable = true;
     services.xserver.displayManager.sddm.enable = lib.mkDefault true;
     services.xserver.desktopManager.plasma6.enable = true;
     hardware.bluetooth.enable = true;
@@ -29,11 +30,16 @@ with lib;
     environment = {
       systemPackages = with pkgs; [  
       ];};
-    environment.variables = {
-      KWIN_DRM_NO_AMS=lib.mkForce "1"; ## allow tearing if enabled in settings
-    };
+    # environment.variables = {
+    #   KWIN_DRM_NO_AMS=lib.mkForce "1"; ## allow tearing if enabled in settings
+    # };
     home-manager.users.${vars.user} = {
       
     };
+    # qt = {
+    #   enable = true;
+    #   platformTheme = "gnome";
+    #   style = "adwaita-dark";
+    # };
   };
 }

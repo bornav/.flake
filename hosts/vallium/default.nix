@@ -104,21 +104,21 @@ in
 
   # #### modules
   # specialisation = {
-  #   # gnome.configuration = {
-  #   #   gnome.enable = lib.mkForce true;
-  #   #   cosmic-desktop.enable =  lib.mkForce false;
-  #   #   plasma.enable = lib.mkForce false;
-  #   # };
-  #   cosmic.configuration = {
-  #     cosmic-desktop.enable = lib.mkForce true;
-  #     gnome.enable = lib.mkForce false;
-  #     plasma.enable = lib.mkForce false;
-  #   };
-  #   plasma.configuration = {
-  #     cosmic-desktop.enable = lib.mkForce false;
-  #     gnome.enable = lib.mkForce false;
-  #     plasma.enable = lib.mkForce true;
-  #   };
+  #  gnome.configuration = {
+  #    gnome.enable = lib.mkForce true;
+  #    cosmic-desktop.enable =  lib.mkForce false;
+  #    plasma.enable = lib.mkForce false;
+  #  };
+  #  cosmic.configuration = {
+  #    cosmic-desktop.enable = lib.mkForce true;
+  #    gnome.enable = lib.mkForce false;
+  #    plasma.enable = lib.mkForce false;
+  #  };
+  #  plasma.configuration = {
+  #    cosmic-desktop.enable = lib.mkForce false;
+  #    gnome.enable = lib.mkForce false;
+  #    plasma.enable = lib.mkForce true;
+  #  };
   # };
   gnome.enable = lib.mkDefault true;
   plasma.enable = lib.mkDefault false;
@@ -184,6 +184,7 @@ in
     filelight
     nix-index
     kfind
+    xorg.xeyes
   ] ++
     (with pkgs-unstable; [
       wireshark
@@ -275,7 +276,12 @@ in
     xdg.mimeApps.defaultApplications = {
       "inode/directory" = "org.kde.dolphin.desktop";
     };
+    home.file.".local/share/flatpak/overrides/global".text = ''
+    [Context]
+    filesystems=/run/current-system/sw/share/X11/fonts:ro;/nix/store:ro
+    '';
   };
+  
 
   services.flatpak.enable = true;
   services.flatpak.packages = [
