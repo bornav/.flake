@@ -9,6 +9,64 @@ let
     inherit system;
     config.allowUnfree = true;
   };
+  master3 = ''
+    ---
+    token: xx
+    flannel-backend: none
+    disable-kube-proxy: true
+    disable-network-policy: true
+    write-kubeconfig-mode: "0644"
+    cluster-init: true
+    disable:
+      - servicelb
+      - traefik
+    tls-san:
+      - 10.0.0.71
+      - 10.0.0.100
+      - 10.2.11.24
+      - 10.2.11.25
+      - 10.2.11.36
+      - 10.99.10.12
+      - 10.99.10.11
+      - 10.99.10.10
+      - lb.cloud.icylair.com
+      - oraclearm1.cloud.icylair.com
+      - oraclearm2.cloud.icylair.com
+      - k3s-local-01.local.icylair.com
+      - k3s-local-01
+      - k3s-local.local.icylair.com
+      - k3s-local
+    node-ip: 10.99.10.13
+    server: https://10.99.10.11:6443
+  '';
+  master3_rke = ''
+    ---
+    write-kubeconfig-mode: "0644"
+    disable:
+      - rke2-kube-proxy
+      - rke2-canal
+      - rke2-ingress-nginx
+      - rke2-metrics-server
+      - rke2-service-lb
+    tls-san:
+      - 10.0.0.71
+      - 10.0.0.100
+      - 10.2.11.24
+      - 10.2.11.25
+      - 10.2.11.36
+      - 10.99.10.12
+      - 10.99.10.11
+      - 10.99.10.10
+      - lb.cloud.icylair.com
+      - oraclearm1.cloud.icylair.com
+      - oraclearm2.cloud.icylair.com
+      - k3s-local-01.local.icylair.com
+      - k3s-local-01
+      - k3s-local.local.icylair.com
+      - k3s-local
+      - k3s-oraclearm1
+      - k3s-oraclearm2
+  '';
 in
 {
   imports = [
@@ -20,7 +78,9 @@ in
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
     ./disk-config.nix
-    ./k3s-server.nix
+    # (import ../k3s-server.nix {inherit inputs vars config lib system;node_config = master3;})
+    (import ../rke2-server.nix {inherit inputs vars config lib system;node_config = master3_rke;})
+    # ./k3s-server.nix
     {_module.args.disks = [ "/dev/sda" ];}
   ];
 
@@ -33,6 +93,18 @@ in
     # grub.efiInstallAsRemovable = lib.mkForce false;
     grub.efiSupport = true;
     grub.efiInstallAsRemovable = lib.mkForce true;
+  };
+
+  systemd.network.networks."10-wan" = {
+    matchConfig.Name = "enp1s0";
+    networkConfig = {
+      # start a DHCP Client for IPv4 Addressing/Routing
+      DHCP = "ipv4";
+      # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
+      IPv6AcceptRA = true;
+    };
+    # make routing on this interface a dependency for network-online.target
+    linkConfig.RequiredForOnline = "routable";
   };
 
   networking.hostName = "k3s-local"; # Define your hostname.
@@ -100,6 +172,9 @@ in
     ser2net
     par2cmdline
     rsync
+
+
+    systemd # TODO testing
   ];
   system = {                                # NixOS Settings
     # autoUpgrade = {                        # Allow Auto Update (not useful in flakes)
