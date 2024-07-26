@@ -55,7 +55,13 @@ in
     enable = true;
     # cni = "cilium";
     cni = "none";
-
+    extraFlags = [ # space at the start important ! :|
+      " --kube-apiserver-arg default-not-ready-toleration-seconds=30"
+      " --kube-apiserver-arg default-unreachable-toleration-seconds=30" 
+      " --kube-controller-manager-arg node-monitor-period=20s"
+      " --kube-controller-manager-arg node-monitor-grace-period=20s" 
+      " --kubelet-arg node-status-update-frequency=5s"
+    ];
     # extraFlags = toString ([
 	  #   "--write-kubeconfig-mode \"0644\""
 	  #   "--disable rke2-kube-proxy"

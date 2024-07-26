@@ -70,18 +70,7 @@ let
       - k3s-oraclearm2
     node-ip: 10.99.10.11
   '';
-  # kubelet-arg:
-  #   - file-check-frequency=5s
-
-
-
-  # extra_server_args: 
-  # --kube-apiserver-arg default-not-ready-toleration-seconds=30 
-  # --kube-apiserver-arg default-unreachable-toleration-seconds=30 
-  # --kube-controller-arg node-monitor-period=20s 
-  # --kube-controller-arg node-monitor-grace-period=20s 
-  # --kubelet-arg node-status-update-frequency=5s"
-  # extra_agent_args: "--kubelet-arg node-status-update-frequency=5s"
+  
 in
 {
   imports = [
