@@ -18,13 +18,14 @@ let
 in
 {
   vallium = inputs.nixpkgs-unstable.lib.nixosSystem {
-    system = "x86_64-linux";  
+    # system = "x86_64-linux";  
     specialArgs = {
         # inherit (inputs.nixpkgs-unstable) lib;
         inherit  vars inputs;
         host = {
             hostName = "vallium";
         };
+        system = "x86_64-linux"; 
     };
     modules = [
       # nur.nixosModules.nur
@@ -39,6 +40,7 @@ in
         host = {
             hostName = "stealth";
         };
+        system = "x86_64-linux"; 
     };
     modules = [
       # nur.nixosModules.nur

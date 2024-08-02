@@ -56,6 +56,7 @@ in
     # cni = "cilium";
     cni = "none";
     extraFlags = [ # space at the start important ! :|
+      # " --disable rke2-kube-proxy"
       " --kube-apiserver-arg default-not-ready-toleration-seconds=30"
       " --kube-apiserver-arg default-unreachable-toleration-seconds=30" 
       " --kube-controller-manager-arg node-monitor-period=20s"

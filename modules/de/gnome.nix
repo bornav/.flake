@@ -42,7 +42,7 @@ with lib;
     };
     environment = {
       systemPackages = with pkgs; [                     # System-Wide Packages
-        gnome.adwaita-icon-theme
+        adwaita-icon-theme
         gnome.dconf-editor
         gnome.gnome-tweaks
       ];

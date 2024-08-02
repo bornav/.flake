@@ -8,28 +8,29 @@ in
 with lib;
 {
   options = {
-    finalmouse = {
-      enable = mkOption {
+    device = {
+      finalmouse = mkOption {
         type = types.bool;
         default = false;
       };
     };
   };
-  config = mkIf (config.finalmouse.enable) {
-    services.udev.extraRules = ''
-        # Finalmouse ULX devices
-        # This file should be installed to /etc/udev/rules.d so that you can access the Finalmouse ULX devices without being root.
-        #
-        # type this at the command prompt: sudo cp 99-finalmouse.rules /etc/udev/rules.d
-
+  config = mkIf (config.device.finalmouse) {
+    services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "finalmouse_udev";
+      text = ''
         SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0100", MODE="0666"
         SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0101", MODE="0666"
         SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0102", MODE="0666"
         SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0103", MODE="0666"
         SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="361d", ATTR{idProduct}=="0111", MODE="0666"
-
+          
         KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0100", MODE="0666"
         KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0101", MODE="0666"
         KERNEL=="hidraw*", ATTRS{idVendor}=="361d", ATTRS{idProduct}=="0102", MODE="0666"
-    '';
-};}
+      '';
+      destination = "/etc/udev/rules.d/99-finalmouse.rules";
+    })
+  ];};
+}

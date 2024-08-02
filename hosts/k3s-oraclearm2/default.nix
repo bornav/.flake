@@ -80,6 +80,7 @@ in
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.disko.nixosModules.disko
+    # ./vxlan.nix
     # inputs.wirenix.nixosModules.default
     ./hardware-configuration.nix
     ./disk-config.nix

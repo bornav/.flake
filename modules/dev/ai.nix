@@ -7,21 +7,15 @@ let
 in
 with lib;
 {
-  options = {
-    ai = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-    };
-  };
+
   config = mkIf (config.ai.enable) {
     environment.systemPackages = with pkgs; [
-        ollama
+        # ollama
         # lmstudio
-        gpt4all
+        # gpt4all
         # tabby
         # nvidia-container-toolkit # TODO breaks normal docker(overwrites)
+        onnxruntime
       ];
     # services.tabby.enable = true;
 

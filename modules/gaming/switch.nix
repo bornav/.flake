@@ -7,9 +7,9 @@ let
 in
 with lib;
 {
-  config = mkIf (config.games.applications.enable) {
+  config = mkIf (config.emulation.switch) {
     environment.systemPackages = with pkgs; [
-      airshipper
-      heroic
+      ryujinx
     ];
-};}
+  };
+}

@@ -7,14 +7,6 @@ let
 in
 with lib;
 {
-  options = {
-    devops = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-    };
-  };
   config = mkIf (config.devops.enable) {
     environment.systemPackages = with pkgs; [
       flux

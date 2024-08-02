@@ -3,4 +3,5 @@
   ./ai.nix
   ./portainer.nix
   ./ide.nix
+  ./options.nix
 ]

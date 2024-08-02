@@ -1,6 +1,5 @@
-{inputs, config, vars, ... }:
+{inputs, config, system, vars, ... }:
 let
-  system = "x86_64-linux";
   pkgs = import inputs.nixpkgs-unstable {
     inherit system;
     config.allowUnfree = true;
@@ -94,6 +93,9 @@ in
       extraConfig = ''
         HostKeyAlgorithms +ssh-rsa
       '';
+      settings.PasswordAuthentication = true;
+      settings.KbdInteractiveAuthentication = true;
+      settings.PermitRootLogin = "yes";
     };
   };
   users.users.root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];

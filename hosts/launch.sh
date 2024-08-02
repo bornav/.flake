@@ -82,6 +82,11 @@ elif [[ $1 == switch ]]; then
     update
 elif [[ $1 == token ]]; then
     prepare_token_rke2
+elif [[ $1 == service_restart ]]; then
+    echo "restarting services"
+    for host in "${hosts[@]}"; do
+        ssh $host "systemctl restart rke2-server.service"
+    done
 fi
 
 

@@ -7,24 +7,7 @@ let
 in
 with lib;
 {
-  options = {
-    ide = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-      vscode = mkOption {
-        type = types.bool;
-        default = false;
-      };
-      zed = mkOption {
-        type = types.bool;
-        default = false;
-      };
-    };
-  };
   config = lib.mkMerge [
-
     (lib.mkIf (config.ide.vscode) {
       ide.enable = true;
       environment.systemPackages = with pkgs; [

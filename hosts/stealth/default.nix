@@ -61,7 +61,6 @@ in
     QT_STYLE_OVERRIDE="kvantum";
     NIXOS_OZONE_WL = "1";
   };
-
   #### modules
   gnome.enable = false;
   cosmic-desktop.enable = true;

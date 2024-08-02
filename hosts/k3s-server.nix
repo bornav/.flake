@@ -88,6 +88,7 @@ in
     # rke2
     k9s
 
+    nettools
     util-linux ## longhorn nsenter, seems nsenter is available without this
 
   ];
