@@ -1,8 +1,8 @@
-{ config, inputs, vars, lib, ... }:
+{ config, inputs, system, vars, lib, ... }:
 let
   pkgs = import inputs.nixpkgs-unstable {
       config.allowUnfree = true;
-      system = "x86_64-linux";
+      inherit system;
   };
   dot_zsh_exports = ''
     export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt

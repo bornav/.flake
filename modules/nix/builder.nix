@@ -1,4 +1,4 @@
-{ config, inputs, vars, lib, ... }:
+{ config, inputs, system, vars, lib, ... }:
 # creates a user with only responsibility being to be a builder
 with lib;
 {
