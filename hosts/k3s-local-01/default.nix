@@ -66,6 +66,11 @@ let
       - k3s-local
       - k3s-oraclearm1
       - k3s-oraclearm2
+    node-label:
+      - "node-location=local"
+      - "node-arch=amd64"
+    node-taint:
+      - "node-role.kubernetes.io/master=true:NoSchedule"
     node-ip: 10.99.10.13
     server: https://10.99.10.11:9345
   '';

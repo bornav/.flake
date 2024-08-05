@@ -23,9 +23,9 @@ in
         # inherit (inputs.nixpkgs-unstable) lib;
         inherit  vars inputs;
         host = {
-            hostName = "vallium";
+            hostName = "vallium"; # TODO, put system in here and pass host around
         };
-        system = "x86_64-linux"; 
+        system = "x86_64-linux";  
     };
     modules = [
       # nur.nixosModules.nur
@@ -36,11 +36,11 @@ in
   stealth = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "x86_64-linux";  
     specialArgs = {
-        inherit  vars inputs;
-        host = {
-            hostName = "stealth";
-        };
-        system = "x86_64-linux"; 
+      inherit  vars inputs;
+      host = {
+          hostName = "stealth";
+      };
+      system = "x86_64-linux"; 
     };
     modules = [
       # nur.nixosModules.nur
@@ -50,12 +50,13 @@ in
     ];
   };
   dockeropen = inputs.nixpkgs-unstable.lib.nixosSystem {
-    system = "x86_64-linux";  
+    # system = "x86_64-linux";  
     specialArgs = {
-        inherit pkgs-unstable vars inputs;
-        host = {
-            hostName = "dockeropen";
-        };
+      inherit pkgs-unstable vars inputs;
+      host = {
+          hostName = "dockeropen";
+      };
+      system = "x86_64-linux"; 
     };
     modules = [
         # nur.nixosModules.nur
@@ -67,10 +68,11 @@ in
   k3s-local-01 = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "x86_64-linux";  
     specialArgs = {
-        inherit pkgs-unstable vars inputs;
-        host = {
-            hostName = "k3s-local-01";
-        };
+      inherit pkgs-unstable vars inputs;
+      host = {
+          hostName = "k3s-local-01";
+      };
+      system = "x86_64-linux";
     };
     modules = [
         ./k3s-local-01
@@ -79,10 +81,11 @@ in
   k3s-oraclearm2 = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "aarch64-linux";  
     specialArgs = {
-        inherit pkgs-unstable vars inputs;
-        host = {
-            hostName = "k3s-oraclearm2";
-        };
+      inherit pkgs-unstable vars inputs;
+      host = {
+          hostName = "k3s-oraclearm2";
+      };
+      system = "aarch64-linux";  
     };
     modules = [
         ./k3s-oraclearm2
@@ -91,10 +94,11 @@ in
   k3s-oraclearm1 = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "aarch64-linux";  
     specialArgs = {
-        inherit pkgs-unstable vars inputs;
-        host = {
-            hostName = "k3s-oraclearm1";
-        };
+      inherit pkgs-unstable vars inputs;
+      host = {
+          hostName = "k3s-oraclearm1";
+      };
+      system = "aarch64-linux";  
     };
     modules = [
         ./k3s-oraclearm1
@@ -109,6 +113,7 @@ in
             hostName = "k3s-local";
             system = "x86_64-linux";  
         };
+        system = "x86_64-linux"; 
     };
     modules = [
         ./k3s-local

@@ -140,6 +140,11 @@ in
 
   storagefs.share.vega_nfs = true;
 
+  boot.binfmt.emulatedSystems = 
+    [
+      "aarch64-linux"
+    ]; # TODO remove me, needed if i want to compile arm(which i do need infact)
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -309,9 +314,9 @@ in
       nvidiaSettings = true;
       # package = config.boot.kernelPackages.nvidiaPackages.stable;
       # package = config.boot.kernelPackages.nvidiaPackages.production;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
 
-      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest; #currently seems to be unused
+      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest; #currently seems to be unused
 
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       #   version = "560.28.03";

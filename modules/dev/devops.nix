@@ -23,6 +23,7 @@ with lib;
       inetutils
       dig
       k9s
+      yq
       yaml-language-server  # TODO look into
       nil # TODO move into ide
       inputs.compose2nix.packages.x86_64-linux.default
@@ -32,5 +33,6 @@ with lib;
     #   compose2nix.packages.x86_64-linux.default
     # ];
     virtualisation.docker.enable = true;
+    # virtualisation.containerd.enable = true;
   };
 }

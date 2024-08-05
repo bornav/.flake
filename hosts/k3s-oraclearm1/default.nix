@@ -1,6 +1,5 @@
-{ config, lib, inputs, vars, ... }:
+{ config, lib, system, inputs, vars, ... }:
 let
-  system = "aarch64-linux";
   pkgs = import inputs.nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
@@ -65,6 +64,9 @@ let
       - k3s-local
       - k3s-oraclearm1
       - k3s-oraclearm2
+    node-label:
+      - "node-location=cloud"
+      - "node-arch=arm64"
     node-ip: 10.99.10.12 
     server: https://10.99.10.11:9345
   '';
