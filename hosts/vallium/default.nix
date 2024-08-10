@@ -1,11 +1,11 @@
-{ config, lib, system, inputs, vars, ... }:
+{ config, lib, system, inputs, host, ... }:
 let
   pkgs = import inputs.nixpkgs-unstable {
-    inherit system;
+    system = host.system;
     config.allowUnfree = true;
   };
   pkgs-unstable = import inputs.nixpkgs-unstable {
-    inherit system;
+    system = host.system;
     config.allowUnfree = true;
   };
 in
@@ -73,7 +73,7 @@ in
         }
     '';
   };
-  networking.hostName = "vallium"; # Define your hostname.
+  networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # Configure keymap in X11
@@ -82,32 +82,32 @@ in
     xkb.variant = "";
   };
   users.defaultUserShell = pkgs.zsh;
-  users.users.${vars.user} = {
+  users.users.${host.vars.user} = {
     initialPassword = "nixos";
     isNormalUser = true;
-    description = "${vars.user}";
+    description = "${host.vars.user}";
     extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" ];
     packages = with pkgs; [];
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   };
 
   environment.sessionVariables = {
-    flake_name="vallium";
+    flake_name=host.hostName;
     FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
-    # NIXOS_CONFIG="/home/${vars.user}/.flake";
+    # NIXOS_CONFIG="/home/${host.vars.user}/.flake";
     QT_STYLE_OVERRIDE="kvantum";
     WLR_NO_HARDWARE_CURSORS = "1"; # look into removing
     NIXOS_OZONE_WL = "1"; #Hint electron apps to use wayland
   };
 
   # #### modules
-  # specialisation = {
-  #  gnome.configuration = {
-  #    gnome.enable = lib.mkForce true;
-  #    cosmic-desktop.enable =  lib.mkForce false;
-  #    plasma.enable = lib.mkForce false;
-  #  };
+  specialisation = {
+   gnome.configuration = {
+     gnome.enable = lib.mkForce true;
+     cosmic-desktop.enable =  lib.mkForce false;
+     plasma.enable = lib.mkForce false;
+   };
   #  cosmic.configuration = {
   #    cosmic-desktop.enable = lib.mkForce true;
   #    gnome.enable = lib.mkForce false;
@@ -118,9 +118,9 @@ in
   #    gnome.enable = lib.mkForce false;
   #    plasma.enable = lib.mkForce true;
   #  };
-  # };
-  gnome.enable = lib.mkDefault true;
-  plasma.enable = lib.mkDefault false;
+  };
+  # gnome.enable = lib.mkDefault true;
+  plasma.enable = lib.mkDefault true;
   cosmic-desktop.enable = lib.mkDefault false;
   virtualization.enable = true;
   devops.enable = true;
@@ -269,7 +269,7 @@ in
   
   ## for setting the default apps
   ## definition https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.mimeApps.defaultApplications
-  home-manager.users.${vars.user} = {
+  home-manager.users.${host.vars.user} = {
     xdg.mime.enable = true;
     xdg.mimeApps.enable = true;
     ## this may be neccesary sometimes

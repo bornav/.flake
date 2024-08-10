@@ -1,12 +1,11 @@
-{ config, lib, inputs, vars, ... }:
+{ config, lib, host, inputs, ... }:
 let
-  system = "x86_64-linux";
   pkgs = import inputs.nixpkgs-unstable {
-    inherit system;
+    system = host.system;
     config.allowUnfree = true;
   };
   pkgs-unstable = import inputs.nixpkgs-unstable {
-    inherit system;
+    system = host.system;
     config.allowUnfree = true;
   };
 in
@@ -36,7 +35,7 @@ in
     grub.efiInstallAsRemovable = lib.mkForce false;
   };
 
-  networking.hostName = "dockeropen"; # Define your hostname.
+  networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # Configure keymap in X11
@@ -44,18 +43,20 @@ in
     xkb.layout = "us";
     xkb.variant = "";
   };
-  users.users.${vars.user} = {
+  users.users.root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
+  users.users.root.initialPassword = "nixos";
+  users.users.${host.vars.user} = {
     isNormalUser = true;
-    description = "${vars.user}";
+    description = "${host.vars.user}";
     extraGroups = [ "networkmanager" "wheel" "docker"];
     # packages = with pkgs; [];
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   };
   environment.sessionVariables = {
-    flake_name="dockeropen";
+    flake_name=host.hostName;
     FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
-    # NIXOS_CONFIG="/home/${vars.user}/.flake";
+    # NIXOS_CONFIG="/home/${host.vars.user}/.flake";
   };
 
   #### modules

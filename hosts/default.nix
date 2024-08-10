@@ -23,7 +23,9 @@ in
         # inherit (inputs.nixpkgs-unstable) lib;
         inherit  vars inputs;
         host = {
-            hostName = "vallium"; # TODO, put system in here and pass host around
+            hostName = "vallium";
+            vars = vars;
+            system = "x86_64-linux"; 
         };
         system = "x86_64-linux";  
     };
@@ -39,6 +41,8 @@ in
       inherit  vars inputs;
       host = {
           hostName = "stealth";
+          vars = vars;
+          system = "x86_64-linux"; 
       };
       system = "x86_64-linux"; 
     };
@@ -55,6 +59,8 @@ in
       inherit pkgs-unstable vars inputs;
       host = {
           hostName = "dockeropen";
+          vars = vars;
+          system = "x86_64-linux"; 
       };
       system = "x86_64-linux"; 
     };
@@ -71,6 +77,8 @@ in
       inherit pkgs-unstable vars inputs;
       host = {
           hostName = "k3s-local-01";
+          vars = vars;
+          system = "x86_64-linux"; 
       };
       system = "x86_64-linux";
     };
@@ -84,6 +92,8 @@ in
       inherit pkgs-unstable vars inputs;
       host = {
           hostName = "k3s-oraclearm2";
+          vars = vars;
+          system = "x86_64-linux"; 
       };
       system = "aarch64-linux";  
     };
@@ -97,6 +107,8 @@ in
       inherit pkgs-unstable vars inputs;
       host = {
           hostName = "k3s-oraclearm1";
+          vars = vars;
+          system = "x86_64-linux"; 
       };
       system = "aarch64-linux";  
     };
@@ -111,7 +123,8 @@ in
         inherit pkgs-unstable vars inputs;
         host = {
             hostName = "k3s-local";
-            system = "x86_64-linux";  
+            vars = vars;
+            system = "x86_64-linux"; 
         };
         system = "x86_64-linux"; 
     };
