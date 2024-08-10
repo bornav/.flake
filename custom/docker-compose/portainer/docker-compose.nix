@@ -1,8 +1,8 @@
-# Auto-generated using compose2nix v0.1.9.
-{ lib, config, pkgs, pkgs-unstable, inputs, vars, ... }:
-with lib;
+# Auto-generated using compose2nix v0.2.2-pre.
+{ pkgs, lib, ... }:
+
 {
-  config = mkIf (config.portainer.enable) {
+  # Runtime
   virtualisation.docker = {
     enable = true;
     autoPrune.enable = true;
@@ -11,7 +11,7 @@ with lib;
 
   # Containers
   virtualisation.oci-containers.containers."portainer" = {
-    image = "portainer/portainer-ce:2.18.4";
+    image = "portainer/portainer-ce:2.20.3";
     volumes = [
       "/usr/docker_config/portainer/data:/data:rw"
       "/var/run/docker.sock:/var/run/docker.sock:rw"
@@ -21,12 +21,25 @@ with lib;
       "9000:9000/tcp"
       "9443:9443/tcp"
     ];
+    labels = {
+      "traefik.docker.network" = "frontend";
+      "traefik.enable" = "true";
+      "traefik.http.middlewares.portainer-https-redirect.redirectscheme.scheme" = "https";
+      "traefik.http.routers.portainer-secure.entrypoints" = "https";
+      "traefik.http.routers.portainer-secure.rule" = "Host(`portainer.icylair.com`)";
+      "traefik.http.routers.portainer-secure.service" = "portainer";
+      "traefik.http.routers.portainer-secure.tls" = "true";
+      "traefik.http.routers.portainer.entrypoints" = "http";
+      "traefik.http.routers.portainer.middlewares" = "portainer-https-redirect";
+      "traefik.http.routers.portainer.rule" = "Host(`portainer.icylair.com`)";
+      "traefik.http.services.portainer.loadbalancer.server.port" = "9000";
+    };
     user = "0:0";
     log-driver = "journald";
     extraOptions = [
-      "--ip=172.18.255.254"
       "--network-alias=portainer"
       "--network=frontend"
+      "--network=vlan11"
       "--security-opt=no-new-privileges:true"
     ];
   };
@@ -39,9 +52,11 @@ with lib;
     };
     after = [
       "docker-network-frontend.service"
+      "docker-network-vlan11.service"
     ];
     requires = [
       "docker-network-frontend.service"
+      "docker-network-vlan11.service"
     ];
     partOf = [
       "docker-compose-portainer-root.target"
@@ -57,10 +72,23 @@ with lib;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStop = "${pkgs.docker}/bin/docker network rm -f frontend";
+      ExecStop = "docker network rm -f frontend";
     };
     script = ''
       docker network inspect frontend || docker network create frontend --subnet=172.18.0.0/16 --gateway=172.18.0.1
+    '';
+    partOf = [ "docker-compose-portainer-root.target" ];
+    wantedBy = [ "docker-compose-portainer-root.target" ];
+  };
+  systemd.services."docker-network-vlan11" = {
+    path = [ pkgs.docker ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "docker network rm -f vlan11";
+    };
+    script = ''
+      docker network inspect vlan11 || docker network create vlan11 --driver=macvlan --opt=parent=enp6s18 --subnet=10.2.11.0/24 --ip-range=10.2.11.0/24 --gateway=10.2.11.1
     '';
     partOf = [ "docker-compose-portainer-root.target" ];
     wantedBy = [ "docker-compose-portainer-root.target" ];
@@ -75,4 +103,4 @@ with lib;
     };
     wantedBy = [ "multi-user.target" ];
   };
-};}
+}

@@ -28,6 +28,7 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
+    timeout = 1;
     grub.efiSupport = true;
     grub.enable = true;
     grub.device = "nodev";
@@ -58,14 +59,13 @@ in
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${host.vars.user}/.flake";
   };
-
   #### modules
   virtualization.enable = true;
   devops.enable = true;
   rar.enable = true;
   builder.builder1.self = true;
   # builder.builder1.remote = true;
-  portainer.enable = true;
+  # portainer.enable = false;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -74,7 +74,7 @@ in
     btop
     pciutils # lspci
   ];
-
+  services.qemuGuest.enable = true;
   programs.nix-ld = {
     enable = true;
     # libraries = with pkgs; [
