@@ -23,6 +23,7 @@ in
     inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
+    ./nvidia.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -35,7 +36,17 @@ in
     efi.canTouchEfiVariables = true;
     grub.efiInstallAsRemovable = lib.mkForce false;
   };
-
+  boot.supportedFilesystems = [
+    "ext4"
+    "btrfs"
+    "xfs"
+    #"zfs"
+    "ntfs"
+    "fat"
+    "vfat"
+    "exfat"
+    "nfs" # required by longhorn
+  ];
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
 

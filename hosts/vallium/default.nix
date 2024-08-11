@@ -343,16 +343,10 @@ in
       #   nvidiaBusId = "";
       # };
     };
-    opengl = {
-      enable = true;
-      # driSupport = true;
-      driSupport32Bit = true;
-      # extraPackages = with pkgs; [
-      # ];
-    };
+    graphics.enable = true;
+    graphics.enable32Bit = true;
   };
   # environment.systemPackages = with pkgs-unstable; [ linuxKernel.packages.linux_6_8.nvidia_x11 ];
-
   services.xserver.videoDrivers = ["nvidia"];
 
 # (pkgs.linuxPackages_latest.nvidia_x11.overrideAttrs (old: {
