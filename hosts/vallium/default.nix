@@ -131,6 +131,7 @@ in
   thorium.enable = true;
   wg-home.enable = false;
   ai.enable = true;
+  docker.enable = true;
   builder.builder1.remote = false;
   ide.vscode = true;
   ide.zed = true;
@@ -173,7 +174,7 @@ in
     distrobox
     qjournalctl
     xorg.xkill
-    remmina           # XRDP & VNC Client
+    # remmina          # XRDP & VNC Client
     # sublime-merge
     gparted
     teamspeak_client

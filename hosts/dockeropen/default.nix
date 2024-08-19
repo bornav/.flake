@@ -74,6 +74,7 @@ in
   virtualization.enable = true;
   devops.enable = true;
   rar.enable = true;
+  docker.enable = true;
   builder.builder1.self = true;
   # builder.builder1.remote = true;
   # portainer.enable = false;

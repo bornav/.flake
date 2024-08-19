@@ -29,10 +29,5 @@ with lib;
       inputs.compose2nix.packages.x86_64-linux.default
       thttpd # htpasswd
     ];
-    # environment.systemPackages = [
-    #   compose2nix.packages.x86_64-linux.default
-    # ];
-    virtualisation.docker.enable = true;
-    # virtualisation.containerd.enable = true;
   };
 }

@@ -28,6 +28,12 @@ with lib;
         default = false;
       };
     };
+    docker = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+      };
+    };
     ai = {
       enable = mkOption {
         type = types.bool;

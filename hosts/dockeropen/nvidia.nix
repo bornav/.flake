@@ -22,6 +22,4 @@ in
     graphics.enable32Bit = true;
     graphics.enable = true;
   };
-  hardware.nvidia-container-toolkit.enable = true;
-  virtualisation.docker.enableNvidia = true;
 }

@@ -18,14 +18,10 @@ with lib;
         onnxruntime
       ];
     # services.tabby.enable = true;
-
-    # virtualisation.containers.cdi.dynamic.nvidia.enable = true;
-    hardware.nvidia-container-toolkit.enable = true;
-    virtualisation.docker.enableNvidia = true;
-    networking.firewall = {
-      enable = true;
-      allowedTCPPorts = [ 8080 ];
-      allowedUDPPorts = [ 8080 ];
-    };
+    # networking.firewall = {
+    #   enable = true;
+    #   allowedTCPPorts = [ 8080 ];
+    #   allowedUDPPorts = [ 8080 ];
+    # };
   };
 }

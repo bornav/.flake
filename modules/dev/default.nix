@@ -4,4 +4,5 @@
   ./portainer.nix
   ./ide.nix
   ./options.nix
+  ./docker.nix
 ]
