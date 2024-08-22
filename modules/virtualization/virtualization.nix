@@ -21,23 +21,46 @@ with lib;
         type = types.bool;
         default = false;
       };
+      qemu = mkOption {
+        type = types.bool;
+        default = false;
+      };
     };
     };
     config = lib.mkMerge [
     (lib.mkIf (config.virtualization.enable) {
-        users.users.${vars.user}.extraGroups = [ "libvirtd" ];
-        virtualisation.libvirtd.enable = true;
-        programs.dconf.enable = true; # virt-manager requires dconf to remember settings
-        environment.systemPackages = with pkgs; [ 
-            virt-manager
-            virt-viewer
-            qemu
-            spice
-        ];
+      users.users.${vars.user}.extraGroups = [ "libvirtd" ];
+      virtualisation.libvirtd.enable = true;
+      programs.dconf.enable = true; # virt-manager requires dconf to remember settings
+      environment.systemPackages = with pkgs; [ 
+          virt-manager
+          virt-viewer
+          qemu
+          spice
+      ];
+      boot.binfmt.emulatedSystems = 
+      [
+        "aarch64-linux"
+      ]; # TODO remove me, needed if i want to compile arm(which i do need infact)
+
     })
     (lib.mkIf (config.virtualization.waydroid) {
         virtualisation.waydroid.enable = true;
     })
+    (lib.mkIf (config.virtualization.qemu) {
+      virtualisation.libvirtd.qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [(pkgs.OVMF.override {
+            secureBoot = true;
+            tpmSupport = true;
+          }).fd];
+        };
+      };
+      })
     ];
     
 
