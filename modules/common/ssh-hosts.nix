@@ -28,6 +28,13 @@ in
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
+    Host k3s-local-02
+        HostName k3s-local-02.local.icylair.com
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile /home/bocmo/.ssh/id_local
     Host k3s-local
         HostName k3s-local.local.icylair.com
         Port 22

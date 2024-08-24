@@ -1,4 +1,4 @@
-{ config, lib, system, inputs, host, ... }:
+{ config, lib, system, inputs, host, ... }:  # TODO remove system, only when from all modules it is removed
 let
   pkgs = import inputs.nixpkgs-unstable {
     system = host.system;

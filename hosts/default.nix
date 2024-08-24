@@ -83,7 +83,8 @@ in
       system = "x86_64-linux";
     };
     modules = [
-        ./k3s-local-01
+        ./kube/k3s-local-01
+        ./kube/common.nix
     ];
   };
   k3s-oraclearm2 = inputs.nixpkgs-unstable.lib.nixosSystem {
@@ -93,12 +94,13 @@ in
       host = {
           hostName = "k3s-oraclearm2";
           vars = vars;
-          system = "x86_64-linux"; 
+          system = "aarch64-linux"; 
       };
       system = "aarch64-linux";  
     };
     modules = [
-        ./k3s-oraclearm2
+        ./kube/k3s-oraclearm2
+        ./kube/common.nix
     ];
   };
   k3s-oraclearm1 = inputs.nixpkgs-unstable.lib.nixosSystem {
@@ -108,28 +110,29 @@ in
       host = {
           hostName = "k3s-oraclearm1";
           vars = vars;
-          system = "x86_64-linux"; 
+          system = "aarch64-linux"; 
       };
       system = "aarch64-linux";  
     };
     modules = [
-        ./k3s-oraclearm1
+        ./kube/k3s-oraclearm1
+        ./kube/common.nix
     ];
   };
-  ## unused v
-  k3s-local = inputs.nixpkgs-unstable.lib.nixosSystem {
+  k3s-local-02 = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "x86_64-linux";  
     specialArgs = {
-        inherit pkgs-unstable vars inputs;
+        inherit vars inputs;
         host = {
-            hostName = "k3s-local";
+            hostName = "k3s-local-02";
             vars = vars;
             system = "x86_64-linux"; 
         };
         system = "x86_64-linux"; 
     };
     modules = [
-        ./k3s-local
+        ./kube/k3s-local-02
+        ./kube/common.nix
     ];
   };
 }

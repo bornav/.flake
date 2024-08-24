@@ -37,10 +37,13 @@ with lib;
           virt-viewer
           qemu
           spice
+          libgcc
       ];
+      programs.appimage.binfmt = true;
       boot.binfmt.emulatedSystems = 
       [
         "aarch64-linux"
+        # "x86_64-linux"
       ]; # TODO remove me, needed if i want to compile arm(which i do need infact)
 
     })

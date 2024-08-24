@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-hosts=("k3s-oraclearm2" "k3s-local-01" "k3s-oraclearm1")
+hosts=("k3s-oraclearm2" "k3s-local-01" "k3s-oraclearm1" "k3s-local-02")
 prepare_token_rke2(){
     # while true; do
         echo "running token"
@@ -85,6 +85,7 @@ elif [[ $1 == token ]]; then
 elif [[ $1 == service_restart ]]; then
     echo "restarting services"
     for host in "${hosts[@]}"; do
+        echo restarting $host
         ssh $host "systemctl restart rke2-server.service"
     done
 fi
