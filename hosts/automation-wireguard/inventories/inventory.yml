@@ -21,7 +21,7 @@ all:
       pipelining: true
       ansible_ssh_user: root
       # ansible_host: "10.99.7.3"
-      ansible_host: "10.2.11.25" 
+      ansible_host: "k3s-local-01.local.icylair.com" 
       ansible_ssh_port: 22
       ansible_ssh_private_key_file: ~/.ssh/id_local
       wireguard_ip: 10.99.10.13
@@ -29,7 +29,7 @@ all:
       pipelining: true
       ansible_ssh_user: root
       # ansible_host: "10.99.7.3"
-      ansible_host: "10.2.11.38" 
+      ansible_host: "k3s-local-02.local.icylair.com" 
       ansible_ssh_port: 22
       ansible_ssh_private_key_file: ~/.ssh/id_local
       wireguard_ip: 10.99.10.14
