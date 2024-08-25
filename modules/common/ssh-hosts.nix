@@ -84,6 +84,13 @@ in
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
+    Host oracle-x86-03
+        HostName oracle3.cloud.icylair.com
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile /home/bocmo/.ssh/id_local
      Host k3s-oraclearm1
         HostName oraclearm1.cloud.icylair.com
         Port 22

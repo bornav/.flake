@@ -56,7 +56,9 @@ let
       - 10.2.11.25
       - 10.2.11.36
       - 10.2.11.38
+      - 10.99.10.15
       - 10.99.10.14
+      - 10.99.10.13
       - 10.99.10.12
       - 10.99.10.11
       - 10.99.10.10
@@ -94,6 +96,8 @@ in
     # ./mesh.nix
     {_module.args.disks = [ "/dev/sda" ];}
   ];
+  rke2.server = true;
+  # rke2.agent = true;
 
   fileSystems."/storage" =
     { device = "/dev/disk/by-uuid/6a7dffe7-6eb9-4adf-bf80-4dbb9b795995";

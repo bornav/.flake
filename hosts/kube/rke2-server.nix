@@ -27,6 +27,20 @@ let
   # };
 in
 {
+  imports = [( import ./rke2-server-spec.nix)];
+  # options = {
+  #   rke2 = {
+  #     server = lib.mkOption {
+  #       type = lib.types.bool;
+  #       default = false;
+  #     };
+  #     client = lib.mkOption {
+  #       type = lib.types.bool;
+  #       default = false;
+  #     };    
+  #   };
+  # };
+  # config = {
   # k3s specific
   networking.useNetworkd = true;
   networking.firewall.enable = false;  ## this was the shit that was making it fail...
@@ -64,36 +78,37 @@ in
   systemd.watchdog.rebootTime = "3m";
 
   environment.etc."rancher/rke2/config.yaml".source = pkgs.writeText "config.yaml" node_config;
-  services.rke2 = {
-    package = pkgs-unstable.rke2_latest;
-    # package = pkgs.rke2;
-    # clusterInit=true;
-    # role="server";
-    tokenFile ="/var/token";
-    enable = true;
-    # cni = "cilium";
-    cni = "none";
-    extraFlags = [ # space at the start important ! :|
-      # " --disable rke2-kube-proxy"
-      " --kube-apiserver-arg default-not-ready-toleration-seconds=30"
-      " --kube-apiserver-arg default-unreachable-toleration-seconds=30" 
-      " --kube-controller-manager-arg node-monitor-period=20s"
-      " --kube-controller-manager-arg node-monitor-grace-period=20s" 
-      " --kubelet-arg node-status-update-frequency=5s"
-    ];
-    # extraFlags = toString ([
-	  #   "--write-kubeconfig-mode \"0644\""
-	  #   "--disable rke2-kube-proxy"
-	  #   "--disable rke2-canal"
-	  #   "--disable rke2-coredns"
-    #   "--disable rke2-ingress-nginx"
-    #   "--disable rke2-metrics-server"
-    #   "--disable rke2-service-lb"
-    #   "--disable rke2-traefik"
-    # ] ++ (if meta.hostname == "homelab-0" then [] else [
-	  #     "--server https://homelab-0:6443"
-    # ]));
-  };
+  # services.rke2 = {
+  #   package = pkgs-unstable.rke2_latest;
+  #   # package = pkgs.rke2;
+  #   # clusterInit=true;
+  #   role=kube-role;
+  #   tokenFile ="/var/token";
+  #   enable = true;
+  #   configPath = "/etc/rancher/rke2";
+  #   # cni = "cilium";
+  #   # cni = if kube-role == "agent" then "canal" else "none"; # canal is default
+  #   extraFlags = [ # space at the start important ! :|
+  #     # " --disable rke2-kube-proxy"
+  #     " --kube-apiserver-arg default-not-ready-toleration-seconds=30"
+  #     " --kube-apiserver-arg default-unreachable-toleration-seconds=30" 
+  #     " --kube-controller-manager-arg node-monitor-period=20s"
+  #     " --kube-controller-manager-arg node-monitor-grace-period=20s" 
+  #     " --kubelet-arg node-status-update-frequency=5s"
+  #   ];
+  #   # extraFlags = toString ([
+	#   #   "--write-kubeconfig-mode \"0644\""
+	#   #   "--disable rke2-kube-proxy"
+	#   #   "--disable rke2-canal"
+	#   #   "--disable rke2-coredns"
+  #   #   "--disable rke2-ingress-nginx"
+  #   #   "--disable rke2-metrics-server"
+  #   #   "--disable rke2-service-lb"
+  #   #   "--disable rke2-traefik"
+  #   # ] ++ (if meta.hostname == "homelab-0" then [] else [
+	#   #     "--server https://homelab-0:6443"
+  #   # ]));
+  # };
 
   services.openiscsi = {
     enable = true;
@@ -205,4 +220,6 @@ in
     "vm.panic_on_oom"=0;
     "vm.swappiness" = 0; # don't swap unless absolutely necessary
   };
+
+  # };
 }

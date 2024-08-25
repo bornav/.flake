@@ -52,7 +52,7 @@ wg-mesh(){
     cd automation-wireguard
 	ansible-playbook wireguard.yml -i "inventories/inventory.yml"
     echo "sleeping before ping"
-    sleep 10
+    sleep 15
 	ansible-playbook ping.yml -i "inventories/inventory.yml"
     cd ../
 }
