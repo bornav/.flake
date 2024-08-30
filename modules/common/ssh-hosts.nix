@@ -105,6 +105,13 @@ in
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
+    Host switch
+        HostName 10.0.0.250
+        User admin
+        HostKeyAlgorithms +ssh-rsa
+        PubkeyAcceptedAlgorithms +ssh-rsa
+        Ciphers aes256-cbc,aes128-cbc,3des-cbc
+
     '';
 }
 

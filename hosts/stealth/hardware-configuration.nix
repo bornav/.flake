@@ -12,24 +12,24 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/NIXOS";
-      fsType = "ext4";
-      options = [
-        "noatime"
-      ];
-    };
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/BOOT";
-      fsType = "vfat";
-    };
-  fileSystems."/home" =
-    { device = "/dev/disk/by-label/home_partition";
-      fsType = "ext4";
-      options = [
-        "noatime"
-      ];
-    };
+  # fileSystems."/" =
+  #   { device = "/dev/disk/by-label/NIXOS";
+  #     fsType = "ext4";
+  #     options = [
+  #       "noatime"
+  #     ];
+  #   };
+  # fileSystems."/boot" =
+  #   { device = "/dev/disk/by-label/BOOT";
+  #     fsType = "vfat";
+  #   };
+  # fileSystems."/home" =
+  #   { device = "/dev/disk/by-label/home_partition";
+  #     fsType = "ext4";
+  #     options = [
+  #       "noatime"
+  #     ];
+  #   };
 
   swapDevices = [ {
     device = "/var/lib/swapfile";

@@ -50,6 +50,11 @@ with lib;
     environment.variables = {
     #   KWIN_DRM_NO_AMS=lib.mkForce "1"; ## allow tearing if enabled in settings
     };
+    programs = {    
+      kdeconnect = {                                    # GSConnect
+        enable = lib.mkForce true;
+    };
+    };
     home-manager.users.${vars.user} = {
       
     };

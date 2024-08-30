@@ -24,6 +24,7 @@ in
     ./hardware-configuration.nix
     # ./network-shares.nix
   ];
+  networking.firewall.enable = lib.mkForce false;
   fonts = { ## TODO entire block untested if even used, would like to use the Hack font
     fontDir.enable = true;
     fontconfig.enable = true;
@@ -172,6 +173,7 @@ in
     xorg.xkill
     # remmina          # XRDP & VNC Client
     # sublime-merge
+    feh
     gparted
     teamspeak_client
     nordic

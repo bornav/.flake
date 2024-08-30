@@ -98,6 +98,7 @@ in
       settings.PermitRootLogin = "yes";
     };
   };
+  users.users.root.initialPassword = "nixos";
   users.users.root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   system = {                                # NixOS Settings
     autoUpgrade = {                        # Allow Auto Update (not useful in flakes)

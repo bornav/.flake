@@ -1,12 +1,11 @@
-{ config, lib, inputs, vars, ... }:
+{ config, lib, system, inputs, host, ... }:  # TODO remove system, only when from all modules it is removed
 let
-  system = "x86_64-linux";
   pkgs = import inputs.nixpkgs-unstable {
-    inherit system;
+    system = host.system;
     config.allowUnfree = true;
   };
   pkgs-unstable = import inputs.nixpkgs-unstable {
-    inherit system;
+    system = host.system;
     config.allowUnfree = true;
   };
 in
@@ -21,23 +20,21 @@ in
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
-    # ./disk-config.nix
+    ./disk-config.nix
     ./hardware-configuration.nix
-    # {_module.args.disks = [ "/dev/nvme0n1" ];}
+    {_module.args.disks = [ "/dev/nvme0n1" ];}
   ];
   boot.loader = {
     #systemd-boot.enable = true;
-    grub.efiSupport = true;
+    grub.efiSupport = true; 
     grub.enable = true;
     grub.device = "nodev";
     #efi.efiSysMountPoint = "/boot/EFI";
-    grub.efiInstallAsRemovable = lib.mkForce true;
-    #grub.useOSProber = true;
-    grub.extraEntries = ''
-    '';
+    efi.canTouchEfiVariables = true;
   };
-  networking.hostName = "stealth"; # Define your hostname.
+  networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
+  networking.firewall.enable = lib.mkForce false;
 
   # Configure keymap in X11
   services.xserver = {
@@ -46,18 +43,18 @@ in
   };
   users.users.root.initialPassword = "nixos";
   users.defaultUserShell = pkgs.zsh;
-  users.users.${vars.user} = {
+  users.users.${host.vars.user} = {
     isNormalUser = true;
-    description = "${vars.user}";
+    description = "${host.vars.user}";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   };
   environment.sessionVariables = {
-    flake_name="stealth";
+    flake_name=host.hostName;
     FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
-    # NIXOS_CONFIG="/home/${vars.user}/.flake";
+    # NIXOS_CONFIG="/home/${host.vars.user}/.flake";
     QT_STYLE_OVERRIDE="kvantum";
     NIXOS_OZONE_WL = "1";
   };
@@ -69,7 +66,7 @@ in
   steam.enable = true;
   thorium.enable = true;
   rar.enable = true;
-  wg-home.enable = true;
+  wg-home.enable = false;
   storagefs.share.vega_nfs = true;
   # storagefs.share.vega_smb = true;
   ide.vscode = true;
@@ -110,7 +107,7 @@ in
   };
   services.flatpak.enable = true;
 
-  home-manager.users.${vars.user} = {
+  home-manager.users.${host.vars.user} = {
     xdg.mime.enable = true;
     xdg.mimeApps.enable = true;
     ## this may be neccesary sometimes

@@ -68,6 +68,23 @@ in
         # nur.nixosModules.nur
         ./configuration.nix
         ./dockeropen
+    ];
+  };
+  networktest = inputs.nixpkgs-unstable.lib.nixosSystem {
+    # system = "x86_64-linux";  
+    specialArgs = {
+      inherit pkgs-unstable vars inputs;
+      host = {
+          hostName = "networktest";
+          vars = vars;
+          system = "x86_64-linux"; 
+      };
+      system = "x86_64-linux"; 
+    };
+    modules = [
+        # nur.nixosModules.nur
+        ./configuration.nix
+        ./networktest
         
     ];
   };
