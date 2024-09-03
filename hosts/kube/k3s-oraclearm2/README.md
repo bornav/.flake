@@ -9,5 +9,5 @@ some weird fuckerry happened in the grub part of the configuration making it not
 
 
 ### rebuilds the flake with the new configuration
-`nixos-rebuild switch --flake ~/.flake#k3s-oraclearm2 --target-host oraclearm2` #how i updated the config on the remote system
+`nixos-rebuild switch --flake ~/.flake#k3s-oraclearm2 --use-substitutes --target-host oraclearm2` #how i updated the config on the remote system
 aditional note, on update, seems local ip addres always switches

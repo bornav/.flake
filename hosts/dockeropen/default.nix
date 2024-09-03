@@ -55,6 +55,21 @@ in
     xkb.layout = "us";
     xkb.variant = "";
   };
+
+  # mdns
+  services.avahi = {
+    nssmdns = true;
+    enable = true;
+    ipv4 = true;
+    ipv6 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
+  };
+  #
+
   users.users.root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   users.users.root.initialPassword = "nixos";
   users.users.${host.vars.user} = {

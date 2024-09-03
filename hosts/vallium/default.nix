@@ -46,6 +46,7 @@ in
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
     #systemd-boot.enable = true;
+    timeout = 1;
     grub.efiSupport = true; 
     grub.enable = true;
     grub.device = "nodev";

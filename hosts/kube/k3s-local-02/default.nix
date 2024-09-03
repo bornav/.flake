@@ -40,6 +40,7 @@ in
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
+    timeout = 1;
     grub.enable = true;
     grub.device = "nodev";
     # efi.canTouchEfiVariables = true;

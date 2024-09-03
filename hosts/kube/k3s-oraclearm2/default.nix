@@ -118,7 +118,6 @@ in
     grub.efiSupport = true;
     grub.efiInstallAsRemovable = lib.mkForce true;
   };
-
   systemd.network.networks."10-wan" = {
     matchConfig.Name = "enp1s0";
     networkConfig = {

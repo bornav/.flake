@@ -131,6 +131,21 @@ in
     #   };
     # };
   };
+
+  # mdns
+  services.avahi = {
+    nssmdns = true;
+    enable = true;
+    ipv4 = true;
+    ipv6 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
+  };
+  #
+
   nix = {
     settings.auto-optimise-store = true;
     gc = {                                  # Garbage Collection
