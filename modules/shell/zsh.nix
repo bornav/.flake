@@ -18,6 +18,7 @@ let
     alias yay_clean="yay -cc && yay -Sc"
     alias _chezmoi_sync_local="chezmoi re-add" #re adds all watched files and commits changes
     alias ssh='TERM=xterm-color ssh'
+    alias sftp='sftp -o RemoteCommand=none -o RequestTTY=no' # this is here in case we add remotecommand to the ssh config file
     alias k9s='EDITOR=vim k9s'
     alias kubectl='EDITOR=vim kubectl'
     alias kubectl_pod_status="kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'"
@@ -74,6 +75,11 @@ let
     alias ls='ls --color=auto'
 
     alias neofetch="fastfetch"
+
+    #qemu
+    vm_name="ubuntu24.04"
+    alias qemu_start="sudo virsh start $vm_name"
+    alias qemu_stop="sudo virsh shutdown $vm_name"
 
     #uncommon
     alias avahi_discover_local="avahi-browse --all --ignore-local --resolve --terminate"   #discovers local mdns records

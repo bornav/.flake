@@ -105,6 +105,10 @@ in
   ];
   services.rpcbind.enable = true;
   services.kubernetes.apiserver.allowPrivileged = true;
+  boot.initrd = {
+    supportedFilesystems = [ "nfs" ];
+    kernelModules = [ "nfs" ];
+  };
   boot.kernelModules = [ "rbd" "br_netfilter" ];
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 

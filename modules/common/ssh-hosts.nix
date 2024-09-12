@@ -111,7 +111,14 @@ in
         HostKeyAlgorithms +ssh-rsa
         PubkeyAcceptedAlgorithms +ssh-rsa
         Ciphers aes256-cbc,aes128-cbc,3des-cbc
-
+    Host qemu-ubuntu-24-lts
+        HostName 192.168.124.129
+        User root
+        IdentityFile /home/bornav/.ssh/pw-less_vm_access_rsa
+        RequestTTY yes
+        RemoteCommand tmux new -A -s ssh-remote-session
+        #Match exec "[[ -z '$SSH_TTY' ]"
+        ##    RemoteCommand none
     '';
 }
 

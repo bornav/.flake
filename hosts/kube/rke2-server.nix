@@ -117,6 +117,7 @@ in
   # services.nfs.server.enable = true;
   environment.systemPackages = with pkgs; [
     nfs-utils
+    openiscsi
     wireguard-tools
     python3
     cilium-cli
@@ -146,8 +147,12 @@ in
   ];
   services.rpcbind.enable = true;
   services.kubernetes.apiserver.allowPrivileged = true;
+  boot.initrd = {
+    supportedFilesystems = [ "nfs" ];
+    kernelModules = [ "nfs" ];
+  };
   boot.kernelModules = [ "rbd" "br_netfilter" ];
-
+  
   virtualisation.docker.logDriver = "json-file";
   # virtualisation.containerd = {
   #   enable = true;
