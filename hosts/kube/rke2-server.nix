@@ -114,7 +114,15 @@ in
     enable = true;
     name = "iqn.2000-05.edu.example.iscsi:${config.networking.hostName}";
   };
-  # services.nfs.server.enable = true;
+  services.nfs.server.enable = true;
+  # services.nfs.settings = {
+  #     nfsd.udp = false;
+  #     nfsd.vers3 = false;
+  #     nfsd.vers4 = true;
+  #     nfsd."vers4.0" = true;
+  #     nfsd."vers4.1" = true;
+  #     nfsd."vers4.2" = true;
+  #   };
   environment.systemPackages = with pkgs; [
     nfs-utils
     openiscsi

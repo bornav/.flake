@@ -10,6 +10,7 @@ let
   };
 in
 {
+  imports = (import ../../modules/virtualization);
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
   programs.nh.enable = true;

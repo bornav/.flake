@@ -1,4 +1,6 @@
 networks:
+  portainer_proxy:
+
   ##bridge:
     ##name: bridge
     ##external: true
@@ -32,36 +34,67 @@ networks:
           ip_range: 10.2.11.0/24
    ##external: true
 services:
- portainer:
-  image: portainer/portainer-ce:2.20.3
-  container_name: portainer
-  security_opt:
-      - no-new-privileges:true
-  user: 0:0
-  restart: always
-  ports:
-   - 8000:8000
-   - 9000:9000
-   - 9443:9443
-  volumes:
-   - /usr/docker_config/portainer/data:/data
-   - /var/run/docker.sock:/var/run/docker.sock
-  labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.portainer.entrypoints=http"
-      - "traefik.http.routers.portainer.rule=Host(`portainer.icylair.com`)"
-      - "traefik.http.middlewares.portainer-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.portainer.middlewares=portainer-https-redirect"
-      - "traefik.http.routers.portainer-secure.entrypoints=https"
-      - "traefik.http.routers.portainer-secure.rule=Host(`portainer.icylair.com`)"
-      - "traefik.http.routers.portainer-secure.tls=true"
-      - "traefik.http.routers.portainer-secure.service=portainer"
-      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
-      - "traefik.docker.network=frontend"
-  #network_mode: "bridge"
-  networks:
-    frontend:
-        ipv4_address: 172.18.255.254
-    vlan11:
-      ipv4_address: 10.2.11.199
+  portainer:
+    image: portainer/portainer-ce:2.20.3
+    # image: portainer/portainer-ce:2.18.4
+    container_name: portainer
+    security_opt:
+        - no-new-privileges:true
+    user: 0:0
+    restart: always
+    ports:
+    - 8000:8000
+    # - 9000:9000
+    - 9443:9443
+    volumes:
+    - /usr/docker_config/portainer/data:/data
+    - /var/run/docker.sock:/var/run/docker.sock
+    # labels:
+    #     - "traefik.enable=true"
+    #     - "traefik.http.routers.portainer.entrypoints=http"
+    #     - "traefik.http.routers.portainer.rule=Host(`portainer.icylair.com`)"
+    #     - "traefik.http.middlewares.portainer-https-redirect.redirectscheme.scheme=https"
+    #     - "traefik.http.routers.portainer.middlewares=portainer-https-redirect"
+    #     - "traefik.http.routers.portainer-secure.entrypoints=https"
+    #     - "traefik.http.routers.portainer-secure.rule=Host(`portainer.icylair.com`)"
+    #     - "traefik.http.routers.portainer-secure.tls=true"
+    #     - "traefik.http.routers.portainer-secure.service=portainer"
+    #     - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+    #     - "traefik.docker.network=frontend"
+    #network_mode: "bridge"
+    networks:
+      portainer_proxy: {}
+      #- bridge
+      frontend:
+          ipv4_address: 172.18.255.254
+            #    vlan12:
+            #        ipv4_address: 10.2.12.199
+      vlan11:
+        ipv4_address: 10.2.11.199
+  portainer_proxy:
+    image: ghcr.io/jsh32/portainer-proxy:latest
+    build: .
+    restart: always
+    environment:
+      # Defaults that work with this config
+      - PORTAINER_HOSTNAME=portainer
+      - PORTAINER_PORT=9000
+    networks:
+      portainer_proxy: {}
+      frontend:
+          ipv4_address: 172.18.255.253
+    ports:
+      - 9000:80
+    labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.portainer.entrypoints=http"
+        - "traefik.http.routers.portainer.rule=Host(`portainer.icylair.com`)"
+        - "traefik.http.middlewares.portainer-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.portainer.middlewares=portainer-https-redirect"
+        - "traefik.http.routers.portainer-secure.entrypoints=https"
+        - "traefik.http.routers.portainer-secure.rule=Host(`portainer.icylair.com`)"
+        - "traefik.http.routers.portainer-secure.tls=true"
+        - "traefik.http.routers.portainer-secure.service=portainer"
+        - "traefik.http.services.portainer.loadbalancer.server.port=80"
+        - "traefik.docker.network=frontend"
 

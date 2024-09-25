@@ -20,7 +20,7 @@ with lib;
     # services.xserver.displayManager.gdm.enable = lib.mkForce false;
     
     services.displayManager.sddm.enable = true;
-    services.displayManager.sddm.wayland.enable = true;
+    # services.displayManager.sddm.wayland.enable = true;
     services.desktopManager.plasma6.enable = true;
     # services.xserver.displayManager.sddm.enable = lib.mkDefault true;
     # services.xserver.desktopManager.plasma6.enable = true;

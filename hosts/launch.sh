@@ -88,6 +88,19 @@ elif [[ $1 == service_restart ]]; then
         echo restarting $host
         ssh $host "systemctl restart rke2-server.service"
     done
+elif [[ $1 == deploy_all ]]; then
+    echo "wg-mesh step"
+    wg-mesh
+    echo "build step"
+    build
+    echo "token step"
+    prepare_token_rke2
+    echo "try update step"
+    try_update
+    echo "atempting update step"
+    update
+    echo "done step"
+    exit
 fi
 
 

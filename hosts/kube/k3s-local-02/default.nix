@@ -18,6 +18,7 @@ let
       - "node-role.kubernetes.io/role=worker:PreferNoSchedule"
     node-ip: 10.99.10.14
   '';
+  # kubectl label nodes k3s-local-02 kubernetes.io/role=worker
 in
 {
   imports = [
@@ -36,6 +37,9 @@ in
   ];
   # rke2.server = true;
   rke2.agent = true;
+
+  virtualization.enable = true;
+  virtualization.qemu = true;
   
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
