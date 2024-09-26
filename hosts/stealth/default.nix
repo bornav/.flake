@@ -125,6 +125,7 @@ in
   ##gargabe collection
   programs.dconf.enable = true;
 
+  hardware.bluetooth.enable = true;
   # services.udev.extraRules = ''
   #   # Finalmouse ULX devices
   #   # This file should be installed to /etc/udev/rules.d so that you can access the Finalmouse ULX devices without being root.

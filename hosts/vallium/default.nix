@@ -98,7 +98,7 @@ in
     FLAKE="$HOME/.flake";
     NIXOS_CONFIG="$HOME/.flake";
     # NIXOS_CONFIG="/home/${host.vars.user}/.flake";
-    QT_STYLE_OVERRIDE="kvantum";
+    # QT_STYLE_OVERRIDE="kvantum";
     WLR_NO_HARDWARE_CURSORS = "1"; # look into removing
     NIXOS_OZONE_WL = "1"; #Hint electron apps to use wayland
   };
@@ -307,6 +307,8 @@ in
   '';
 
   #nvidia
+
+  hardware.bluetooth.enable = true;
   hardware = {
     nvidia = {
       modesetting.enable = true;
