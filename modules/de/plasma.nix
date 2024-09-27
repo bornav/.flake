@@ -57,10 +57,10 @@ with lib;
     home-manager.users.${vars.user} = {
       
     };
-    # qt = {
-    #   enable = true;
-    #   platformTheme = "gnome";
-    #   style = "adwaita-dark";
-    # };
+    #qt = {
+    #  enable = lib.mkForce false;
+    #  platformTheme = "gnome";
+    #  style = "adwaita-dark";
+    #};
   };
 }
