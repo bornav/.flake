@@ -119,6 +119,20 @@ in
         RemoteCommand tmux new -A -s ssh-remote-session
         #Match exec "[[ -z '$SSH_TTY' ]"
         ##    RemoteCommand none
+    Host printer_old
+        HostName mainsailos.local
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile /home/bocmo/.ssh/id_local
+    Host printer_new
+        HostName cm4klipper.local
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile /home/bocmo/.ssh/id_local
     '';
 }
 

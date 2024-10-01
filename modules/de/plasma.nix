@@ -20,8 +20,11 @@ with lib;
     # services.xserver.displayManager.gdm.enable = lib.mkForce false;
     
     services.displayManager.sddm.enable = true;
-    # services.displayManager.sddm.wayland.enable = true;
-    services.desktopManager.plasma6.enable = true;
+    services.displayManager.sddm.wayland.enable = true;
+    services.desktopManager.plasma6 = {
+      enable = true;
+      enableQt5Integration = true;
+    };
     # services.xserver.displayManager.sddm.enable = lib.mkDefault true;
     # services.xserver.desktopManager.plasma6.enable = true;
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -57,10 +60,10 @@ with lib;
     home-manager.users.${vars.user} = {
       
     };
-    #qt = {
-    #  enable = lib.mkForce false;
-    #  platformTheme = "gnome";
-    #  style = "adwaita-dark";
-    #};
+    qt = {
+     enable = lib.mkForce true;
+     #platformTheme = "gtk2";
+     style = "breeze";
+    };
   };
 }
