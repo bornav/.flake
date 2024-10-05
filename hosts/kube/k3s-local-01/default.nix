@@ -77,6 +77,7 @@ let
     node-ip: 10.99.10.13
     server: https://10.99.10.11:9345
   '';
+    # runtime-image: "index.docker.io/rancher/rke2-runtime:v1.30.1-rke2r1"
 in
 {
   imports = [

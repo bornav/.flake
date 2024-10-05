@@ -108,4 +108,7 @@ in
     #   # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     # ];
   };
+  virtualisation.docker.daemon.settings = {
+    "exec-opts" = ["native.cgroupdriver=cgroupfs"];
+  };
 }
