@@ -42,10 +42,8 @@ let
     ---
     write-kubeconfig-mode: "0644"
     disable:
-      - rke2-kube-proxy
       - rke2-canal
       - rke2-ingress-nginx
-      - rke2-metrics-server
       - rke2-service-lb
     tls-san:
       - 10.0.0.71
@@ -72,6 +70,11 @@ let
     node-label:
       - "node-location=local"
       - "node-arch=amd64"
+    kube-apiserver-arg:
+      - oidc-issuer-url=https://keycloak.cloud.icylair.com/realms/master
+      - oidc-client-id=kubernetes
+      - oidc-username-claim=email
+      - oidc-groups-claim=groups
     node-taint:
       - "node-role.kubernetes.io/control-plane=true:NoSchedule"
     node-ip: 10.99.10.13

@@ -42,12 +42,11 @@ let
     ---
     write-kubeconfig-mode: "0644"
     # disable-cloud-controller: true
-    # disable-kube-proxy: true
+      # - rke2-metrics-server
+      # - rke2-kube-proxy
     disable:
-      - rke2-kube-proxy
       - rke2-canal
       - rke2-ingress-nginx
-      - rke2-metrics-server
       - rke2-service-lb
     tls-san:
       - 10.0.0.71
@@ -71,6 +70,11 @@ let
       - k3s-local-02
       - k3s-oraclearm1
       - k3s-oraclearm2
+    kube-apiserver-arg:
+      - oidc-issuer-url=https://keycloak.cloud.icylair.com/realms/master
+      - oidc-client-id=kubernetes
+      - oidc-username-claim=email
+      - oidc-groups-claim=groups
     node-label:
       - "node-location=cloud"
       - "node-arch=arm64"

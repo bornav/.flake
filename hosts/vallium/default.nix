@@ -185,7 +185,7 @@ in
     filelight
     nix-index
     kfind
-    thunderbird
+    betterbird
     xorg.xeyes
   ] ++
     (with pkgs-unstable; [
