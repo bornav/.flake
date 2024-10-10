@@ -39,7 +39,7 @@ in
   config = lib.mkMerge [
     (lib.mkIf (config.rke2.server) {
       services.rke2 = {
-        package = pkgs-unstable.rke2_latest;
+        package = pkgs-unstable.rke2;
         # package = pkgs.rke2;
         # clusterInit=true;
         role="server";
@@ -71,7 +71,7 @@ in
     })
     (lib.mkIf (config.rke2.agent) {
       services.rke2 = {
-        package = pkgs-unstable.rke2_latest;
+        package = pkgs-unstable.rke2;
         role="agent";
         tokenFile ="/var/token";
         enable = true;
