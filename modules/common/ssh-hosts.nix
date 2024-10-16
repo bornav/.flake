@@ -133,6 +133,13 @@ in
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
+    Host lighthouse
+        HostName 2a01:4f8:c012:c800::1
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile /home/bocmo/.ssh/cdn_key_pwless
     '';
 }
 
