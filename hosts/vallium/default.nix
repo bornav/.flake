@@ -195,11 +195,12 @@ in
       # openrgb
       # zsh-completions
       # zsh-autocomplete
-      godot_4
       avahi
       # ollama
       # lmstudio
       # gpt4all     
+      egl-wayland
+
     ]);
   programs.gnupg.agent = {
     enable = true;

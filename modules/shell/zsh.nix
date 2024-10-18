@@ -28,7 +28,7 @@ let
     #                         "nh os switch ~/.flake -H $flake_name --ask -- --builders ssh://nixbuilder_dockeropen"
     alias nixos_rebuild="~/.flake/rebuild.sh"
     alias nixos_rebuild_remote="sudo nixos-rebuild switch --flake ~/.flake#dockeropen --use-remote-sudo --target-host nixbuilder_dockeropen"
-    alias nixos_update="nix flake update ~/.flake && nixos_config_update"
+    alias nixos_update="nix flake update --flake ~/.flake && nixos_config_update"
     # alias nix_update="nixos_config_update --update"
     # alias nixos_config_update="sudo nixos-rebuild switch --flake ~/.flake#$flake_name"
     # alias nix_update="nix flake update ~/.flake && nixos_config_update"

@@ -12,13 +12,15 @@ with lib;
       flux
       fluxcd
       kubectl
+      kubelogin
+      kubelogin-oidc
       sops
       age
       ansible
       kubernetes-helm
       kustomize
       kustomize-sops
-      lens
+      # lens
       bfg-repo-cleaner
       inetutils
       dig

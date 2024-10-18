@@ -134,7 +134,8 @@ in
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
     Host lighthouse
-        HostName 2a01:4f8:c012:c800::1
+        HostName 159.69.206.117
+        # HostName 2a01:4f8:c012:c800::1
         Port 22
         User root
         IdentitiesOnly yes
