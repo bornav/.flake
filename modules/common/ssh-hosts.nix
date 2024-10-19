@@ -140,7 +140,8 @@ in
         User root
         IdentitiesOnly yes
         StrictHostKeyChecking no
-        IdentityFile /home/bocmo/.ssh/cdn_key_pwless
+        # IdentityFile /home/bocmo/.ssh/cdn_key_pwless
+        IdentityFile /home/bocmo/.ssh/id_local
     '';
 }
 

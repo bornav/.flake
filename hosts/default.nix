@@ -83,8 +83,8 @@ in
     };
     modules = [
         # nur.nixosModules.nur
-        ./configuration.nix
-        ./dockeropen
+        # ./configuration.nix
+        ./lighthouse
     ];
   };
   networktest = inputs.nixpkgs-unstable.lib.nixosSystem {
