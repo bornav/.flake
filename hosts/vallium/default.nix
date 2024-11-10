@@ -30,7 +30,7 @@ in
     fontconfig.enable = true;
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       (nerdfonts.override { fonts = [ "Hack" ]; })
     ];
@@ -110,11 +110,11 @@ in
      cosmic-desktop.enable =  lib.mkForce false;
      plasma.enable = lib.mkForce false;
    };
-  #  cosmic.configuration = {
-  #    cosmic-desktop.enable = lib.mkForce true;
-  #    gnome.enable = lib.mkForce false;
-  #    plasma.enable = lib.mkForce false;
-  #  };
+   cosmic.configuration = {
+     cosmic-desktop.enable = lib.mkForce true;
+     gnome.enable = lib.mkForce false;
+     plasma.enable = lib.mkForce false;
+   };
   #  plasma.configuration = {
   #    cosmic-desktop.enable = lib.mkForce false;
   #    gnome.enable = lib.mkForce false;
@@ -185,7 +185,7 @@ in
     filelight
     nix-index
     kfind
-    betterbird
+    # betterbird
     xorg.xeyes
   ] ++
     (with pkgs-unstable; [
@@ -321,12 +321,12 @@ in
 
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "560.35.03";
-        sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
+        version = "565.57.01";
+        sha256_64bit = "sha256-buvpTlheOF6IBPWnQVLfQUiHv4GcwhvZW3Ks0PsYLHo=";
         sha256_aarch64 = lib.fakeSha256;
         openSha256 = lib.fakeSha256;
         settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-        persistencedSha256 = "sha256-E2J2wYYyRu7Kc3MMZz/8ZIemcZg68rkzvqEwFAL3fFs=";
+        persistencedSha256 = "sha256-hdszsACWNqkCh8G4VBNitDT85gk9gJe1BlQ8LdrYIkg=";
       };
 
       # forceFullCompositionPipeline = true;

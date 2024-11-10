@@ -40,7 +40,7 @@ in
                 window.opacity = 0.8;
                 scrolling.history = 50000;
                 scrolling.multiplier = 7;
-                live_config_reload = false;
+                # live_config_reload = false;
                 # decorations = "None";
                 font = { # TODO see how i like the font
                     # The normal (roman) font face to use.

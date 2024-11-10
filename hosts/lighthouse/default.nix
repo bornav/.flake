@@ -103,6 +103,47 @@ in
         # Define the backend servers
         server server1 oraclearm1.cloud.icylair.com:443 check
         server server2 oraclearm2.cloud.icylair.com:443 check
+    frontend 6443-forward
+        bind *:6443
+        mode tcp
+        option tcplog
+        default_backend 6443_backends
+    backend 6443_backends
+        mode tcp
+        balance roundrobin
+        server server1 oraclearm1.cloud.icylair.com:6443 check
+        server server2 oraclearm2.cloud.icylair.com:6443 check
+    frontend 80-forward
+        bind *:80
+        mode tcp
+        option tcplog
+        default_backend 80_backends
+    backend 80_backends
+        mode tcp
+        balance roundrobin
+        server server1 oraclearm1.cloud.icylair.com:80 check
+        server server2 oraclearm2.cloud.icylair.com:80 check
+    frontend ssh-forward
+        bind *:10022
+        mode tcp
+        option tcplog
+        default_backend ssh_forward_backend
+    backend ssh_forward_backend
+        mode tcp
+        balance roundrobin
+        server server1 oraclearm1.cloud.icylair.com:22 check
+        server server2 oraclearm2.cloud.icylair.com:22 check
+    # frontend catch_rest
+    #     # bind *:1-21
+    #     bind *:8443-65535
+    #     mode tcp
+    #     option tcplog
+    #     default_backend catch_rest
+    # backend catch_rest
+    #     mode tcp
+    #     balance roundrobin
+    #     server server1 oraclearm1.cloud.icylair.com check
+    #     server server2 oraclearm2.cloud.icylair.com check
     '';
   networking.hostName = host.hostName; # Define your hostname.
   programs.nh.enable = true;
@@ -188,7 +229,7 @@ in
       dates = "weekly";
       options = "--delete-older-than 14d";
     };
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = "experimental-features = nix-command flakes";
     settings.max-jobs = 4;
   };
@@ -227,11 +268,34 @@ in
   # ];
 
   networking.firewall = {
-  enable = true;
-  allowedTCPPorts = [ 80 443 ];
-  allowedUDPPortRanges = [
-    { from = 1000; to = 6550; }
-  ];
-};
+    enable = true;
+    allowedTCPPorts = [ 22 80 443 6443 10022];
+    allowedUDPPortRanges = [
+      { from = 1000; to = 6550; }
+    ];
+  };
 
-}
+  # #ipv6
+  # # networking.interfaces.eth0.name = "eth0";
+  # networking = {
+  #   interfaces.eth0 = {
+  #     name = "eth0";
+  #     useDHCP = true;
+  #     ipv6 = {
+  #       addresses = [ "2001:db8:0:3df1::1/64" ];
+  #       routes = [
+  #         {
+  #           to = "default";
+  #           via = "fe80::1";
+  #         }
+  #       ];
+  #     };
+  #   };
+  # };
+  # networking.nameservers = {
+  #   ipv6 = {
+  #     addresses = [ "2a01:4ff:ff00::add:2" "2a01:4ff:ff00::add:1" ];
+  #   };
+  # };
+  # ####
+} 
