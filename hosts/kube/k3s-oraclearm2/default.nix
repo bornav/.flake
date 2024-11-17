@@ -133,4 +133,12 @@ in
     # make routing on this interface a dependency for network-online.target
     linkConfig.RequiredForOnline = "routable";
   };
+  services.journald = {
+    extraConfig = ''
+      SystemMaxUse=50M      # Maximum disk usage for the entire journal
+      SystemMaxFileSize=50M # Maximum size for individual journal files
+      RuntimeMaxUse=50M     # Maximum disk usage for runtime journal
+      MaxRetentionSec=1month # How long to keep journal files
+    '';
+  };
 }

@@ -185,4 +185,20 @@ in
         ./kube/common.nix
     ];
   };
+  rke2-local-example = inputs.nixpkgs-unstable.lib.nixosSystem {
+    system = "x86_64-linux";  
+    specialArgs = {
+        inherit vars inputs;
+        host = {
+            hostName = "rke2-local-example";
+            vars = vars;
+            system = "x86_64-linux"; 
+        };
+        system = "x86_64-linux"; 
+    };
+    modules = [
+        ./kube/rke2-local-example
+        ./kube/common.nix
+    ];
+  };
 }

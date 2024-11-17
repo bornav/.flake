@@ -108,7 +108,24 @@ in
     #   # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     # ];
   };
+  virtualisation.docker.logDriver = lib.mkForce "json-file";
   virtualisation.docker.daemon.settings = {
     "exec-opts" = ["native.cgroupdriver=cgroupfs"];
+    "log-opts" = {
+      "max-size" = "10m";
+      # "tag" = "docker.{{.Name}}";
+      "tag" = "local-{{.Name}}|{{.ImageName}}|{{.ID}}";
+      
+      "labels" = "production_status";
+      "env" = "os,customer";
+    };
+  };
+  services.journald = {
+    extraConfig = ''
+      SystemMaxUse=50M      # Maximum disk usage for the entire journal
+      SystemMaxFileSize=50M # Maximum size for individual journal files
+      RuntimeMaxUse=50M     # Maximum disk usage for runtime journal
+      MaxRetentionSec=1month # How long to keep journal files
+    '';
   };
 }
