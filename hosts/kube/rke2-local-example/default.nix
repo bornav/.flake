@@ -92,84 +92,19 @@ in
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
     ./disk-config.nix
-    # (import ../k3s-server.nix {inherit inputs vars config lib system;node_config = master3;})
     (import ../rke2-server.nix {inherit inputs vars config lib host system;node_config  = master3_rke;})
-    # ./k3s-server.nix
     {_module.args.disks = [ "/dev/sda" ];}
   ];
   rke2.server = true;
-  # rke2.agent = true;
-
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
     timeout = 1;
     grub.enable = true;
     grub.device = "nodev";
-    # efi.canTouchEfiVariables = true;
-    # grub.efiInstallAsRemovable = lib.mkForce false;
     grub.efiSupport = true;
     grub.efiInstallAsRemovable = lib.mkForce true;
   };
-  # networking.firewall = {
-  #   # nat = {
-  #   #   enable = true;
-  #   #   enableIPv6 = false;  # Disable IPv6 NAT if not needed
-      
-  #   #   # External interface (change this to match your setup)
-  #   #   # This is typically your main network interface
-  #   #   externalInterface = "ens18";  # Common VMware interface name
-      
-  #   #   # Configure port forwarding
-  #   #   forwardPorts = [
-  #   #     {
-  #   #       sourcePort = 443;  # HTTPS traffic
-  #   #       destination = "10.49.20.20:8443";  # Forward to internal IP
-  #   #       proto = "tcp";
-  #   #     }
-  #   #   ];
-      
-  #   #   # Optional: Configure internal interfaces if needed
-  #   #   internalInterfaces = [ "ens18" ];  # Add your internal interfaces here
-  #   # };
-  #   extraCommands = ''
-  #     # Forward TCP traffic
-  #     iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 10.49.20.20:8080
-  #     iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination 10.49.20.20:8443
-      
-  #     # Forward UDP traffic
-  #     iptables -t nat -A PREROUTING -p udp --dport 80 -j DNAT --to-destination 10.49.20.20:8080
-  #     iptables -t nat -A PREROUTING -p udp --dport 443 -j DNAT --to-destination 10.49.20.20:8443
-      
-  #     # Enable masquerading (NAT)
-  #     iptables -t nat -A POSTROUTING -j MASQUERADE
-  #   '';
-    
-  #   # # Cleanup rules when stopping the firewall
-  #   # extraStopCommands = ''
-  #   #   iptables -t nat -F PREROUTING
-  #   #   iptables -t nat -F POSTROUTING
-  #   # '';
-    
-  #   # Enable firewall and open the required port
-  #     enable = lib.mkForce true;
-  #     allowedTCPPorts = [ ];
-  #     allowedUDPPorts = [ ];
-  #     # allowedTCPPortRanges = [{ from = 10; to = 30443; }];
-  #     # allowedUDPPortRanges = [{ from = 10; to = 30443; }];
-  # };
-  
-  # systemd.network.networks."10-wan" = {
-  #   matchConfig.Name = "enp1s0";
-  #   networkConfig = {
-  #     # start a DHCP Client for IPv4 Addressing/Routing
-  #     DHCP = "ipv4";
-  #     # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
-  #     IPv6AcceptRA = true;
-  #   };
-  #   # make routing on this interface a dependency for network-online.target
-  #   linkConfig.RequiredForOnline = "routable";
-  # };
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
   services.journald = {
     extraConfig = ''
       SystemMaxUse=50M      # Maximum disk usage for the entire journal

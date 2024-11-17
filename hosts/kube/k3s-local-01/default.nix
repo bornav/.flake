@@ -170,6 +170,8 @@ in
   #   # make routing on this interface a dependency for network-online.target
   #   linkConfig.RequiredForOnline = "routable";
   # };
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
   services.journald = {
     extraConfig = ''
       SystemMaxUse=50M      # Maximum disk usage for the entire journal

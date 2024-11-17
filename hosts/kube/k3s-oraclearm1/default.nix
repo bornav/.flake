@@ -118,17 +118,17 @@ in
     grub.efiInstallAsRemovable = lib.mkForce true;
   };
 
-  systemd.network.networks."10-wan" = {
-    matchConfig.Name = "enp1s0";
-    networkConfig = {
-      # start a DHCP Client for IPv4 Addressing/Routing
-      DHCP = "ipv4";
-      # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
-      IPv6AcceptRA = true;
-    };
-    # make routing on this interface a dependency for network-online.target
-    linkConfig.RequiredForOnline = "routable";
-  };
+  # systemd.network.networks."10-wan" = {
+  #   matchConfig.Name = "enp1s0";
+  #   networkConfig = {
+  #     # start a DHCP Client for IPv4 Addressing/Routing
+  #     DHCP = "ipv4";
+  #     # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
+  #     IPv6AcceptRA = true;
+  #   };
+  #   # make routing on this interface a dependency for network-online.target
+  #   linkConfig.RequiredForOnline = "routable";
+  # };
   # wirenix = {
   #   enable = true;
   #   peerName = "node1"; # defaults to hostname otherwise
@@ -137,6 +137,8 @@ in
   #   # secretsDir = ./secrets; # only if you're using agenix-rekey
   #   aclConfig = import ./mesh.nix;
   # };
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
   services.journald = {
     extraConfig = ''
       SystemMaxUse=50M      # Maximum disk usage for the entire journal

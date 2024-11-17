@@ -83,6 +83,8 @@ in
   #   };
   #   wantedBy = [ "multi-user.target" ];
   # }; 
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
   services.journald = {
     extraConfig = ''
       SystemMaxUse=50M      # Maximum disk usage for the entire journal
