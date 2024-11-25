@@ -26,6 +26,7 @@
                     #  inputs.nixpkgs.follows = "nixpkgs-unstable";
                      };
       wirenix.url = "sourcehut:~msalerno/wirenix";
+      nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
     };
   outputs = { self, nur, wirenix, nixpkgs-unstable, nixpkgs-stable, nixpkgs-master, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
 	let

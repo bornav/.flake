@@ -25,6 +25,7 @@ with lib;
       inetutils
       dig
       k9s
+      tcpdump
       yq
       yaml-language-server  # TODO look into
       nil # TODO move into ide

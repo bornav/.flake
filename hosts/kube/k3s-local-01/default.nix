@@ -170,6 +170,38 @@ in
   #   # make routing on this interface a dependency for network-online.target
   #   linkConfig.RequiredForOnline = "routable";
   # };
+#  networking = {
+#     nat = {
+#       enable = true;
+#       externalInterface = "ens18";
+#       forwardPorts = [
+#         {
+#           sourcePort = 8443;
+#           destination = "10.49.21.1:8443";
+#           proto = "tcp";
+#           # Specify the external interface if needed
+#           #   # uncomment and adjust if needed
+#         }
+#       ];
+#     };
+    
+#     firewall = {
+#       # enable = true;
+#       allowedTCPPorts = [ ];
+#       allowedUDPPorts = [ ];
+#       # allowedTCPPorts = [ 8443 ];
+#       # Enable connection tracking
+#       # Add explicit rules to ensure both directions work
+#       extraCommands = ''
+#         iptables -A FORWARD -p tcp --dport 8443 -j ACCEPT
+#         iptables -A FORWARD -p tcp --sport 8443 -j ACCEPT
+#       '';
+#     };
+#   };
+
+  environment.systemPackages = with pkgs; [iptables
+                                           nftables];
+
   systemd.network.wait-online.enable = false;
   boot.initrd.systemd.network.wait-online.enable = false;
   services.journald = {

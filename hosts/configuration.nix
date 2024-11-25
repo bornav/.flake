@@ -63,7 +63,7 @@ in
       gnumake
       openssl
       xdg-utils
-      mission-center # windows like task manager
+      # mission-center # windows like task manager
       # nh
       tmux
       # dbus

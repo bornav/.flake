@@ -22,9 +22,9 @@ in
     inputs.nixos-cosmic.nixosModules.default
     inputs.nix-flatpak.nixosModules.nix-flatpak
     ./hardware-configuration.nix
+    # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
     # ./network-shares.nix
   ];
-  networking.firewall.enable = lib.mkForce false;
   fonts = { ## TODO entire block untested if even used, would like to use the Hack font
     fontDir.enable = true;
     fontconfig.enable = true;
@@ -42,8 +42,9 @@ in
       };
     };
   };
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
+  #services.getty.autologinUser = "bocmo";
+  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_11;
   boot.loader = {
     #systemd-boot.enable = true;
     timeout = 1;
@@ -52,31 +53,32 @@ in
     grub.device = "nodev";
     #efi.efiSysMountPoint = "/boot/EFI";
     efi.canTouchEfiVariables = true;
-    #grub.useOSProber = true;
+    # grub.useOSProber = true;
     grub.extraEntries = ''
-        menuentry 'Windows Boot Manager (on /dev/nvme0n1p1)' --class windows --class os $menuentry_id_option 'windows' {
+        menuentry 'Windows Boot Manager (on /dev/nvme1n1p3)' --class windows --class os $menuentry_id_option 'osprober-efi-D050-C7EF' {
           savedefault
           insmod part_gpt
           insmod fat
-          search --no-floppy --label BOOT
+          search --no-floppy --fs-uuid --set=root D050-C7EF
           chainloader /EFI/Microsoft/Boot/bootmgfw.efi
         }
-        menuentry 'Arch Linux, with Linux linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-109c9c71-abfc-46d9-b983-9dd681b53ce4' {
-          savedefault
-          set gfxpayload=keep
-          insmod gzio
-          insmod part_gpt
-          insmod fat
-          search --no-floppy --label BOOT
-          echo    'Loading Linux linux ...'
-          linux   /vmlinuz-linux root=LABEL=root_partition rw  loglevel=3 nvidia-drm.modeset=1 iommu=pt
-          echo    'Loading initial ramdisk ...'
-          initrd  /amd-ucode.img /initramfs-linux.img
-        }
     '';
+        # menuentry 'Arch Linux, with Linux linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-109c9c71-abfc-46d9-b983-9dd681b53ce4' {
+        #   savedefault
+        #   set gfxpayload=keep
+        #   insmod gzio
+        #   insmod part_gpt
+        #   insmod fat
+        #   search --no-floppy --label BOOT
+        #   echo    'Loading Linux linux ...'
+        #   linux   /vmlinuz-linux root=LABEL=root_partition rw  loglevel=3 nvidia-drm.modeset=1 iommu=pt
+        #   echo    'Loading initial ramdisk ...'
+        #   initrd  /amd-ucode.img /initramfs-linux.img
+        # }
   };
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
+  networking.firewall.enable = lib.mkForce false;
 
   # Configure keymap in X11
   services.xserver = {
@@ -285,7 +287,8 @@ in
       # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     ];
   };
-  
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
   ## for setting the default apps
   ## definition https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.mimeApps.defaultApplications
   home-manager.users.${host.vars.user} = {

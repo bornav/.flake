@@ -116,7 +116,7 @@ in
       # "tag" = "docker.{{.Name}}";
       "tag" = "local-{{.Name}}|{{.ImageName}}|{{.ID}}";
       
-      "labels" = "production_status";
+      "labels" = "com.docker.compose.project";
       "env" = "os,customer";
     };
   };

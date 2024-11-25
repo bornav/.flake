@@ -138,6 +138,7 @@ in
     nano
     # rke2
     k9s
+    tcpdump
 
     util-linux ## longhorn nsenter, seems nsenter is available without this
 
