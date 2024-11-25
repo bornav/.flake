@@ -322,8 +322,7 @@ in
   };
   ##
   ##gargabe collection
-  programs.dconf.enable = true;
-
+  
   services.udev.extraRules = ''
     ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
   '';

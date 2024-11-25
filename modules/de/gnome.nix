@@ -37,18 +37,18 @@ with lib;
         desktopManager.gnome.enable = true;             # Desktop Environment
       };
       udev.packages = with pkgs; [
-        gnome.gnome-settings-daemon
+        gnome-settings-daemon
       ];
     };
     environment = {
       systemPackages = with pkgs; [                     # System-Wide Packages
         adwaita-icon-theme
-        gnome.dconf-editor
-        gnome.gnome-tweaks
+        dconf-editor
+        gnome-tweaks
       ];
       gnome.excludePackages = (with pkgs; [             # Ignored Packages
         gnome-tour
-      ]) ++ (with pkgs.gnome; [
+      ]) ++ (with pkgs; [
         gnome-contacts
         gnome-initial-setup
         hitori

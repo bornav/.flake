@@ -123,7 +123,6 @@ in
   };
   ##
   ##gargabe collection
-  programs.dconf.enable = true;
 
   hardware.bluetooth.enable = true;
   # services.udev.extraRules = ''
