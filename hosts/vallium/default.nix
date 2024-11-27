@@ -199,6 +199,7 @@ in
     kitty
     # betterbird
     xorg.xeyes
+    python3
     ((vim_configurable.override { }).customize {
     name = "vim";
       vimrcConfig.customRC = ''
