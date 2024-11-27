@@ -41,6 +41,7 @@
   zlib,
   qt6,
   curl,
+  pkgs,
   # command line arguments which are always set e.g "--disable-gpu"
   commandLineArgs ? "",
   # Necessary for USB audio devices.
@@ -159,7 +160,7 @@ in
       qt6.qtwayland
 
       # needed for XDG_ICON_DIRS
-      gnome.adwaita-icon-theme
+      pkgs.adwaita-icon-theme
     ];
 
     libPath =

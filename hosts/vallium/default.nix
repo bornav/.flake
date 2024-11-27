@@ -44,7 +44,7 @@ in
   };
   #services.getty.autologinUser = "bocmo";
   # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_11;
+  boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_12;
   boot.loader = {
     #systemd-boot.enable = true;
     timeout = 1;
@@ -328,26 +328,22 @@ in
   '';
 
   #nvidia
-
   hardware.bluetooth.enable = true;
   hardware = {
     nvidia = {
       modesetting.enable = true;
       open = false;
       nvidiaSettings = true;
-      # package = config.boot.kernelPackages.nvidiaPackages.stable;
-      # package = config.boot.kernelPackages.nvidiaPackages.production;
-      # package = config.boot.kernelPackages.nvidiaPackages.beta;
-
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "565.57.01";
-        sha256_64bit = "sha256-buvpTlheOF6IBPWnQVLfQUiHv4GcwhvZW3Ks0PsYLHo=";
-        sha256_aarch64 = lib.fakeSha256;
-        openSha256 = lib.fakeSha256;
-        settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-        persistencedSha256 = "sha256-hdszsACWNqkCh8G4VBNitDT85gk9gJe1BlQ8LdrYIkg=";
-      };
+      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #   version = "565.57.01";
+      #   sha256_64bit = "sha256-buvpTlheOF6IBPWnQVLfQUiHv4GcwhvZW3Ks0PsYLHo=";
+      #   sha256_aarch64 = lib.fakeSha256;
+      #   openSha256 = lib.fakeSha256;
+      #   settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+      #   persistencedSha256 = "sha256-hdszsACWNqkCh8G4VBNitDT85gk9gJe1BlQ8LdrYIkg=";
+      # };
 
       # forceFullCompositionPipeline = true;
       powerManagement.enable = false;
@@ -378,5 +374,6 @@ in
 #     sha256 = "0aavhxa4jy7jixq1v5km9ihkddr2v91358wf9wk9wap5j3fhidwk";
 #   };
 # })) 
-
+  #blacklist igpu
+  boot.kernelParams = [ "module_blacklist=amdgpu" ];
 }
