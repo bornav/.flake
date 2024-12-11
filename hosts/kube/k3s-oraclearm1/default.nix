@@ -44,6 +44,7 @@ let
       - rke2-canal
       - rke2-ingress-nginx
       - rke2-service-lb
+    disable-kube-proxy: true
     tls-san:
       - 10.0.0.71
       - 10.0.0.100

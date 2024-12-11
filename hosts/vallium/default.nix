@@ -32,7 +32,8 @@ in
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "Hack" ]; })
+      nerd-fonts.hack
+      # (nerdfonts.override { fonts = [ "Hack" ]; })
     ];
     fontconfig = {
       defaultFonts = {
@@ -42,6 +43,7 @@ in
       };
     };
   };
+  services.gnome.core-utilities.enable = true;
   #services.getty.autologinUser = "bocmo";
   # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
   boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_12;
@@ -104,7 +106,6 @@ in
     WLR_NO_HARDWARE_CURSORS = "1"; # look into removing
     NIXOS_OZONE_WL = "1"; #Hint electron apps to use wayland
   };
-
   # #### modules
   specialisation = {
    gnome.configuration = {
@@ -134,6 +135,7 @@ in
   };
   # gnome.enable = lib.mkDefault true;
   plasma.enable = lib.mkDefault true;
+  # hyprland.enable = lib.mkForce false;
   cosmic-desktop.enable = lib.mkDefault false;
   virtualization.enable = true;
   virtualization.qemu = true;
@@ -191,7 +193,14 @@ in
     nordic
     papirus-nord
     pciutils # lspci
+
     pika-backup
+    gvfs
+    libglibutil
+    fuse
+    borgbackup
+
+    
     btop
     filelight
     nix-index
@@ -335,8 +344,8 @@ in
       modesetting.enable = true;
       open = false;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       #   version = "565.57.01";
       #   sha256_64bit = "sha256-buvpTlheOF6IBPWnQVLfQUiHv4GcwhvZW3Ks0PsYLHo=";

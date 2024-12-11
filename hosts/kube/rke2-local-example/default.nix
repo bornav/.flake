@@ -8,6 +8,9 @@ let
     system = host.system;
     config.allowUnfree = true;
   };
+  token = ''
+  this-is-temp-token
+  '';
   master3_rke = ''
     ---
     write-kubeconfig-mode: "0644"
@@ -27,6 +30,7 @@ let
       - k3s-local-02
       - k3s-oraclearm1
       - k3s-oraclearm2
+    disable-kube-proxy: true
     node-label:
       - "node-location=local"
       - "node-arch=amd64"
@@ -62,6 +66,8 @@ in
     grub.efiSupport = true;
     grub.efiInstallAsRemovable = lib.mkForce true;
   };
+  environment.etc."rancher/rke2/token".source = pkgs.writeText "token" token;
+  services.rke2.tokenFile = lib.mkForce "/etc/rancher/rke2/token";
   systemd.network.wait-online.enable = false;
   boot.initrd.systemd.network.wait-online.enable = false;
   services.journald = {

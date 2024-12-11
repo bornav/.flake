@@ -44,6 +44,7 @@ in
         # "user"
         "rw"
         "noatime"
+        "_netdev"
         "relatime"
         "x-systemd.automount"
         "x-systemd.idle-timeout=60"

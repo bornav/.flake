@@ -1,5 +1,6 @@
 { config, inputs, system, vars, lib, ... }:
 let
+  inherit (pkgs) kdePackages;
     pkgs = import inputs.nixpkgs-unstable {
         config.allowUnfree = true;
         inherit system;
@@ -25,6 +26,7 @@ with lib;
       enable = true;
       enableQt5Integration = true;
     };
+    programs.ssh.askPassword = mkForce "${kdePackages.ksshaskpass.out}/bin/ksshaskpass";
     # services.xserver.displayManager.sddm.enable = lib.mkDefault true;
     # services.xserver.desktopManager.plasma6.enable = true;
     environment.plasma6.excludePackages = with pkgs.kdePackages; [

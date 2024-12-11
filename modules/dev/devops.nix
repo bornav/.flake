@@ -20,6 +20,7 @@ with lib;
       kubernetes-helm
       kustomize
       kustomize-sops
+      lazygit
       # lens
       bfg-repo-cleaner
       inetutils

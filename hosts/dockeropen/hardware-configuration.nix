@@ -14,7 +14,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-  fileSystems."/docker" =
+  fileSystems."/docker-local" =
   { device = "/dev/disk/by-uuid/5753d609-7516-43f2-bb17-c430dbe0df9c";
     fsType = "ext4";
     options = [

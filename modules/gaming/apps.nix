@@ -11,7 +11,6 @@ with lib;
     environment.systemPackages = with pkgs; [
       airshipper
       heroic
-      
       # heroic-unwrapped
       gogdl
     ];
