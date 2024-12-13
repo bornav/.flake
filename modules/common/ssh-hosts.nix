@@ -151,6 +151,15 @@ in
         StrictHostKeyChecking no
         # IdentityFile /home/bocmo/.ssh/cdn_key_pwless
         IdentityFile /home/bocmo/.ssh/id_local
+    Host rke2-local-node-01
+        HostName rke2-local-node-01.local.icylair.com
+        # HostName 2a01:4f8:c012:c800::1
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        # IdentityFile /home/bocmo/.ssh/cdn_key_pwless
+        IdentityFile /home/bocmo/.ssh/id_local
     '';
 }
 

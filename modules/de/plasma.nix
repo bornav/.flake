@@ -50,6 +50,7 @@ with lib;
     ];
     environment = {
       systemPackages = with pkgs; [  
+
       ];};
     environment.variables = {
     #   KWIN_DRM_NO_AMS=lib.mkForce "1"; ## allow tearing if enabled in settings
@@ -61,6 +62,36 @@ with lib;
     };
     home-manager.users.${vars.user} = {
       
+    };
+    security.wrappers = {
+      "mount.nfs" = {
+        program = "mount.nfs";
+        setuid = true;
+        owner = "root";
+        group = "root";
+        source = "${pkgs.nfs-utils.out}/bin/mount.nfs";
+      };
+      "umount.nfs" = {
+        program = "umount.nfs";
+        setuid = true;
+        owner = "root";
+        group = "root";
+        source = "${pkgs.nfs-utils.out}/bin/umount.nfs";
+      };
+      "mount4.nfs" = {
+        program = "mount.nfs4";
+        setuid = true;
+        owner = "root";
+        group = "root";
+        source = "${pkgs.nfs-utils.out}/bin/mount.nfs4";
+      };
+      "umount4.nfs" = {
+        program = "umount.nfs4";
+        setuid = true;
+        owner = "root";
+        group = "root";
+        source = "${pkgs.nfs-utils.out}/bin/umount.nfs4";
+      };
     };
     qt = {
      enable = lib.mkForce true;
