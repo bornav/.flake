@@ -8,6 +8,9 @@ let
     system = host.system;
     config.allowUnfree = true;
   };
+  token = ''
+  this-is-temp-token
+  '';
   master_rke = ''
     ---
     write-kubeconfig-mode: "0644"
@@ -57,102 +60,11 @@ in
     timeout = 1;
     grub.enable = true;
     grub.device = "nodev";
-    # efi.canTouchEfiVariables = true;
-    # grub.efiInstallAsRemovable = lib.mkForce false;
     grub.efiSupport = true;
     grub.efiInstallAsRemovable = lib.mkForce true;
   };
-  # networking.firewall = {
-  #   # nat = {
-  #   #   enable = true;
-  #   #   enableIPv6 = false;  # Disable IPv6 NAT if not needed
-      
-  #   #   # External interface (change this to match your setup)
-  #   #   # This is typically your main network interface
-  #   #   externalInterface = "ens18";  # Common VMware interface name
-      
-  #   #   # Configure port forwarding
-  #   #   forwardPorts = [
-  #   #     {
-  #   #       sourcePort = 443;  # HTTPS traffic
-  #   #       destination = "10.49.20.20:8443";  # Forward to internal IP
-  #   #       proto = "tcp";
-  #   #     }
-  #   #   ];
-      
-  #   #   # Optional: Configure internal interfaces if needed
-  #   #   internalInterfaces = [ "ens18" ];  # Add your internal interfaces here
-  #   # };
-  #   extraCommands = ''
-  #     # Forward TCP traffic
-  #     iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 10.49.20.20:8080
-  #     iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination 10.49.20.20:8443
-      
-  #     # Forward UDP traffic
-  #     iptables -t nat -A PREROUTING -p udp --dport 80 -j DNAT --to-destination 10.49.20.20:8080
-  #     iptables -t nat -A PREROUTING -p udp --dport 443 -j DNAT --to-destination 10.49.20.20:8443
-      
-  #     # Enable masquerading (NAT)
-  #     iptables -t nat -A POSTROUTING -j MASQUERADE
-  #   '';
-    
-  #   # # Cleanup rules when stopping the firewall
-  #   # extraStopCommands = ''
-  #   #   iptables -t nat -F PREROUTING
-  #   #   iptables -t nat -F POSTROUTING
-  #   # '';
-    
-  #   # Enable firewall and open the required port
-  #     enable = lib.mkForce true;
-  #     allowedTCPPorts = [ ];
-  #     allowedUDPPorts = [ ];
-  #     # allowedTCPPortRanges = [{ from = 10; to = 30443; }];
-  #     # allowedUDPPortRanges = [{ from = 10; to = 30443; }];
-  # };
-  
-  # systemd.network.networks."10-wan" = {
-  #   matchConfig.Name = "enp1s0";
-  #   networkConfig = {
-  #     # start a DHCP Client for IPv4 Addressing/Routing
-  #     DHCP = "ipv4";
-  #     # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
-  #     IPv6AcceptRA = true;
-  #   };
-  #   # make routing on this interface a dependency for network-online.target
-  #   linkConfig.RequiredForOnline = "routable";
-  # };
-#  networking = {
-#     nat = {
-#       enable = true;
-#       externalInterface = "ens18";
-#       forwardPorts = [
-#         {
-#           sourcePort = 8443;
-#           destination = "10.49.21.1:8443";
-#           proto = "tcp";
-#           # Specify the external interface if needed
-#           #   # uncomment and adjust if needed
-#         }
-#       ];
-#     };
-    
-#     firewall = {
-#       # enable = true;
-#       allowedTCPPorts = [ ];
-#       allowedUDPPorts = [ ];
-#       # allowedTCPPorts = [ 8443 ];
-#       # Enable connection tracking
-#       # Add explicit rules to ensure both directions work
-#       extraCommands = ''
-#         iptables -A FORWARD -p tcp --dport 8443 -j ACCEPT
-#         iptables -A FORWARD -p tcp --sport 8443 -j ACCEPT
-#       '';
-#     };
-#   };
-
-  environment.systemPackages = with pkgs; [iptables
-                                           nftables];
-
+  environment.etc."rancher/rke2/token".source = pkgs.writeText "token" token;
+  services.rke2.tokenFile = lib.mkForce "/etc/rancher/rke2/token";
   systemd.network.wait-online.enable = false;
   boot.initrd.systemd.network.wait-online.enable = false;
   services.journald = {
@@ -163,4 +75,14 @@ in
       MaxRetentionSec=1month # How long to keep journal files
     '';
   };
+
+
+  fileSystems."/kubernetes" = {#truenas nfs storage
+        device = "10.2.11.200:/mnt/vega/vega/kubernetes";
+        fsType = "nfs";
+        options = [ "soft" "timeo=50" "x-systemd.automount" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
+      };
+
+
+
 }
