@@ -75,6 +75,7 @@ let
     node-label:
       - "node-location=cloud"
       - "node-arch=arm64"
+      - "nat-policy=enabled"
     node-ip: 10.99.10.12 
     server: https://10.99.10.11:9345
   '';

@@ -59,14 +59,14 @@ in
     NIXOS_OZONE_WL = "1";
   };
   #### modules
-  gnome.enable = false;
-  cosmic-desktop.enable = true;
+  gnome.enable = true;
+  cosmic-desktop.enable = false;
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
   thorium.enable = true;
   rar.enable = true;
-  wg-home.enable = false;
+  wg-home.enable = true;
   storagefs.share.vega_nfs = true;
   # storagefs.share.vega_smb = true;
   ide.vscode = true;
@@ -106,6 +106,25 @@ in
     enableSSHSupport = false;
   };
   services.flatpak.enable = true;
+
+  fonts = { ## TODO entire block untested if even used, would like to use the Hack font
+    fontDir.enable = true;
+    fontconfig.enable = true;
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      nerd-fonts.hack
+      # (nerdfonts.override { fonts = [ "Hack" ]; })
+    ];
+    fontconfig = {
+      defaultFonts = {
+        serif = [  "Liberation Serif" "Vazirmatn" ];
+        sansSerif = [ "Ubuntu" "Vazirmatn" ];
+        monospace = [ "Ubuntu Mono" ];
+      };
+    };
+  };
 
   home-manager.users.${host.vars.user} = {
     xdg.mime.enable = true;
