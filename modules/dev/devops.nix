@@ -1,6 +1,10 @@
 { config, inputs, system, vars, lib, ... }:
 let
-    pkgs = import inputs.nixpkgs-unstable {
+    pkgs-stable = import inputs.nixpkgs-stable {
+        config.allowUnfree = true;
+        inherit system;
+    };
+    pkgs-unstable = import inputs.nixpkgs-unstable {
         config.allowUnfree = true;
         inherit system;
     };
@@ -8,7 +12,14 @@ in
 with lib;
 {
   config = mkIf (config.devops.enable) {
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs-stable; [
+      thttpd # htpasswd
+      lazygit
+      dig
+      tcpdump
+      yq
+    ] ++
+    (with pkgs-unstable; [
       flux
       fluxcd
       kubectl
@@ -20,18 +31,13 @@ with lib;
       kubernetes-helm
       kustomize
       kustomize-sops
-      lazygit
       # lens
       bfg-repo-cleaner
       inetutils
-      dig
       k9s
-      tcpdump
-      yq
       yaml-language-server  # TODO look into
       nil # TODO move into ide
       inputs.compose2nix.packages.x86_64-linux.default
-      thttpd # htpasswd
-    ];
+    ]);
   };
 }

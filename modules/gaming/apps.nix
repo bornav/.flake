@@ -4,14 +4,23 @@ let
         config.allowUnfree = true;
         inherit system;
     };
+    pkgs-stable = import inputs.nixpkgs-stable {
+        config.allowUnfree = true;
+        inherit system;
+    };
 in
 with lib;
 {
   config = mkIf (config.games.applications.enable) {
     environment.systemPackages = with pkgs; [
       airshipper
-      heroic
+      # heroic
       # heroic-unwrapped
       gogdl
-    ];
+    ] ++
+    (with pkgs-stable; [
+      heroic
+      bottles-unwrapped
+
+    ]);
 };}

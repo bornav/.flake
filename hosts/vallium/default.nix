@@ -317,17 +317,17 @@ in
   };
   
   services.flatpak.enable = true;
-  services.flatpak.packages = [
-      # { appId = "com.brave.Browser"; origin = "flathub";  }
-      # "com.obsproject.Studio"
-      # "im.riot.Riot"
-      "com.github.tchx84.Flatseal"
-      "app/org.kicad.KiCad/x86_64/stable"
-      "it.mijorus.gearlever"
-      "app/com.usebottles.bottles/x86_64/stable"
-    ];
+  # services.flatpak.packages = [
+  #     # { appId = "com.brave.Browser"; origin = "flathub";  }
+  #     # "com.obsproject.Studio"
+  #     # "im.riot.Riot"
+  #     "com.github.tchx84.Flatseal"
+  #     "app/org.kicad.KiCad/x86_64/stable"
+  #     "it.mijorus.gearlever"
+  #     "app/com.usebottles.bottles/x86_64/stable"
+  #   ];
   services.flatpak.update.auto = {
-    enable = true;
+    enable = false;
     onCalendar = "daily"; # Default value
   };
   ##

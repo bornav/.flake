@@ -64,7 +64,7 @@ in
       openssl
       xdg-utils
       ripgrep
-      # mission-center # windows like task manager
+      mission-center # windows like task manager
       # nh
       tmux
       # dbus
