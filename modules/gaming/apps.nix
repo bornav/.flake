@@ -13,13 +13,14 @@ with lib;
 {
   config = mkIf (config.games.applications.enable) {
     environment.systemPackages = with pkgs; [
-      airshipper
+      # airshipper
       # heroic
       # heroic-unwrapped
       gogdl
     ] ++
     (with pkgs-stable; [
       heroic
+      # bottles
       bottles-unwrapped
 
     ]);
