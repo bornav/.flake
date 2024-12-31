@@ -17,11 +17,14 @@ with lib;
       # heroic
       # heroic-unwrapped
       gogdl
+      # (bottles.override {
+      #   removeWarningPopup = true;
+      # })
     ] ++
     (with pkgs-stable; [
       heroic
       # bottles
-      bottles-unwrapped
+      # bottles-unwrapped
 
     ]);
 };}

@@ -10,10 +10,10 @@ with lib;
   config = lib.mkMerge [
     (lib.mkIf (config.ide.vscode) {
       ide.enable = true;
-      environment.systemPackages = with pkgs; [
-        vscode
-      #   vscode-extensions.continue.continue
-      ];
+      # environment.systemPackages = with pkgs; [
+      #   vscode
+      # #   vscode-extensions.continue.continue
+      # ];
       # environment.systemPackages = with pkgs; [
       #   vscode
       #   (vscode-with-extensions.override {
@@ -36,21 +36,21 @@ with lib;
       # environment.systemPackages = with pkgs; [ vscode-fhs ];
 
       home-manager.users.${vars.user} = {
-      #   programs.vscode = {
-      #     enable = true;
-      #     package = pkgs.vscode;
-      #     extensions = with pkgs.vscode-extensions; [
-      #         continue.continue
-      #     ];
-      #     # userSettings = {
-      #     #     "terminal.integrated.fontFamily" = "Hack";
-      #     # };
-      #   };
-      #   programs.vscode = {
-      #       enable = true;
-      #       # package = pkgs.vscode.fhs;
-      #       package = pkgs.vscode.fhsWithPackages (ps: with ps; [ rustup zlib openssl.dev pkg-config ]);
-      #   };
+        programs.vscode = {
+          enable = true;
+          package = pkgs.vscode;
+          extensions = with pkgs.vscode-extensions; [
+              continue.continue
+          ];
+          # userSettings = {
+          #     "terminal.integrated.fontFamily" = "Hack";
+          # };
+        };
+        # programs.vscode = {
+        #     enable = true;
+        #     # package = pkgs.vscode.fhs;
+        #     package = pkgs.vscode.fhsWithPackages (ps: with ps; [ rustup zlib openssl.dev pkg-config ]);
+        # };
       };
      })
     (lib.mkIf (config.ide.zed) {
