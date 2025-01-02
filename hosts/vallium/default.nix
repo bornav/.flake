@@ -151,6 +151,7 @@ in
   builder.builder1.remote = false;
   ide.vscode = true;
   ide.zed = true;
+  flatpak.enable = true;
 
   device.woothing = true;
   device.finalmouse = true;
@@ -194,7 +195,7 @@ in
     papirus-nord
     pciutils # lspci
 
-    pika-backup
+    # pika-backup
     gvfs
     libglibutil
     fuse
@@ -230,13 +231,19 @@ in
       # lmstudio
       # gpt4all     
       egl-wayland
-
     ]);
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = false;
   };
   
+  services.tailscale.enable = true;
+  networking.firewall = {
+    checkReversePath = "loose";
+    trustedInterfaces = [ "tailscale0" ];
+    allowedUDPPorts = [ config.services.tailscale.port ];
+  };
+
   environment.variables = {
     LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
   };
@@ -315,22 +322,8 @@ in
     filesystems=/run/current-system/sw/share/X11/fonts:ro;/nix/store:ro
     '';
   };
+  home-manager.backupFileExtension = "backup";
   
-  services.flatpak.enable = true;
-  services.flatpak.packages = [
-      # { appId = "com.brave.Browser"; origin = "flathub";  }
-      # "com.obsproject.Studio"
-      # "im.riot.Riot"
-      "com.github.tchx84.Flatseal"
-      # "app/org.kicad.KiCad/x86_64/stable"
-      "it.mijorus.gearlever"
-      # "app/com.usebottles.bottles/x86_64/stable"
-    ];
-  # services.flatpak.update.auto = {
-  #   enable = false;
-  #   onCalendar = "daily"; # Default value
-  # };
-  ##
   ##gargabe collection
   
   services.udev.extraRules = ''

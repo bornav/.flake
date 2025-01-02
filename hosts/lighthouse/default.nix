@@ -91,6 +91,8 @@ in
         tcp-request inspect-delay 5s
         tcp-request content accept if { req_ssl_hello_type 1 }
 
+        use_backend headscale_backend if { req_ssl_sni -i headscale.icylair.com }
+
         # Load balancing between two backend servers
         default_backend tls_backends
 
@@ -133,6 +135,14 @@ in
         balance roundrobin
         server server1 oraclearm1.cloud.icylair.com:22 check
         server server2 oraclearm2.cloud.icylair.com:22 check
+    backend headscale_backend
+        mode tcp
+        server server1 127.0.0.1:10023
+    # frontend headscale
+    #     bind *:8080
+    #     mode tcp
+    #     option tcplog
+    #     default_backend headscale_backend
     # frontend catch_rest
     #     # bind *:1-21
     #     bind *:8443-65535
@@ -266,10 +276,10 @@ in
   #     sourcePort = 443;
   #   }
   # ];
-
+  
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 80 443 6443 10022];
+    allowedTCPPorts = [ 22 80 443 6443 8080 10022];
     allowedUDPPortRanges = [
       { from = 1000; to = 6550; }
     ];
@@ -298,4 +308,28 @@ in
   #   };
   # };
   # ####
+  # services.caddy = {
+  #   enable = true;
+  #   virtualHosts."lb.cloud.icylair.com".extraConfig = ''
+  #     reverse_proxy * 127.0.0.1:8080
+  #   '';
+  # };
+  services.headscale = {
+    enable = true;
+    address = "0.0.0.0";
+    port = 10023;
+    settings = {
+      log.level = "debug";
+      server_url = "https://headscale.icylair.com:8080";
+      dns.base_domain = "icylair-local.com";
+      tls_cert_path = "/certs/tls.crt";
+      tls_key_path = "/certs/tls.key";
+      oidc = {
+        issuer = "https://sso.icylair.com/realms/master";
+        client_id = "headscale";
+        client_secret_path = "/headscale_key";
+      };
+    };
+  };
+  # networking.firewall.trustedInterfaces = [config.services.tailscale.interfaceName];
 } 

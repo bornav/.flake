@@ -14,5 +14,6 @@
 #   ./git.nix
   ./rar.nix
   ./ssh-hosts.nix
+  ./flatpak.nix
 #   ./direnv.nix
 ]

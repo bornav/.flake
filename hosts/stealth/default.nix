@@ -68,6 +68,7 @@ in
   rar.enable = true;
   wg-home.enable = true;
   storagefs.share.vega_nfs = true;
+  flatpak.enable = true;
   # storagefs.share.vega_smb = true;
   ide.vscode = true;
   ####
@@ -105,7 +106,7 @@ in
     enable = true;
     enableSSHSupport = false;
   };
-  services.flatpak.enable = true;
+  
 
   fonts = { ## TODO entire block untested if even used, would like to use the Hack font
     fontDir.enable = true;

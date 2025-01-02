@@ -42,9 +42,13 @@ with lib;
           extensions = with pkgs.vscode-extensions; [
               continue.continue
           ];
-          # userSettings = {
-          #     "terminal.integrated.fontFamily" = "Hack";
-          # };
+          userSettings = {
+              "editor.minimap.enabled"= "false";
+              "terminal.integrated.fontFamily"= "Hack";
+              "workbench.sideBar.location"= "right";
+              "workbench.activityBar.location"= "top";
+              "window.customTitleBarVisibility"= "auto";
+          };
         };
         # programs.vscode = {
         #     enable = true;
