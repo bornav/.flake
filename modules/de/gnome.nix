@@ -74,6 +74,10 @@ with lib;
     environment.variables = {
       GNOME_SHELL_SLOWDOWN_FACTOR="0.3"; #impatience gnome extention
     };
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    };
     home-manager.users.${vars.user} = {
       dconf.settings = {
         "org/gnome/shell" = {

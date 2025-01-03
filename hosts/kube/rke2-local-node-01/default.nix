@@ -41,6 +41,7 @@ in
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
     ./disk-config.nix
+    # ./nvidia.nix
     # (import ../k3s-server.nix {inherit inputs vars config lib system;node_config = master3;})
     (import ../rke2-server.nix {inherit inputs vars config lib host system;node_config  = master_rke;})
     # ./k3s-server.nix

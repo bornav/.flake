@@ -98,5 +98,12 @@ with lib;
      #platformTheme = "gtk2";
      style = "breeze";
     };
+
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-kde ];
+      # configPackages = [pkgs.gnome-session];
+    };
   };
 }

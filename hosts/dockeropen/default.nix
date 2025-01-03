@@ -133,9 +133,9 @@ in
 
   ### iscsi
   services.openiscsi = {
-  enable = true;
-  discoverPortal = [ "10.2.11.200:3260" ];
-  name = lib.mkForce "iqn.2005-10.org.freenas.ctl:iscsi-dockeropen";
+    enable = true;
+    discoverPortal = [ "10.2.11.200:3260" ];
+    name = lib.mkForce "iqn.2005-10.org.freenas.ctl:iscsi-dockeropen";
   };
   systemd.services.iscsi-login-lingames = {
     description = "Login to iSCSI target iqn.2005-10.org.freenas.ctl:iscsi-dockeropen";

@@ -158,12 +158,6 @@ in
 
   storagefs.share.vega_nfs = true;
 
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    # gtk portal needed to make gtk apps happy
-    # extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -195,7 +189,7 @@ in
     papirus-nord
     pciutils # lspci
 
-    # pika-backup
+    pika-backup
     gvfs
     libglibutil
     fuse
@@ -243,6 +237,88 @@ in
     trustedInterfaces = [ "tailscale0" ];
     allowedUDPPorts = [ config.services.tailscale.port ];
   };
+
+  
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
+  ## for setting the default apps
+  ## definition https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.mimeApps.defaultApplications
+  home-manager.users.${host.vars.user} = {
+    xdg.mime.enable = true;
+    xdg.mimeApps.enable = true;
+    ## this may be neccesary sometimes
+    # xdg.configFile."mimeapps.list".force = true;
+    ## from limited testing it is only applied if both sides are valid
+    xdg.mimeApps.defaultApplications = {
+      "inode/directory" = "org.kde.dolphin.desktop";
+    };
+    home.file.".local/share/flatpak/overrides/global".text = ''
+    [Context]
+    filesystems=/run/current-system/sw/share/X11/fonts:ro;/nix/store:ro
+    '';
+    # home.packages = with pkgs; [
+      # pika-backup
+      # ];
+  };
+
+  home-manager.backupFileExtension = "backup";
+  
+  ##gargabe collection
+  
+  services.udev.extraRules = ''
+    ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
+  '';
+
+  #nvidia
+  hardware.bluetooth.enable = lib.mkForce true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = lib.mkForce true;
+  hardware = {
+    nvidia = {
+      modesetting.enable = true;
+      open = false;
+      nvidiaSettings = true;
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
+      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #   version = "565.57.01";
+      #   sha256_64bit = "sha256-buvpTlheOF6IBPWnQVLfQUiHv4GcwhvZW3Ks0PsYLHo=";
+      #   sha256_aarch64 = lib.fakeSha256;
+      #   openSha256 = lib.fakeSha256;
+      #   settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+      #   persistencedSha256 = "sha256-hdszsACWNqkCh8G4VBNitDT85gk9gJe1BlQ8LdrYIkg=";
+      # };
+
+      # forceFullCompositionPipeline = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      # prime = {
+      #   offload.enable = true;
+      #   #sync.enable = true;
+      #   amdgpuBusId = "PCI:108:0:0"; # lspci value, converted hex to decimal
+      #   nvidiaBusId = "PCI:1:0:0";
+      # };
+      # prime = {
+      #   # For people who want to use sync instead of offload. Especially for AMD CPU users
+      #   sync.enable = lib.mkOverride 990 true;
+      #   amdgpuBusId = "";
+      #   nvidiaBusId = "";
+      # };
+    };
+    graphics.enable = true;
+    graphics.enable32Bit = true;
+  };
+  # environment.systemPackages = with pkgs-unstable; [ linuxKernel.packages.linux_6_8.nvidia_x11 ];
+  services.xserver.videoDrivers = ["nvidia"];
+
+# (pkgs.linuxPackages_latest.nvidia_x11.overrideAttrs (old: {
+#   version = "555.42.02"; # replace with the latest version number
+#   src = pkgs.fetchurl {
+#     url = "https://us.download.nvidia.com/XFree86/Linux-x86_64/555.42.02/NVIDIA-Linux-x86_64-555.42.02.run";
+#     sha256 = "0aavhxa4jy7jixq1v5km9ihkddr2v91358wf9wk9wap5j3fhidwk";
+#   };
+# })) 
+  #blacklist igpu
+  boot.kernelParams = [ "module_blacklist=amdgpu" ];
 
   environment.variables = {
     LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
@@ -304,79 +380,4 @@ in
       # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     ];
   };
-  systemd.network.wait-online.enable = false;
-  boot.initrd.systemd.network.wait-online.enable = false;
-  ## for setting the default apps
-  ## definition https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.mimeApps.defaultApplications
-  home-manager.users.${host.vars.user} = {
-    xdg.mime.enable = true;
-    xdg.mimeApps.enable = true;
-    ## this may be neccesary sometimes
-    # xdg.configFile."mimeapps.list".force = true;
-    ## from limited testing it is only applied if both sides are valid
-    xdg.mimeApps.defaultApplications = {
-      "inode/directory" = "org.kde.dolphin.desktop";
-    };
-    home.file.".local/share/flatpak/overrides/global".text = ''
-    [Context]
-    filesystems=/run/current-system/sw/share/X11/fonts:ro;/nix/store:ro
-    '';
-  };
-  home-manager.backupFileExtension = "backup";
-  
-  ##gargabe collection
-  
-  services.udev.extraRules = ''
-    ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
-  '';
-
-  #nvidia
-  hardware.bluetooth.enable = true;
-  hardware = {
-    nvidia = {
-      modesetting.enable = true;
-      open = false;
-      nvidiaSettings = true;
-      # package = config.boot.kernelPackages.nvidiaPackages.beta;
-      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #   version = "565.57.01";
-      #   sha256_64bit = "sha256-buvpTlheOF6IBPWnQVLfQUiHv4GcwhvZW3Ks0PsYLHo=";
-      #   sha256_aarch64 = lib.fakeSha256;
-      #   openSha256 = lib.fakeSha256;
-      #   settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-      #   persistencedSha256 = "sha256-hdszsACWNqkCh8G4VBNitDT85gk9gJe1BlQ8LdrYIkg=";
-      # };
-
-      # forceFullCompositionPipeline = true;
-      powerManagement.enable = false;
-      powerManagement.finegrained = false;
-      # prime = {
-      #   offload.enable = true;
-      #   #sync.enable = true;
-      #   amdgpuBusId = "PCI:108:0:0"; # lspci value, converted hex to decimal
-      #   nvidiaBusId = "PCI:1:0:0";
-      # };
-      # prime = {
-      #   # For people who want to use sync instead of offload. Especially for AMD CPU users
-      #   sync.enable = lib.mkOverride 990 true;
-      #   amdgpuBusId = "";
-      #   nvidiaBusId = "";
-      # };
-    };
-    graphics.enable = true;
-    graphics.enable32Bit = true;
-  };
-  # environment.systemPackages = with pkgs-unstable; [ linuxKernel.packages.linux_6_8.nvidia_x11 ];
-  services.xserver.videoDrivers = ["nvidia"];
-
-# (pkgs.linuxPackages_latest.nvidia_x11.overrideAttrs (old: {
-#   version = "555.42.02"; # replace with the latest version number
-#   src = pkgs.fetchurl {
-#     url = "https://us.download.nvidia.com/XFree86/Linux-x86_64/555.42.02/NVIDIA-Linux-x86_64-555.42.02.run";
-#     sha256 = "0aavhxa4jy7jixq1v5km9ihkddr2v91358wf9wk9wap5j3fhidwk";
-#   };
-# })) 
-  #blacklist igpu
-  boot.kernelParams = [ "module_blacklist=amdgpu" ];
 }
