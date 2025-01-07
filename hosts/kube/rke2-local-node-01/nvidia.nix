@@ -17,6 +17,7 @@ in
       open = false;
       nvidiaSettings = true;
       package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
+      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.legacy_390;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
     };
@@ -24,7 +25,7 @@ in
     graphics.enable = true;
   };
 
-
+  nixpkgs.config.nvidia.acceptLicense = true;
   services.xserver.videoDrivers = ["nvidia"]; # this is important
 
   ## in virtualization, find out how to import at the top
@@ -37,6 +38,7 @@ in
       qemu
       spice
       libgcc
+      # nvidia-container-toolkit
   ];
   programs.appimage.binfmt = true;
 
@@ -47,7 +49,7 @@ in
   hardware.nvidia-container-toolkit.enable = true;
   virtualisation.docker.enable = true;
   # virtualisation.docker.logDriver = lib.mkDefault "journald";
-  virtualisation.docker.enableNvidia = true;
+  # virtualisation.docker.enableNvidia = true;
   virtualisation.containerd.enable = true;
   # virtualisation.containerd.configFile = "/etc/containerd/config.toml";
   # virtualisation.cri-o.enable = true;

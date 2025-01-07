@@ -29,6 +29,8 @@ let
     alias nixos_rebuild="~/.flake/rebuild.sh"
     alias nixos_rebuild_remote="sudo nixos-rebuild switch --flake ~/.flake#dockeropen --use-remote-sudo --target-host nixbuilder_dockeropen"
     alias nixos_update="nix flake update --flake ~/.flake && nixos_config_update"
+    alias nixos_garbage_collection="nix-collect-garbage --delete-older-than 30d && nixos_config_update" 
+    # nh clean all -k 15 this can be added to command above, untested how it works
     # alias nix_update="nixos_config_update --update"
     # alias nixos_config_update="sudo nixos-rebuild switch --flake ~/.flake#$flake_name"
     # alias nix_update="nix flake update ~/.flake && nixos_config_update"
