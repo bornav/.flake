@@ -24,6 +24,7 @@ in
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
     ./nvidia.nix
+    # ./journald-gateway.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;

@@ -102,15 +102,13 @@ in
   users.users.root.initialPassword = "nixos";
   users.users.root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   system = {                                # NixOS Settings
-    autoUpgrade = {                        # Allow Auto Update (not useful in flakes)
-     enable = true;
-     flake = inputs.self.outPath;
-     flags = [
-       "--update-input"
-       "nixpkgs"
-       "-L"
-     ];
-    };
+    # autoUpgrade = {                        # Allow Auto Update (not useful in flakes)
+    #  enable = true;
+    #  flake = inputs.self.outPath;
+    #  flags = [
+    #    "--update-input"
+    #    "nixpkgs"
+    #    "-L"];};
     stateVersion = "${vars.stateVersion}";
   };
   systemd.extraConfig = ''

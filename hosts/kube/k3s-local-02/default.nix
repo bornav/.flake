@@ -38,8 +38,8 @@ in
   # rke2.server = true;
   rke2.agent = true;
 
-  virtualization.enable = true;
-  virtualization.qemu = true;
+  # virtualization.enable = true;
+  # virtualization.qemu = true;
   
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;

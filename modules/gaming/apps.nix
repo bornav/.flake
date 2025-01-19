@@ -23,6 +23,7 @@ with lib;
     ] ++
     (with pkgs-stable; [
       heroic
+      shadps4
       # bottles
       # bottles-unwrapped
 

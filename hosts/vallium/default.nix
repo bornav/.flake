@@ -195,7 +195,6 @@ in
     fuse
     borgbackup
 
-    
     btop
     filelight
     nix-index
@@ -237,7 +236,8 @@ in
     trustedInterfaces = [ "tailscale0" ];
     allowedUDPPorts = [ config.services.tailscale.port ];
   };
-
+  # tailscale up --login-server <headscale.<domain>>
+  # headscale --namespace <namespace_name> nodes register --key <machine_key>
   
   systemd.network.wait-online.enable = false;
   boot.initrd.systemd.network.wait-online.enable = false;

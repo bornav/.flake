@@ -29,7 +29,7 @@ in
   services.xserver.videoDrivers = ["nvidia"]; # this is important
 
   ## in virtualization, find out how to import at the top
-  users.users.${host.vars.user}.extraGroups = [ "libvirtd" ];
+  # users.users.${host.vars.user}.extraGroups = [ "libvirtd" ];
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true; # virt-manager requires dconf to remember settings
   environment.systemPackages = with pkgs; [ 

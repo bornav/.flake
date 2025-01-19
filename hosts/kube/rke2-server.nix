@@ -159,6 +159,7 @@ in
   boot.initrd = {
     supportedFilesystems = [ "nfs" ];
     kernelModules = [ "nfs" ];
+    availableKernelModules = [ "dm_crypt" ];
   };
   boot.kernelModules = [ "rbd" "br_netfilter" ];
   
@@ -233,6 +234,28 @@ in
     "vm.overcommit_memory"=1;
     "vm.panic_on_oom"=0;
     "vm.swappiness" = 0; # don't swap unless absolutely necessary
+  };
+
+  # longhorn specific so it has /boot/config kernel modules file to read
+  systemd.services.save-kernel-config = {
+    description = "Save kernel config to boot directory";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "local-fs.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.gzip}/bin/zcat /proc/config.gz > /boot/config-$(${pkgs.coreutils}/bin/uname -r)'";
+    };
+  };
+  systemd.services.copy-kubernetes-config = {
+    description = "Copy kubernetes config to root config";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "local-fs.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.bash}/bin/bash -c 'mkdir /root/.kube/;${pkgs.coreutils}/bin/cat /etc/rancher/rke2/rke2.yaml > /root/.kube/config'";
+    };
   };
 
   # };

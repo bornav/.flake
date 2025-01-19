@@ -29,7 +29,7 @@ with lib;
     };
     config = lib.mkMerge [
     (lib.mkIf (config.virtualization.enable) {
-      users.users.${vars.user}.extraGroups = [ "libvirtd" ];
+      users.users.${vars.user}.extraGroups = [ "libvirtd" ]; # TODO, make this somehow conditional so that is there is no user it skips this
       virtualisation.libvirtd.enable = true;
       programs.dconf.enable = true; # virt-manager requires dconf to remember settings
       environment.systemPackages = with pkgs; [ 

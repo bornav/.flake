@@ -82,29 +82,26 @@ in
         timeout connect 5s
         timeout client  30s
         timeout server  30s
-
     # Frontend for TLS passthrough
+
     frontend https-in
         bind *:443
         mode tcp
         option tcplog
         tcp-request inspect-delay 5s
         tcp-request content accept if { req_ssl_hello_type 1 }
-
         use_backend headscale_backend if { req_ssl_sni -i headscale.icylair.com }
-
         # Load balancing between two backend servers
         default_backend tls_backends
-
     # Backend servers (TLS termination happens here)
     backend tls_backends
         mode tcp
         balance roundrobin
         option ssl-hello-chk
-
         # Define the backend servers
         server server1 oraclearm1.cloud.icylair.com:443 check
         server server2 oraclearm2.cloud.icylair.com:443 check
+
     frontend 6443-forward
         bind *:6443
         mode tcp
@@ -115,6 +112,7 @@ in
         balance roundrobin
         server server1 oraclearm1.cloud.icylair.com:6443 check
         server server2 oraclearm2.cloud.icylair.com:6443 check
+
     frontend 80-forward
         bind *:80
         mode tcp
@@ -125,6 +123,7 @@ in
         balance roundrobin
         server server1 oraclearm1.cloud.icylair.com:80 check
         server server2 oraclearm2.cloud.icylair.com:80 check
+
     frontend ssh-forward
         bind *:10022
         mode tcp
@@ -135,9 +134,32 @@ in
         balance roundrobin
         server server1 oraclearm1.cloud.icylair.com:22 check
         server server2 oraclearm2.cloud.icylair.com:22 check
+
     backend headscale_backend
         mode tcp
         server server1 127.0.0.1:10023
+
+    # frontend udp-9987
+    #     bind *:9987 udp
+    #     mode tcp
+    #     option tcplog
+    #     default_backend udp_9987_backend
+    # backend udp_9987_backend
+    #     mode tcp
+    #     balance roundrobin
+    #     server server1 oraclearm1.cloud.icylair.com:9987 check
+    #     server server2 oraclearm2.cloud.icylair.com:9987 check
+    frontend tcp-30033
+        bind *:30033
+        mode tcp
+        option tcplog
+        default_backend tcp_30033_backend
+    backend tcp_30033_backend
+        mode tcp
+        balance roundrobin
+        server server1 oraclearm1.cloud.icylair.com:30033 check
+        server server2 oraclearm2.cloud.icylair.com:30033 check
+
     # frontend headscale
     #     bind *:8080
     #     mode tcp
