@@ -26,6 +26,7 @@ in
   };
 
   nixpkgs.config.nvidia.acceptLicense = true;
+  services.xserver.enable = false; 
   services.xserver.videoDrivers = ["nvidia"]; # this is important
 
   ## in virtualization, find out how to import at the top
@@ -50,7 +51,7 @@ in
   virtualisation.docker.enable = true;
   # virtualisation.docker.logDriver = lib.mkDefault "journald";
   # virtualisation.docker.enableNvidia = true;
-  virtualisation.containerd.enable = true;
+  # virtualisation.containerd.enable = true;
   # virtualisation.containerd.configFile = "/etc/containerd/config.toml";
   # virtualisation.cri-o.enable = true;
   # virtualisation.containerd = {
@@ -71,4 +72,33 @@ in
   #     };
   #   };
   # };
+  virtualisation.containerd = {
+    enable = true;
+    settings = {
+        plugins."io.containerd.grpc.v1.cri" = {
+          enable_cdi = true;
+          cdi_spec_dirs = [ "/var/run/cdi" ];
+        };
+      };
+  };
+  systemd.services.nvidia-container-toolkit-cdi-generator = {
+      environment.LD_LIBRARY_PATH = "${config.hardware.nvidia.package}/lib";
+    };
+
+  systemd.services.k3s-containerd-setup = {
+      # `virtualisation.containerd.settings` has no effect on k3s' bundled containerd.
+      serviceConfig.Type = "oneshot";
+      requiredBy = ["rke2-server.service"];
+      before = ["rke2-server.service"];
+      script = ''
+        containerd_root=/var/lib/rancher/rke2/agent/etc/containerd/
+        mkdir -p $containerd_root
+
+        cat << EOF > $containerd_root/config.toml.tmpl
+        {{ template "base" . }}
+        [plugins]
+        "io.containerd.grpc.v1.cri".enable_cdi = true
+        EOF
+      '';
+    };
 }

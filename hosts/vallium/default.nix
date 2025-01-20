@@ -236,7 +236,7 @@ in
     trustedInterfaces = [ "tailscale0" ];
     allowedUDPPorts = [ config.services.tailscale.port ];
   };
-  # tailscale up --login-server <headscale.<domain>>
+  # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
   # headscale --namespace <namespace_name> nodes register --key <machine_key>
   
   systemd.network.wait-online.enable = false;
@@ -308,7 +308,7 @@ in
     graphics.enable32Bit = true;
   };
   # environment.systemPackages = with pkgs-unstable; [ linuxKernel.packages.linux_6_8.nvidia_x11 ];
-  services.xserver.videoDrivers = ["nvidia"];
+  # services.xserver.videoDrivers = ["nvidia"];
 
 # (pkgs.linuxPackages_latest.nvidia_x11.overrideAttrs (old: {
 #   version = "555.42.02"; # replace with the latest version number

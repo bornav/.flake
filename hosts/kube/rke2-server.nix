@@ -9,22 +9,6 @@ let
     system = host.system;
     config.allowUnfree = true;
   };
-  # customRke2 = pkgs.stdenv.mkDerivation rec { does download but does not install
-  #   pname = "rke2";
-  #   version = "v1.30.1"; # Replace with your desired version
-
-  #   src = pkgs.fetchurl {
-  #     url = "https://github.com/rancher/rke2/releases/download/v1.30.3%2Brke2r1/rke2-images.linux-amd64.tar.gz";
-  #     sha256 = "sha256-drkOSTfXVYm1SvFJDr0xechi1HMyT7JzrtezZ+r0piU="; # Replace with the actual sha256 of the archive
-  #   };
-
-  #   buildInputs = [ pkgs.libarchive pkgs.stdenv ];
-
-  #   installPhase = ''
-  #     mkdir -p $out/bin
-  #     tar -xzf $src -C $out/bin --strip-components=1
-  #   '';
-  # };
 in
 {
   imports = [( import ./rke2-server-spec.nix)];
@@ -123,6 +107,8 @@ in
   #     nfsd."vers4.1" = true;
   #     nfsd."vers4.2" = true;
   #   };
+  
+
   environment.systemPackages = with pkgs; [
     nfs-utils
     openiscsi
@@ -247,16 +233,4 @@ in
       ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.gzip}/bin/zcat /proc/config.gz > /boot/config-$(${pkgs.coreutils}/bin/uname -r)'";
     };
   };
-  systemd.services.copy-kubernetes-config = {
-    description = "Copy kubernetes config to root config";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "local-fs.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "${pkgs.bash}/bin/bash -c 'mkdir /root/.kube/;${pkgs.coreutils}/bin/cat /etc/rancher/rke2/rke2.yaml > /root/.kube/config'";
-    };
-  };
-
-  # };
 }
