@@ -105,6 +105,13 @@ in
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
+    Host hetzner-01
+        HostName hetzner-01.cloud.icylair.com
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile /home/bocmo/.ssh/id_local
     Host switch
         HostName 10.0.0.250
         User admin

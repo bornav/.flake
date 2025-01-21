@@ -45,6 +45,8 @@ let
       - rke2-ingress-nginx
       - rke2-service-lb
     disable-kube-proxy: true
+    cluster-cidr: "10.52.0.0/16"
+    service-cidr: "10.53.0.0/16"
     tls-san:
       - 10.0.0.71
       - 10.0.0.100
@@ -101,7 +103,7 @@ in
   # rke2.agent = true;
 
   fileSystems."/storage" =
-    { device = "/dev/disk/by-uuid/2ef3f9ea-c3a7-4be2-903a-b4476c1f56c2";
+    { device = "/dev/disk/by-uuid/4a3bfdb7-323e-4c30-b956-29446fcbba21";
       fsType = "ext4";
       options = [
         "noatime"

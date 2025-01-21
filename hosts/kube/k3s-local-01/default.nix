@@ -46,6 +46,8 @@ let
       - rke2-ingress-nginx
       - rke2-service-lb
     disable-kube-proxy: true
+    cluster-cidr: "10.52.0.0/16"
+    service-cidr: "10.53.0.0/16"
     tls-san:
       - 10.0.0.71
       - 10.0.0.100

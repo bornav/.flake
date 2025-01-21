@@ -14,6 +14,8 @@ let
   master_rke = ''
     ---
     write-kubeconfig-mode: "0644"
+    cluster-cidr: "10.32.0.0/16"
+    service-cidr: "10.33.0.0/16"
     disable:
       - rke2-canal
       - rke2-ingress-nginx
@@ -27,7 +29,8 @@ let
       - "node-arch=amd64"
     # node-taint:
     #   - "node-role.kubernetes.io/control-plane=true:NoSchedule"
-    node-ip: 10.2.11.42
+    node-ip: 10.99.10.51
+    # node-ip: 10.2.11.42
   '';
     # runtime-image: "index.docker.io/rancher/rke2-runtime:v1.30.1-rke2r1"
 in
@@ -71,7 +74,7 @@ in
       MaxRetentionSec=1month # How long to keep journal files
     '';
   };
-  services.rke2.package = (pkgs.callPackage ../../modules/custom_pkg/rke2_custom.nix {
+  services.rke2.package = lib.mkForce (pkgs.callPackage ../../../modules/custom_pkg/rke2_custom.nix {
           rke2Version = "1.32.0+rke2r1";
           rke2Commit = "1182e7eb91b27b1686e69306eb2e227928a27a38";
           rke2TarballHash = "sha256-mmHQxiNcfgZTTdYPJPO7WTIlaCRM4CWsWwfRUcAR8ho=";
