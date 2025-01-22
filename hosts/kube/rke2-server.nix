@@ -9,6 +9,42 @@ let
     system = host.system;
     config.allowUnfree = true;
   };
+  tls_san = 
+  ''
+  tls-san:
+    - 10.0.0.71
+    - 10.0.0.100
+    - 10.2.11.24
+    - 10.2.11.25
+    - 10.2.11.36
+    - 10.2.11.38
+    - 10.2.11.42
+    - 10.99.10.10
+    - 10.99.10.11
+    - 10.99.10.12
+    - 10.99.10.13
+    - 10.99.10.14
+    - 10.99.10.15
+    - 10.99.10.51
+    - oraclearm1.cloud.icylair.com
+    - oraclearm2.cloud.icylair.com
+    - oraclearm3.cloud.icylair.com
+    - k3s-local-01.local.icylair.com
+    - k3s-local-01
+    - k3s-local-02.local.icylair.com
+    - k3s-local-02
+    - k3s-oraclearm1
+    - k3s-oraclearm2
+    - k3s-oraclearm3
+    - rke2-oraclearm1
+    - rke2-oraclearm2
+    - rke2-oraclearm3
+    - rke2-local-example.local.icylair.com
+    - rke2-local.local.icylair.com
+    - lb.local.icylair.com
+    - lb.cloud.icylair.com
+  '';
+  combined_config = node_config + "\n" + tls_san;
 in
 {
   imports = [( import ./rke2-server-spec.nix)];
@@ -61,7 +97,8 @@ in
   ];
   systemd.watchdog.rebootTime = "3m";
 
-  environment.etc."rancher/rke2/config.yaml".source = pkgs.writeText "config.yaml" node_config;
+  # environment.etc."rancher/rke2/config.yaml".source = pkgs.writeText "config.yaml" node_config;
+  environment.etc."rancher/rke2/config.yaml".source = pkgs.writeText "config.yaml" combined_config;
   # services.rke2 = {
   #   package = pkgs-unstable.rke2_latest;
   #   # package = pkgs.rke2;

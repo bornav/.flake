@@ -19,22 +19,6 @@ let
     disable:
       - servicelb
       - traefik
-    tls-san:
-      - 10.0.0.71
-      - 10.0.0.100
-      - 10.2.11.24
-      - 10.2.11.25
-      - 10.2.11.36
-      - 10.99.10.12
-      - 10.99.10.11
-      - 10.99.10.10
-      - lb.cloud.icylair.com
-      - oraclearm1.cloud.icylair.com
-      - oraclearm2.cloud.icylair.com
-      - k3s-local-01.local.icylair.com
-      - k3s-local-01
-      - k3s-local.local.icylair.com
-      - k3s-local
     node-ip: 10.99.10.12
     server: https://10.99.10.11:6443
   '';
@@ -47,28 +31,6 @@ let
     disable-kube-proxy: true
     cluster-cidr: "10.52.0.0/16"
     service-cidr: "10.53.0.0/16"
-    tls-san:
-      - 10.0.0.71
-      - 10.0.0.100
-      - 10.2.11.24
-      - 10.2.11.25
-      - 10.2.11.36
-      - 10.2.11.38
-      - 10.99.10.15
-      - 10.99.10.14
-      - 10.99.10.13
-      - 10.99.10.12
-      - 10.99.10.11
-      - 10.99.10.10
-      - lb.cloud.icylair.com
-      - oraclearm1.cloud.icylair.com
-      - oraclearm2.cloud.icylair.com
-      - k3s-local-01.local.icylair.com
-      - k3s-local-01
-      - k3s-local-02.local.icylair.com
-      - k3s-local-02
-      - k3s-oraclearm1
-      - k3s-oraclearm2
     kube-apiserver-arg:
       - oidc-issuer-url=https://keycloak.cloud.icylair.com/realms/master
       - oidc-client-id=kubernetes

@@ -16,17 +16,15 @@ let
     write-kubeconfig-mode: "0644"
     cluster-cidr: "10.32.0.0/16"
     service-cidr: "10.33.0.0/16"
+    disable-kube-proxy: true
     disable:
       - rke2-canal
       - rke2-ingress-nginx
       - rke2-service-lb
-    tls-san:
-      - rke2-local.local.icylair.com
-      - 10.2.11.42
-    disable-kube-proxy: true
     node-label:
       - "node-location=local"
       - "node-arch=amd64"
+      - "nixos-nvidia-cdi=enabled"
     # node-taint:
     #   - "node-role.kubernetes.io/control-plane=true:NoSchedule"
     node-ip: 10.99.10.51

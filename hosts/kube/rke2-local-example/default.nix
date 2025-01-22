@@ -14,23 +14,11 @@ let
   master3_rke = ''
     ---
     write-kubeconfig-mode: "0644"
+    disable-kube-proxy: true
     disable:
       - rke2-canal
       - rke2-ingress-nginx
       - rke2-service-lb
-    tls-san:
-      - rke2-local-example.local.icylair.com
-      - lb.local.icylair.com
-      - lb.cloud.icylair.com
-      - oraclearm1.cloud.icylair.com
-      - oraclearm2.cloud.icylair.com
-      - k3s-local-01.local.icylair.com
-      - k3s-local-01
-      - k3s-local-02.local.icylair.com
-      - k3s-local-02
-      - k3s-oraclearm1
-      - k3s-oraclearm2
-    disable-kube-proxy: true
     node-label:
       - "node-location=local"
       - "node-arch=amd64"
