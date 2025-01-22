@@ -106,7 +106,7 @@ in
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
     Host contabo-01-4v-8m-800g
-        HostName contabo-01-4v-8m-800.cloud.icylair.com
+        HostName contabo-01-4v-8m-800g.cloud.icylair.com
         Port 22
         User root
         IdentitiesOnly yes

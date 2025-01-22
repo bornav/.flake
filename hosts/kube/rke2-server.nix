@@ -29,6 +29,7 @@ let
     - oraclearm1.cloud.icylair.com
     - oraclearm2.cloud.icylair.com
     - oraclearm3.cloud.icylair.com
+    - contabo-01-4v-8m-800g.cloud.icylair.com
     - k3s-local-01.local.icylair.com
     - k3s-local-01
     - k3s-local-02.local.icylair.com
@@ -39,6 +40,7 @@ let
     - rke2-oraclearm1
     - rke2-oraclearm2
     - rke2-oraclearm3
+    - contabo-01-4v-8m-800g
     - rke2-local-example.local.icylair.com
     - rke2-local.local.icylair.com
     - lb.local.icylair.com

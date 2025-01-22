@@ -105,6 +105,22 @@ in
         
     ];
   };
+  contabo-01-4v-8m-800g = inputs.nixpkgs-unstable.lib.nixosSystem {
+    system = "x86_64-linux";  
+    specialArgs = {
+      inherit pkgs-unstable vars inputs;
+      host = {
+          hostName = "contabo-01-4v-8m-800g";
+          vars = vars;
+          system = "x86_64-linux"; 
+      };
+      system = "x86_64-linux";
+    };
+    modules = [
+        ./kube/contabo-01-4v-8m-800g
+        ./kube/common.nix
+    ];
+  };
   k3s-local-01 = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "x86_64-linux";  
     specialArgs = {
