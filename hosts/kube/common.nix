@@ -13,6 +13,8 @@ in
   imports = (import ../../modules/virtualization);
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
+  networking.firewall.trustedInterfaces = [ "cilium_host" "cilium_net" "lxc+" ];
+  networking.firewall.checkReversePath = false;
   programs.nh.enable = true;
   services = {
     openssh = {                             # SSH
