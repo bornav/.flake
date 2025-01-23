@@ -6,7 +6,7 @@ some weird fuckerry happened in the grub part of the configuration making it not
 
 ### To deploy | wipes all disk data, on each call
 `nix run github:nix-community/nixos-anywhere -- --flake /home/bocmo/.flake#rke2-local-node-01 root@10.2.11.42` #had to use password based auth since on nix first reboot(into installer) it would no longer work, constantly ask for password
-<!-- `nix run github:nix-community/nixos-anywhere -- --flake /home/bocmo/.flake#rke2-local-node-01 ubuntu@10.2.11.42` #had to use password based auth since on nix first reboot(into installer) it would no longer work, constantly ask for password -->
+`nix run github:nix-community/nixos-anywhere -- --flake /home/bocmo/.flake#rke2-local-node-01 ubuntu@10.2.11.42`
 
 
 ### rebuilds the flake with the new configuration

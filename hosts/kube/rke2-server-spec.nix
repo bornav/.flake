@@ -73,16 +73,16 @@ in
       environment.variables = {
         KUBECONFIG="/etc/rancher/rke2/rke2.yaml";
       };
-      systemd.services.copy-kubernetes-config = {
-        description = "Copy kubernetes config to root config";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "local-fs.target" ];
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStart = "${pkgs.bash}/bin/bash -c 'mkdir /root/.kube/;${pkgs.coreutils}/bin/cat /etc/rancher/rke2/rke2.yaml > /root/.kube/config'";
-        };
-      };
+      # systemd.services.copy-kubernetes-config = {
+      #   description = "Copy kubernetes config to root config";
+      #   wantedBy = [ "multi-user.target" ];
+      #   after = [ "local-fs.target" ];
+      #   serviceConfig = {
+      #     Type = "oneshot";
+      #     RemainAfterExit = true;
+      #     ExecStart = "${pkgs.bash}/bin/bash -c 'mkdir /root/.kube/;${pkgs.coreutils}/bin/cat /etc/rancher/rke2/rke2.yaml > /root/.kube/config'";
+      #   };
+      # };
     })
     (lib.mkIf (config.rke2.agent) {
       services.rke2 = {

@@ -21,20 +21,19 @@ let
     node-ip: 10.99.10.11
   '';
   master1_rke = ''
-    ---
     write-kubeconfig-mode: "0644"
     cluster-cidr: "10.52.0.0/16"
     service-cidr: "10.53.0.0/16"
+    disable-kube-proxy: true
     # disable-cloud-controller: true
-      # - rke2-metrics-server
-      # - rke2-kube-proxy
     disable:
       - rke2-canal
       - rke2-ingress-nginx
       - rke2-service-lb
-    disable-kube-proxy: true
+      # - rke2-metrics-server
+      # - rke2-kube-proxy
     kube-apiserver-arg:
-      - oidc-issuer-url=https://keycloak.cloud.icylair.com/realms/master
+      - oidc-issuer-url=https://sso.icylair.com/realms/master
       - oidc-client-id=kubernetes
       - oidc-username-claim=email
       - oidc-groups-claim=groups
@@ -42,6 +41,7 @@ let
       - "node-location=cloud"
       - "node-arch=arm64"
       - "nat-policy=enabled"
+      - "storage=longhorn"
     node-ip: 10.99.10.11
   '';
   

@@ -23,23 +23,25 @@ let
     server: https://10.99.10.11:6443
   '';
   master3_rke = ''
-    ---
     write-kubeconfig-mode: "0644"
+    cluster-cidr: "10.52.0.0/16"
+    service-cidr: "10.53.0.0/16"
+    disable-kube-proxy: true
+    # disable-cloud-controller: true
     disable:
       - rke2-canal
       - rke2-ingress-nginx
       - rke2-service-lb
-    disable-kube-proxy: true
-    cluster-cidr: "10.52.0.0/16"
-    service-cidr: "10.53.0.0/16"
-    node-label:
-      - "node-location=local"
-      - "node-arch=amd64"
     kube-apiserver-arg:
-      - oidc-issuer-url=https://keycloak.cloud.icylair.com/realms/master
+      - oidc-issuer-url=https://sso.icylair.com/realms/master
       - oidc-client-id=kubernetes
       - oidc-username-claim=email
       - oidc-groups-claim=groups
+    node-label:
+      - "node-location=cloud"
+      - "node-arch=amd64"
+      - "nat-policy=enabled"
+      - "storage=longhorn"
     node-ip: 10.99.10.13
     server: https://10.99.10.11:9345
   '';
@@ -64,6 +66,14 @@ in
   ];
   rke2.server = true;
   # rke2.agent = true;
+
+  fileSystems."/storage" =
+    { device = "/dev/disk/by-uuid/1acc761a-b0c1-4a54-91ff-d932faad51eb";
+      fsType = "ext4";
+      options = [
+        "noatime"
+      ];
+    };
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;

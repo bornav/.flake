@@ -12,11 +12,11 @@ let
   this-is-temp-token
   '';
   master_rke = ''
-    ---
     write-kubeconfig-mode: "0644"
     cluster-cidr: "10.32.0.0/16"
     service-cidr: "10.33.0.0/16"
     disable-kube-proxy: true
+    disable-cloud-controller: true
     disable:
       - rke2-canal
       - rke2-ingress-nginx
@@ -25,8 +25,14 @@ let
       - "node-location=local"
       - "node-arch=amd64"
       - "nixos-nvidia-cdi=enabled"
+      - "storage=longhorn"
     # node-taint:
     #   - "node-role.kubernetes.io/control-plane=true:NoSchedule"
+    kube-apiserver-arg:
+      - oidc-issuer-url=https://sso.icylair.com/realms/master
+      - oidc-client-id=gatekeeper
+      - oidc-username-claim=email
+      - oidc-groups-claim=groups2
     node-ip: 10.99.10.51
     # node-ip: 10.2.11.42
   '';
