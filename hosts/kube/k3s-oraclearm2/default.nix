@@ -32,10 +32,19 @@ let
       - rke2-service-lb
       # - rke2-metrics-server
       # - rke2-kube-proxy
+      # - rke2-coredns
+      # - rke2-snapshot-controller
+      # - rke2-snapshot-controller-crd
+      # - rke2-snapshot-validation-webhook
+    # control-plane-resource-requests:
+    #   - kube-apiserver-cpu=500m
+    #   - kube-apiserver-memory=512M
+    #   - kube-scheduler-cpu=250m
+    #   - kube-scheduler-memory=512M
+    #   - etcd-cpu=1000m
     kube-apiserver-arg:
       - oidc-issuer-url=https://sso.icylair.com/realms/master
       - oidc-client-id=kubernetes
-      - oidc-username-claim=email
       - oidc-groups-claim=groups
     node-label:
       - "node-location=cloud"
@@ -43,6 +52,7 @@ let
       - "nat-policy=enabled"
       - "storage=longhorn"
     node-ip: 10.99.10.11
+    # server: https://lb.cloud.icylair.com:9345
   '';
   
 in

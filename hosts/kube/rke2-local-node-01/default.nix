@@ -25,14 +25,13 @@ let
       - "node-location=local"
       - "node-arch=amd64"
       - "nixos-nvidia-cdi=enabled"
-      - "storage=longhorn"
+      - "storage=ceph"
     # node-taint:
     #   - "node-role.kubernetes.io/control-plane=true:NoSchedule"
     kube-apiserver-arg:
       - oidc-issuer-url=https://sso.icylair.com/realms/master
-      - oidc-client-id=gatekeeper
-      - oidc-username-claim=email
-      - oidc-groups-claim=groups2
+      - oidc-client-id=kubernetes
+      - oidc-groups-claim=groups
     node-ip: 10.99.10.51
     # node-ip: 10.2.11.42
   '';

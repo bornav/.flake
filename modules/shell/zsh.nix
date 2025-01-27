@@ -44,6 +44,7 @@ let
     alias git_check='git diff --cached'   #displays diff of added but not commited files
     alias git_check_commited='git diff @{u}.. --name-only && git diff @{u}'  #displays diff of commited files but not pushed
     alias git_squash='#TODO' squashes current commit to previous one
+    alias DEPLOY_PLASMA_SHELL="XDG_SESSION_TYPE=wayland dbus-run-session startplasma-wayland" #https://www.linuxquestions.org/questions/slackware-14/how-to-start-wayland-kde-from-command-line-4175695918/
     #kubecli
     alias k=kubectl
     alias ka="kubectl apply"

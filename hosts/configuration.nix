@@ -76,9 +76,9 @@ in
     # ]) ++ ([ pkgs.firefox ]);  ## syntax for adding one without pkgs appended
   };
   programs.nh.enable = true;
-  hardware.pulseaudio.enable = false;
   services = {
     printing.enable = true;
+    pulseaudio.enable = false;
     pipewire = {                            # Sound
       enable = true;
       alsa = {

@@ -101,6 +101,7 @@ in
         # Define the backend servers
         server server1 oraclearm1.cloud.icylair.com:443 check
         server server2 oraclearm2.cloud.icylair.com:443 check
+        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:443 check
 
     frontend 6443-forward
         bind *:6443
@@ -112,6 +113,7 @@ in
         balance roundrobin
         server server1 oraclearm1.cloud.icylair.com:6443 check
         server server2 oraclearm2.cloud.icylair.com:6443 check
+        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:6443 check
 
     frontend 80-forward
         bind *:80
@@ -123,6 +125,7 @@ in
         balance roundrobin
         server server1 oraclearm1.cloud.icylair.com:80 check
         server server2 oraclearm2.cloud.icylair.com:80 check
+        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:80 check
 
     frontend ssh-forward
         bind *:10022
@@ -134,6 +137,19 @@ in
         balance roundrobin
         server server1 oraclearm1.cloud.icylair.com:22 check
         server server2 oraclearm2.cloud.icylair.com:22 check
+        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:22 check
+
+    frontend controll_plane
+        bind *:9345
+        mode tcp
+        option tcplog
+        default_backend controll_plane_backend
+    backend controll_plane_backend
+        mode tcp
+        balance roundrobin
+        server server1 oraclearm1.cloud.icylair.com:9345 check
+        server server2 oraclearm2.cloud.icylair.com:9345 check
+        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:9345 check
 
     backend headscale_backend
         mode tcp

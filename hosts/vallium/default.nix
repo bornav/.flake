@@ -139,6 +139,7 @@ in
   cosmic-desktop.enable = lib.mkDefault false;
   virtualization.enable = true;
   virtualization.qemu = true;
+  virtualization.waydroid = true;
   devops.enable = true;
   steam.enable = true;
   emulation.switch = true;
@@ -265,9 +266,7 @@ in
   
   ##gargabe collection
   
-  services.udev.extraRules = ''
-    ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
-  '';
+  
 
   #nvidia
   hardware.bluetooth.enable = lib.mkForce true; # enables support for Bluetooth
@@ -310,15 +309,21 @@ in
   # environment.systemPackages = with pkgs-unstable; [ linuxKernel.packages.linux_6_8.nvidia_x11 ];
   # services.xserver.videoDrivers = ["nvidia"];
 
-# (pkgs.linuxPackages_latest.nvidia_x11.overrideAttrs (old: {
-#   version = "555.42.02"; # replace with the latest version number
-#   src = pkgs.fetchurl {
-#     url = "https://us.download.nvidia.com/XFree86/Linux-x86_64/555.42.02/NVIDIA-Linux-x86_64-555.42.02.run";
-#     sha256 = "0aavhxa4jy7jixq1v5km9ihkddr2v91358wf9wk9wap5j3fhidwk";
-#   };
-# })) 
-  #blacklist igpu
-  boot.kernelParams = [ "module_blacklist=amdgpu" ];
+  # (pkgs.linuxPackages_latest.nvidia_x11.overrideAttrs (old: {
+  #   version = "555.42.02"; # replace with the latest version number
+  #   src = pkgs.fetchurl {
+  #     url = "https://us.download.nvidia.com/XFree86/Linux-x86_64/555.42.02/NVIDIA-Linux-x86_64-555.42.02.run";
+  #     sha256 = "0aavhxa4jy7jixq1v5km9ihkddr2v91358wf9wk9wap5j3fhidwk";
+  #   };
+  # })) 
+
+  ##### blacklist igpu
+  # boot.kernelParams = [ "module_blacklist=amdgpu" ];
+  # services.udev.extraRules = ''
+  #   ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
+  # '';
+  #####
+
 
   environment.variables = {
     LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff

@@ -35,6 +35,7 @@ with lib;
       bfg-repo-cleaner
       inetutils
       k9s
+      cilium-cli
       yaml-language-server  # TODO look into
       nil # TODO move into ide
       inputs.compose2nix.packages.x86_64-linux.default

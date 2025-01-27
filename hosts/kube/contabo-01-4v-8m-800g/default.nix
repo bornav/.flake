@@ -35,7 +35,6 @@ let
     kube-apiserver-arg:
       - oidc-issuer-url=https://sso.icylair.com/realms/master
       - oidc-client-id=kubernetes
-      - oidc-username-claim=email
       - oidc-groups-claim=groups
     node-label:
       - "node-location=cloud"
@@ -43,7 +42,8 @@ let
       - "nat-policy=enabled"
       - "storage=longhorn"
     node-ip: 10.99.10.13
-    server: https://10.99.10.11:9345
+    server: https://lb.cloud.icylair.com:9345
+    # server: https://10.99.10.11:9345
   '';
     # node-taint:
     #   - "node-role.kubernetes.io/control-plane=true:NoSchedule"
@@ -67,13 +67,13 @@ in
   rke2.server = true;
   # rke2.agent = true;
 
-  fileSystems."/storage" =
-    { device = "/dev/disk/by-uuid/1acc761a-b0c1-4a54-91ff-d932faad51eb";
-      fsType = "ext4";
-      options = [
-        "noatime"
-      ];
-    };
+  # fileSystems."/storage" =
+  #   { device = "/dev/disk/by-uuid/1acc761a-b0c1-4a54-91ff-d932faad51eb";
+  #     fsType = "ext4";
+  #     options = [
+  #       "noatime"
+  #     ];
+  #   };
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;

@@ -35,7 +35,6 @@ let
     kube-apiserver-arg:
       - oidc-issuer-url=https://sso.icylair.com/realms/master
       - oidc-client-id=kubernetes
-      - oidc-username-claim=email
       - oidc-groups-claim=groups
     node-label:
       - "node-location=cloud"
@@ -43,7 +42,8 @@ let
       - "nat-policy=enabled"
       - "storage=longhorn"
     node-ip: 10.99.10.12 
-    server: https://10.99.10.11:9345
+    server: https://lb.cloud.icylair.com:9345
+    # server: https://10.99.10.11:9345
   '';
 in
 {
