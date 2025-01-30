@@ -22,8 +22,14 @@ with lib;
       # })
     ] ++
     (with pkgs-stable; [
-      heroic
+      # heroic
+      (heroic.override {
+        extraPkgs = pkgs: [
+          pkgs.gamescope
+        ];
+      })
       shadps4
+      umu-launcher
       # bottles
       # bottles-unwrapped
 

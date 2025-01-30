@@ -21,6 +21,9 @@ let
       - rke2-canal
       - rke2-ingress-nginx
       - rke2-service-lb
+      - rke2-snapshot-controller
+      - rke2-snapshot-controller-crd
+      - rke2-snapshot-validation-webhook
     node-label:
       - "node-location=local"
       - "node-arch=amd64"

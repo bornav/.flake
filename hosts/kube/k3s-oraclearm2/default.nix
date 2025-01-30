@@ -25,7 +25,7 @@ let
     cluster-cidr: "10.52.0.0/16"
     service-cidr: "10.53.0.0/16"
     disable-kube-proxy: true
-    # disable-cloud-controller: true
+    disable-cloud-controller: true
     disable:
       - rke2-canal
       - rke2-ingress-nginx
@@ -33,9 +33,9 @@ let
       # - rke2-metrics-server
       # - rke2-kube-proxy
       # - rke2-coredns
-      # - rke2-snapshot-controller
-      # - rke2-snapshot-controller-crd
-      # - rke2-snapshot-validation-webhook
+      - rke2-snapshot-controller
+      - rke2-snapshot-controller-crd
+      - rke2-snapshot-validation-webhook
     # control-plane-resource-requests:
     #   - kube-apiserver-cpu=500m
     #   - kube-apiserver-memory=512M

@@ -20,7 +20,7 @@ with lib;
               openssl
               libpng
               icu
-              gamemode
+              # gamemode
               xorg.libXcursor
               xorg.libXi
               xorg.libXinerama
@@ -38,7 +38,7 @@ with lib;
         };
         gamescopeSession.enable = true;
       };
-      # gamemode.enable = true;
+      gamemode.enable = true;
       gamescope = {
         enable = true;
         capSysNice = true;

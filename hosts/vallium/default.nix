@@ -139,7 +139,7 @@ in
   cosmic-desktop.enable = lib.mkDefault false;
   virtualization.enable = true;
   virtualization.qemu = true;
-  virtualization.waydroid = true;
+  # virtualization.waydroid = true;
   devops.enable = true;
   steam.enable = true;
   emulation.switch = true;
@@ -277,15 +277,15 @@ in
       open = false;
       nvidiaSettings = true;
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
-      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #   version = "565.57.01";
-      #   sha256_64bit = "sha256-buvpTlheOF6IBPWnQVLfQUiHv4GcwhvZW3Ks0PsYLHo=";
-      #   sha256_aarch64 = lib.fakeSha256;
-      #   openSha256 = lib.fakeSha256;
-      #   settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-      #   persistencedSha256 = "sha256-hdszsACWNqkCh8G4VBNitDT85gk9gJe1BlQ8LdrYIkg=";
-      # };
+      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+        version = "570.86.16";
+        sha256_64bit = "sha256-RWPqS7ZUJH9JEAWlfHLGdqrNlavhaR1xMyzs8lJhy9U=";
+        sha256_aarch64 = lib.fakeSha256;
+        openSha256 = lib.fakeSha256;
+        settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+        persistencedSha256 = "sha256-hdszsACWNqkCh8G4VBNitDT85gk9gJe1BlQ8LdrYIkg=";
+      };
 
       # forceFullCompositionPipeline = true;
       powerManagement.enable = false;

@@ -27,11 +27,14 @@ let
     cluster-cidr: "10.52.0.0/16"
     service-cidr: "10.53.0.0/16"
     disable-kube-proxy: true
-    # disable-cloud-controller: true
+    disable-cloud-controller: true
     disable:
       - rke2-canal
       - rke2-ingress-nginx
       - rke2-service-lb
+      - rke2-snapshot-controller
+      - rke2-snapshot-controller-crd
+      - rke2-snapshot-validation-webhook
     kube-apiserver-arg:
       - oidc-issuer-url=https://sso.icylair.com/realms/master
       - oidc-client-id=kubernetes
