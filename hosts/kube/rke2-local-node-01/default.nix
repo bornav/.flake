@@ -29,6 +29,7 @@ let
       - "node-arch=amd64"
       - "nixos-nvidia-cdi=enabled"
       - "storage=ceph"
+      - "storage/ceph=true"
     # node-taint:
     #   - "node-role.kubernetes.io/control-plane=true:NoSchedule"
     kube-apiserver-arg:

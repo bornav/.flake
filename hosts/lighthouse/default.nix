@@ -147,9 +147,12 @@ in
     backend controll_plane_backend
         mode tcp
         balance roundrobin
-        server server1 oraclearm1.cloud.icylair.com:9345 check
-        server server2 oraclearm2.cloud.icylair.com:9345 check
-        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:9345 check
+        server server1 10.99.10.11:9345 check
+        server server2 10.99.10.12:9345 check
+        server server3 10.99.10.13:9345 check
+        # server server1 oraclearm1.cloud.icylair.com:9345 check
+        # server server2 oraclearm2.cloud.icylair.com:9345 check
+        # server server3 contabo-01-4v-8m-800g.cloud.icylair.com:9345 check
 
     backend headscale_backend
         mode tcp
@@ -281,6 +284,9 @@ in
     extraOptions = "experimental-features = nix-command flakes";
     settings.max-jobs = 4;
   };
+  systemd.network.enable = true;
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
   # systemd.network.networks."10-wan" = {
   #   matchConfig.Name = "enp1s0";
   #   networkConfig = {

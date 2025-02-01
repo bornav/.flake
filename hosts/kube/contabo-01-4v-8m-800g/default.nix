@@ -43,7 +43,9 @@ let
       - "node-location=cloud"
       - "node-arch=amd64"
       - "nat-policy=enabled"
-      - "storage=longhorn"
+      # - "storage=longhorn"
+      - "storage/longhorn=true"
+      - "storage/ceph=true"
     node-ip: 10.99.10.13
     server: https://lb.cloud.icylair.com:9345
     # server: https://10.99.10.11:9345
