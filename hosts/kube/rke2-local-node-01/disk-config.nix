@@ -26,7 +26,7 @@
       };
       root = {
         name = "root";
-        size = "50G";
+        size = "100G";
         content = {
           type = "filesystem";
           format = "ext4";
@@ -38,12 +38,30 @@
         size = "100%";
         content = {
           type = "filesystem";
-          format = "ext4";
+          format = "xfs";
           # mountpoint = "/";
         };
       };
      };
     };
    };
+  # disk.disk2 = {
+  #   device = "/dev/sdb";
+  #   type = "disk";
+  #   content = {
+  #    type = "gpt";
+  #    partitions = {
+  #     storage2 = {
+  #       name = "storage2";
+  #       size = "100%";
+  #       content = {
+  #         type = "filesystem";
+  #         format = "xfs";
+  #         # mountpoint = "/";
+  #       };
+  #     };
+  #    };
+  #   };
+  #  };
   };
 }

@@ -16,6 +16,7 @@ with lib;
       # airshipper
       # heroic
       # heroic-unwrapped
+      lutris
       gogdl
       # (bottles.override {
       #   removeWarningPopup = true;
