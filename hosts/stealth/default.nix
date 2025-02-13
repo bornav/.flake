@@ -11,6 +11,7 @@ let
 in
 {
   imports = [
+    # inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
@@ -143,6 +144,8 @@ in
   };
   ##
   ##gargabe collection
+
+  services.hardware.bolt.enable = true;
 
   hardware.bluetooth.enable = true;
   # services.udev.extraRules = ''

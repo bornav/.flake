@@ -69,6 +69,7 @@ in
       tmux
       # dbus
       # dbus-broker
+      iperf3
     ] ++
     (with pkgs-unstable; [
 

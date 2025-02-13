@@ -20,7 +20,7 @@ in
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-cosmic.nixosModules.default
-    inputs.nix-flatpak.nixosModules.nix-flatpak
+    # inputs.nix-flatpak.nixosModules.nix-flatpak
     ./hardware-configuration.nix
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
     # ./network-shares.nix
@@ -266,8 +266,6 @@ in
   
   ##gargabe collection
   
-  
-
   #nvidia
   hardware.bluetooth.enable = lib.mkForce true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = lib.mkForce true;

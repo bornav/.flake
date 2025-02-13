@@ -8,6 +8,9 @@ in
 
 with lib;
 {
+  imports = [
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+  ];
   options = {
     flatpak = {
       enable = mkOption {
