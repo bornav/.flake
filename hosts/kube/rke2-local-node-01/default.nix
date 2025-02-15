@@ -28,6 +28,7 @@ let
       - "node-location=local"
       - "node-arch=amd64"
       - "nixos-nvidia-cdi=enabled"
+      - "nvidia.com/gpu.present=true"
       - "storage=ceph"
       - "storage/ceph=true"
     # node-taint:
