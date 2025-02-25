@@ -36,13 +36,30 @@ with lib;
       # environment.systemPackages = with pkgs; [ vscode-fhs ];
 
       home-manager.users.${vars.user} = {
+        # home.packages = with pkgs; [
+        #   (vscode-with-extensions.override {
+        #     vscodeExtensions = with vscode-extensions; [
+        #       bbenoist.nix
+        #       ms-python.python
+        #       ms-azuretools.vscode-docker
+        #       # ms-vscode-remote.remote-ssh
+        #     # ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        #     #   {
+        #     #     name = "remote-ssh-edit";
+        #     #     publisher = "ms-vscode-remote";
+        #     #     version = "0.47.2";
+        #     #     sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+        #     #   }
+        #     ];
+        #   })
+        # ];
         programs.vscode = {
           enable = true;
           package = pkgs.vscode;
-          extensions = with pkgs.vscode-extensions; [
-              continue.continue
-          ];
-          userSettings = {
+          # extensions = with pkgs.vscode-extensions; [
+          #     continue.continue
+          # ];
+          profiles.default.userSettings = {
               "editor.minimap.enabled"= "false";
               "terminal.integrated.fontFamily"= "Hack";
               "workbench.sideBar.location"= "right";
@@ -60,7 +77,7 @@ with lib;
     (lib.mkIf (config.ide.zed) {
       ide.enable = true;
       environment.systemPackages = with pkgs; [
-        zed-editor
+        # zed-editor
       ];
      })
     (lib.mkIf (config.ide.enable) {

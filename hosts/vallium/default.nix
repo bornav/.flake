@@ -8,6 +8,10 @@ let
     system = host.system;
     config.allowUnfree = true;
   };
+  pkgs-master = import inputs.nixpkgs-master {
+    system = host.system;
+    config.allowUnfree = true;
+  };
 in
 {
   imports = [
@@ -45,8 +49,11 @@ in
   };
   services.gnome.core-utilities.enable = true;
   #services.getty.autologinUser = "bocmo";
-  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_12;
+  # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_12;
+  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  # boot.kernelPackages = pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
+
+  # boot.consoleLogLevel  description of package -> The kernel console `loglevel`. All Kernel Messages with a log level smaller than this setting will be printed to the console.  https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/system/boot/kernel.nix
   boot.loader = {
     #systemd-boot.enable = true;
     timeout = 1;
@@ -163,24 +170,26 @@ in
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     alacritty
-    libsForQt5.dolphin
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.qtstyleplugins
-    libsForQt5.ark
-    libsForQt5.breeze-icons
-    libsForQt5.breeze-qt5
-    libsForQt5.breeze-gtk
-    # libsForQt5.xdg-desktop-portal-kde
-    libsForQt5.kde-gtk-config
-    okular            # PDF Viewer
+    # libsForQt5.qtstyleplugin-kvantum
+    # libsForQt5.qtstyleplugins
+    # libsForQt5.breeze-qt5
+    kdePackages.dolphin
+    kdePackages.ark
+    kdePackages.breeze-icons
+    kdePackages.breeze-gtk
+    kdePackages.kde-gtk-config
+    kdePackages.xdg-desktop-portal-kde
+    kdePackages.okular            # PDF Viewer
+    kdePackages.kate
+    kdePackages.filelight
+    kdePackages.kfind
+
     haruna
-    kate
     jq
     kdiskmark
     appimage-run      # Runs AppImages on NixOS
     distrobox
     qjournalctl
-    xorg.xkill
     # remmina          # XRDP & VNC Client
     # sublime-merge
     feh
@@ -194,14 +203,15 @@ in
     gvfs
     libglibutil
     fuse
+    
     borgbackup
 
     btop
-    filelight
     nix-index
-    kfind
-    kitty
+
+    ripgrep
     # betterbird
+    xorg.xkill
     xorg.xeyes
     python3
     ((vim_configurable.override { }).customize {

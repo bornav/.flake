@@ -35,7 +35,7 @@
 			location = "$HOME/.flake";
 			terminal = "alacritty";
 			editor = "vim";
-      stateVersion = "24.05";
+      stateVersion = "24.11";
 		};
     inherit (self) outputs;
 	in {

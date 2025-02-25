@@ -8,6 +8,10 @@ let
     system = host.system;
     config.allowUnfree = true;
   };
+  pkgs-master = import inputs.nixpkgs-master {
+    system = host.system;
+    config.allowUnfree = true;
+  };
 in
 {
   imports = [
@@ -21,9 +25,10 @@ in
     ./disk-config.nix
     {_module.args.disks = [ "/dev/sda" ];}
   ];
-  
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
+  # boot.kernelPackages = pkgs-master.linuxPackages_testing;
   boot.kernelModules = [ "rbd" "br_netfilter" ];
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   boot.loader = {
@@ -127,17 +132,17 @@ in
         server server2 oraclearm2.cloud.icylair.com:80 check
         server server3 contabo-01-4v-8m-800g.cloud.icylair.com:80 check
 
-    frontend ssh-forward
-        bind *:10022
-        mode tcp
-        option tcplog
-        default_backend ssh_forward_backend
-    backend ssh_forward_backend
-        mode tcp
-        balance roundrobin
-        server server1 oraclearm1.cloud.icylair.com:22 check
-        server server2 oraclearm2.cloud.icylair.com:22 check
-        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:22 check
+    # frontend ssh-forward
+    #     bind *:10022
+    #     mode tcp
+    #     option tcplog
+    #     default_backend ssh_forward_backend
+    # backend ssh_forward_backend
+    #     mode tcp
+    #     balance roundrobin
+    #     server server1 oraclearm1.cloud.icylair.com:22 check
+    #     server server2 oraclearm2.cloud.icylair.com:22 check
+    #     server server3 contabo-01-4v-8m-800g.cloud.icylair.com:22 check
 
     frontend controll_plane
         bind *:9345
@@ -146,6 +151,7 @@ in
         default_backend controll_plane_backend
     backend controll_plane_backend
         mode tcp
+        option tcp-check
         balance roundrobin
         server server1 10.99.10.11:9345 check
         server server2 10.99.10.12:9345 check

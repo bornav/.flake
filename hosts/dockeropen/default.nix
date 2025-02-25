@@ -4,7 +4,7 @@ let
     system = host.system;
     config.allowUnfree = true;
   };
-  pkgs-unstable = import inputs.nixpkgs-unstable {
+  pkgs-master = import inputs.nixpkgs-master {
     system = host.system;
     config.allowUnfree = true;
   };
@@ -28,6 +28,7 @@ in
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs-master.linuxPackages_testing;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
     timeout = 1;
