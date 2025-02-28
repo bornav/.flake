@@ -1,10 +1,10 @@
-{ config, inputs, system, vars, lib, ... }:
-let
-    pkgs = import inputs.nixpkgs-unstable {
-        config.allowUnfree = true;
-        inherit system;
-    };
-in
+{ config, inputs, system, vars, lib, pkgs, ... }:
+# let
+#     pkgs = import inputs.nixpkgs-unstable {
+#         config.allowUnfree = true;
+#         inherit system;
+#     };
+# in
 {   #zerotier-one -d run this to enable the svc
     environment.systemPackages = with pkgs; [ 
         zerotierone

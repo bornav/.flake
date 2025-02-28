@@ -1,10 +1,10 @@
-{ config, inputs, system, vars, lib, ... }:
-let
-    pkgs = import inputs.nixpkgs-stable {
-        config.allowUnfree = true;
-        inherit system;
-    };
-in
+{ config, inputs, system, vars, lib, pkgs,  ... }:
+# let
+#     pkgs = import inputs.nixpkgs-stable {
+#         config.allowUnfree = true;
+#         inherit system;
+#     };
+# in
 
 with lib;
 {

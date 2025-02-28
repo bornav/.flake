@@ -1,18 +1,18 @@
-{ config, lib, host, inputs, ... }:
-let
-  pkgs = import inputs.nixpkgs-unstable {
-    system = host.system;
-    config.allowUnfree = true;
-  };
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    system = host.system;
-    config.allowUnfree = true;
-  };
-  pkgs-master = import inputs.nixpkgs-master {
-    system = host.system;
-    config.allowUnfree = true;
-  };
-in
+{ config, lib, host, inputs, pkgs, pkgs-unstable, pkgs-master, ... }:
+# let
+#   pkgs = import inputs.nixpkgs-unstable {
+#     system = host.system;
+#     config.allowUnfree = true;
+#   };
+#   pkgs-unstable = import inputs.nixpkgs-unstable {
+#     system = host.system;
+#     config.allowUnfree = true;
+#   };
+#   pkgs-master = import inputs.nixpkgs-master {
+#     system = host.system;
+#     config.allowUnfree = true;
+#   };
+# in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager {

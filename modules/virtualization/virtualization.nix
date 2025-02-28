@@ -1,10 +1,10 @@
-{ config, inputs, system, vars, lib, ... }:
-let
-    pkgs = import inputs.nixpkgs-unstable {
-        config.allowUnfree = true;
-        inherit system;
-    };
-in
+{ config, inputs, system, vars, lib, pkgs, ... }:
+# let
+#     pkgs = import inputs.nixpkgs-unstable {
+#         config.allowUnfree = true;
+#         inherit system;
+#     };
+# in
 # let
 #   srcDir = "/home/${vars.user}/libvirt";  # Replace this with the path to your source directory
 #   destDir = "/var/lib/libvirt";  # Replace this with the path to your destination directory

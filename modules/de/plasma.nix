@@ -1,10 +1,10 @@
-{ config, inputs, system, vars, lib, ... }:
+{ config, inputs, system, vars, lib, pkgs, ... }:
 let
   inherit (pkgs) kdePackages;
-    pkgs = import inputs.nixpkgs-unstable {
-        config.allowUnfree = true;
-        inherit system;
-    };
+  # pkgs = import inputs.nixpkgs-unstable {
+  #     config.allowUnfree = true;
+  #     inherit system;
+  # };
 in
 with lib;
 {

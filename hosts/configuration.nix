@@ -1,13 +1,13 @@
-{inputs, config, system, vars, ... }:
+{inputs, config, system, vars, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
 let
-  pkgs = import inputs.nixpkgs-unstable {
-    inherit system;
-    config.allowUnfree = true;
-  };
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    inherit system;
-    config.allowUnfree = true;
-  };
+  # pkgs = import inputs.nixpkgs-unstable {
+  #   inherit system;
+  #   config.allowUnfree = true;
+  # };
+  # pkgs-unstable = import inputs.nixpkgs-unstable {
+  #   inherit system;
+  #   config.allowUnfree = true;
+  # };
 in
 {
   imports = ( import ../modules/shell ++

@@ -1,8 +1,8 @@
-{ config, lib, system, inputs, host, pkgs-stable, pkgs-unstable, pkgs-master, ... }:  # TODO remove system, only when from all modules it is removed
-let
-  pkgs = pkgs-unstable;
-  # pkgs-stable = pkgs-unstable;
-in
+{ config, lib, system, inputs, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:  # TODO remove system, only when from all modules it is removed
+# let
+#   # pkgs = pkgs-unstable;
+#   # pkgs-stable = pkgs-unstable;
+# in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager {

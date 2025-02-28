@@ -1,14 +1,14 @@
-{ config, inputs, system, vars, lib, ... }:
-let
-    pkgs-stable = import inputs.nixpkgs-stable {
-        config.allowUnfree = true;
-        inherit system;
-    };
-    pkgs-unstable = import inputs.nixpkgs-unstable {
-        config.allowUnfree = true;
-        inherit system;
-    };
-in
+{ config, inputs, system, vars, lib, pkgs-stable, pkgs-unstable, ... }:
+# let
+#     pkgs-stable = import inputs.nixpkgs-stable {
+#         config.allowUnfree = true;
+#         inherit system;
+#     };
+#     pkgs-unstable = import inputs.nixpkgs-unstable {
+#         config.allowUnfree = true;
+#         inherit system;
+#     };
+# in
 with lib;
 {
   config = mkIf (config.devops.enable) {

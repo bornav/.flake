@@ -1,14 +1,5 @@
-{ config, lib, system, inputs, host, vars, ... }:
-let
-  pkgs = import inputs.nixpkgs-stable {
-    system = host.system;
-    config.allowUnfree = true;
-  };
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    system = host.system;
-    config.allowUnfree = true;
-  };
-in
+{ config, lib, system, inputs, host, vars, pkgs, pkgs-unstable, ... }:
+
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager {

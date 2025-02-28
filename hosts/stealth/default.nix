@@ -1,14 +1,14 @@
-{ config, lib, system, inputs, host, ... }:  # TODO remove system, only when from all modules it is removed
-let
-  pkgs = import inputs.nixpkgs-unstable {
-    system = host.system;
-    config.allowUnfree = true;
-  };
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    system = host.system;
-    config.allowUnfree = true;
-  };
-in
+{ config, lib, system, inputs, host, pkgs, pkgs-unstable, ... }:  # TODO remove system, only when from all modules it is removed
+# let
+#   pkgs = import inputs.nixpkgs-unstable {
+#     system = host.system;
+#     config.allowUnfree = true;
+#   };
+#   pkgs-unstable = import inputs.nixpkgs-unstable {
+#     system = host.system;
+#     config.allowUnfree = true;
+#   };
+# in
 {
   imports = [
     # inputs.nix-flatpak.nixosModules.nix-flatpak
@@ -76,18 +76,15 @@ in
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     alacritty
-    libsForQt5.dolphin
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.qtstyleplugins
-    libsForQt5.ark
-    libsForQt5.breeze-icons
-    libsForQt5.breeze-qt5
-    libsForQt5.breeze-gtk
-    libsForQt5.xdg-desktop-portal-kde
-    libsForQt5.kde-gtk-config
+    kdePackages.dolphin
+    kdePackages.ark
+    kdePackages.breeze-icons
+    kdePackages.breeze-gtk
+    kdePackages.xdg-desktop-portal-kde
+    kdePackages.kde-gtk-config
+    kdePackages.kate
     gnumake
     haruna
-    kate
     jq
     openssl
     distrobox
