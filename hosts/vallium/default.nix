@@ -1,17 +1,7 @@
-{ config, lib, system, inputs, host, ... }:  # TODO remove system, only when from all modules it is removed
+{ config, lib, system, inputs, host, pkgs-stable, pkgs-unstable, pkgs-master, ... }:  # TODO remove system, only when from all modules it is removed
 let
-  pkgs = import inputs.nixpkgs-unstable {
-    system = host.system;
-    config.allowUnfree = true;
-  };
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    system = host.system;
-    config.allowUnfree = true;
-  };
-  pkgs-master = import inputs.nixpkgs-master {
-    system = host.system;
-    config.allowUnfree = true;
-  };
+  pkgs = pkgs-unstable;
+  # pkgs-stable = pkgs-unstable;
 in
 {
   imports = [
@@ -25,6 +15,7 @@ in
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-cosmic.nixosModules.default
     # inputs.nix-flatpak.nixosModules.nix-flatpak
+    # ./imports.nix
     ./hardware-configuration.nix
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
     # ./network-shares.nix
@@ -50,7 +41,7 @@ in
   services.gnome.core-utilities.enable = true;
   #services.getty.autologinUser = "bocmo";
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_12;
-  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
 
   # boot.consoleLogLevel  description of package -> The kernel console `loglevel`. All Kernel Messages with a log level smaller than this setting will be printed to the console.  https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/system/boot/kernel.nix
@@ -168,7 +159,15 @@ in
 
   ####
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
+
+  #  ++ (with pkgs-master; [
+  #   lact # gpu overclocking/underclocking
+  # ]);
+
+
+  environment.systemPackages = [(
+    pkgs-master.lact
+    )] ++ (with pkgs; [
     alacritty
     # libsForQt5.qtstyleplugin-kvantum
     # libsForQt5.qtstyleplugins
@@ -198,22 +197,17 @@ in
     nordic
     papirus-nord
     pciutils # lspci
-
     pika-backup
     gvfs
     libglibutil
     fuse
-    
     borgbackup
-
     btop
     nix-index
-
     ripgrep
     # betterbird
-    xorg.xkill
-    xorg.xeyes
     python3
+    egl-wayland
     ((vim_configurable.override { }).customize {
     name = "vim";
       vimrcConfig.customRC = ''
@@ -222,20 +216,14 @@ in
         syntax on
       '';
     })
-  ] ++
-    (with pkgs-unstable; [
+  ]) ++ (with pkgs-stable; [
+      xorg.xkill
+      xorg.xeyes
       wireshark
-      # linux
       # orca-slicer
       # openrgb
-      # zsh-completions
-      # zsh-autocomplete
       avahi
-      # ollama
-      # lmstudio
-      # gpt4all     
-      egl-wayland
-    ]);
+  ]);
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = false;
@@ -287,12 +275,12 @@ in
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "570.86.16";
-        sha256_64bit = "sha256-RWPqS7ZUJH9JEAWlfHLGdqrNlavhaR1xMyzs8lJhy9U=";
+        version = "570.124.04";
+        sha256_64bit = "sha256-G3hqS3Ei18QhbFiuQAdoik93jBlsFI2RkWOBXuENU8Q="; 
+        settingsSha256 = "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=";
+        persistencedSha256 = lib.fakeSha256;
         sha256_aarch64 = lib.fakeSha256;
         openSha256 = lib.fakeSha256;
-        settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-        persistencedSha256 = "sha256-hdszsACWNqkCh8G4VBNitDT85gk9gJe1BlQ8LdrYIkg=";
       };
 
       # forceFullCompositionPipeline = true;

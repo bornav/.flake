@@ -1,20 +1,19 @@
 { inputs, vars, ... }:
-
 let
-  pkgs-stable = import inputs.nixpkgs-stable {
-    config.allowUnfree = true;                              # Allow Proprietary Software
-    system = "x86_64-linux";
-  };
+  # pkgs-stable = import inputs.nixpkgs-stable {
+  #   config.allowUnfree = true;                              # Allow Proprietary Software
+  #   # system = "x86_64-linux";
+  # };
 
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    config.allowUnfree = true;
-    system = "x86_64-linux";
-  };
+  # pkgs-unstable = import inputs.nixpkgs-unstable {
+  #   config.allowUnfree = true;
+  #   # system = "x86_64-linux";
+  # };
 
-  pkgs-master = import inputs.nixpkgs-master {
-    config.allowUnfree = true;
-    system = "x86_64-linux";
-  };
+  # pkgs-master = import inputs.nixpkgs-master {
+  #   config.allowUnfree = true;
+  #   # system = "x86_64-linux";
+  # };
 in
 {
   vallium = inputs.nixpkgs-unstable.lib.nixosSystem {
@@ -27,6 +26,9 @@ in
             vars = vars;
             system = "x86_64-linux"; 
         };
+        pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
+        pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
+        pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
         system = "x86_64-linux";  
     };
     modules = [
@@ -44,6 +46,9 @@ in
           vars = vars;
           system = "x86_64-linux"; 
       };
+      pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
+      pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
+      pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
       system = "x86_64-linux"; 
     };
     modules = [
@@ -56,12 +61,15 @@ in
   dockeropen = inputs.nixpkgs-unstable.lib.nixosSystem {
     # system = "x86_64-linux";  
     specialArgs = {
-      inherit pkgs-unstable vars inputs;
+      inherit vars inputs;
       host = {
           hostName = "dockeropen";
           vars = vars;
           system = "x86_64-linux"; 
       };
+      pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
+      pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
+      pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
       system = "x86_64-linux"; 
     };
     modules = [
@@ -73,12 +81,15 @@ in
   lighthouse = inputs.nixpkgs-unstable.lib.nixosSystem {
     # system = "x86_64-linux";  
     specialArgs = {
-      inherit pkgs-unstable vars inputs;
+      inherit vars inputs;
       host = {
           hostName = "lighthouse-ubuntu-4gb-nbg1-2";
           vars = vars;
           system = "x86_64-linux"; 
       };
+      pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
+      pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
+      pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
       system = "x86_64-linux"; 
     };
     modules = [
@@ -90,12 +101,15 @@ in
   networktest = inputs.nixpkgs-unstable.lib.nixosSystem {
     # system = "x86_64-linux";  
     specialArgs = {
-      inherit pkgs-unstable vars inputs;
+      inherit vars inputs;
       host = {
           hostName = "networktest";
           vars = vars;
           system = "x86_64-linux"; 
       };
+      pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
+      pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
+      pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
       system = "x86_64-linux"; 
     };
     modules = [
