@@ -1,8 +1,4 @@
-{ config, lib, system, inputs, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:  # TODO remove system, only when from all modules it is removed
-# let
-#   # pkgs = pkgs-unstable;
-#   # pkgs-stable = pkgs-unstable;
-# in
+{ config, lib, inputs, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager {
@@ -15,7 +11,6 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-cosmic.nixosModules.default
     # inputs.nix-flatpak.nixosModules.nix-flatpak
-    # ./imports.nix
     ./hardware-configuration.nix
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
     # ./network-shares.nix
@@ -159,12 +154,6 @@
 
   ####
   nixpkgs.config.allowUnfree = true;
-
-  #  ++ (with pkgs-master; [
-  #   lact # gpu overclocking/underclocking
-  # ]);
-
-
   environment.systemPackages = [(
     pkgs-master.lact
     )] ++ (with pkgs; [

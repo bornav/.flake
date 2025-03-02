@@ -65,6 +65,11 @@ with lib;
               "workbench.sideBar.location"= "right";
               "workbench.activityBar.location"= "top";
               "window.customTitleBarVisibility"= "auto";
+
+              "continue.showInlineTip"= false;
+              "continue.telemetryEnabled" = false;
+
+              "direnv.restart.automatic"= true;
           };
         };
         # programs.vscode = {
@@ -81,7 +86,10 @@ with lib;
       ];
      })
     (lib.mkIf (config.ide.enable) {
+
+      programs.direnv.enable = true;
       environment.systemPackages = with pkgs; [
+        # direnv
         istioctl # TODO
       ];
     })

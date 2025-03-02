@@ -1,20 +1,4 @@
 { inputs, vars, ... }:
-let
-  # pkgs-stable = import inputs.nixpkgs-stable {
-  #   config.allowUnfree = true;                              # Allow Proprietary Software
-  #   # system = "x86_64-linux";
-  # };
-
-  # pkgs-unstable = import inputs.nixpkgs-unstable {
-  #   config.allowUnfree = true;
-  #   # system = "x86_64-linux";
-  # };
-
-  # pkgs-master = import inputs.nixpkgs-master {
-  #   config.allowUnfree = true;
-  #   # system = "x86_64-linux";
-  # };
-in
 {
   vallium = inputs.nixpkgs-unstable.lib.nixosSystem {
     # system = "x86_64-linux";  
@@ -29,7 +13,7 @@ in
         pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
         pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
         pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
-        system = "x86_64-linux";  
+        # system = "x86_64-linux";  
     };
     modules = [
       # nur.nixosModules.nur

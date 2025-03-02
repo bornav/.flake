@@ -290,20 +290,22 @@
     extraOptions = "experimental-features = nix-command flakes";
     settings.max-jobs = 4;
   };
+  networking.useDHCP = lib.mkForce false; # forcing dissable cus of systemd network
   systemd.network.enable = true;
-  systemd.network.wait-online.enable = false;
-  boot.initrd.systemd.network.wait-online.enable = false;
-  # systemd.network.networks."10-wan" = {
-  #   matchConfig.Name = "enp1s0";
-  #   networkConfig = {
-  #     # start a DHCP Client for IPv4 Addressing/Routing
-  #     DHCP = "ipv4";
-  #     # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
-  #     IPv6AcceptRA = true;
-  #   };
-  #   # make routing on this interface a dependency for network-online.target
-  #   linkConfig.RequiredForOnline = "routable";
-  # };
+  systemd.network.networks."10-wan" = {
+    matchConfig.Name = "enp1s0";
+    networkConfig = {
+      # start a DHCP Client for IPv4 Addressing/Routing
+      DHCP = "ipv4";
+      # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
+      IPv6AcceptRA = true;
+    };
+    # make routing on this interface a dependency for network-online.target
+    linkConfig.RequiredForOnline = "routable";
+  };
+  # systemd.network.wait-online.enable = false;
+  # boot.initrd.systemd.network.wait-online.enable = false;
+
   # wirenix = {
   #   enable = true;
   #   peerName = "node1"; # defaults to hostname otherwise
