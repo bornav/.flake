@@ -6,6 +6,7 @@ let
   # };
   dot_zsh_exports = ''
     export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt
+    export PATH=$PATH:~/.local/bin
   '';
   dot_zsh_aliases = ''
     alias ls='ls --color=auto'

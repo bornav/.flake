@@ -160,10 +160,15 @@
         # server server2 oraclearm2.cloud.icylair.com:9345 check
         # server server3 contabo-01-4v-8m-800g.cloud.icylair.com:9345 check
 
+    frontend headscale
+        bind *:8080
+        mode tcp
+        option tcplog
+        default_backend headscale_backend
     backend headscale_backend
         mode tcp
         server server1 127.0.0.1:10023
-
+        
     # frontend udp-9987
     #     bind *:9987 udp
     #     mode tcp
@@ -174,6 +179,7 @@
     #     balance roundrobin
     #     server server1 oraclearm1.cloud.icylair.com:9987 check
     #     server server2 oraclearm2.cloud.icylair.com:9987 check
+
     frontend tcp-30033
         bind *:30033
         mode tcp
@@ -184,12 +190,7 @@
         balance roundrobin
         server server1 oraclearm1.cloud.icylair.com:30033 check
         server server2 oraclearm2.cloud.icylair.com:30033 check
-
-    # frontend headscale
-    #     bind *:8080
-    #     mode tcp
-    #     option tcplog
-    #     default_backend headscale_backend
+    
     # frontend catch_rest
     #     # bind *:1-21
     #     bind *:8443-65535

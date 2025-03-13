@@ -8,14 +8,11 @@ in
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
   boot = {
     initrd.availableKernelModules = [ "nvme" "thunderbolt" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-    initrd.kernelModules = [ "nvidia" ];
+    initrd.kernelModules = [ "" ];
     kernelModules = [ "kvm-amd" ];
-    kernelParams = [
-      "nvidia_drm.nvidia_modeset"
-      "nvidia_drm.fbdev=1"
-    ];# experimental/trmporary, fixes virtualmonitor from poping up on wayland
+    kernelParams = [];
     extraModulePackages = [ ];
-    blacklistedKernelModules = ["amdgpu"];
+    blacklistedKernelModules = [""];
   };
 
   fileSystems."/" =

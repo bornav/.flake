@@ -50,7 +50,7 @@ with lib;
     ];
     environment = {
       systemPackages = with pkgs; [  
-
+        # kdePackages.kdialog
       ];};
     environment.variables = {
     #   KWIN_DRM_NO_AMS=lib.mkForce "1"; ## allow tearing if enabled in settings
