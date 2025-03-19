@@ -36,7 +36,7 @@
   };
   services.gnome.core-utilities.enable = true;
   #services.getty.autologinUser = "bocmo";
-  # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_12;
+  # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_11;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
 
@@ -156,8 +156,13 @@
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [(
-    pkgs-master.lact
+    pkgs-master.pciutils # pciutils 
+    
+    # pkgs-master.lact
     )] ++ (with pkgs; [
+
+    # lact2
+
     alacritty
     # libsForQt5.qtstyleplugin-kvantum
     # libsForQt5.qtstyleplugins
@@ -186,7 +191,7 @@
     teamspeak_client
     nordic
     papirus-nord
-    pciutils # lspci
+    # pciutils # lspci
     pika-backup
     gvfs
     libglibutil

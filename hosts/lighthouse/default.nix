@@ -104,9 +104,9 @@
         balance roundrobin
         option ssl-hello-chk
         # Define the backend servers
-        server server1 oraclearm1.cloud.icylair.com:443 check
-        server server2 oraclearm2.cloud.icylair.com:443 check
-        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:443 check
+        server server1 oracle-bv1-1.cloud.icylair.com:443 check
+        server server2 oracle-km1-1.cloud.icylair.com:443 check
+        server server3 contabo-1.cloud.icylair.com:443 check
 
     frontend 6443-forward
         bind *:6443
@@ -116,9 +116,9 @@
     backend 6443_backends
         mode tcp
         balance roundrobin
-        server server1 oraclearm1.cloud.icylair.com:6443 check
-        server server2 oraclearm2.cloud.icylair.com:6443 check
-        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:6443 check
+        server server1 oracle-bv1-1.cloud.icylair.com:6443 check
+        server server2 oracle-km1-1.cloud.icylair.com:6443 check
+        server server3 contabo-1.cloud.icylair.com:6443 check
 
     frontend 80-forward
         bind *:80
@@ -128,21 +128,9 @@
     backend 80_backends
         mode tcp
         balance roundrobin
-        server server1 oraclearm1.cloud.icylair.com:80 check
-        server server2 oraclearm2.cloud.icylair.com:80 check
-        server server3 contabo-01-4v-8m-800g.cloud.icylair.com:80 check
-
-    # frontend ssh-forward
-    #     bind *:10022
-    #     mode tcp
-    #     option tcplog
-    #     default_backend ssh_forward_backend
-    # backend ssh_forward_backend
-    #     mode tcp
-    #     balance roundrobin
-    #     server server1 oraclearm1.cloud.icylair.com:22 check
-    #     server server2 oraclearm2.cloud.icylair.com:22 check
-    #     server server3 contabo-01-4v-8m-800g.cloud.icylair.com:22 check
+        server server1 oracle-bv1-1.cloud.icylair.com:80 check
+        server server2 oracle-km1-1.cloud.icylair.com:80 check
+        server server3 contabo-1.cloud.icylair.com:80 check
 
     frontend controll_plane
         bind *:9345
@@ -156,9 +144,9 @@
         server server1 10.99.10.11:9345 check
         server server2 10.99.10.12:9345 check
         server server3 10.99.10.13:9345 check
-        # server server1 oraclearm1.cloud.icylair.com:9345 check
-        # server server2 oraclearm2.cloud.icylair.com:9345 check
-        # server server3 contabo-01-4v-8m-800g.cloud.icylair.com:9345 check
+        # server server1 oracle-bv1-1.cloud.icylair.com:9345 check
+        # server server2 oracle-km1-1.cloud.icylair.com:9345 check
+        # server server3 contabo-1.cloud.icylair.com:9345 check
 
     frontend headscale
         bind *:8080
@@ -177,20 +165,32 @@
     # backend udp_9987_backend
     #     mode tcp
     #     balance roundrobin
-    #     server server1 oraclearm1.cloud.icylair.com:9987 check
-    #     server server2 oraclearm2.cloud.icylair.com:9987 check
+    #     server server1 oracle-bv1-1.cloud.icylair.com:9987 check
+    #     server server2 oracle-km1-1.cloud.icylair.com:9987 check
 
-    frontend tcp-30033
-        bind *:30033
-        mode tcp
-        option tcplog
-        default_backend tcp_30033_backend
-    backend tcp_30033_backend
-        mode tcp
-        balance roundrobin
-        server server1 oraclearm1.cloud.icylair.com:30033 check
-        server server2 oraclearm2.cloud.icylair.com:30033 check
+    # frontend tcp-30033
+    #     bind *:30033
+    #     mode tcp
+    #     option tcplog
+    #     default_backend tcp_30033_backend
+    # backend tcp_30033_backend
+    #     mode tcp
+    #     balance roundrobin
+    #     server server1 oracle-bv1-1.cloud.icylair.com:30033 check
+    #     server server2 oracle-km1-1.cloud.icylair.com:30033 check
     
+    # frontend ssh-forward
+    #     bind *:10022
+    #     mode tcp
+    #     option tcplog
+    #     default_backend ssh_forward_backend
+    # backend ssh_forward_backend
+    #     mode tcp
+    #     balance roundrobin
+    #     server server1 oracle-bv1-1.cloud.icylair.com:22 check
+    #     server server2 oracle-km1-1.cloud.icylair.com:22 check
+    #     server server3 contabo-1.cloud.icylair.com:22 check
+
     # frontend catch_rest
     #     # bind *:1-21
     #     bind *:8443-65535
@@ -200,8 +200,8 @@
     # backend catch_rest
     #     mode tcp
     #     balance roundrobin
-    #     server server1 oraclearm1.cloud.icylair.com check
-    #     server server2 oraclearm2.cloud.icylair.com check
+    #     server server1 oracle-bv1-1.cloud.icylair.com check
+    #     server server2 oracle-km1-1.cloud.icylair.com check
     '';
   networking.hostName = host.hostName; # Define your hostname.
   programs.nh.enable = true;
@@ -319,12 +319,12 @@
   # networking.nat.forwardPorts = 
   # [
   #   {
-  #     destination = "oraclearm2.cloud.icylair.com:80";
+  #     destination = "oracle-km1-1.cloud.icylair.com:80";
   #     proto = "tcp";
   #     sourcePort = 80;
   #   }
   #   {
-  #     destination = "oraclearm2.cloud.icylair.com:443";
+  #     destination = "oracle-km1-1.cloud.icylair.com:443";
   #     proto = "tcp";
   #     sourcePort = 443;
   #   }

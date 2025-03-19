@@ -42,6 +42,7 @@
   qt6,
   curl,
   pkgs,
+  libgbm,
   # command line arguments which are always set e.g "--disable-gpu"
   commandLineArgs ? "",
   # Necessary for USB audio devices.
@@ -113,6 +114,7 @@
       zlib
       snappy
       vivaldi-ffmpeg-codecs
+      libgbm
 
       libkrb5
     ]

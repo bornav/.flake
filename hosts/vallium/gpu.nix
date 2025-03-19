@@ -4,14 +4,15 @@
       inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
   ];
   #nvidia
-  # boot = {
-  #   initrd.kernelModules = [ "nvidia" ];
-  #   # kernelParams = [
-  #   #   "nvidia_drm.nvidia_modeset"
-  #   #   "nvidia_drm.fbdev=1"
-  #   # ];# experimental/trmporary, fixes virtualmonitor from poping up on wayland
-  #   # blacklistedKernelModules = ["amdgpu"];
-  # };
+  boot = {
+    initrd.kernelModules = [ "nvidia" ];
+    kernelParams = [
+      "nomodeset"
+      "nvidia_drm.nvidia_modeset"
+      "nvidia_drm.fbdev=1"
+    ];# experimental/trmporary, fixes virtualmonitor from poping up on wayland
+    blacklistedKernelModules = ["amdgpu"];
+  };
   hardware = {
     nvidia = {
       modesetting.enable = true;
@@ -28,8 +29,8 @@
       #   openSha256 = lib.fakeSha256;
       # };
 
-      forceFullCompositionPipeline = true;
-      powerManagement.enable = false;
+      # forceFullCompositionPipeline = true;
+      powerManagement.enable = true;
       powerManagement.finegrained = false;
       # prime = {
       #   offload.enable = true;

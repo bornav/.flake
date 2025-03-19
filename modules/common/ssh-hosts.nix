@@ -70,15 +70,15 @@
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
-    Host oraclearm1
-        HostName oraclearm1.cloud.icylair.com
+    Host oracle-bv1-1
+        HostName oracle-bv1-1.cloud.icylair.com
         Port 22
         User root
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
-    Host oraclearm2
-        HostName oraclearm2.cloud.icylair.com
+    Host oracle-km1-1
+        HostName oracle-km1-1.cloud.icylair.com
         Port 22
         User root
         IdentitiesOnly yes
@@ -91,22 +91,8 @@
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
-     Host k3s-oraclearm1
-        HostName oraclearm1.cloud.icylair.com
-        Port 22
-        User root
-        IdentitiesOnly yes
-        StrictHostKeyChecking no
-        IdentityFile /home/bocmo/.ssh/id_local
-    Host k3s-oraclearm2
-        HostName oraclearm2.cloud.icylair.com
-        Port 22
-        User root
-        IdentitiesOnly yes
-        StrictHostKeyChecking no
-        IdentityFile /home/bocmo/.ssh/id_local
-    Host contabo-01-4v-8m-800g
-        HostName contabo-01-4v-8m-800g.cloud.icylair.com
+    Host contabo-1
+        HostName contabo-1.cloud.icylair.com
         Port 22
         User root
         IdentitiesOnly yes

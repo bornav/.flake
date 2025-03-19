@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, lib, pkgs, ... }:
+{ config, inputs, system, vars, lib, pkgs, pkgs-master, ... }:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -58,30 +58,32 @@ with lib;
       "steam-original"
       "steam-run"
     ];
-    environment.systemPackages = with pkgs; [
-      openssl
-      vkd3d
-      vkd3d-proton
-      protonup
-      libpng
-      icu
-      mangohud
-      gamemode
+    environment.systemPackages = [
+      pkgs.openssl
+      pkgs.vkd3d
+      pkgs.vkd3d-proton
+      pkgs.protonup
+      pkgs.libpng
+      pkgs.icu
+      pkgs.mangohud
+      pkgs-master.gamemode
 
-      wine
-      winetricks
-      protontricks
-      vulkan-tools
+      # pkgs-master.wine
+      pkgs-master.wine-wayland
+      pkgs-master.wineWowPackages.unstableFull
+      pkgs-master.winetricks
+      pkgs-master.protontricks
+      pkgs-master.vulkan-tools
       # Extra dependencies
       # https://github.com/lutris/docs/
-      gnutls
-      openldap
-      libgpg-error
-      freetype
-      sqlite
-      libxml2
-      xml2
-      SDL2
+      pkgs.gnutls
+      pkgs.openldap
+      pkgs.libgpg-error
+      pkgs.freetype
+      pkgs.sqlite
+      pkgs.libxml2
+      pkgs.xml2
+      pkgs.SDL2
     ];
     environment.sessionVariables = {
         STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
