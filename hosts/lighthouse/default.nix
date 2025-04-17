@@ -108,18 +108,6 @@
         server server2 oracle-km1-1.cloud.icylair.com:443 check
         server server3 contabo-1.cloud.icylair.com:443 check
 
-    frontend 6443-forward
-        bind *:6443
-        mode tcp
-        option tcplog
-        default_backend 6443_backends
-    backend 6443_backends
-        mode tcp
-        balance roundrobin
-        server server1 oracle-bv1-1.cloud.icylair.com:6443 check
-        server server2 oracle-km1-1.cloud.icylair.com:6443 check
-        server server3 contabo-1.cloud.icylair.com:6443 check
-
     frontend 80-forward
         bind *:80
         mode tcp
@@ -132,22 +120,39 @@
         server server2 oracle-km1-1.cloud.icylair.com:80 check
         server server3 contabo-1.cloud.icylair.com:80 check
 
-    frontend controll_plane
+    frontend 6443-forward
+        bind *:6443
+        mode tcp
+        option tcplog
+        default_backend 6443_backends
+    backend 6443_backends
+        mode tcp
+        balance roundrobin
+        option tcp-check
+        server control-plane-1 oracle-km1-1.cloud.icylair.com:6443 check
+        server control-plane-2 oracle-bv1-1.cloud.icylair.com:6443 check
+        server control-plane-3 contabo-1.cloud.icylair.com:6443 check
+    
+    frontend control_plane
         bind *:9345
         mode tcp
         option tcplog
-        default_backend controll_plane_backend
-    backend controll_plane_backend
+        default_backend control_plane_backend
+    backend control_plane_backend
         mode tcp
-        option tcp-check
         balance roundrobin
-        server server1 10.99.10.11:9345 check
-        server server2 10.99.10.12:9345 check
-        server server3 10.99.10.13:9345 check
-        # server server1 oracle-bv1-1.cloud.icylair.com:9345 check
-        # server server2 oracle-km1-1.cloud.icylair.com:9345 check
-        # server server3 contabo-1.cloud.icylair.com:9345 check
+        option tcp-check
 
+        #     mode tcp
+        #     balance roundrobin
+        #     option httpchk
+        #     http-check connect ssl alpn h2
+        #     http-check send meth HEAD uri /cacerts  # this works but unneccesary
+
+        server control-plane-1 10.99.10.11:9345 check
+        server control-plane-2 10.99.10.12:9345 check
+        server control-plane-3 10.99.10.13:9345 check
+    
     frontend headscale
         bind *:8080
         mode tcp
@@ -332,7 +337,7 @@
   
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 80 443 6443 8080 10022];
+    allowedTCPPorts = [ 22 80 443 6443 8080 9345 10022];
     allowedUDPPortRanges = [
       { from = 1000; to = 6550; }
     ];

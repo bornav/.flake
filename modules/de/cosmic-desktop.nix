@@ -46,16 +46,16 @@ with lib;
     };
   };
   config = mkIf (config.cosmic-desktop.enable) {
-    boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
+    # boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
     services.desktopManager.cosmic.enable = true;
     services.displayManager.cosmic-greeter.enable = true;
-    # {
-        nix.settings = {
-          substituters = [ "https://cosmic.cachix.org/" ];
-          trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-        };
-        environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
-      # }
+    # # {
+    #     nix.settings = {
+    #       substituters = [ "https://cosmic.cachix.org/" ];
+    #       trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+    #     };
+    #     environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+    #   # }
   #   environment = {
   #     systemPackages = with pkgs-unstable; [
   #       cosmic-applets

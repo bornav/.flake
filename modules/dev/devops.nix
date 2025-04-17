@@ -29,6 +29,8 @@ with lib;
       age
       ansible
       kubernetes-helm
+      helmfile
+      kubernetes-helmPlugins.helm-diff
       kustomize
       kustomize-sops
       # lens

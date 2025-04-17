@@ -37,7 +37,8 @@
   services.gnome.core-utilities.enable = true;
   #services.getty.autologinUser = "bocmo";
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_11;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs-master.linuxPackages_latest;
   # boot.kernelPackages = pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
 
   # boot.consoleLogLevel  description of package -> The kernel console `loglevel`. All Kernel Messages with a log level smaller than this setting will be printed to the console.  https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/system/boot/kernel.nix
@@ -114,12 +115,12 @@
   #    plasma.enable = lib.mkForce false;
   #    hyprland.enable = lib.mkForce true;
   #  };
-  #  cosmic.configuration = {
-  #    cosmic-desktop.enable = lib.mkForce true;
-  #    gnome.enable = lib.mkForce false;
-  #    plasma.enable = lib.mkForce false;
-  #    hyprland.enable = lib.mkForce false;
-  #  };
+   cosmic.configuration = {
+     cosmic-desktop.enable = lib.mkForce true;
+     gnome.enable = lib.mkForce false;
+     plasma.enable = lib.mkForce false;
+     hyprland.enable = lib.mkForce false;
+   };
   #  plasma.configuration = {
   #    cosmic-desktop.enable = lib.mkForce false;
   #    gnome.enable = lib.mkForce false;
