@@ -135,6 +135,15 @@
         StrictHostKeyChecking no
         # IdentityFile /home/bocmo/.ssh/cdn_key_pwless
         IdentityFile /home/bocmo/.ssh/id_local
+    Host lighthouse2
+        HostName 91.99.76.94
+        # HostName 2a01:4f8:c012:c800::1
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        # IdentityFile /home/bocmo/.ssh/cdn_key_pwless
+        IdentityFile /home/bocmo/.ssh/id_local
     Host rke2-local-example
         HostName rke2-local-example.local.icylair.com
         # HostName 2a01:4f8:c012:c800::1
