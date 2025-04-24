@@ -76,6 +76,8 @@ in
     ]);
     # ]) ++ ([ pkgs.firefox ]);  ## syntax for adding one without pkgs appended
   };
+  programs.mtr.enable = true;
+
   programs.nh.enable = true;
   services = {
     printing.enable = true;
