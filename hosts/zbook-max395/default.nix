@@ -101,7 +101,7 @@
   thorium.enable = true;
   rar.enable = true;
   wg-home.enable = true;
-  wg-home.local_ip = "10.10.1.2/24";
+  wg-home.local_ip = "10.10.1.2/32";
   flatpak.enable = true;
   # storagefs.share.vega_nfs = true;
   # storagefs.share.vega_smb = true;
