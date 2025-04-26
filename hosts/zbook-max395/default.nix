@@ -178,7 +178,8 @@
 
   services.hardware.bolt.enable = true;
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth.enable = lib.mkForce true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = lib.mkForce true;
   # services.udev.extraRules = ''
   #   # Finalmouse ULX devices
   #   # This file should be installed to /etc/udev/rules.d so that you can access the Finalmouse ULX devices without being root.
