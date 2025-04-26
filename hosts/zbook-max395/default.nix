@@ -23,7 +23,7 @@
     # inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
     ./disk-config.nix
     ./hardware-configuration.nix
-    # {_module.args.disks = [ "/dev/nvme0n1" ];}
+    {_module.args.disks = [ "/dev/nvme0n1" ];}
   ];
   boot.loader = {
     #systemd-boot.enable = true;

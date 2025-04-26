@@ -18,16 +18,16 @@
       modesetting.enable = true;
       open = true;
       nvidiaSettings = true;
-      # package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "570.133.07";
-        openSha256 = "sha256-9l8N83Spj0MccA8+8R1uqiXBS0Ag4JrLPjrU3TaXHnM=";
-        sha256_64bit = "sha256-LUPmTFgb5e9VTemIixqpADfvbUX1QoTT2dztwI3E3CY="; 
-        settingsSha256 = "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=";
-        sha256_aarch64 = lib.fakeSha256;
-        persistencedSha256 = lib.fakeSha256;
-      };
+      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #   version = "570.133.07";
+      #   openSha256 = "sha256-9l8N83Spj0MccA8+8R1uqiXBS0Ag4JrLPjrU3TaXHnM=";
+      #   sha256_64bit = "sha256-LUPmTFgb5e9VTemIixqpADfvbUX1QoTT2dztwI3E3CY="; 
+      #   settingsSha256 = "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=";
+      #   sha256_aarch64 = lib.fakeSha256;
+      #   persistencedSha256 = lib.fakeSha256;
+      # };
 
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true;
