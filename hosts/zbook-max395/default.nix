@@ -1,4 +1,4 @@
-{ config, lib, system, inputs, host, pkgs, pkgs-unstable, ... }:  # TODO remove system, only when from all modules it is removed
+{ config, lib, system, inputs, host, pkgs, pkgs-unstable, pkgs-master, ... }:  # TODO remove system, only when from all modules it is removed
 # let
 #   pkgs = import inputs.nixpkgs-unstable {
 #     system = host.system;
@@ -37,6 +37,8 @@
   networking.networkmanager.enable = true;
   networking.firewall.enable = lib.mkForce false;
 
+  boot.kernelPackages = lib.mkDefault pkgs-master.linuxPackages_latest;
+
   # Configure keymap in X11
   services.xserver = {
     xkb.layout = "us";
@@ -61,9 +63,19 @@
   };
 
 
-  services.tlp.enable = lib.mkForce false;
-  services.power-profiles-daemon.enable = lib.mkForce false;
+  # services.tlp.enable = lib.mkForce false;
+  # services.power-profiles-daemon.enable = lib.mkForce false;
 
+
+  services.acpid.enable = true;
+
+  # specialisation = {
+  #   # k1.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_6_11;};
+  #   k2.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_5_4;};
+  #   k3.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_6_6;};
+  #   # k4.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_6_11;};
+
+  # };
   
   # specialisation = {
   # #  gnome.configuration = {

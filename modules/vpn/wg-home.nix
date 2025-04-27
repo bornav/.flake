@@ -8,7 +8,7 @@ with lib;
         default = false;
       };
       local_ip = mkOption {
-        type = types.string;
+        type = types.str;
         default = "10.10.1.0/24";
       };
     };

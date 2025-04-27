@@ -154,7 +154,7 @@ in
         ignoreSpace = true;
         share = true; #?
       };
-      initExtra=''
+      initContent=''
           ${dot_zsh_binds}
           ${dot_zsh_exports}
           ${dot_zsh_aliases}
