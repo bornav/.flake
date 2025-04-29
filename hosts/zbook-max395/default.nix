@@ -228,5 +228,5 @@
   # headscale --namespace <namespace_name> nodes register --key <machine_key>
   
 
-  # networking.useNetworkd = lib.mkDefault true;
+  networking.useNetworkd = lib.mkDefault true;
 }
