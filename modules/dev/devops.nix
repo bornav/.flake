@@ -1,4 +1,4 @@
-{ config, inputs, system, host, lib, pkgs, pkgs-stable, pkgs-unstable, ... }:
+{ config, inputs, host, lib, pkgs, pkgs-stable, pkgs-unstable, ... }:
 # let
 #     pkgs-stable = import inputs.nixpkgs-stable {
 #         config.allowUnfree = true;
@@ -38,16 +38,11 @@ with lib;
       # lens
       bfg-repo-cleaner
       inetutils
-      # k9s # defined outside as home-manager
       cilium-cli
       yaml-language-server  # TODO look into
       nil # TODO move into ide
       inputs.compose2nix.packages.x86_64-linux.default
     ]);
-    # home-manager = {
-    #   extraSpecialArgs = {inherit inputs;};
-    #   users.${host.vars.user} = import ./home.nix;
-    # };
     home-manager.users.${host.vars.user} = {
       home.file.".config/k9s/config.yaml".text = 
       ''
