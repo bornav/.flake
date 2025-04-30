@@ -53,8 +53,8 @@ with lib;
       ''
       k9s:
         disablePodCounting: false
-        featureGates:
-          nodeShell: true
+        # featureGates: # this should be done inside .local.share/k9s/context...
+        #   nodeShell: true
         imageScans:
           enable: false
           exclusions:
@@ -62,17 +62,16 @@ with lib;
             namespaces: []
         liveViewAutoRefresh: true
         logger:
+          tail: 1000
           buffer: 5000
-          fullScreenLogs: false
           showTime: false
           sinceSeconds: -1
-          tail: 1000
           textWrap: false
         maxConnRetry: 5
         noExitOnCtrlC: false
         readOnly: false
         refreshRate: 1
-        screenDumpDir: /home/bocmo/.local/state/k9s/screen-dumps
+        screenDumpDir: /home/bocmo/.local/state/k9s/screen-dumps # here all the files are stored
         shellPod:
           image: busybox:1.35.0
           limits:
@@ -87,9 +86,10 @@ with lib;
           memory:
             critical: 90
             warn: 70
+        defaultView: "" # LOOK INTO
         ui:
-          crumbsless: false
           enableMouse: false
+          crumbsless: false
           headless: false
           logoless: true
           noIcons: false

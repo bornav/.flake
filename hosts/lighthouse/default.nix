@@ -283,7 +283,6 @@ in
     kubectl
     vim
     nano
-    k9s
     inetutils
     nettools
     util-linux
