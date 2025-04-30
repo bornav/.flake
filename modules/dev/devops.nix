@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, lib, pkgs-stable, pkgs-unstable, ... }:
+{ config, inputs, system, host, lib, pkgs, pkgs-stable, pkgs-unstable, ... }:
 # let
 #     pkgs-stable = import inputs.nixpkgs-stable {
 #         config.allowUnfree = true;
@@ -12,13 +12,15 @@
 with lib;
 {
   config = mkIf (config.devops.enable) {
-    environment.systemPackages = with pkgs-stable; [
+    environment.systemPackages = [(
+      pkgs-unstable.k9s
+    )] ++(with pkgs-stable; [
       thttpd # htpasswd
       lazygit
       dig
       tcpdump
       yq
-    ] ++
+    ]) ++
     (with pkgs-unstable; [
       flux
       fluxcd
@@ -42,73 +44,118 @@ with lib;
       nil # TODO move into ide
       inputs.compose2nix.packages.x86_64-linux.default
     ]);
-    home-manager.users.${vars.user} = {
-      programs.k9s = {
-        enable = true;
-        settings = {
-          k9s = {
-            liveViewAutoRefresh = true;
-            screenDumpDir = "/home/${vars.user}/.local/state/k9s/screen-dumps";
-            refreshRate = 1;
-            maxConnRetry = 5;
-            readOnly = false;
-            noExitOnCtrlC = false;
+    # home-manager = {
+    #   extraSpecialArgs = {inherit inputs;};
+    #   users.${host.vars.user} = import ./home.nix;
+    # };
+    home-manager.users.${host.vars.user} = {
+      home.file.".config/k9s/config.yaml".text = 
+      ''
+      k9s:
+        disablePodCounting: false
+        featureGates:
+          nodeShell: true
+        imageScans:
+          enable: false
+          exclusions:
+            labels: {}
+            namespaces: []
+        liveViewAutoRefresh: true
+        logger:
+          buffer: 5000
+          fullScreenLogs: false
+          showTime: false
+          sinceSeconds: -1
+          tail: 1000
+          textWrap: false
+        maxConnRetry: 5
+        noExitOnCtrlC: false
+        readOnly: false
+        refreshRate: 1
+        screenDumpDir: /home/bocmo/.local/state/k9s/screen-dumps
+        shellPod:
+          image: busybox:1.35.0
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          namespace: default
+        skipLatestRevCheck: true
+        thresholds:
+          cpu:
+            critical: 90
+            warn: 70
+          memory:
+            critical: 90
+            warn: 70
+        ui:
+          crumbsless: false
+          enableMouse: false
+          headless: false
+          logoless: true
+          noIcons: false
+          reactive: true
+      '';
 
-            ui = {
-              enableMouse = false;
-              headless = false;
-              logoless = true;
-              crumbsless = false;
-              reactive = true;
-              noIcons = false;
-            };
 
-            skipLatestRevCheck = true;
-            disablePodCounting = false;
-
-            shellPod = {
-              image = "busybox:1.35.0";
-              namespace = "default";
-              limits = {
-                cpu = "100m";
-                memory = "100Mi";
-              };
-            };
-
-            imageScans = {
-              enable = false;
-              exclusions = {
-                namespaces = [ ];
-                labels = { };
-              };
-            };
-
-            logger = {
-              tail = 1000;
-              buffer = 5000;
-              sinceSeconds = -1;
-              fullScreenLogs = false;
-              textWrap = false;
-              showTime = false;
-            };
-
-            featureGates = {
-              nodeShell = true;
-            };
-
-            thresholds = {
-              cpu = {
-                critical = 90;
-                warn = 70;
-              };
-              memory = {
-                critical = 90;
-                warn = 70;
-              };
-            };
-          };
-        };
-      };
+      # programs.k9s = {
+      #   enable = true;
+      #   settings = {
+      #     k9s = {
+      #       liveViewAutoRefresh = true;
+      #       screenDumpDir = "/home/${vars.user}/.local/state/k9s/screen-dumps";
+      #       refreshRate = 1;
+      #       maxConnRetry = 5;
+      #       readOnly = false;
+      #       noExitOnCtrlC = false;
+      #       ui = {
+      #         enableMouse = false;
+      #         headless = false;
+      #         logoless = true;
+      #         crumbsless = false;
+      #         reactive = true;
+      #         noIcons = false;
+      #       };
+      #       skipLatestRevCheck = true;
+      #       disablePodCounting = false;
+      #       shellPod = {
+      #         image = "busybox:1.35.0";
+      #         namespace = "default";
+      #         limits = {
+      #           cpu = "100m";
+      #           memory = "100Mi";
+      #         };
+      #       };
+      #       imageScans = {
+      #         enable = false;
+      #         exclusions = {
+      #           namespaces = [ ];
+      #           labels = { };
+      #         };
+      #       };
+      #       logger = {
+      #         tail = 1000;
+      #         buffer = 5000;
+      #         sinceSeconds = -1;
+      #         fullScreenLogs = false;
+      #         textWrap = false;
+      #         showTime = false;
+      #       };
+      #       featureGates = {
+      #         nodeShell = true;
+      #       };
+      #       thresholds = {
+      #         cpu = {
+      #           critical = 90;
+      #           warn = 70;
+      #         };
+      #         memory = {
+      #           critical = 90;
+      #           warn = 70;
+      #         };
+      #       };
+      #     };
+      #   };
+      # };
     };
   };
 }

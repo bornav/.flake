@@ -238,25 +238,11 @@
   boot.initrd.systemd.network.wait-online.enable = false;
   ## for setting the default apps
   ## definition https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.mimeApps.defaultApplications
-  home-manager.users.${host.vars.user} = {
-    xdg.mime.enable = true;
-    xdg.mimeApps.enable = true;
-    ## this may be neccesary sometimes
-    # xdg.configFile."mimeapps.list".force = true;
-    ## from limited testing it is only applied if both sides are valid
-    xdg.mimeApps.defaultApplications = {
-      "inode/directory" = "org.kde.dolphin.desktop";
-    };
-    home.file.".local/share/flatpak/overrides/global".text = ''
-    [Context]
-    filesystems=/run/current-system/sw/share/X11/fonts:ro;/nix/store:ro
-    '';
-    # home.packages = with pkgs; [
-      # pika-backup
-      # ];
+  home-manager = {
+    backupFileExtension = "backup";
+    extraSpecialArgs = {inherit inputs;};
+    users.${host.vars.user} = import ./home.nix;
   };
-
-  home-manager.backupFileExtension = "backup";
   
   ##gargabe collection
   
