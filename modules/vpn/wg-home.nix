@@ -17,7 +17,7 @@ with lib;
     networking.wg-quick.interfaces = {
       wg9 = {
         address = [ config.wg-home.local_ip ];
-        dns = [ "10.10.1.1" ];
+        dns = [ "10.1.1.1" ];
         privateKeyFile = "/home/bocmo/.ssh/wg/priv.key";
         peers = [
           {

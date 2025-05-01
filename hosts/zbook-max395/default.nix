@@ -34,8 +34,14 @@
     efi.canTouchEfiVariables = true;
   };
   networking.hostName = host.hostName; # Define your hostname.
-  networking.networkmanager.enable = true;
+  networking.networkmanager.enable = lib.mkForce true;
   networking.firewall.enable = lib.mkForce false;
+  # networking.firewall.checkReversePath = false; 
+  # networking.firewall.checkReversePath = "loose"; 
+
+  # networking.networkmanager.dns = "none";
+  networking.useDHCP = lib.mkForce false;
+  networking.dhcpcd.enable = lib.mkForce false;
 
   boot.kernelPackages = lib.mkDefault pkgs-master.linuxPackages_latest;
 
@@ -113,8 +119,8 @@
   thorium.enable = true;
   rar.enable = true;
   wg-home.enable = true;
-  wg-home.local_ip = "10.10.1.2/32";
-  flatpak.enable = true;
+  wg-home.local_ip = "10.10.1.3/32";
+  # flatpak.enable = true;
   # storagefs.share.vega_nfs = true;
   # storagefs.share.vega_smb = true;
   ide.vscode = true;
@@ -227,6 +233,7 @@
   # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
   # headscale --namespace <namespace_name> nodes register --key <machine_key>
   
-
-  networking.useNetworkd = lib.mkDefault true;
+  # systemd.network.enable = true;
+  # services.resolved.dnssec = "allow-downgrade";
+  # networking.useNetworkd = lib.mkDefault true;
 }
