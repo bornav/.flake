@@ -34,6 +34,12 @@ with lib;
         default = false;
       };
     };
+    podman = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+      };
+    };
     ai = {
       enable = mkOption {
         type = types.bool;

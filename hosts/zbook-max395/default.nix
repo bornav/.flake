@@ -124,6 +124,7 @@
   # storagefs.share.vega_nfs = true;
   # storagefs.share.vega_smb = true;
   ide.vscode = true;
+  podman.enable = true;
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [

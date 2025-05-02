@@ -5,4 +5,5 @@
   ./ide.nix
   ./options.nix
   ./docker.nix
+  ./podman.nix
 ]
