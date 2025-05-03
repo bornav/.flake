@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, lib, pkgs, ... }:
+{ config, inputs, system, vars, host, lib, pkgs, ... }:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -9,16 +9,17 @@ with lib;
 {
   config = mkIf (config.docker.enable) {
   
-  hardware.nvidia-container-toolkit.enable = true;
-  virtualisation.docker.enable = true;
-  virtualisation.docker.logDriver = lib.mkDefault "journald";
-  virtualisation.containerd.enable = true;
-  environment.systemPackages = [
-      pkgs.docker-buildx
-      # compose2nix.packages.x86_64-linux.default
-    ];
-  };
+    hardware.nvidia-container-toolkit.enable = mkIf(host.gpu == "nvidia") true;
+    virtualisation.docker.enable = true;
+    virtualisation.docker.logDriver = lib.mkDefault "journald";
+    virtualisation.containerd.enable = true;
+    environment.systemPackages = [
+        pkgs.docker-buildx
+        # compose2nix.packages.x86_64-linux.default
+      ];
+    users.users.${host.vars.user}.extraGroups = lib.mkForce ["docker"];
   
+  };
   # for multi arch builds running these 2 commands is required
   # docker buildx create --name=container --driver=docker-container --use --bootstrap
   # docker buildx build --builder=container --platform=linux/amd64,linux/arm64 .

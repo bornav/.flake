@@ -8,7 +8,8 @@
         host = {
             hostName = "vallium";
             vars = vars;
-            system = "x86_64-linux"; 
+            system = "x86_64-linux";
+            gpu = "nvidia";
         };
         pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
         pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
@@ -29,6 +30,7 @@
           hostName = "stealth";
           vars = vars;
           system = "x86_64-linux"; 
+          gpu = "intel";
       };
       pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
       pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
@@ -50,6 +52,7 @@
           hostName = "dockeropen";
           vars = vars;
           system = "x86_64-linux"; 
+          gpu = "none";
       };
       pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
       pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
@@ -70,6 +73,7 @@
           hostName = "lighthouse-ubuntu-4gb-nbg1-2";
           vars = vars;
           system = "x86_64-linux"; 
+          gpu = "none";
       };
       pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
       pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
@@ -91,6 +95,7 @@
           hostName = "zbook-max395";
           vars = vars;
           system = "x86_64-linux"; 
+          gpu = "amd";
       };
       pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
       pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
@@ -112,6 +117,7 @@
           hostName = "lighthouse-ubuntu-4gb-nbg1-4";
           vars = vars;
           system = "x86_64-linux"; 
+          gpu = "none";
       };
       pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
       pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
@@ -132,6 +138,7 @@
           hostName = "networktest";
           vars = vars;
           system = "x86_64-linux"; 
+          gpu = "none";
       };
       pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
       pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};

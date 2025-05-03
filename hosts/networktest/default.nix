@@ -45,7 +45,7 @@
   users.users.${host.vars.user} = {
     isNormalUser = true;
     description = "${host.vars.user}";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel"];
     # packages = with pkgs; [];
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   };
@@ -67,4 +67,4 @@
       #   prefixLength = 24;
       # }];
     };
- }
+}

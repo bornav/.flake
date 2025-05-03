@@ -435,5 +435,11 @@ in
   #     #   redirect_uri = "https://oidc.example.com/admin/oidc/callback";
   #     # };
   #   };
-  # };        
+  # };  
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [
+      "ebe7fbd44549ab73"
+    ];
+  };      
 } 
