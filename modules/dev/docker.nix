@@ -17,7 +17,7 @@ with lib;
         pkgs.docker-buildx
         # compose2nix.packages.x86_64-linux.default
       ];
-    users.users.${host.vars.user}.extraGroups = lib.mkForce ["docker"];
+    users.users.${host.vars.user}.extraGroups = ["docker"]; # TODO make it so it appends the docker and not overwrite
   
   };
   # for multi arch builds running these 2 commands is required

@@ -11,6 +11,10 @@ with lib;
         type = types.str;
         default = "10.10.1.0/24";
       };
+      privateKeyFileLocation = mkOption {
+        type = types.str;
+        default = "/home/bocmo/.ssh/wg/priv.key";
+      };
     };
   };
   config = mkIf (config.wg-home.enable) {
@@ -18,7 +22,7 @@ with lib;
       wg9 = {
         address = [ config.wg-home.local_ip ];
         dns = [ "10.1.1.1" ];
-        privateKeyFile = "/home/bocmo/.ssh/wg/priv.key";
+        privateKeyFile = config.wg-home.privateKeyFileLocation;
         peers = [
           {
             publicKey = "ijU4YxKoxbBwGZBIxuo8SXYtd9mU3Fug77ZdpM+0OUo=";
