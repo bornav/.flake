@@ -18,12 +18,12 @@
     inputs.nixos-cosmic.nixosModules.default
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
-    ./nvidia.nix
+    # ./nvidia.nix
+    # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     # ./journald-gateway.nix
   ];
 

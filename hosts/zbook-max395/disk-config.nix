@@ -37,6 +37,10 @@
           mountpoint = "/";
         };
       };
+      ubuntu = {
+        name = "ubuntu";
+        size = "256G";
+      };
      };
     };
    };

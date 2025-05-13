@@ -1,14 +1,7 @@
-{ config, inputs, system, host, lib, pkgs-unstable, pkgs, ... }:
-let
-  # pkgs = import inputs.nixpkgs-unstable {
-  #     config.allowUnfree = true;
-  #     inherit system;
-  # };
-  dot_zsh_exports = ''
-    export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt
-    export PATH=$PATH:~/.local/bin
-  '';
-  dot_zsh_aliases = ''
+{ config, inputs, system, host, vars, lib, pkgs, ... }:
+{
+  home-manager.users.${vars.user} = {
+    home.file.".config/zsh/.zsh_aliases".text = ''
     alias ls='ls --color=auto'
     alias man-list="man \$(apropos --long . | dmenu -i -l 30 | awk '{print \$2, \$1}' | tr -d '()')"
     alias update_grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
@@ -87,8 +80,13 @@ let
 
     #uncommon
     alias avahi_discover_local="avahi-browse --all --ignore-local --resolve --terminate"   #discovers local mdns records
-  '';
-  dot_zsh_binds = ''
+    '';
+    home.file.".config/zsh/.zsh_exports.sh".text = ''
+    export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt
+    export PATH=$PATH:~/.local/bin
+    '';
+
+    home.file.".config/zsh/.zsh_binds".text = ''
     bindkey  "^[[H"   beginning-of-line
     bindkey "^[OH" beginning-of-line
     bindkey  "^[[F"   end-of-line
@@ -101,8 +99,8 @@ let
     bindkey "^H" vi-backward-kill-word
     bindkey "5~" kill-word
     # [[3;5~
-  '';
-  dot_zsh_extra_functions = ''
+    '';
+    home.file.".config/zsh/.zsh_extra_functions".text = ''
     function git_branch_name()
     {
         branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
@@ -127,82 +125,64 @@ let
         fi
         echo $user_color
     }
-  '';
-in
-{
-  imports = [
-    ./zsh_config.nix
-  ];
-  users.users.${host.vars.user} = {
-    shell = pkgs.zsh;
+    '';
+    home.file.".config/zsh/.zsh_shift_select".text = ''
+    function zle-line-init {
+    marking=0
+    }
+    zle -N zle-line-init
+
+    function select-char-right {
+        if (( $marking != 1 ))
+        then
+            marking=1
+            zle set-mark-command
+        fi
+        zle .forward-char
+    }
+    zle -N select-char-right
+
+    function select-char-left {
+        if (( $marking != 1 ))
+        then
+            marking=1
+            zle set-mark-command
+        fi
+        zle .backward-char
+    }
+    zle -N select-char-left
+
+    function forward-char {
+        if (( $marking == 1 ))
+        then
+            marking=0
+            NUMERIC=-1 zle set-mark-command
+        fi
+        zle .forward-char
+    }
+    zle -N forward-char
+
+    function backward-char {
+        if (( $marking == 1 ))
+        then
+            marking=0
+            NUMERIC=-1 zle set-mark-command
+        fi
+        zle .backward-char
+    }
+    zle -N backward-char
+
+    function delete-char {
+        if (( $marking == 1 ))
+        then
+            zle kill-region
+            marking=0
+        else
+            zle .delete-char
+        fi
+    }
+    zle -N delete-char
+    '';
+
   };
-  programs.zsh.enable = true;
-  home-manager.users.${host.vars.user} = {
-    programs.zsh = {
-      enable=true;
-      defaultKeymap = "emacs"; #emacs vicmd viins
-      autosuggestion.enable = true;
-      # autosuggestion.highlight = "fg=#ff00ff,bg=cyan,bold,underline";
-      enableCompletion = true;
-      syntaxHighlighting.enable = true;
-      enableVteIntegration = true; #notsure ,but seems usefull
-      completionInit = "autoload -U colors && colors\nautoload -U compinit && compinit\nautoload -Uz vcs_info";
-      # dotDir=".config/zsh";
-      # history = {
-      #   size = 50000;
-      #   save = 50000;
-      #   path = "$HOME/.zsh_history";
-      #   ignoreDups = true; # aaabaaaa -> aba
-      #   ignoreAllDups = true; # abcda -> bcda
-      #   ignoreSpace = true;
-      #   share = true; #?
-      # };
-      initContent=''
-          source ~/.config/zsh/.zsh_binds
-          source ~/.config/zsh/.zsh_exports
-          source ~/.config/zsh/.zsh_aliases
-          source ~/.config/zsh/.zsh_extra_functions
-          source ~/.config/zsh/.zsh_shift_select
-
-          eval "$(atuin init zsh)"
-
-          unset SSH_AUTH_SOCK   # fuck you gnome keyring
-          PROMPT='%B%F{$(current_user_color)}%n%f@%F{blue}%M:%F{magenta}%~%f$(git_branch_name)%f>%b%f'
-      '';
-
-      # prezto = { #seems bloated but might be worth considering
-      #   enable = true;
-      #   autosuggestions.color = "fg=blue";
-      # };
-
-      # historySubstringSearch = { #unknown how to test/what it's supposed to do
-      #   enable = true;
-      #   searchUpKey = ["^[[B"];
-      #   searchDownKey = ["^[[B"];
-      # };
-
-      # initExtra="zstyle ':vcs_info:git:*' formats '%b'\nsetopt PROMPT_SUBST\nPROMPT='%B%F{cyan}%n%f@%F{blue}%M:%F{magenta}%~%F{red}\${vcs_info_msg_0_}%F{purple}>%b%f '";
-      oh-my-zsh = {
-        enable = true;
-        plugins = [
-            "git"
-        ];
-      };
-    };
-
-
-    
-    #
-    services.gpg-agent.enableZshIntegration = true;
-    services.gpg-agent = {
-      enable = true;
-      defaultCacheTtl = 1800;
-      enableSshSupport = true;
-    };
-  };
-  environment.systemPackages = [(
-      pkgs-unstable.atuin
-    )];
-    #Enable zsh completion. Don’t forget to add
-    environment.pathsToLink = [ "/share/zsh" ];
 }

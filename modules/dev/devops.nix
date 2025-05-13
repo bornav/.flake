@@ -45,6 +45,12 @@ with lib;
       inputs.compose2nix.packages.x86_64-linux.default
     ]);
     home-manager.users.${host.vars.user} = {
+      # home.file.".config/testfile".text = ''
+      #   ${builtins.readFile (fetchGit {
+      #     url = "https://github.com/starship/starship.git";
+      #     rev = "2048bb224e4261e3c48e4524e9d1a1c61e20e060";
+      #   })/deny.toml}
+      # '';
       home.file.".config/k9s/config.yaml".text = 
       ''
       k9s:

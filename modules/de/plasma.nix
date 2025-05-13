@@ -47,6 +47,9 @@ with lib;
       # spectacle
       # ffmpegthumbs
       krdp
+
+
+      kwallet
     ];
     environment = {
       systemPackages = with pkgs; [  
