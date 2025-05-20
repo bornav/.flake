@@ -16,6 +16,11 @@ with lib;
       # airshipper
       # heroic
       # heroic-unwrapped
+      (heroic.override {
+        extraPkgs = pkgs: [
+          pkgs.gamescope
+        ];
+      })
       lutris
       gogdl
       # (bottles.override {
@@ -24,11 +29,11 @@ with lib;
     ] ++
     (with pkgs-stable; [
       # heroic
-      (heroic.override {
-        extraPkgs = pkgs: [
-          pkgs.gamescope
-        ];
-      })
+      # (heroic.override {
+      #   extraPkgs = pkgs: [
+      #     pkgs.gamescope
+      #   ];
+      # })
       shadps4
       umu-launcher
       # bottles

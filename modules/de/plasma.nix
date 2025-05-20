@@ -24,32 +24,34 @@ with lib;
     services.displayManager.sddm.wayland.enable = false;
     services.desktopManager.plasma6 = {
       enable = true;
-      enableQt5Integration = true;
+      # enableQt5Integration = lib.mkForce false; # true by default
     };
     programs.ssh.askPassword = mkForce "${kdePackages.ksshaskpass.out}/bin/ksshaskpass";
     # services.xserver.displayManager.sddm.enable = lib.mkDefault true;
     # services.xserver.desktopManager.plasma6.enable = true;
-    environment.plasma6.excludePackages = with kdePackages; [
+    environment.plasma6.excludePackages = [
       # plasma-browser-integration
       # konsole
       # (lib.getBin qttools) # Expose qdbus in PATH
       # ark
-      plasma-browser-integration
-      konsole
+      pkgs.kdePackages.plasma-browser-integration
+      pkgs.kdePackages.konsole
       # oxygen
-      elisa
-      gwenview
-      okular
+      pkgs.kdePackages.elisa
+      pkgs.kdePackages.gwenview
+      pkgs.kdePackages.okular
       # kate
-      khelpcenter
+      pkgs.kdePackages.khelpcenter
       # dolphin
       # dolphin-plugins
       # spectacle
       # ffmpegthumbs
-      krdp
+      pkgs.kdePackages.krdp
 
 
-      kwallet
+      # pkgs.kdePackages.kwallet
+      # pkgs.kdePackages.kwallet-pam # provides helper service
+      # pkgs.kdePackages.kwalletmanager 
     ];
     environment = {
       systemPackages = with pkgs; [  
@@ -108,5 +110,21 @@ with lib;
       extraPortals = [ kdePackages.xdg-desktop-portal-kde ];
       # configPackages = [pkgs.gnome-session];
     };
+  # security.pam.services = {
+  #     login.kwallet = {
+  #       enable = lib.mkForce false;
+  #       # package = kdePackages.kwallet-pam;
+  #     };
+  #     kde = {
+  #       # allowNullPassword = true;
+  #       kwallet = {
+  #         enable = lib.mkForce false;
+  #         # package = kdePackages.kwallet-pam;
+  #       };
+  #     };
+  #     # kde-fingerprint = lib.mkIf config.services.fprintd.enable { fprintAuth = true; };
+  #     # kde-smartcard = lib.mkIf config.security.pam.p11.enable { p11Auth = true; };
+  #   };
+
   };
 }

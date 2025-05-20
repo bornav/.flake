@@ -69,9 +69,9 @@ with lib;
       pkgs-master.gamemode
 
       # pkgs-master.wine
-      pkgs-master.wine-wayland
-      pkgs-master.wineWowPackages.unstableFull
-      pkgs-master.winetricks
+      # pkgs-master.wine-wayland
+      # pkgs-master.wineWowPackages.unstableFull
+      # pkgs-master.winetricks
       pkgs-master.protontricks
       pkgs-master.vulkan-tools
       # Extra dependencies
