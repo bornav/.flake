@@ -81,7 +81,7 @@
     #uncommon
     alias avahi_discover_local="avahi-browse --all --ignore-local --resolve --terminate"   #discovers local mdns records
     '';
-    home.file.".config/zsh/.zsh_exports.sh".text = ''
+    home.file.".config/zsh/.zsh_exports".text = ''
     export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt
     export PATH=$PATH:~/.local/bin
     '';
