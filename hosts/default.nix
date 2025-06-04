@@ -65,12 +65,12 @@
         ./dockeropen
     ];
   };
-  lighthouse = inputs.nixpkgs-bornav.lib.nixosSystem {
+  gitea = inputs.nixpkgs-unstable.lib.nixosSystem {
     # system = "x86_64-linux";  
     specialArgs = {
       inherit vars inputs;
       host = {
-          hostName = "lighthouse-ubuntu-4gb-nbg1-2";
+          hostName = "gitea";
           vars = vars;
           system = "x86_64-linux"; 
           gpu = "none";
@@ -82,9 +82,8 @@
     };
     modules = [
         # nur.nixosModules.nur
-        # ./configuration.nix
-        ./lighthouse
-        
+        ./configuration.nix
+        ./gitea
     ];
   };
   zbook-max395 = inputs.nixpkgs-unstable.lib.nixosSystem {
@@ -107,27 +106,6 @@
       ./configuration.nix
       ./zbook-max395
       
-    ];
-  };
-  lighthouse2 = inputs.nixpkgs-bornav.lib.nixosSystem {
-    # system = "x86_64-linux";  
-    specialArgs = {
-      inherit vars inputs;
-      host = {
-          hostName = "lighthouse-ubuntu-4gb-nbg1-4";
-          vars = vars;
-          system = "x86_64-linux"; 
-          gpu = "none";
-      };
-      pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
-      pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
-      pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
-      system = "x86_64-linux"; 
-    };
-    modules = [
-        # nur.nixosModules.nur
-        # ./configuration.nix
-        ./lighthouse2
     ];
   };
   networktest = inputs.nixpkgs-unstable.lib.nixosSystem {

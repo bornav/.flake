@@ -309,4 +309,8 @@
       # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     ];
   };
+
+
+
+  services.lact.enable = true;
 }

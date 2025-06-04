@@ -144,6 +144,9 @@
     distrobox
     qjournalctl
     xorg.xkill
+
+
+    vulkan-tools
   ] ++
     (with pkgs-unstable; [
       zsh
@@ -238,4 +241,10 @@
   # systemd.network.enable = true;
   # services.resolved.dnssec = "allow-downgrade";
   # networking.useNetworkd = lib.mkDefault true;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+  services.lact.enable = true;
 }

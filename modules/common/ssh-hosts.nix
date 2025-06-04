@@ -49,6 +49,13 @@
         IdentitiesOnly yes
         StrictHostKeyChecking no
         IdentityFile /home/bocmo/.ssh/id_local
+    Host zbook-max395
+        HostName zbook-max395.local
+        Port 22
+        User bocmo
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        IdentityFile /home/bocmo/.ssh/id_local
     Host stealth
         HostName stealth.local.icylair.com
         Port 22
