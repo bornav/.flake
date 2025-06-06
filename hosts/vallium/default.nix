@@ -161,7 +161,7 @@
     
     # pkgs-master.lact
     )] ++ (with pkgs; [
-
+    # songrec gsettings-desktop-schemas gsettings-qt
     # lact2
 
     alacritty

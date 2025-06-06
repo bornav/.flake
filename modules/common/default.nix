@@ -15,5 +15,6 @@
   ./rar.nix
   ./ssh-hosts.nix
   ./flatpak.nix
+  ./lazygit.nix
 #   ./direnv.nix
 ]
