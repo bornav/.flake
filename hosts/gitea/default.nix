@@ -1,4 +1,4 @@
-{ config, lib, host, inputs, pkgs, pkgs-master, ... }:
+{ config, lib, host, inputs, pkgs, pkgs-master, pkgs-stable, ... }:
 # let
 #   pkgs = import inputs.nixpkgs-unstable {
 #     system = host.system;
@@ -15,11 +15,9 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
     }
-    inputs.nixos-cosmic.nixosModules.default
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
     # ./nvidia.nix
@@ -27,15 +25,12 @@
     # ./journald-gateway.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-master.linuxPackages_testing;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
-    timeout = 1;
-    grub.enable = true;
-    grub.device = "nodev";
-    grub.efiSupport = true;
-    grub.efiInstallAsRemovable = lib.mkForce true;
+    systemd-boot.enable = true;
+    # timeout = 1;
   };
   boot.supportedFilesystems = [
     "ext4"

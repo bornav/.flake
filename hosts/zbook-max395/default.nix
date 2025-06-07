@@ -1,14 +1,4 @@
 { config, lib, system, inputs, host, pkgs, pkgs-unstable, pkgs-master, ... }:  # TODO remove system, only when from all modules it is removed
-# let
-#   pkgs = import inputs.nixpkgs-unstable {
-#     system = host.system;
-#     config.allowUnfree = true;
-#   };
-#   pkgs-unstable = import inputs.nixpkgs-unstable {
-#     system = host.system;
-#     config.allowUnfree = true;
-#   };
-# in
 {
   imports = [
     # inputs.nix-flatpak.nixosModules.nix-flatpak

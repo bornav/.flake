@@ -65,7 +65,7 @@
         ./dockeropen
     ];
   };
-  gitea = inputs.nixpkgs-unstable.lib.nixosSystem {
+  gitea = inputs.nixpkgs-stable.lib.nixosSystem {
     # system = "x86_64-linux";  
     specialArgs = {
       inherit vars inputs;
