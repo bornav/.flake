@@ -1,32 +1,41 @@
+{ disks ? [ "/dev/vdb" ], ... }: 
+# { lib, ... }:
 {
  disko.devices = {
-  disk = {
-   my-disk = {
-    device = "/dev/sda";
+  disk.disk1 = {
+    device = builtins.elemAt disks 0;
+    # device = lib.mkDefault "/dev/sda";
     type = "disk";
     content = {
      type = "gpt";
      partitions = {
-      ESP = {
-       type = "EF00";
-       size = "500M";
-       content = {
-        type = "filesystem";
-        format = "vfat";
-        mountpoint = "/boot";
-       };
+      boot = {
+        name = "boot";
+        size = "1M";
+        type = "EF02";
+      };
+      esp = {
+        name = "ESP";
+        size = "500M";
+        type = "EF00";
+        content = {
+          type = "filesystem";
+          format = "vfat";
+          mountpoint = "/boot";
+        };
       };
       root = {
-       size = "100%";
-       content = {
-        type = "filesystem";
-        format = "ext4";
-        mountpoint = "/";
-       };
+        name = "root";
+        # size = "100G";
+        size = "100%";
+        content = {
+          type = "filesystem";
+          format = "ext4";
+          mountpoint = "/";
+        };
       };
      };
     };
    };
   };
- };
 }

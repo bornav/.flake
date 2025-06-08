@@ -23,14 +23,19 @@
     # ./nvidia.nix
     # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     # ./journald-gateway.nix
+    {_module.args.disks = [ "/dev/sda" ];}
+    ./disk-config.nix
   ];
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-master.linuxPackages_testing;
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_8;
   boot.loader = {
-    systemd-boot.enable = true;
-    # timeout = 1;
+    timeout = 1;
+    grub.enable = true;
+    grub.device = "nodev";
+    grub.efiSupport = true;
+    grub.efiInstallAsRemovable = lib.mkForce true;
   };
   boot.supportedFilesystems = [
     "ext4"

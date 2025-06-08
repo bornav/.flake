@@ -72,6 +72,9 @@
       host = {
           hostName = "gitea";
           vars = vars;
+          # vars = {
+          #   stateVersion = "25.11";
+          # };
           system = "x86_64-linux"; 
           gpu = "none";
       };

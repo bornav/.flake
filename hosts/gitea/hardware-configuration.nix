@@ -7,24 +7,17 @@
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
       (modulesPath + "/profiles/qemu-guest.nix")
-      ./disk-config.nix
     ];
 
   boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-  fileSystems."/docker-local" =
-  { device = "/dev/disk/by-uuid/5753d609-7516-43f2-bb17-c430dbe0df9c";
-    fsType = "ext4";
-    options = [
-      "noatime"
-    ];
-  };
-  swapDevices = [ {
-    device = "/var/lib/swapfile";
-    size = 16*1024;
-  } ];
+
+  # swapDevices = [ {
+  #   device = "/var/lib/swapfile";
+  #   size = 16*1024;
+  # } ];
   
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
