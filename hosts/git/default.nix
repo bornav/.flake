@@ -25,6 +25,7 @@
     # ./journald-gateway.nix
     {_module.args.disks = [ "/dev/sda" ];}
     ./disk-config.nix
+    ./git.nix
   ];
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -129,6 +130,4 @@
       MaxRetentionSec=1month # How long to keep journal files
     '';
   };
-
-
 }

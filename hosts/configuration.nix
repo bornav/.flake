@@ -1,4 +1,4 @@
-{inputs, config, system, vars, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
+{inputs, config, system, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
 let
   # pkgs = import inputs.nixpkgs-unstable {
   #   inherit system;
@@ -39,9 +39,9 @@ in
   };
   environment = {
     variables = {
-      TERMINAL = "${vars.terminal}";
-      EDITOR = "${vars.editor}";
-      VISUAL = "${vars.editor}";
+      TERMINAL = "${host.vars.terminal}";
+      EDITOR = "${host.vars.editor}";
+      VISUAL = "${host.vars.editor}";
     };
     systemPackages = with pkgs; [
       wget
@@ -112,14 +112,14 @@ in
     #    "--update-input"
     #    "nixpkgs"
     #    "-L"];};
-    stateVersion = "${vars.stateVersion}";
+    stateVersion = "${host.vars.stateVersion}";
   };
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=5s
   ''; # sets the systemd stopjob timeout to somethng else than 90 seconds
   systemd.watchdog.rebootTime = "3m";
-  home-manager.users.${vars.user} = {       # Home-Manager Settings
-    home.stateVersion = "${vars.stateVersion}";
+  home-manager.users.${host.vars.user} = {       # Home-Manager Settings
+    home.stateVersion = "${host.vars.stateVersion}";
     programs.home-manager.enable = true;
     xdg.enable= true;
     # xdg.desktopEntries = {

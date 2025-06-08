@@ -4,7 +4,7 @@
     # system = "x86_64-linux";  
     specialArgs = {
         # inherit (inputs.nixpkgs-unstable) lib;
-        inherit  vars inputs;
+        inherit vars inputs;
         host = {
             hostName = "vallium";
             vars = vars;
@@ -25,7 +25,7 @@
   stealth = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "x86_64-linux";  
     specialArgs = {
-      inherit  vars inputs;
+      inherit vars inputs;
       host = {
           hostName = "stealth";
           vars = vars;
@@ -65,16 +65,16 @@
         ./dockeropen
     ];
   };
-  gitea = inputs.nixpkgs-stable.lib.nixosSystem {
+  git = inputs.nixpkgs-stable.lib.nixosSystem {
     # system = "x86_64-linux";  
     specialArgs = {
       inherit vars inputs;
       host = {
-          hostName = "gitea";
-          vars = vars;
-          # vars = {
-          #   stateVersion = "25.11";
-          # };
+          hostName = "git";
+          # taking original value from root, but overwriting the state version
+          vars = inputs.nixpkgs-stable.lib.recursiveUpdate vars {
+            stateVersion = "25.05";
+          };
           system = "x86_64-linux"; 
           gpu = "none";
       };
@@ -86,13 +86,13 @@
     modules = [
         # nur.nixosModules.nur
         ./configuration.nix
-        ./gitea
+        ./git
     ];
   };
   zbook-max395 = inputs.nixpkgs-unstable.lib.nixosSystem {
     system = "x86_64-linux";  
     specialArgs = {
-      inherit  vars inputs;
+      inherit vars inputs;
       host = {
           hostName = "zbook-max395";
           vars = vars;
