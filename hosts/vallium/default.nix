@@ -156,11 +156,15 @@
 
   ####
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = [(
-    pkgs-master.pciutils # pciutils 
+  environment.systemPackages = [
+    # pkgs-master.pciutils # pciutils 
+    pkgs-unstable.pciutils # pciutils 
+    # pkgs-unstable.coolercontrol.coolercontrol-gui
+    # pkgs-unstable.coolercontrol.coolercontrold
+    (pkgs-unstable.bottles.override {removeWarningPopup = true;}) #TODO investigate how this is done on the source and document, 14.06.2025 nixos-unstable
     
     # pkgs-master.lact
-    )] ++ (with pkgs; [
+    ] ++ (with pkgs; [
     # songrec gsettings-desktop-schemas gsettings-qt
     # lact2
 
@@ -309,7 +313,7 @@
       # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
     ];
   };
-
+  # programs.coolercontrol.enable = true;
 
 
   services.lact.enable = true;

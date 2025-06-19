@@ -12,6 +12,6 @@ else
     exit
 fi
 # sudo nixos-rebuild switch &>nixos-switch.log || (cat nixos-switch.log | grep --color error && false)
-gen=$(nixos-rebuild list-generations --flake ~/.flake#$flake_name | grep current)
+gen=$(nixos-rebuild list-generations --flake ~/.flake#$flake_name | grep "True")
 git commit -am "$gen"
 popd

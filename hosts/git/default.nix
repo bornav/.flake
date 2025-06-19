@@ -26,6 +26,7 @@
     {_module.args.disks = [ "/dev/sda" ];}
     ./disk-config.nix
     ./git.nix
+    ./haproxy.nix
   ];
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;

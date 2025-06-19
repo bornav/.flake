@@ -200,9 +200,9 @@ in
       enableSshSupport = true;
     };
   };
-  environment.systemPackages = [(
+  environment.systemPackages = [
       pkgs-unstable.atuin
-    )];
+    ];
     #Enable zsh completion. Don’t forget to add
     environment.pathsToLink = [ "/share/zsh" ];
 }

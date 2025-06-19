@@ -12,9 +12,9 @@
 with lib;
 {
   config = mkIf (config.devops.enable) {
-    environment.systemPackages = [(
+    environment.systemPackages = [
       pkgs-unstable.k9s
-    )] ++(with pkgs-stable; [
+    ] ++(with pkgs-stable; [
       thttpd # htpasswd
       lazygit
       dig
