@@ -245,7 +245,11 @@
   home-manager = {
     backupFileExtension = "backup";
     extraSpecialArgs = {inherit inputs;};
-    users.${host.vars.user} = import ./home.nix;
+    users.${host.vars.user} =  lib.mkMerge [
+      (import ./home.nix)
+      (import ../../modules/home-manager/mutability.nix)
+      (import ./home-mutable.nix)
+    ];
   };
   
   ##gargabe collection
