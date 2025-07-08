@@ -32,13 +32,14 @@ with lib;
         # libinput.enable = true;
         # modules = [ pkgs.xf86_input_wacom ];
         # wacom.enable = true;
-        displayManager.gdm.enable = lib.mkDefault true;               # Display Manager
-        displayManager.gdm.autoSuspend = false;
-        desktopManager.gnome.enable = true;             # Desktop Environment
       };
       udev.packages = with pkgs; [
         gnome-settings-daemon
       ];
+      displayManager.gdm.enable = lib.mkDefault true;               # Display Manager
+      displayManager.gdm.autoSuspend = false;
+      desktopManager.gnome.enable = true;             # Desktop Environment
+      gnome.core-apps.enable = true; # TODO why was this defined globally?
     };
     environment = {
       systemPackages = with pkgs; [                     # System-Wide Packages

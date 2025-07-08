@@ -53,30 +53,50 @@ with lib;
         #     ];
         #   })
         # ];
-        programs.vscode = {
-          enable = true;
-          package = pkgs.vscode;
-          # extensions = with pkgs.vscode-extensions; [
-          #     continue.continue
-          # ];
-          profiles.default.userSettings = {
-              "editor.minimap.enabled"= "false";
-              "terminal.integrated.fontFamily"= "Hack";
-              "workbench.sideBar.location"= "right";
-              "workbench.activityBar.location"= "top";
-              "window.customTitleBarVisibility"= "auto";
 
-              "continue.showInlineTip"= false;
-              "continue.telemetryEnabled" = false;
-
-              "direnv.restart.automatic"= true;
-          };
-        };
         # programs.vscode = {
         #     enable = true;
         #     # package = pkgs.vscode.fhs;
         #     package = pkgs.vscode.fhsWithPackages (ps: with ps; [ rustup zlib openssl.dev pkg-config ]);
         # };
+        
+        programs.vscode = {
+          enable = true;
+          package = pkgs.vscode;
+          # profiles.default.userSettings = {
+          #     "editor.minimap.enabled"= "false";
+          #     "terminal.integrated.fontFamily"= "Hack";
+          #     "workbench.sideBar.location"= "right";
+          #     "workbench.activityBar.location"= "top";
+          #     "window.customTitleBarVisibility"= "auto";
+
+          #     "continue.showInlineTip"= false;
+          #     "continue.telemetryEnabled" = false;
+
+          #     "direnv.restart.automatic"= true;
+          # };
+        };
+        home.file.".config/Code/User/settings.json" = {
+          text = ''
+            {
+              "continue.showInlineTip": false,
+              "continue.telemetryEnabled": false,
+              "direnv.restart.automatic": true,
+              "editor.minimap.enabled": "false",
+              "terminal.integrated.fontFamily": "Hack",
+              "window.customTitleBarVisibility": "auto",
+              "workbench.activityBar.location": "top",
+              "workbench.sideBar.location": "right",
+              "yaml.schemas": {
+                "/home/bocmo/.vscode/extensions/continue.continue-1.0.15-linux-x64/config-yaml-schema.json": [
+                  ".continue/**/*.yaml"
+                ]
+              }
+            }
+            '';
+          force = true;
+          mutable = true;
+        };
       };
      })
     (lib.mkIf (config.ide.zed) {

@@ -34,7 +34,7 @@
       };
     };
   };
-  services.gnome.core-utilities.enable = true;
+  # services.gnome.core-apps.enable = true; # TODO why was this defined globally?
   #services.getty.autologinUser = "bocmo";
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_11;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
