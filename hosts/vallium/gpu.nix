@@ -7,15 +7,15 @@
   boot = {
     initrd.kernelModules = [ "nvidia" ];
     kernelParams = [
-      "nomodeset"
-      "nvidia_drm.nvidia_modeset"
-      "nvidia_drm.fbdev=1"
+      # "nomodeset"
+      # "nvidia_drm.nvidia_modeset"
+      # "nvidia_drm.fbdev=1"
     ];# experimental/trmporary, fixes virtualmonitor from poping up on wayland
     blacklistedKernelModules = ["amdgpu"];
   };
   hardware = {
     nvidia = {
-      modesetting.enable = true;
+      # modesetting.enable = true;
       open = true;
       nvidiaSettings = true;
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
