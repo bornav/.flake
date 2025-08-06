@@ -118,7 +118,9 @@
   docker.enable = true;
   ####
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
+    pkgs-unstable.element-desktop
+    ] ++ (with pkgs; [
     alacritty
     kdePackages.dolphin
     kdePackages.ark
@@ -137,7 +139,7 @@
 
 
     vulkan-tools
-  ] ++
+  ]) ++
     (with pkgs-unstable; [
       zsh
       btop

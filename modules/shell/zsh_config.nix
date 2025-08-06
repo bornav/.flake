@@ -16,6 +16,7 @@
     alias k9s='EDITOR=vim k9s'
     alias kubectl='EDITOR=vim kubectl'
     alias kubectl_pod_status="kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'"
+    alias code=codium
 
     #nixos
     alias nixos_config_update="nh os switch ~/.flake -H $flake_name --ask && nix-channel --update"

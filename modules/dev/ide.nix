@@ -62,7 +62,7 @@ with lib;
         
         programs.vscode = {
           enable = true;
-          package = pkgs.vscode;
+          package = pkgs.vscodium;
           # profiles.default.userSettings = {
           #     "editor.minimap.enabled"= "false";
           #     "terminal.integrated.fontFamily"= "Hack";
@@ -76,7 +76,8 @@ with lib;
           #     "direnv.restart.automatic"= true;
           # };
         };
-        home.file.".config/Code/User/settings.json" = {
+        # home.file.".config/Code/User/settings.json" = {
+        home.file.".config/VSCodium/User/settings.json" = {
           text = ''
             {
               "continue.showInlineTip": false,

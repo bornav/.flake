@@ -21,13 +21,13 @@
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
       package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #  version = "570.153.02";
-      #  sha256_64bit =   "sha256-FIiG5PaVdvqPpnFA5uXdblH5Cy7HSmXxp6czTfpd4bY="; 
+      #  version = "580.65.06";
+      #  sha256_64bit =   "sha256-BLEIZ69YXnZc+/3POe1fS9ESN1vrqwFy6qGHxqpQJP8="; 
       #  openSha256 =     "sha256-9l8N83Spj0MccA8+8R1uqiXBS0Ag4JrLPjrU3TaXHnM=";
       #  settingsSha256 = "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=";
       #  sha256_aarch64 = lib.fakeSha256;
       #  persistencedSha256 = lib.fakeSha256;
-      #};
+      # };
 
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true;

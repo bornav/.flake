@@ -114,9 +114,9 @@ in
     #    "-L"];};
     stateVersion = "${host.vars.stateVersion}";
   };
-  systemd.extraConfig = ''
-    DefaultTimeoutStopSec=5s
-  ''; # sets the systemd stopjob timeout to somethng else than 90 seconds
+  # systemd.extraConfig = '' # TODO find replacment, and make sure you test it for both user level and root level services
+  #   DefaultTimeoutStopSec=5s
+  # ''; # sets the systemd stopjob timeout to somethng else than 90 seconds
   systemd.watchdog.rebootTime = "3m";
   home-manager.users.${host.vars.user} = {       # Home-Manager Settings
     home.stateVersion = "${host.vars.stateVersion}";

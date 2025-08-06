@@ -7,10 +7,10 @@
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";         # Unstable Nix Packages
       nixpkgs-master.url = "github:nixos/nixpkgs/master"; 
       nixpkgs-bornav.url = "github:bornav/nixpkgs/headscale-restart-fix"; 
-      headplane = {
-        url = "github:tale/headplane";
-        inputs.nixpkgs.follows = "nixpkgs-bornav";
-      };
+      # headplane = {
+      #   url = "github:tale/headplane";
+      #   inputs.nixpkgs.follows = "nixpkgs-bornav";
+      # };
       nixos-hardware.url = "github:NixOS/nixos-hardware/master"; #https://github.com/NixOS/nixos-hardware/tree/master
       home-manager = {url = "github:nix-community/home-manager";
                       # inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -32,7 +32,7 @@
       wirenix.url = "sourcehut:~msalerno/wirenix";
       nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
     };
-  outputs = { self, nur, wirenix, nixpkgs-unstable, nixpkgs-stable, nixpkgs-master, nixpkgs-bornav, headplane, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
+  outputs = { self, nur, wirenix, nixpkgs-unstable, nixpkgs-stable, nixpkgs-master, nixpkgs-bornav, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
 	let
 		vars = {                                                              # Variables Used In Flake
 			user = "bocmo";
