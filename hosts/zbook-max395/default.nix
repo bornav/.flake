@@ -22,6 +22,15 @@
     grub.device = "nodev";
     #efi.efiSysMountPoint = "/boot/EFI";
     efi.canTouchEfiVariables = true;
+    grub.extraEntries = ''
+        menuentry 'Windows Boot Manager (on /dev/nvme0n1p5)' --class windows --class os $menuentry_id_option 'osprober-efi-1CA7-78C0' {
+          savedefault
+          insmod part_gpt
+          insmod fat
+          search --no-floppy --fs-uuid --set=root 1CA7-78C0
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+    '';
   };
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = lib.mkForce true;
@@ -174,19 +183,14 @@
     };
   };
 
-  home-manager.users.${host.vars.user} = {
-    xdg.mime.enable = true;
-    xdg.mimeApps.enable = true;
-    ## this may be neccesary sometimes
-    # xdg.configFile."mimeapps.list".force = true;
-    ## from limited testing it is only applied if both sides are valid
-    xdg.mimeApps.defaultApplications."text/html" = "thorium-browser.desktop";
-    xdg.mimeApps.defaultApplications = {
-      "text/xml" = [ "thorium-browser.desktop" ];
-      "x-scheme-handler/http" = [ "thorium-browser.desktop" ];
-      "x-scheme-handler/https" = [ "thorium-browser.desktop" ];
-      "inode/directory" = "org.kde.dolphin.desktop";
-    };
+  home-manager = {
+    backupFileExtension = "backup";
+    extraSpecialArgs = {inherit inputs;};
+    users.${host.vars.user} =  lib.mkMerge [
+      (import ./home.nix)
+      (import ../../modules/home-manager/mutability.nix)
+      # (import ./home-mutable.nix)
+    ];
   };
   ##
   ##gargabe collection
