@@ -14,13 +14,13 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-  fileSystems."/docker-local" =
-  { device = "/dev/disk/by-uuid/5753d609-7516-43f2-bb17-c430dbe0df9c";
-    fsType = "ext4";
-    options = [
-      "noatime"
-    ];
-  };
+  # fileSystems."/docker-local" =
+  # { device = "/dev/disk/by-uuid/5753d609-7516-43f2-bb17-c430dbe0df9c";
+  #   fsType = "ext4";
+  #   options = [
+  #     "noatime"
+  #   ];
+  # };
   swapDevices = [ {
     device = "/var/lib/swapfile";
     size = 16*1024;

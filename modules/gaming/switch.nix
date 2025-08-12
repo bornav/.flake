@@ -9,7 +9,8 @@ with lib;
 {
   config = mkIf (config.emulation.switch) {
     environment.systemPackages = with pkgs; [
-      ryujinx
+      # ryujinx
+      ryubing
     ];
   };
 }

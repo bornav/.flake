@@ -44,59 +44,13 @@ with lib;
       nil # TODO move into ide
       inputs.compose2nix.packages.x86_64-linux.default
     ]);
-    home-manager.users.${host.vars.user} = {
-      # home.file.".config/testfile".text = ''
-      #   ${builtins.readFile (fetchGit {
-      #     url = "https://github.com/starship/starship.git";
-      #     rev = "2048bb224e4261e3c48e4524e9d1a1c61e20e060";
-      #   })/deny.toml}
-      # '';
-      home.file.".config/k9s/config.yaml".text = 
-      ''
-      k9s:
-        disablePodCounting: false
-        # featureGates: # this should be done inside .local.share/k9s/context...
-        #   nodeShell: true
-        imageScans:
-          enable: false
-          exclusions:
-            labels: {}
-            namespaces: []
-        liveViewAutoRefresh: true
-        logger:
-          tail: 1000
-          buffer: 5000
-          showTime: false
-          sinceSeconds: -1
-          textWrap: false
-        maxConnRetry: 5
-        noExitOnCtrlC: false
-        readOnly: false
-        refreshRate: 1
-        screenDumpDir: /home/bocmo/.local/state/k9s/screen-dumps # here all the files are stored
-        shellPod:
-          image: busybox:1.35.0
-          limits:
-            cpu: 100m
-            memory: 100Mi
-          namespace: default
-        skipLatestRevCheck: true
-        thresholds:
-          cpu:
-            critical: 90
-            warn: 70
-          memory:
-            critical: 90
-            warn: 70
-        defaultView: "" # LOOK INTO
-        ui:
-          enableMouse: false
-          crumbsless: false
-          headless: false
-          logoless: true
-          noIcons: false
-          reactive: true
-      '';
+      home-manager = {
+      backupFileExtension = "backup";
+      extraSpecialArgs = {inherit inputs;};
+      users.${host.vars.user} =  lib.mkMerge [
+        (import ./home-mutable-k9s.nix)
+      ];
+    };
 
 
       # programs.k9s = {
@@ -158,6 +112,6 @@ with lib;
       #     };
       #   };
       # };
-    };
+    
   };
 }

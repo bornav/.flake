@@ -53,6 +53,13 @@
     efi.canTouchEfiVariables = true;
     # grub.useOSProber = true;
     grub.extraEntries = ''
+        menuentry 'Windows Boot Manager' --class windows --class os $menuentry_id_option 'osprober-efi-46E8-34B4' {
+          savedefault
+          insmod part_gpt
+          insmod fat
+          search --no-floppy --fs-uuid --set=root 46E8-34B4
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
         menuentry 'Windows Boot Manager (on /dev/nvme1n1p3)' --class windows --class os $menuentry_id_option 'osprober-efi-D050-C7EF' {
           savedefault
           insmod part_gpt
@@ -321,4 +328,19 @@
   };
   # programs.coolercontrol.enable = true;
   services.lact.enable = true;
+
+
+  #
+  # boot.extraModprobeConfig = ''
+  #   # Replace 10de:1234 with your actual vendor:product ID
+  #   options vfio-pci ids=144d:a804
+  # '';
+
+  # boot.kernelParams = [
+  #   "amd_iommu=on"
+  #   "iommu=pt"
+  #   "vfio-pci.ids=144d:a804"
+  # ];
+  # boot.kernelModules = [ "vfio" "vfio_iommu_type1" "vfio_pci" ];
+
 }

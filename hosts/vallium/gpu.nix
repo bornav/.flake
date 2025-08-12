@@ -18,11 +18,11 @@
       # modesetting.enable = true;
       open = true;
       nvidiaSettings = true;
-      # package = config.boot.kernelPackages.nvidiaPackages.beta;
-      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
+      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
+      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #  version = "580.65.06";
-      #  sha256_64bit =   "sha256-BLEIZ69YXnZc+/3POe1fS9ESN1vrqwFy6qGHxqpQJP8="; 
+      #  version = "580.76.05";
+      #  sha256_64bit =   "sha256-IZvmNrYJMbAhsujB4O/4hzY8cx+KlAyqh7zAVNBdl/0=";  
       #  openSha256 =     "sha256-9l8N83Spj0MccA8+8R1uqiXBS0Ag4JrLPjrU3TaXHnM=";
       #  settingsSha256 = "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=";
       #  sha256_aarch64 = lib.fakeSha256;

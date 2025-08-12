@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, lib, pkgs, pkgs-master, ... }:
+{ config, inputs, system, vars, host, lib, pkgs, pkgs-master, ... }:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -89,5 +89,12 @@ with lib;
         STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
     };
     hardware.graphics.enable32Bit = true;
+    home-manager = {
+      backupFileExtension = "backup";
+      extraSpecialArgs = {inherit inputs;};
+      users.${host.vars.user} =  lib.mkMerge [
+        (import ./home-mutable-mangohud.nix)
+      ];
+    };
   };
 }
