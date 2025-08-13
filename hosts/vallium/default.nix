@@ -53,33 +53,14 @@
     efi.canTouchEfiVariables = true;
     # grub.useOSProber = true;
     grub.extraEntries = ''
-        menuentry 'Windows Boot Manager' --class windows --class os $menuentry_id_option 'osprober-efi-46E8-34B4' {
+        menuentry 'Windows Boot Manager' --class windows --class os $menuentry_id_option 'osprober-efi-8CCC-5043' {
           savedefault
           insmod part_gpt
           insmod fat
-          search --no-floppy --fs-uuid --set=root 46E8-34B4
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
-        menuentry 'Windows Boot Manager (on /dev/nvme1n1p3)' --class windows --class os $menuentry_id_option 'osprober-efi-D050-C7EF' {
-          savedefault
-          insmod part_gpt
-          insmod fat
-          search --no-floppy --fs-uuid --set=root D050-C7EF
+          search --no-floppy --fs-uuid --set=root 8CCC-5043
           chainloader /EFI/Microsoft/Boot/bootmgfw.efi
         }
     '';
-        # menuentry 'Arch Linux, with Linux linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-109c9c71-abfc-46d9-b983-9dd681b53ce4' {
-        #   savedefault
-        #   set gfxpayload=keep
-        #   insmod gzio
-        #   insmod part_gpt
-        #   insmod fat
-        #   search --no-floppy --label BOOT
-        #   echo    'Loading Linux linux ...'
-        #   linux   /vmlinuz-linux root=LABEL=root_partition rw  loglevel=3 nvidia-drm.modeset=1 iommu=pt
-        #   echo    'Loading initial ramdisk ...'
-        #   initrd  /amd-ucode.img /initramfs-linux.img
-        # }
   };
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
