@@ -6,11 +6,18 @@
   #nvidia
   boot = {
     initrd.kernelModules = [ "nvidia" ];
-    kernelParams = [
-      # "nomodeset"
-      # "nvidia_drm.nvidia_modeset"
-      # "nvidia_drm.fbdev=1"
-    ];# experimental/trmporary, fixes virtualmonitor from poping up on wayland
+    kernelParams = 
+    # [
+    #   # "nomodeset"
+    #   # "nvidia_drm.nvidia_modeset"
+    #   # "nvidia_drm.fbdev=1"
+    # ];# experimental/trmporary, fixes virtualmonitor from poping up on wayland
+    [
+          "nvidia.NVreg_UsePageAttributeTable=1" # why this isn't default is beyond me.
+          "nvidia.NVreg_EnableResizableBar=1" # enable reBAR
+          "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # low-latency stuff
+          "nvidia_modeset.disable_vrr_memclk_switch=1" # stop really high memclk when vrr is in use.
+    ];
     blacklistedKernelModules = ["amdgpu"];
   };
   hardware = {
@@ -18,17 +25,16 @@
       # modesetting.enable = true;
       open = true;
       nvidiaSettings = true;
-      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
-      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
+      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
+      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       #  version = "580.76.05";
       #  sha256_64bit =   "sha256-IZvmNrYJMbAhsujB4O/4hzY8cx+KlAyqh7zAVNBdl/0=";  
-      #  openSha256 =     "sha256-9l8N83Spj0MccA8+8R1uqiXBS0Ag4JrLPjrU3TaXHnM=";
+      #  openSha256 =     "sha256-xEPJ9nskN1kISnSbfBigVaO6Mw03wyHebqQOQmUg/eQ=";
       #  settingsSha256 = "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=";
       #  sha256_aarch64 = lib.fakeSha256;
       #  persistencedSha256 = lib.fakeSha256;
       # };
-
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true;
       powerManagement.finegrained = false;

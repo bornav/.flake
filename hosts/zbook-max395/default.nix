@@ -42,7 +42,7 @@
   networking.useDHCP = lib.mkForce false;
   networking.dhcpcd.enable = lib.mkForce false;
 
-  boot.kernelPackages = lib.mkDefault pkgs-master.linuxPackages_latest;
+  boot.kernelPackages = lib.mkDefault pkgs-unstable.linuxPackages_latest;
 
   # Configure keymap in X11
   services.xserver = {
