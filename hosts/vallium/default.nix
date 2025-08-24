@@ -14,6 +14,7 @@
     ./gpu.nix
     ./hardware-configuration.nix
     ./pika-backup.nix
+    # ./winapps.nix
     # ./lvm.nix
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
     # ./network-shares.nix
@@ -327,4 +328,24 @@
   # ];
   # boot.kernelModules = [ "vfio" "vfio_iommu_type1" "vfio_pci" ];
 
+
+  # programs.obs-studio = {
+  #   enable = true;
+
+  #   # optional Nvidia hardware acceleration
+  #   package = (
+  #     pkgs.obs-studio.override {
+  #       cudaSupport = true;
+  #     }
+  #   );
+
+  #   plugins = with pkgs.obs-studio-plugins; [
+  #     wlrobs
+  #     obs-backgroundremoval
+  #     obs-pipewire-audio-capture
+  #     obs-vaapi #optional AMD hardware acceleration
+  #     obs-gstreamer
+  #     obs-vkcapture
+  #   ];
+  # };
 }
