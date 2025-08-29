@@ -152,6 +152,7 @@
     (with pkgs-unstable; [
       zsh
       btop
+      appimage-run # TODO 
       # orca-slicer
       # openrgb
       # zsh-completions

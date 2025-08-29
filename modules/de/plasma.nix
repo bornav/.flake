@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, lib, pkgs, ... }:
+{ config, inputs, host, system, lib, pkgs, ... }:
 let
   inherit (pkgs) kdePackages;
   # pkgs = import inputs.nixpkgs-unstable {
@@ -65,9 +65,20 @@ with lib;
         enable = lib.mkForce true;
     };
     };
-    home-manager.users.${vars.user} = {
+    # home-manager.users.${vars.user} = {
       
+    # };
+
+    home-manager = {
+      backupFileExtension = "backup";
+      extraSpecialArgs = {inherit inputs;};
+      users.${host.vars.user} =  lib.mkMerge [
+        (import ./plasma_config.nix)
+        # (import ../../modules/home-manager/mutability.nix)
+        # (import ./home-mutable.nix)
+      ];
     };
+
     security.wrappers = {
       "mount.nfs" = {
         program = "mount.nfs";
