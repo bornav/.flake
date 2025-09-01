@@ -1,4 +1,7 @@
 { config, system, lib, ... }:
+let
+  dns_address = "10.1.1.1";
+in
 with lib;
 {   
   options = {
@@ -21,7 +24,7 @@ with lib;
     networking.wg-quick.interfaces = {
       wg9 = {
         address = [ config.wg-home.local_ip ];
-        dns = [ "10.1.1.1" ];
+        dns = [ dns_address ];
         privateKeyFile = config.wg-home.privateKeyFileLocation;
         peers = [
           {

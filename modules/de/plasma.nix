@@ -56,6 +56,12 @@ with lib;
     environment = {
       systemPackages = with pkgs; [  
         # kdePackages.kdialog
+        kdePackages.kcalc # Calculator
+        kdePackages.kcharselect # Tool to select and copy special characters from all installed fonts
+        kdePackages.kolourpaint # Easy-to-use paint program
+        kdePackages.ksystemlog # KDE SystemLog Application
+        # wayland-utils # Wayland utilities
+        # wl-clipboard # Command-line copy/paste utilities for Wayland
       ];};
     environment.variables = {
     #   KWIN_DRM_NO_AMS=lib.mkForce "1"; ## allow tearing if enabled in settings

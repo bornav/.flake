@@ -186,7 +186,7 @@
     # sublime-merge
     feh
     gparted
-    teamspeak_client
+    # teamspeak3
     nordic
     papirus-nord
     # pciutils # lspci
@@ -245,10 +245,27 @@
     ];
   };
   
-  ##gargabe collection
-  
-  hardware.bluetooth.enable = lib.mkForce true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = lib.mkForce true;
+  hardware.bluetooth = {
+    enable = lib.mkForce true;
+    powerOnBoot = lib.mkForce true;
+    settings = {
+      General = {
+        # Shows battery charge of connected devices on supported
+        # Bluetooth adapters. Defaults to 'false'.
+        Experimental = true;
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption. Defaults to
+        # 'false'.
+        FastConnectable = true;
+      };
+      Policy = {
+        # Enable all controllers when they are found. This includes
+        # adapters present on start as well as adapters that are plugged
+        # in later on. Defaults to 'true'.
+        AutoEnable = true;
+      };
+    };
+  };
   
   environment.variables = {
     LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff

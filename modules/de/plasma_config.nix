@@ -4,7 +4,7 @@
     home.file.".config/klipperrc".text = ''
     [General]
     IgnoreImages=false
-    MaxClipItems=2000
+    MaxClipItems=1000
     Version=6.4.4
     '';
 #   };

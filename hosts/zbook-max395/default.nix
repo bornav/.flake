@@ -193,13 +193,31 @@
       # (import ./home-mutable.nix)
     ];
   };
-  ##
-  ##gargabe collection
 
   services.hardware.bolt.enable = true;
 
-  hardware.bluetooth.enable = lib.mkForce true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = lib.mkForce true;
+  hardware.bluetooth = {
+    enable = lib.mkForce true;
+    powerOnBoot = lib.mkForce true;
+    settings = {
+      General = {
+        # Shows battery charge of connected devices on supported
+        # Bluetooth adapters. Defaults to 'false'.
+        Experimental = true;
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption. Defaults to
+        # 'false'.
+        FastConnectable = true;
+      };
+      Policy = {
+        # Enable all controllers when they are found. This includes
+        # adapters present on start as well as adapters that are plugged
+        # in later on. Defaults to 'true'.
+        AutoEnable = true;
+      };
+    };
+  };
+
   # services.udev.extraRules = ''
   #   # Finalmouse ULX devices
   #   # This file should be installed to /etc/udev/rules.d so that you can access the Finalmouse ULX devices without being root.
