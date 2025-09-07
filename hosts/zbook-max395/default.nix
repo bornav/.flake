@@ -13,6 +13,7 @@
     # inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
     ./disk-config.nix
     ./hardware-configuration.nix
+    ./ai.nix
     {_module.args.disks = [ "/dev/nvme0n1" ];}
   ];
   boot.loader = {
@@ -117,9 +118,9 @@
   steam.enable = true;
   thorium.enable = true;
   rar.enable = true;
-  wg-home.enable = true;
-  wg-home.local_ip = "10.10.1.3/32";
-  wg-home.privateKeyFileLocation = "/home/bocmo/.ssh/wg/zbook/priv.key";
+  # wg-home.enable = true;
+  # wg-home.local_ip = "10.10.1.3/32";
+  # wg-home.privateKeyFileLocation = "/home/bocmo/.ssh/wg/zbook/priv.key";
   # flatpak.enable = true;
   # storagefs.share.vega_nfs = true;
   # storagefs.share.vega_smb = true;

@@ -11,29 +11,30 @@
           "nvidia.NVreg_UsePageAttributeTable=1" # why this isn't default is beyond me.
           "nvidia.NVreg_EnableResizableBar=1" # enable reBAR
           "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # low-latency stuff
-          "nvidia_modeset.disable_vrr_memclk_switch=1" # stop really high memclk when vrr is in use.
       ]
       (lib.mkIf config.hardware.nvidia.powerManagement.enable [
           "nvidia.NVreg_TemporaryFilePath=/var/tmp" # store on disk, not /tmp which is on RAM
       ])
     ];
-    blacklistedKernelModules = ["amdgpu"];
+    blacklistedKernelModules = [
+      "amdgpu"
+      "nouveau"
+    ];
   };
   hardware = {
     nvidia = {
       # modesetting.enable = true;
       open = true;
-      nvidiaSettings = true;
+      nvidiaSettings = false;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "580.76.05";
-        sha256_64bit =   "sha256-IZvmNrYJMbAhsujB4O/4hzY8cx+KlAyqh7zAVNBdl/0=";  
-        openSha256 =     "sha256-xEPJ9nskN1kISnSbfBigVaO6Mw03wyHebqQOQmUg/eQ=";
-        settingsSha256 = "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=";
-        sha256_aarch64 = lib.fakeSha256;
-        persistencedSha256 = lib.fakeSha256;
-      };
+          version = "580.82.07";
+          sha256_64bit = "sha256-Bh5I4R/lUiMglYEdCxzqm3GLolQNYFB0/yJ/zgYoeYw=";
+          openSha256 = "sha256-8/7ZrcwBMgrBtxebYtCcH5A51u3lAxXTCY00LElZz08=";
+          usePersistenced = false;
+          useSettings = false;
+        };
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true;
       powerManagement.finegrained = false;
@@ -63,10 +64,10 @@
       # lowest frame buffering -> lower latency
       __GL_MaxFramesAllowed = "1";
       # fix hw acceleration and native wayland on losslesscut
-      __EGL_VENDOR_LIBRARY_FILENAMES = "${config.hardware.nvidia.package}/share/glvnd/egl_vendor.d/10_nvidia.json";
+      __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json";
       CUDA_CACHE_PATH = "$HOME/.cache/nv";
-      # fix gtk4 freezes on 580
-      GSK_RENDERER = "ngl";
+      # # fix gtk4 freezes on 580
+      # GSK_RENDERER = "ngl";
     };
   };
   ##### blacklist igpu

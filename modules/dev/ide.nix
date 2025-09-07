@@ -62,7 +62,7 @@ with lib;
         
         programs.vscode = {
           enable = true;
-          package = pkgs.vscodium;
+          #package = pkgs.vscodium;
           # profiles.default.userSettings = {
           #     "editor.minimap.enabled"= "false";
           #     "terminal.integrated.fontFamily"= "Hack";
@@ -76,8 +76,8 @@ with lib;
           #     "direnv.restart.automatic"= true;
           # };
         };
-        # home.file.".config/Code/User/settings.json" = {
-        home.file.".config/VSCodium/User/settings.json" = {
+        home.file.".config/Code/User/settings.json" = {
+        #home.file.".config/VSCodium/User/settings.json" = {
           text = ''
             {
               "continue.showInlineTip": false,
@@ -87,7 +87,6 @@ with lib;
               "terminal.integrated.fontFamily": "Hack",
               "window.customTitleBarVisibility": "auto",
               "workbench.activityBar.location": "top",
-              "workbench.sideBar.location": "right",
               "yaml.schemas": {
                 "/home/bocmo/.vscode/extensions/continue.continue-1.0.15-linux-x64/config-yaml-schema.json": [
                   ".continue/**/*.yaml"
