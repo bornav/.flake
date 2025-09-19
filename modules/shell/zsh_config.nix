@@ -24,7 +24,7 @@
     alias nixos_rebuild="~/.flake/rebuild.sh"
     alias nixos_rebuild_remote="sudo nixos-rebuild switch --flake ~/.flake#dockeropen --use-remote-sudo --target-host nixbuilder_dockeropen"
     alias nixos_update="nix flake update --flake ~/.flake && nixos_config_update"
-    alias nixos_garbage_collection="nix-collect-garbage --delete-older-than 30d && nixos_config_update" 
+    alias nixos_garbage_collection="nix-collect-garbage --delete-older-than 30d && nixos_config_update"
     # nh clean all -k 15 this can be added to command above, untested how it works
     # alias nix_update="nixos_config_update --update"
     # alias nixos_config_update="sudo nixos-rebuild switch --flake ~/.flake#$flake_name"
@@ -44,9 +44,11 @@
     alias k=kubectl
     alias ka="kubectl apply"
     alias kd="kubectl delete"
+    alias kbka="kustomize build ./ --enable-helm  | kubectl apply  -f - "
+    alias kbkd="kustomize build ./ --enable-helm  | kubectl delete  -f - "
     remove_namespace() {  # example klubectl_nuke_namespace $NAMESPACE
       NAMESPACE=$1
-      kubectl proxy & 
+      kubectl proxy &
       PROXY_PID=$!
       sleep 2
       kubectl get namespace $NAMESPACE -o json | jq '.spec = {"finalizers":[]}' > temp.json

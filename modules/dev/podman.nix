@@ -8,7 +8,7 @@
         enable = true;
 
         # Create a `docker` alias for podman, to use it as a drop-in replacement
-        dockerCompat = true;
+        dockerCompat = lib.mkIf (!config.docker.enable) true; # TODO MAKE SURE THIS FUNCTIONS, ie if docker.config is enabled, alias shoudl not be there, if it is not there alias should beadded
 
         # Required for containers under podman-compose to be able to talk to each other.
         defaultNetwork.settings.dns_enabled = true;

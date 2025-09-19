@@ -34,7 +34,7 @@ home.file.".config/k9s/config.yaml" = {
     noExitOnCtrlC: false
     readOnly: false
     refreshRate: 1
-    screenDumpDir: /home/bocmo/.local/state/k9s/screen-dumps # here all the files are stored
+    screenDumpDir: /home/bocmo/.local/state/k9s/screen-dumps # here all the files are stored  /home/bocmo/.local/share/k9s/clusters
     shellPod:
       image: busybox:1.35.0
       limits:

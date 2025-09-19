@@ -136,6 +136,7 @@
   wg-home.enable = false;
   ai.enable = true;
   docker.enable = true;
+  podman.enable = true;
   builder.builder1.remote = false;
   ide.vscode = true;
   ide.zed = true;
@@ -199,6 +200,7 @@
     nix-index
     ripgrep
     # betterbird
+    jellyfin-media-player
     python3
     egl-wayland
     ((vim_configurable.override { }).customize {
@@ -331,7 +333,9 @@
   services.lact.enable = true;
 
   hardware.enableRedistributableFirmware = true;
-
+  nixpkgs.config.permittedInsecurePackages = [
+  "qtwebengine-5.15.19"
+  ];# TODO REMOVE ME
   #
   # boot.extraModprobeConfig = ''
   #   # Replace 10de:1234 with your actual vendor:product ID

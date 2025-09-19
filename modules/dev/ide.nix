@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, lib, pkgs, ... }:
+{ config, inputs, system, host, lib, pkgs-unstable, pkgs, ... }:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -35,7 +35,7 @@ with lib;
       # ];
       # environment.systemPackages = with pkgs; [ vscode-fhs ];
 
-      home-manager.users.${vars.user} = {
+      home-manager.users.${host.vars.user} = {
         # home.packages = with pkgs; [
         #   (vscode-with-extensions.override {
         #     vscodeExtensions = with vscode-extensions; [
@@ -101,6 +101,11 @@ with lib;
      })
     (lib.mkIf (config.ide.zed) {
       ide.enable = true;
+      home-manager.users.${host.vars.user} =  lib.mkMerge [
+        (import ./home-zed.nix {inherit pkgs-unstable pkgs lib;} )
+        # (import ../../modules/home-manager/mutability.nix)
+        # (import ./home-mutable.nix)
+      ];
       environment.systemPackages = with pkgs; [
         # zed-editor
       ];
