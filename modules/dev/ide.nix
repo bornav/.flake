@@ -59,7 +59,7 @@ with lib;
         #     # package = pkgs.vscode.fhs;
         #     package = pkgs.vscode.fhsWithPackages (ps: with ps; [ rustup zlib openssl.dev pkg-config ]);
         # };
-        
+
         programs.vscode = {
           enable = true;
           #package = pkgs.vscodium;
@@ -103,6 +103,7 @@ with lib;
       ide.enable = true;
       home-manager.users.${host.vars.user} =  lib.mkMerge [
         (import ./home-zed.nix {inherit pkgs-unstable pkgs lib;} )
+        (import ./home-zed-keymap.nix)
         # (import ../../modules/home-manager/mutability.nix)
         # (import ./home-mutable.nix)
       ];

@@ -18,7 +18,7 @@
   ];
   boot.loader = {
     #systemd-boot.enable = true;
-    grub.efiSupport = true; 
+    grub.efiSupport = true;
     grub.enable = true;
     grub.device = "nodev";
     #efi.efiSysMountPoint = "/boot/EFI";
@@ -36,8 +36,8 @@
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = lib.mkForce true;
   networking.firewall.enable = lib.mkForce false;
-  # networking.firewall.checkReversePath = false; 
-  # networking.firewall.checkReversePath = "loose"; 
+  # networking.firewall.checkReversePath = false;
+  # networking.firewall.checkReversePath = "loose";
 
   # networking.networkmanager.dns = "none";
   networking.useDHCP = lib.mkForce false;
@@ -82,7 +82,7 @@
   #   # k4.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_6_11;};
 
   # };
-  
+
   # specialisation = {
   # #  gnome.configuration = {
   # #    gnome.enable = lib.mkForce true;
@@ -125,6 +125,7 @@
   # storagefs.share.vega_nfs = true;
   # storagefs.share.vega_smb = true;
   ide.vscode = true;
+  ide.zed = true;
   docker.enable = true;
   ####
   nixpkgs.config.allowUnfree = true;
@@ -153,7 +154,7 @@
     (with pkgs-unstable; [
       zsh
       btop
-      appimage-run # TODO 
+      appimage-run # TODO
       # orca-slicer
       # openrgb
       # zsh-completions
@@ -164,7 +165,7 @@
     enable = true;
     enableSSHSupport = false;
   };
-  
+
 
   fonts = { ## TODO entire block untested if even used, would like to use the Hack font
     fontDir.enable = true;
@@ -253,7 +254,7 @@
   };
   # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
   # headscale --namespace <namespace_name> nodes register --key <machine_key>
-  
+
   # systemd.network.enable = true;
   # services.resolved.dnssec = "allow-downgrade";
   # networking.useNetworkd = lib.mkDefault true;

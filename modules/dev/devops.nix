@@ -41,7 +41,6 @@ with lib;
       cilium-cli
       kind
       yaml-language-server  # TODO look into
-      nil # TODO move into ide
       inputs.compose2nix.packages.x86_64-linux.default
     ]);
       home-manager = {
@@ -112,6 +111,6 @@ with lib;
       #     };
       #   };
       # };
-    
+
   };
 }
