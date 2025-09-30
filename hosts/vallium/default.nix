@@ -14,6 +14,7 @@
     ./gpu.nix
     ./hardware-configuration.nix
     ./pika-backup.nix
+    ./specialisation.nix
     # ./winapps.nix
     # ./lvm.nix
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
@@ -49,7 +50,7 @@
   boot.loader = {
     #systemd-boot.enable = true;
     timeout = 1;
-    grub.efiSupport = true; 
+    grub.efiSupport = true;
     grub.enable = true;
     grub.device = "nodev";
     #efi.efiSysMountPoint = "/boot/EFI";
@@ -150,13 +151,13 @@
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
-    # pkgs-master.pciutils # pciutils 
-    pkgs-unstable.pciutils # pciutils 
+    # pkgs-master.pciutils # pciutils
+    pkgs-unstable.pciutils # pciutils
     pkgs-unstable.element-desktop
     # pkgs-unstable.coolercontrol.coolercontrol-gui
     # pkgs-unstable.coolercontrol.coolercontrold
     (pkgs-unstable.bottles.override {removeWarningPopup = true;}) #TODO investigate how this is done on the source and document, 14.06.2025 nixos-unstable
-    
+
     # pkgs-master.lact
     ] ++ (with pkgs; [
     # songrec gsettings-desktop-schemas gsettings-qt
@@ -223,7 +224,7 @@
     enable = true;
     enableSSHSupport = false;
   };
-  
+
   services.tailscale.enable = true;
   networking.firewall = {
     checkReversePath = "loose";
@@ -232,7 +233,7 @@
   };
   # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
   # headscale --namespace <namespace_name> nodes register --key <machine_key>
-  
+
   systemd.network.wait-online.enable = false;
   boot.initrd.systemd.network.wait-online.enable = false;
   ## for setting the default apps
@@ -246,7 +247,7 @@
       (import ./home-mutable.nix)
     ];
   };
-  
+
   hardware.bluetooth = {
     enable = lib.mkForce true;
     powerOnBoot = lib.mkForce true;
@@ -268,7 +269,7 @@
       };
     };
   };
-  
+
   environment.variables = {
     LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
   };

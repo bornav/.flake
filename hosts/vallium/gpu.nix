@@ -5,7 +5,12 @@
   ];
   #nvidia
   boot = {
-    initrd.kernelModules = [ "nvidia" ];
+    initrd.kernelModules = [
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
+    ];
     kernelParams = lib.mkMerge [
       [
           "nvidia.NVreg_UsePageAttributeTable=1" # why this isn't default is beyond me.
@@ -26,18 +31,18 @@
       # modesetting.enable = true;
       open = true;
       nvidiaSettings = false;
-      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
+      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-          version = "580.82.07";
-          sha256_64bit = "sha256-Bh5I4R/lUiMglYEdCxzqm3GLolQNYFB0/yJ/zgYoeYw=";
-          openSha256 = "sha256-8/7ZrcwBMgrBtxebYtCcH5A51u3lAxXTCY00LElZz08=";
-          usePersistenced = false;
-          useSettings = false;
-        };
+      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #     version = "580.82.07";
+      #     sha256_64bit = "sha256-Bh5I4R/lUiMglYEdCxzqm3GLolQNYFB0/yJ/zgYoeYw=";
+      #     openSha256 = "sha256-8/7ZrcwBMgrBtxebYtCcH5A51u3lAxXTCY00LElZz08=";
+      #     usePersistenced = false;
+      #     useSettings = false;
+      #   };
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true;
-      powerManagement.finegrained = false;
+      # powerManagement.finegrained = false;
       # prime = {
       #   offload.enable = true;
       #   #sync.enable = true;

@@ -1,4 +1,4 @@
-{ config, lib, system, inputs, host, pkgs, pkgs-unstable, pkgs-master, ... }:  # TODO remove system, only when from all modules it is removed
+{ config, lib, inputs, host, pkgs, pkgs-unstable, pkgs-master, ... }:  # TODO remove system, only when from all modules it is removed
 {
   imports = [
     # inputs.nix-flatpak.nixosModules.nix-flatpak
