@@ -145,6 +145,7 @@
 
   device.woothing = true;
   device.finalmouse = true;
+  device.orbital-pathfinder = true;
 
   storagefs.share.vega_nfs = true;
 
