@@ -31,15 +31,15 @@
       # modesetting.enable = true;
       open = true;
       nvidiaSettings = false;
-      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
+      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #     version = "580.82.07";
-      #     sha256_64bit = "sha256-Bh5I4R/lUiMglYEdCxzqm3GLolQNYFB0/yJ/zgYoeYw=";
-      #     openSha256 = "sha256-8/7ZrcwBMgrBtxebYtCcH5A51u3lAxXTCY00LElZz08=";
-      #     usePersistenced = false;
-      #     useSettings = false;
-      #   };
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+        version = "580.95.05";
+        sha256_64bit = "sha256-hJ7w746EK5gGss3p8RwTA9VPGpp2lGfk5dlhsv4Rgqc=";
+        openSha256 = "sha256-RFwDGQOi9jVngVONCOB5m/IYKZIeGEle7h0+0yGnBEI=";
+        usePersistenced = false;
+        useSettings = false;
+      };
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true;
       # powerManagement.finegrained = false;
