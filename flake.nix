@@ -5,8 +5,8 @@
       # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";         # Unstable Nix Packages
-      nixpkgs-master.url = "github:nixos/nixpkgs/master"; 
-      nixpkgs-bornav.url = "github:bornav/nixpkgs/headscale-restart-fix"; 
+      nixpkgs-master.url = "github:nixos/nixpkgs/master";
+      nixpkgs-bornav.url = "github:bornav/nixpkgs/headscale-restart-fix";
       # headplane = {
       #   url = "github:tale/headplane";
       #   inputs.nixpkgs.follows = "nixpkgs-bornav";
@@ -34,9 +34,10 @@
 
       # winapps = { url = "github:winapps-org/winapps";
       #             inputs.nixpkgs-unstable.follows = "nixpkgs";};
-
+      lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
+      lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-  outputs = { self, nur, wirenix, nixpkgs-unstable, nixpkgs-stable, nixpkgs-master, nixpkgs-bornav, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, ... } @ inputs:   # Function telling flake which inputs to use
+  outputs = { self, nur, wirenix, nixpkgs-unstable, nixpkgs-stable, nixpkgs-master, nixpkgs-bornav, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, lanzaboote, ... } @ inputs:   # Function telling flake which inputs to use
 	let
 		vars = {                                                              # Variables Used In Flake
 			user = "bocmo";

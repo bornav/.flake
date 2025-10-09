@@ -8,9 +8,9 @@
 # let
 #   srcDir = "/home/${vars.user}/libvirt";  # Replace this with the path to your source directory
 #   destDir = "/var/lib/libvirt";  # Replace this with the path to your destination directory
-# in 
+# in
 with lib;
-{   
+{
     options = {
     virtualization = {
       enable = mkOption {
@@ -32,7 +32,7 @@ with lib;
       users.users.${vars.user}.extraGroups = [ "libvirtd" ]; # TODO, make this somehow conditional so that is there is no user it skips this
       virtualisation.libvirtd.enable = true;
       programs.dconf.enable = true; # virt-manager requires dconf to remember settings
-      environment.systemPackages = with pkgs; [ 
+      environment.systemPackages = with pkgs; [
           virt-manager
           virt-viewer
           qemu
@@ -40,7 +40,7 @@ with lib;
           libgcc
       ];
       programs.appimage.binfmt = true;
-      boot.binfmt.emulatedSystems = 
+      boot.binfmt.emulatedSystems =
       [
         "aarch64-linux"
         # "x86_64-linux"
@@ -55,23 +55,23 @@ with lib;
         package = pkgs.qemu_kvm;
         runAsRoot = true;
         swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [(pkgs.OVMF.override {
-            secureBoot = true;
-            tpmSupport = true;
-          }).fd];
-        };
+        # ovmf = { # TODO look for alternative
+        #   enable = true;
+        #   packages = [(pkgs.OVMF.override {
+        #     secureBoot = true;
+        #     tpmSupport = true;
+        #   }).fd];
+        # };
       };
       })
     ];
-    
 
 
-    #look into 
+
+    #look into
     # boot.extraModprobeConfig = "options kvm_intel nested=1";
     ##
-    
+
     # lib.symlinkJoin.name = "libvirt-dir";  # Name for your package
     # lib.symlinkJoin.isDir = true;  # Indicates that it's a directory link
     # lib.symlinkJoin.src = srcDir;  # Source directory

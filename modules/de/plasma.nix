@@ -19,7 +19,7 @@ with lib;
   config = mkIf (config.plasma.enable) {
     services.xserver.enable = true;
     # services.xserver.displayManager.gdm.enable = lib.mkForce false;
-    
+
     services.displayManager.sddm.enable = false;
     services.displayManager.sddm.wayland.enable = false;
     services.desktopManager.plasma6 = {
@@ -51,28 +51,37 @@ with lib;
 
       # pkgs.kdePackages.kwallet
       # pkgs.kdePackages.kwallet-pam # provides helper service
-      # pkgs.kdePackages.kwalletmanager 
+      # pkgs.kdePackages.kwalletmanager
     ];
     environment = {
-      systemPackages = with pkgs; [  
+      systemPackages = with pkgs; [
         # kdePackages.kdialog
         kdePackages.kcalc # Calculator
         kdePackages.kcharselect # Tool to select and copy special characters from all installed fonts
         kdePackages.kolourpaint # Easy-to-use paint program
         kdePackages.ksystemlog # KDE SystemLog Application
+        kdePackages.kfind
+        kdePackages.breeze-icons
+        kdePackages.breeze-gtk
+        kdePackages.kde-gtk-config
+        kdePackages.xdg-desktop-portal-kde
+        kdePackages.dolphin
+        kdePackages.ark
+        kdePackages.kate
+        kdePackages.filelight
         # wayland-utils # Wayland utilities
         # wl-clipboard # Command-line copy/paste utilities for Wayland
       ];};
     environment.variables = {
     #   KWIN_DRM_NO_AMS=lib.mkForce "1"; ## allow tearing if enabled in settings
     };
-    programs = {    
+    programs = {
       kdeconnect = {                                    # GSConnect
         enable = lib.mkForce true;
     };
     };
     # home-manager.users.${vars.user} = {
-      
+
     # };
 
     home-manager = {

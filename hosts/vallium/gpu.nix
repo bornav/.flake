@@ -1,4 +1,4 @@
-{ config, lib, inputs, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
+{ config, lib, inputs, ... }:
 {
   imports = [
       inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime

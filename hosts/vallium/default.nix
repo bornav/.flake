@@ -50,21 +50,35 @@
   boot.loader = {
     #systemd-boot.enable = true;
     timeout = 1;
-    grub.efiSupport = true;
-    grub.enable = true;
-    grub.device = "nodev";
-    #efi.efiSysMountPoint = "/boot/EFI";
     efi.canTouchEfiVariables = true;
-    # grub.useOSProber = true;
-    grub.extraEntries = ''
-        menuentry 'Windows Boot Manager' --class windows --class os $menuentry_id_option 'osprober-efi-8CCC-5043' {
-          savedefault
-          insmod part_gpt
-          insmod fat
-          search --no-floppy --fs-uuid --set=root 8CCC-5043
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
-    '';
+    #efi.efiSysMountPoint = "/boot/EFI";
+    # grub = {
+    #   enable = true;
+    #   efiSupport = true;
+    #   device = "nodev"; # default
+    #   # useOSProber = true;
+    #   extraEntries = ''
+    #       menuentry 'Windows Boot Manager' --class windows --class os $menuentry_id_option 'osprober-efi-8CCC-5043' {
+    #         savedefault
+    #         insmod part_gpt
+    #         insmod fat
+    #         search --no-floppy --fs-uuid --set=root 8CCC-5043
+    #         chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+    #       }
+    #   '';
+    # };
+    limine = {
+      enable = true;
+      enableEditor = true;
+      efiSupport = true;
+      # biosDevice = "nodev"; # default
+      secureBoot.enable = true;
+      extraEntries = ''
+        /Windows
+            protocol: efi
+            path: uuid(eafba258-d1ca-4c97-821d-9effdf1756d2):/EFI/Microsoft/Boot/bootmgfw.efi
+      '';
+    };
   };
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -163,21 +177,16 @@
     ] ++ (with pkgs; [
     # songrec gsettings-desktop-schemas gsettings-qt
     # lact2
+    #
+    lm_sensors
+    openlinkhub
+
+    sbctl
+    mokutil
 
     alacritty
-    # libsForQt5.qtstyleplugin-kvantum
-    # libsForQt5.qtstyleplugins
-    # libsForQt5.breeze-qt5
-    kdePackages.dolphin
-    kdePackages.ark
-    kdePackages.breeze-icons
-    kdePackages.breeze-gtk
-    kdePackages.kde-gtk-config
-    kdePackages.xdg-desktop-portal-kde
+
     kdePackages.okular            # PDF Viewer
-    kdePackages.kate
-    kdePackages.filelight
-    kdePackages.kfind
 
     haruna
     jq
@@ -202,7 +211,7 @@
     nix-index
     ripgrep
     # betterbird
-    jellyfin-media-player
+    teamspeak_client
     python3
     egl-wayland
     ((vim_configurable.override { }).customize {
