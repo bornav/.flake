@@ -279,7 +279,7 @@
       };
     };
   };
-
+  # services.fwupd.enable = true; # firmware upgrade tool
   environment.variables = {
     LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
   };

@@ -11,12 +11,12 @@ let
     # https://github.com/Alex313031/thorium/blob/9bdeac89dd5cebe7120c063942ce0842dea40dec/infra/CMDLINE_FLAGS_LIST.md?plain=1#L1054 location of all flags
     ## seems this stopped working, investigate why
     # thorium-flags_dot_conf = ''
-    #     --enable-blink-features=MiddleClickAutoscroll 
+    #     --enable-blink-features=MiddleClickAutoscroll
     #     --enable-features=VaapiOnNvidiaGPUs
-    #     --gtk-version=4 
+    #     --gtk-version=4
     #     --custom-ntp=https://dashboard.icylair.com
-    #     --enable-features=UseOzonePlatform 
-    #     --ozone-platform-hint=auto 
+    #     --enable-features=UseOzonePlatform
+    #     --ozone-platform-hint=auto
     # '';
         # --ozone-platform=wayland
     thorium-flags_dot_conf = ''--enable-blink-features=MiddleClickAutoscroll --enable-features=VaapiOnNvidiaGPUs --gtk-version=4 --custom-ntp=https://dashboard.icylair.com --enable-features=UseOzonePlatform --ozone-platform-hint=auto'';
@@ -34,6 +34,7 @@ in
     environment = {
         systemPackages = with pkgs; [
             (pkgs.callPackage ./thorium2.nix {commandLineArgs = thorium-flags_dot_conf;})
+            (pkgs.callPackage ./egl-wayland2.nix {})
         ];}; #$XDG_CONFIG_HOME
     home-manager.users.${vars.user} = {
         # xdg.configFile = {
@@ -66,4 +67,3 @@ in
     };
   };
 }
-    
