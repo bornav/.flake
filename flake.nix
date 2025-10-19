@@ -37,7 +37,7 @@
       lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
       lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-  outputs = { self, nur, wirenix, nixpkgs-unstable, nixpkgs-stable, nixpkgs-master, nixpkgs-bornav, home-manager, hyprland, nixos-cosmic, nixos-hardware, compose2nix, nix-flatpak, disko, lanzaboote, ... } @ inputs:   # Function telling flake which inputs to use
+  outputs = { self, ... } @ inputs:   # Function telling flake which inputs to use
 	let
 		vars = {                                                              # Variables Used In Flake
 			user = "bocmo";
