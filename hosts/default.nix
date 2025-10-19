@@ -20,6 +20,7 @@
       # nur.nixosModules.nur
       ./configuration.nix
       ./vallium
+      .././modules
     ];
   };
   stealth = inputs.nixpkgs-unstable.lib.nixosSystem {

@@ -10,18 +10,18 @@ let
   # };
 in
 {
-  imports = ( import ../modules/shell ++
-              import ../modules/terminalEmulators ++
-              import ../modules/virtualization ++
-              import ../modules/dev ++
-              import ../modules/gaming ++
-              import ../modules/common ++
-              import ../modules/vpn ++
-              import ../modules/custom_pkg ++
-              import ../modules/devices ++
-              import ../modules/storage ++
-              import ../modules/nix ++
-              import ../modules/de);
+  # imports = ( import ../modules/shell ++
+  #             import ../modules/terminalEmulators ++
+  #             import ../modules/virtualization ++
+  #             import ../modules/dev ++
+  #             import ../modules/gaming ++
+  #             import ../modules/common ++
+  #             import ../modules/vpn ++
+  #             import ../modules/custom_pkg ++
+  #             import ../modules/devices ++
+  #             import ../modules/storage ++
+  #             import ../modules/nix ++
+  #             import ../modules/de);
   time.timeZone = "Europe/Vienna";
   i18n = {
     defaultLocale = "en_US.UTF-8";

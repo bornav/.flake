@@ -1,3 +1,5 @@
-[
-  ./networkmanager.nix
-]
+{
+  imports = [
+  # ./networkmanager.nix
+  ];
+}

@@ -1,4 +1,5 @@
-[
+{
+  imports = [
   ./devops.nix
   ./ai.nix
   ./portainer.nix
@@ -6,4 +7,5 @@
   ./options.nix
   ./docker.nix
   ./podman.nix
-]
+  ];
+}

@@ -10,8 +10,16 @@
 #           └─ ...
 #
 
-[
-  ./git.nix
-  ./zsh.nix
-#   ./direnv.nix
-]
+# [
+#   ./git.nix
+#   ./zsh.nix
+# #   ./direnv.nix
+# ]
+
+
+{
+  imports = [
+    ./git.nix
+    ./zsh.nix
+  ];
+}

@@ -10,11 +10,13 @@
 #           └─ ...
 #
 
-[
+{
+  imports = [
 #   ./git.nix
   ./gnome.nix
   ./cosmic-desktop.nix
   ./plasma.nix
   ./hyprland.nix
 #   ./direnv.nix
-]
+  ];
+}

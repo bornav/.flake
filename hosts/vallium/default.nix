@@ -108,33 +108,7 @@
     WLR_NO_HARDWARE_CURSORS = "1"; # look into removing
     NIXOS_OZONE_WL = "1"; #Hint electron apps to use wayland
   };
-  # #### modules
-  # specialisation = {
-  #  gnome.configuration = {
-  #    gnome.enable = lib.mkForce true;
-  #    cosmic-desktop.enable =  lib.mkForce false;
-  #    plasma.enable = lib.mkForce false;
-  #    hyprland.enable = lib.mkForce false;
-  #  };
-  # #  hyprland.configuration = {
-  # #    cosmic-desktop.enable = lib.mkForce false;
-  # #    gnome.enable = lib.mkForce false;
-  # #    plasma.enable = lib.mkForce false;
-  # #    hyprland.enable = lib.mkForce true;
-  # #  };
-  # #  cosmic.configuration = {
-  # #    cosmic-desktop.enable = lib.mkForce true;
-  # #    gnome.enable = lib.mkForce false;
-  # #    plasma.enable = lib.mkForce false;
-  # #    hyprland.enable = lib.mkForce false;
-  # #  };
-  # #  plasma.configuration = {
-  # #    cosmic-desktop.enable = lib.mkForce false;
-  # #    gnome.enable = lib.mkForce false;
-  # #    plasma.enable = lib.mkForce true;
-  # #    hyprland.enable = lib.mkForce false;
-  # #  };
-  # };
+
   # gnome.enable = lib.mkDefault true;
   plasma.enable = lib.mkDefault true;
   # hyprland.enable = lib.mkForce false;
@@ -230,6 +204,7 @@
       # openrgb
       avahi
   ]);
+  programs.zsh.enable = true; # TODO REMOVE ME, temp
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = false;
