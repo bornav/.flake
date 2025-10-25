@@ -27,9 +27,9 @@
     ];
   };
   nixpkgs.overlays = [
-    (final: _: {
-      egl-wayland = final.customPkgs.egl-wayland2;
-    })
+    # (final: _: {
+    #   egl-wayland = final.customPkgs.egl-wayland2;
+    # })
   ];
   hardware = {
     nvidia = {
