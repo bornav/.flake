@@ -88,7 +88,7 @@ with lib;
               "window.customTitleBarVisibility": "auto",
               "workbench.activityBar.location": "top",
               "yaml.schemas": {
-                "/home/bocmo/.vscode/extensions/continue.continue-1.0.15-linux-x64/config-yaml-schema.json": [
+                "/home/user/.vscode/extensions/continue.continue-1.0.15-linux-x64/config-yaml-schema.json": [
                   ".continue/**/*.yaml"
                 ]
               }

@@ -119,7 +119,7 @@
     {
         if [[ $EUID == 0 ]]; then
             user_color=red
-        elif [[ $USER == "bocmo" && $HOST == "vallium" ]]; then
+        elif [[ $USER == "user" && $HOST == "vallium" ]]; then
             user_color=cyan
         else
             # export hex_chars="''${!USER:0:2}"

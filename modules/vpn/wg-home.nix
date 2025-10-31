@@ -3,7 +3,7 @@ let
   dns_address = "10.1.1.1";
 in
 with lib;
-{   
+{
   options = {
     wg-home = {
       enable = mkOption {
@@ -16,7 +16,7 @@ with lib;
       };
       privateKeyFileLocation = mkOption {
         type = types.str;
-        default = "/home/bocmo/.ssh/wg/priv.key";
+        default = "/home/user/.ssh/wg/priv.key";
       };
     };
   };
@@ -36,14 +36,14 @@ with lib;
           }
         ];
       };
-      
+
     };
   #   networking.wireguard.enable = true;
   #   networking.wireguard.interfaces = {
   #     wg0 = {
   #       ips = [ config.wg-home.local_ip ];
   #       listenPort = 51820;
-  #       privateKeyFile = "/home/bocmo/.ssh/wg/priv.key";
+  #       privateKeyFile = "/home/user/.ssh/wg/priv.key";
   #       peers = [
   #         {
   #           publicKey = "ijU4YxKoxbBwGZBIxuo8SXYtd9mU3Fug77ZdpM+0OUo=";

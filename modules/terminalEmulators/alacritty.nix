@@ -27,7 +27,7 @@ in
                     # - buttonless: title bar, transparent background, but no title bar buttons
                     decorations="transparent";
                 };
-                
+
                 # keyboard.bindings = [
                 #     {
                 #     key = "K";
@@ -35,7 +35,7 @@ in
                 #     chars = "\\x0c";
                 #     }
                 # ];
-                # working_directory = "/home/bocmo";
+                # working_directory = "/home/user";
                 cursor.style.shape = "Beam";
                 window.opacity = 0.8;
                 scrolling.history = 50000;
@@ -45,7 +45,7 @@ in
                 font = { # TODO see how i like the font
                     # The normal (roman) font face to use.
                     # Style can be specified to pick a specific face.
-                    
+
                     normal.family="Hack Nerd Font Mono";
                     normal.style="Regular";
                         # family: "Fira Code"

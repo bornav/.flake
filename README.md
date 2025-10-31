@@ -6,12 +6,12 @@ git clone <url> /mnt/<path>
 nixos-install --flake .#<host>  || in my case username
 reboot
 ```
-## after first login 
+## after first login
 `sudo rm -r /etc/nixos/configuration.nix`
     / move build to desired location
 
 ## rebuild config
-`sudo nixos-rebuild switch --flake ~/.flake/#bocmo`
+`sudo nixos-rebuild switch --flake ~/.flake/#user`
 
 ## update flage dependancies
 `nix flake update`
@@ -28,8 +28,8 @@ reboot
 
 `nix run --extra-experimental-features nix-command --extra-experimental-features flakes github:nix-community/nixos-anywhere -- --flake ~/.flake#dockeropen --vm-test`
 
-`nix run github:nix-community/nixos-anywhere -- --flake ~/.flake#dockeropen root@10.2.11.33` 
-    
+`nix run github:nix-community/nixos-anywhere -- --flake ~/.flake#dockeropen root@10.2.11.33`
+
 `nix run github:nix-community/nixos-anywhere -- --flake ~/.flake#dockeropen --arg disks '[ "/dev/sda" ]' root@10.2.11.33`  #test
 
 ### rebuild remote from local

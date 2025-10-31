@@ -56,7 +56,7 @@ in
         #     tttt = {
         #         name = "tttt";
         #         genericName = "Web Browser";
-        #         exec = "/home/bocmo/.config/thorium-browser.sh";
+        #         exec = "/home/user/.config/thorium-browser.sh";
         #         # exec = "thorium";
         #         terminal = false;
         #         categories = [ "Application" "Network" "WebBrowser" ];

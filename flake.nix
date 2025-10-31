@@ -40,7 +40,7 @@
   outputs = { self, ... } @ inputs:   # Function telling flake which inputs to use
 	let
 		vars = {                                                              # Variables Used In Flake
-			user = "bocmo";
+			user = "user";
 			location = "$HOME/.flake";
 			terminal = "alacritty";
 			editor = "vim";
