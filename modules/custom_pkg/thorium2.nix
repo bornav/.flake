@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   makeWrapper,
   alsa-lib,
   autoPatchelfHook,
@@ -149,7 +149,7 @@ in
 
     nativeBuildInputs = [
       dpkg
-      (wrapGAppsHook.override {inherit makeWrapper;})
+      (wrapGAppsHook3.override {inherit makeWrapper;})
       qt6.wrapQtAppsHook
     ];
 

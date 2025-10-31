@@ -42,6 +42,7 @@
       # nur.nixosModules.nur
       ./configuration.nix
       ./stealth
+      .././modules
     ];
   };
   dockeropen = inputs.nixpkgs-unstable.lib.nixosSystem {
@@ -108,6 +109,7 @@
       # nur.nixosModules.nur
       ./configuration.nix
       ./zbook-max395
+      .././modules
     ];
   };
   networktest = inputs.nixpkgs-unstable.lib.nixosSystem {

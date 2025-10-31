@@ -26,7 +26,7 @@
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       nerd-fonts.hack
       # (nerdfonts.override { fonts = [ "Hack" ]; })
     ];
@@ -185,10 +185,10 @@
     nix-index
     ripgrep
     # betterbird
-    teamspeak_client
+    teamspeak3
     python3
     egl-wayland
-    ((vim_configurable.override { }).customize {
+    ((vim-full.override { }).customize {
     name = "vim";
       vimrcConfig.customRC = ''
         set mouse=""

@@ -13,7 +13,7 @@
     # inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
     ./disk-config.nix
     ./hardware-configuration.nix
-    ./ai.nix
+    # ./ai.nix
     {_module.args.disks = [ "/dev/nvme0n1" ];}
   ];
   boot.loader = {
@@ -173,7 +173,7 @@
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       nerd-fonts.hack
       # (nerdfonts.override { fonts = [ "Hack" ]; })
     ];

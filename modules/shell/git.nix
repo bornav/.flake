@@ -9,10 +9,14 @@
     home-manager.users.${vars.user} = {
         home.packages = [ pkgs.git-lfs ];
         programs.git = {
-            package = pkgs.gitAndTools.gitFull;
+            # package = pkgs.gitAndTools.gitFull;
             enable = true;
-            userName  = "bornav";
-            userEmail = "borna.vincek1@gmail.com";
+            settings = {
+              user = {
+                name  = "bornav";
+                email = "borna.vincek1@gmail.com";
+              };
+            };
         };
     };
 }

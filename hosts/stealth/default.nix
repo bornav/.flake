@@ -27,7 +27,7 @@
   ];
   boot.loader = {
     #systemd-boot.enable = true;
-    grub.efiSupport = true; 
+    grub.efiSupport = true;
     grub.enable = true;
     grub.device = "nodev";
     #efi.efiSysMountPoint = "/boot/EFI";
@@ -105,7 +105,7 @@
     enable = true;
     enableSSHSupport = false;
   };
-  
+
 
   fonts = { ## TODO entire block untested if even used, would like to use the Hack font
     fontDir.enable = true;
@@ -113,7 +113,7 @@
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       nerd-fonts.hack
       # (nerdfonts.override { fonts = [ "Hack" ]; })
     ];
@@ -180,7 +180,7 @@
   };
   # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
   # headscale --namespace <namespace_name> nodes register --key <machine_key>
-  
+
 
   # networking.useNetworkd = lib.mkDefault true;
 }
