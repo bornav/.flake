@@ -35,34 +35,28 @@
     nvidia = {
       # modesetting.enable = true;
       open = true;
+      gsp.enable = config.hardware.nvidia.open; # if using closed drivers, lets assume you don't want gsp
+
       nvidiaSettings = false;
-      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
+      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "580.95.05";
-        sha256_64bit = "sha256-hJ7w746EK5gGss3p8RwTA9VPGpp2lGfk5dlhsv4Rgqc=";
-        openSha256 = "sha256-RFwDGQOi9jVngVONCOB5m/IYKZIeGEle7h0+0yGnBEI=";
-        usePersistenced = false;
-        useSettings = false;
-      };
+      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #   version = "580.95.05";
+      #   sha256_64bit = "sha256-hJ7w746EK5gGss3p8RwTA9VPGpp2lGfk5dlhsv4Rgqc=";
+      #   openSha256 = "sha256-RFwDGQOi9jVngVONCOB5m/IYKZIeGEle7h0+0yGnBEI=";
+      #   usePersistenced = false;
+      #   useSettings = false;
+      # };
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true;
       # powerManagement.finegrained = false;
-      # prime = {
-      #   offload.enable = true;
-      #   #sync.enable = true;
-      #   amdgpuBusId = "PCI:108:0:0"; # lspci value, converted hex to decimal
-      #   nvidiaBusId = "PCI:1:0:0";
-      # };
-      # prime = {
-      #   # For people who want to use sync instead of offload. Especially for AMD CPU users
-      #   sync.enable = lib.mkOverride 990 true;
-      #   amdgpuBusId = "";
-      #   nvidiaBusId = "";
-      # };
+      #
+      videoAcceleration = true;
     };
-    graphics.enable = true;
-    graphics.enable32Bit = true;
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
   };
   environment = {
     sessionVariables = {
@@ -86,4 +80,23 @@
   #   ACTION=="add", KERNEL=="0000:00:03.0", SUBSYSTEM=="pci", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000:6c:00.0/remove'"
   # '';
   #####
+  #
+
+  # Set power limit
+  systemd.services.nvidia-gpu-powerlimit = {
+    description = "Set NVIDIA GPU power limit";
+    wantedBy = [ "multi-user.target" ];
+    after = [
+      # "nvidia-persistenced.service"
+      "systemd-udev-settle.service"
+    ];
+    # requires = [ "nvidia-persistenced.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = [
+        "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -pl 350" # number indicates watts, there is diff min,max per gpu
+      ];
+    };
+  };
 }
