@@ -60,6 +60,7 @@
   };
   environment = {
     sessionVariables = {
+      VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json"; # if this missing getting warning terminator_CreateInstance in `vulkaninfo --summary`
       # disable vsync
       __GL_SYNC_TO_VBLANK = "0";
       # enable gsync / vrr support

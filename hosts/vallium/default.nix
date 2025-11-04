@@ -15,6 +15,7 @@
     ./hardware-configuration.nix
     ./pika-backup.nix
     ./specialisation.nix
+    ./pcie-passtrough.nix
     # ./winapps.nix
     # ./lvm.nix
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
