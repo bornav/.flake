@@ -26,6 +26,8 @@
       "nouveau"
     ];
   };
+  nixpkgs.config.allowUnfree = !config.hardware.nvidia.gsp.enable;
+  nixpkgs.config.nvidia.acceptLicense = !config.hardware.nvidia.gsp.enable;
   nixpkgs.overlays = [
     # (final: _: {
     #   egl-wayland = final.customPkgs.egl-wayland2;
@@ -34,19 +36,18 @@
   hardware = {
     nvidia = {
       # modesetting.enable = true;
-      open = true;
+      open = false;
       gsp.enable = config.hardware.nvidia.open; # if using closed drivers, lets assume you don't want gsp
-
       nvidiaSettings = false;
-      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
+      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #   version = "580.95.05";
-      #   sha256_64bit = "sha256-hJ7w746EK5gGss3p8RwTA9VPGpp2lGfk5dlhsv4Rgqc=";
-      #   openSha256 = "sha256-RFwDGQOi9jVngVONCOB5m/IYKZIeGEle7h0+0yGnBEI=";
-      #   usePersistenced = false;
-      #   useSettings = false;
-      # };
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+        version = "580.105.08";
+        sha256_64bit = "sha256-2cboGIZy8+t03QTPpp3VhHn6HQFiyMKMjRdiV2MpNHU=";
+        openSha256 = "";
+        usePersistenced = false;
+        useSettings = false;
+      };
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true;
       # powerManagement.finegrained = false;
@@ -83,21 +84,21 @@
   #####
   #
 
-  # Set power limit
-  systemd.services.nvidia-gpu-powerlimit = {
-    description = "Set NVIDIA GPU power limit";
-    wantedBy = [ "multi-user.target" ];
-    after = [
-      # "nvidia-persistenced.service"
-      "systemd-udev-settle.service"
-    ];
-    # requires = [ "nvidia-persistenced.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = [
-        "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -pl 350" # number indicates watts, there is diff min,max per gpu
-      ];
-    };
-  };
+  # # Set power limit
+  # systemd.services.nvidia-gpu-powerlimit = {
+  #   description = "Set NVIDIA GPU power limit";
+  #   wantedBy = [ "multi-user.target" ];
+  #   after = [
+  #     # "nvidia-persistenced.service"
+  #     "systemd-udev-settle.service"
+  #   ];
+  #   # requires = [ "nvidia-persistenced.service" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     RemainAfterExit = true;
+  #     ExecStart = [
+  #       "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -pl 350" # number indicates watts, there is diff min,max per gpu
+  #     ];
+  #   };
+  # };
 }
