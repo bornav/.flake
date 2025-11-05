@@ -29,14 +29,14 @@
   nixpkgs.config.allowUnfree = !config.hardware.nvidia.gsp.enable;
   nixpkgs.config.nvidia.acceptLicense = !config.hardware.nvidia.gsp.enable;
   nixpkgs.overlays = [
-    # (final: _: {
-    #   egl-wayland = final.customPkgs.egl-wayland2;
-    # })
+    (final: _: {
+      egl-wayland = final.customPkgs.egl-wayland2;
+    })
   ];
   hardware = {
     nvidia = {
       # modesetting.enable = true;
-      open = false;
+      open = true;
       gsp.enable = config.hardware.nvidia.open; # if using closed drivers, lets assume you don't want gsp
       nvidiaSettings = false;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
@@ -44,7 +44,7 @@
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
         version = "580.105.08";
         sha256_64bit = "sha256-2cboGIZy8+t03QTPpp3VhHn6HQFiyMKMjRdiV2MpNHU=";
-        openSha256 = "";
+        openSha256 = "sha256-FGmMt3ShQrw4q6wsk8DSvm96ie5yELoDFYinSlGZcwQ=";
         usePersistenced = false;
         useSettings = false;
       };
