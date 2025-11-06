@@ -11,7 +11,7 @@
     alias restart_displayserver="sudo systemctl restart lightdm"
     alias yay_clean="yay -cc && yay -Sc"
     alias _chezmoi_sync_local="chezmoi re-add" #re adds all watched files and commits changes
-    alias ssh='TERM=xterm-color ssh'
+    alias ssh='TERM=xterm-color ssh -o StrictHostKeychecking=no -o UserKnownHostsFile=/dev/null'
     alias sftp='sftp -o RemoteCommand=none -o RequestTTY=no' # this is here in case we add remotecommand to the ssh config file
     alias k9s='EDITOR=vim k9s'
     alias kubectl='EDITOR=vim kubectl'
