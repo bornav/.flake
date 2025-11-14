@@ -130,7 +130,7 @@
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
-    pkgs-unstable.element-desktop
+    #pkgs-unstable.element-desktop
     ] ++ (with pkgs; [
     alacritty
     kdePackages.dolphin

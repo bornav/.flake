@@ -143,7 +143,7 @@
   environment.systemPackages = [
     # pkgs-master.pciutils # pciutils
     pkgs-unstable.pciutils # pciutils
-    pkgs-unstable.element-desktop
+    # pkgs-unstable.element-desktop
     # pkgs-unstable.coolercontrol.coolercontrol-gui
     # pkgs-unstable.coolercontrol.coolercontrold
     (pkgs-unstable.bottles.override {removeWarningPopup = true;}) #TODO investigate how this is done on the source and document, 14.06.2025 nixos-unstable
@@ -173,7 +173,6 @@
     # sublime-merge
     feh
     gparted
-    # teamspeak3
     nordic
     papirus-nord
     # pciutils # lspci
@@ -186,7 +185,7 @@
     nix-index
     ripgrep
     # betterbird
-    teamspeak3
+    # teamspeak3
     python3
     egl-wayland
     ((vim-full.override { }).customize {
