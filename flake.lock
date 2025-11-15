@@ -851,6 +851,22 @@
     },
     "nixpkgs_7": {
       "locked": {
+        "lastModified": 1756542300,
+        "narHash": "sha256-tlOn88coG5fzdyqz6R93SQL5Gpq+m/DsWpekNFhqPQk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d7600c775f877cd87b4f5a831c28aa94137377aa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_8": {
+      "locked": {
         "lastModified": 0,
         "narHash": "sha256-ECni+IkwXjusHsm9Sexdtq8weAq/yUyt1TWIemXt3Ko=",
         "path": "/nix/store/bi5zxc0v5g6ylygdwyqzh280sccg3ykb-source",
@@ -899,6 +915,27 @@
       "original": {
         "owner": "aksiksi",
         "repo": "onchg-rs",
+        "type": "github"
+      }
+    },
+    "plasma-manager": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": "nixpkgs_7"
+      },
+      "locked": {
+        "lastModified": 1762784320,
+        "narHash": "sha256-odsk96Erywk5hs0dhArF38zb7Oe0q6LZ70gXbxAPKno=",
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "rev": "7911a0f8a44c7e8b29d031be3149ee8943144321",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "plasma-manager",
         "type": "github"
       }
     },
@@ -968,6 +1005,7 @@
         "nixpkgs-stable": "nixpkgs-stable_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
+        "plasma-manager": "plasma-manager",
         "wirenix": "wirenix"
       }
     },
@@ -1030,7 +1068,7 @@
     },
     "wirenix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": "nixpkgs_8"
       },
       "locked": {
         "lastModified": 1721448132,

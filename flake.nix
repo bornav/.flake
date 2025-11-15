@@ -36,6 +36,11 @@
       #             inputs.nixpkgs-unstable.follows = "nixpkgs";};
       lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
       lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
+      plasma-manager = {
+          url = "github:nix-community/plasma-manager";
+          inputs.home-manager.follows = "home-manager";
+          # inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
   outputs = { self, ... } @ inputs:   # Function telling flake which inputs to use
 	let

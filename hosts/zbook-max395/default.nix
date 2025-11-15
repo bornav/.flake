@@ -1,10 +1,21 @@
-{ config, lib, inputs, host, pkgs, pkgs-unstable, pkgs-master, ... }:  # TODO remove system, only when from all modules it is removed
+{
+  config,
+  lib,
+  inputs,
+  host,
+  pkgs,
+  pkgs-unstable,
+  pkgs-master,
+  ...
+}: # TODO remove system, only when from all modules it is removed
 {
   imports = [
     # inputs.nix-flatpak.nixosModules.nix-flatpak
-    inputs.home-manager.nixosModules.home-manager {
+    inputs.home-manager.nixosModules.home-manager
+    {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager];
     }
     inputs.nixos-cosmic.nixosModules.default
     inputs.disko.nixosModules.disko
@@ -14,7 +25,7 @@
     ./disk-config.nix
     ./hardware-configuration.nix
     # ./ai.nix
-    {_module.args.disks = [ "/dev/nvme0n1" ];}
+    { _module.args.disks = [ "/dev/nvme0n1" ]; }
   ];
   boot.loader = {
     #systemd-boot.enable = true;
@@ -24,13 +35,13 @@
     #efi.efiSysMountPoint = "/boot/EFI";
     efi.canTouchEfiVariables = true;
     grub.extraEntries = ''
-        menuentry 'Windows Boot Manager (on /dev/nvme0n1p5)' --class windows --class os $menuentry_id_option 'osprober-efi-1CA7-78C0' {
-          savedefault
-          insmod part_gpt
-          insmod fat
-          search --no-floppy --fs-uuid --set=root 1CA7-78C0
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
+      menuentry 'Windows Boot Manager (on /dev/nvme0n1p5)' --class windows --class os $menuentry_id_option 'osprober-efi-1CA7-78C0' {
+        savedefault
+        insmod part_gpt
+        insmod fat
+        search --no-floppy --fs-uuid --set=root 1CA7-78C0
+        chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+      }
     '';
   };
   networking.hostName = host.hostName; # Define your hostname.
@@ -55,23 +66,27 @@
   users.users.${host.vars.user} = {
     isNormalUser = true;
     description = "${host.vars.user}";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [];
-    openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
+    packages = with pkgs; [ ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"
+    ];
   };
   environment.sessionVariables = {
-    flake_name=host.hostName;
-    FLAKE="$HOME/.flake";
-    NIXOS_CONFIG="$HOME/.flake";
+    flake_name = host.hostName;
+    FLAKE = "$HOME/.flake";
+    NIXOS_CONFIG = "$HOME/.flake";
     # NIXOS_CONFIG="/home/${host.vars.user}/.flake";
     # QT_STYLE_OVERRIDE="kvantum";
     NIXOS_OZONE_WL = "1";
   };
 
-
   # services.tlp.enable = lib.mkForce false;
   # services.power-profiles-daemon.enable = lib.mkForce false;
-
 
   services.acpid.enable = true;
 
@@ -118,9 +133,9 @@
   steam.enable = true;
   thorium.enable = true;
   rar.enable = true;
-  # wg-home.enable = true;
-  # wg-home.local_ip = "10.10.1.3/32";
-  # wg-home.privateKeyFileLocation = "/home/user/.ssh/wg/zbook/priv.key";
+  wg-home.enable = true;
+  wg-home.local_ip = "10.10.1.3/32";
+  wg-home.privateKeyFileLocation = "/home/user/.ssh/wg/zbook/priv.key";
   # flatpak.enable = true;
   # storagefs.share.vega_nfs = true;
   # storagefs.share.vega_smb = true;
@@ -131,7 +146,8 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
     #pkgs-unstable.element-desktop
-    ] ++ (with pkgs; [
+  ]
+  ++ (with pkgs; [
     alacritty
     kdePackages.dolphin
     kdePackages.ark
@@ -148,26 +164,25 @@
     qjournalctl
     xorg.xkill
 
-
     vulkan-tools
-  ]) ++
-    (with pkgs-unstable; [
-      zsh
-      btop
-      appimage-run # TODO
-      # orca-slicer
-      # openrgb
-      # zsh-completions
-      # zsh-autocomplete
-      # gpt4all-chat
-    ]);
+  ])
+  ++ (with pkgs-unstable; [
+    zsh
+    btop
+    appimage-run # TODO
+    # orca-slicer
+    # openrgb
+    # zsh-completions
+    # zsh-autocomplete
+    # gpt4all-chat
+  ]);
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = false;
   };
 
-
-  fonts = { ## TODO entire block untested if even used, would like to use the Hack font
+  fonts = {
+    # # TODO entire block untested if even used, would like to use the Hack font
     fontDir.enable = true;
     fontconfig.enable = true;
     packages = with pkgs; [
@@ -179,8 +194,14 @@
     ];
     fontconfig = {
       defaultFonts = {
-        serif = [  "Liberation Serif" "Vazirmatn" ];
-        sansSerif = [ "Ubuntu" "Vazirmatn" ];
+        serif = [
+          "Liberation Serif"
+          "Vazirmatn"
+        ];
+        sansSerif = [
+          "Ubuntu"
+          "Vazirmatn"
+        ];
         monospace = [ "Ubuntu Mono" ];
       };
     };
@@ -188,10 +209,11 @@
 
   home-manager = {
     backupFileExtension = "backup";
-    extraSpecialArgs = {inherit inputs;};
-    users.${host.vars.user} =  lib.mkMerge [
+    extraSpecialArgs = { inherit inputs; };
+    users.${host.vars.user} = lib.mkMerge [
       (import ./home.nix)
       (import ../../modules/home-manager/mutability.nix)
+      (import ./nix-community-plasma-manager-conf.nix)
       # (import ./home-mutable.nix)
     ];
   };
