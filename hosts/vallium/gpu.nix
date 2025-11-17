@@ -28,11 +28,11 @@
   };
   nixpkgs.config.allowUnfree = !config.hardware.nvidia.gsp.enable;
   nixpkgs.config.nvidia.acceptLicense = !config.hardware.nvidia.gsp.enable;
-  nixpkgs.overlays = [
-    (final: _: {
-      egl-wayland = final.customPkgs.egl-wayland2;
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (final: _: {
+  #     egl-wayland = final.customPkgs.egl-wayland2;
+  #   })
+  # ];
   hardware = {
     nvidia = {
       # modesetting.enable = true;
@@ -71,9 +71,10 @@
       __GL_MaxFramesAllowed = "1";
       # fix hw acceleration and native wayland on losslesscut
       __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json";
-      CUDA_CACHE_PATH = "$HOME/.cache/nv";
-      # # fix gtk4 freezes on 580
-      # GSK_RENDERER = "ngl";
+      # fix hw acceleration in bwrap (osu!lazer, wrapped appimages)
+      __EGL_EXTERNAL_PLATFORM_CONFIG_DIRS = "/run/opengl-driver/share/egl/egl_external_platform.d";
+      CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
+      CUDA_DISABLE_PERF_BOOST = 1; # TODO LOOK IF REMOVE NECESSARY
     };
   };
   ##### blacklist igpu

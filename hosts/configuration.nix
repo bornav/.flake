@@ -1,4 +1,4 @@
-{inputs, config, system, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
+{lib, inputs, config, system, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
 let
   # pkgs = import inputs.nixpkgs-unstable {
   #   inherit system;
@@ -149,14 +149,14 @@ in
   #
 
   nix = {
-    settings.auto-optimise-store = true;
+    settings.auto-optimise-store = lib.mkDefault true;
     gc = {                                  # Garbage Collection
-      automatic = true;
+      automatic = lib.mkDefault true;
       dates = "weekly";
       options = "--delete-older-than 14d";
     };
-    package = pkgs.nixVersions.stable;
+    # package = lib.mkDefault pkgs.nixVersions.stable;
     extraOptions = "experimental-features = nix-command flakes";
-    settings.max-jobs = 4;
+    settings.max-jobs = lib.mkDefault 4;
   };
 }
