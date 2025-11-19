@@ -286,4 +286,5 @@
     enable32Bit = true;
   };
   services.lact.enable = true;
+  services.fwupd.enable = true; # firmware upgrade tool
 }
