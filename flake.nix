@@ -41,6 +41,9 @@
           inputs.home-manager.follows = "home-manager";
           # inputs.nixpkgs.follows = "nixpkgs";
         };
+      flox = {
+            url = "github:flox/flox/latest";
+          };
     };
   outputs = { self, ... } @ inputs:   # Function telling flake which inputs to use
 	let

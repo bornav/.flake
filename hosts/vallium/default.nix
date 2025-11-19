@@ -141,6 +141,9 @@
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
+    (pkgs-unstable.callPackage ../../modules/custom_pkg/helium_browser.nix {})
+    inputs.flox.packages.${pkgs.system}.default
+
     # pkgs-master.pciutils # pciutils
     pkgs-unstable.pciutils # pciutils
     # pkgs-unstable.element-desktop
@@ -155,14 +158,10 @@
     #
     lm_sensors
     openlinkhub
-
     sbctl
     mokutil
-
     alacritty
-
     kdePackages.okular            # PDF Viewer
-
     haruna
     jq
     kdiskmark

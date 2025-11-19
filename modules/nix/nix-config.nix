@@ -33,11 +33,13 @@
             # cuda cache has a default priority of 30, set it to a
             # lower prio. regular nixpkgs cache has a priority of 40
             "https://cache.nixos-cuda.org?priority=41"
+            "https://cache.flox.dev"
           ];
           extra-trusted-public-keys = [
             "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
             "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+            "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
           ];
         };
       };

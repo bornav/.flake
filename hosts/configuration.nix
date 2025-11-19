@@ -67,7 +67,8 @@ in
       mission-center # windows like task manager
       # nh
       tmux
-      # dbus
+
+      dbus # TODO test
       # dbus-broker
       iperf3
     ] ++
