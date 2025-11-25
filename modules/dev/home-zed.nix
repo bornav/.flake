@@ -75,17 +75,20 @@
         # };
         working_directory = "current_project_directory";
       };
-
+      global_lsp_settings = {
+        button = true;
+      };
       lsp = {
         rust-analyzer = {
           binary = {
-            #                        path = lib.getExe pkgs.rust-analyzer;
-            path_lookup = true;
+            path = lib.getExe pkgs.rust-analyzer;
+            # path_lookup = true;
           };
         };
         nix = {
           binary = {
-            path_lookup = true;
+            path = lib.getExe pkgs.nixd;
+            # path_lookup = true;
           };
         };
       };

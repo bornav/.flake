@@ -13,7 +13,7 @@
     alias _chezmoi_sync_local="chezmoi re-add" #re adds all watched files and commits changes
     alias ssh='TERM=xterm-color ssh -o StrictHostKeychecking=no -o UserKnownHostsFile=/dev/null'
     alias sftp='sftp -o RemoteCommand=none -o RequestTTY=no' # this is here in case we add remotecommand to the ssh config file
-    alias k9s='EDITOR=vim k9s'
+    alias k9s='EDITOR=vim k9s --all-namespaces --splashless --command pods'
     alias kubectl='EDITOR=vim kubectl'
     alias kubectl_pod_status="kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'"
     #ide

@@ -24,6 +24,8 @@
     # inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
     ./disk-config.nix
     ./hardware-configuration.nix
+    ./my_modules.nix
+    ./specialisation.nix
     # ./ai.nix
     { _module.args.disks = [ "/dev/nvme0n1" ]; }
   ];
@@ -90,59 +92,6 @@
 
   services.acpid.enable = true;
 
-  # specialisation = {
-  #   # k1.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_6_11;};
-  #   k2.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_5_4;};
-  #   k3.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_6_6;};
-  #   # k4.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_6_11;};
-
-  # };
-
-  # specialisation = {
-  # #  gnome.configuration = {
-  # #    gnome.enable = lib.mkForce true;
-  # #    cosmic-desktop.enable =  lib.mkForce false;
-  # #    plasma.enable = lib.mkForce false;
-  # #    hyprland.enable = lib.mkForce false;
-  # #  };
-  # #  hyprland.configuration = {
-  # #    cosmic-desktop.enable = lib.mkForce false;
-  # #    gnome.enable = lib.mkForce false;
-  # #    plasma.enable = lib.mkForce false;
-  # #    hyprland.enable = lib.mkForce true;
-  # #  };
-  # #  cosmic.configuration = {
-  # #    cosmic-desktop.enable = lib.mkForce true;
-  # #    gnome.enable = lib.mkForce false;
-  # #    plasma.enable = lib.mkForce false;
-  # #    hyprland.enable = lib.mkForce false;
-  # #  };
-  #  plasma.configuration = {
-  #    cosmic-desktop.enable = lib.mkForce false;
-  #    gnome.enable = lib.mkForce false;
-  #    plasma.enable = lib.mkForce true;
-  #    hyprland.enable = lib.mkForce false;
-  #  };
-  # };
-  #### modules
-  gnome.enable = lib.mkDefault false;
-  plasma.enable = lib.mkDefault true;
-  cosmic-desktop.enable = lib.mkDefault false;
-  virtualization.enable = true;
-  devops.enable = true;
-  steam.enable = true;
-  thorium.enable = true;
-  rar.enable = true;
-  wg-home.enable = true;
-  wg-home.local_ip = "10.10.1.3/32";
-  wg-home.privateKeyFileLocation = "/home/user/.ssh/wg/zbook/priv.key";
-  # flatpak.enable = true;
-  # storagefs.share.vega_nfs = true;
-  # storagefs.share.vega_smb = true;
-  ide.vscode = true;
-  ide.zed = true;
-  docker.enable = true;
-  ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
     inputs.flox.packages.${pkgs.system}.default

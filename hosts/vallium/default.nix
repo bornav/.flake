@@ -16,6 +16,7 @@
     ./pika-backup.nix
     ./specialisation.nix
     ./pcie-passtrough.nix
+    ./my_modules.nix
     # ./winapps.nix
     # ./lvm.nix
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
@@ -110,34 +111,6 @@
     NIXOS_OZONE_WL = "1"; #Hint electron apps to use wayland
   };
 
-  # gnome.enable = lib.mkDefault true;
-  plasma.enable = lib.mkDefault true;
-  # hyprland.enable = lib.mkForce false;
-  cosmic-desktop.enable = lib.mkDefault false;
-  virtualization.enable = true;
-  virtualization.qemu = true;
-  # virtualization.waydroid = true;
-  devops.enable = true;
-  steam.enable = true;
-  emulation.switch = true;
-  games.applications.enable = true;
-  rar.enable = true;
-  thorium.enable = true;
-  wg-home.enable = false;
-  ai.enable = true;
-  docker.enable = true;
-  podman.enable = true;
-  builder.builder1.remote = false;
-  ide.vscode = true;
-  ide.zed = true;
-  flatpak.enable = true;
-
-  device.woothing = true;
-  device.finalmouse = true;
-  device.orbital-pathfinder = true;
-
-  storagefs.share.vega_nfs = true;
-
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
@@ -202,6 +175,9 @@
       # orca-slicer
       # openrgb
       avahi
+      kdePackages.kmail
+      kdePackages.kmailtransport
+      kdePackages.kmail-account-wizard
   ]);
   programs.zsh.enable = true; # TODO REMOVE ME, temp
   programs.gnupg.agent = {
