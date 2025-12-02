@@ -232,7 +232,7 @@
   # services.fwupd.enable = true; # firmware upgrade tool
   environment.variables = {
     LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
-    PIPEWIRE_LATENCY = "32/48000"; # TODO test
+    # PIPEWIRE_LATENCY = "32/48000"; # TODO test
   };
   programs.nix-ld = {
     enable = true;
@@ -331,4 +331,104 @@
   #     obs-vkcapture
   #   ];
   # };
+
+  # nixpkgs.overlays = [
+  #   (self: super: {
+  #     kdePackages = super.kdePackages.overrideScope (kfinal: kprev: {
+  #       kwin = kprev.kwin.overrideAttrs (oldAttrs: {
+  #         src = self.fetchFromGitLab {
+  #           domain = "invent.kde.org";
+  #           owner = "plasma";
+  #           repo = "kwin";
+  #           rev = "2f3ae324ba430b2f4582473eefbe6db2e2a2a567";
+  #           hash = "sha256-Hq6Ko3SRhfLjQ3wZXDzm89ktaFvc4qxmtOOObrR5nbs=";
+  #         };
+  #       });
+  #     });
+  #   })
+  # ];
+
+  # nixpkgs.overlays = [
+  #   (self: super: {
+  #     kdePackages = super.kdePackages.overrideScope (kfinal: kprev: {
+  #       kwin = kprev.kwin.overrideAttrs (oldAttrs: {
+  #         src = builtins.fetchGit {
+  #           url = "https://invent.kde.org/plasma/kwin";
+  #           rev = "2f3ae324ba430b2f4582473eefbe6db2e2a2a567";
+  #         };
+  #       });
+  #     });
+  #   })
+  # ];
+  #
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     zed-editor = prev.zed-editor.overrideAttrs (oldAttrs: rec {
+  #       version = "0.214.7";
+
+  #       src = prev.fetchFromGitHub {
+  #         owner = "zed-industries";
+  #         repo = "zed";
+  #         tag = "v${version}";
+  #         hash = "sha256-DHKwGE5/FL3gYm9DwM1sGRsdX8kbhojLmi4B00Grtqg=";
+  #       };
+
+  #       cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
+  #         name = "zed-editor-${version}-vendor.tar.gz";
+  #         inherit src;
+  #         outputHash = "sha256-DHKwGE5/FL3gYm9DwM1sGRsdX8kbhojLmi4B00Grtqg=";
+  #       });
+  #     });
+  #   })
+  # ];
+  # nixpkgs = {
+  #   overlays = [
+  #     (final: prev: {
+  #       zed-editor = prev.zed-editor.overrideAttrs (oldAttrs: rec {
+  #         version = "0.214.7";
+  #         src = prev.fetchFromGitHub {
+  #           owner = "zed-industries";
+  #           repo = "zed";
+  #           tag = "v${version}";
+  #           hash = "sha256-DHKwGE5/FL3gYm9DwM1sGRsdX8kbhojLmi4B00Grtqg=";
+  #         };
+  #         cargoDeps = final.rustPlatform.fetchCargoVendor {
+  #           inherit src;
+  #           hash = "sha256-bq1iMDj6x57GQPo2OjGYduzdasor3A7QXnPqNEHQlKg=";
+  #         };
+  #         patches = (oldAttrs.patches or [ ]);
+  #       });
+  #     })
+  #   ];
+  # };
+  #
+  # nixpkgs.overlays = [
+  #     (final: prev: {
+  #       zed-editor = prev.zed-editor.overrideAttrs (oldAttrs: rec {
+  #         version = "0.214.7";
+
+  #         src = prev.fetchFromGitHub {
+  #           owner = "zed-industries";
+  #           repo = "zed";
+  #           tag = "v${version}";
+  #           hash = "sha256-DHKwGE5/FL3gYm9DwM1sGRsdX8kbhojLmi4B00Grtqg=";  # Get hash from build error
+  #         };
+  #         cargoDeps = oldAttrs.cargoDeps.overrideAttrs (previousAttrs: {
+  #                 vendorStaging = previousAttrs.vendorStaging.overrideAttrs {
+  #                   inherit (final) src;
+  #                   # Deliberately invalid hash -- I'm not sure how to effectively
+  #                   # pre-determine it.
+  #                   outputHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  #                 };
+  #               }
+  #             );
+
+  #         # cargoHash = "sha256-0374lbhzb7fm1mcw967p9z5slgr02kapc3s4l9i2mqb";  # Get hash from build error
+  #         # cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+  #         #             inherit (final) src version;
+  #         #             hash = "${cargoHash}";
+  #         #           };
+  #       });
+  #     })
+  #   ];
 }

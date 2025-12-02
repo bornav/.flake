@@ -3,7 +3,7 @@
   inputs = {                                                              # References Used by Flake
       # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";                     # Stable Nix Packages (Default)
       # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-      nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+      nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";         # Unstable Nix Packages
       nixpkgs-master.url = "github:nixos/nixpkgs/master";
       nixpkgs-bornav.url = "github:bornav/nixpkgs/headscale-restart-fix";
@@ -13,7 +13,7 @@
       # };
       nixos-hardware.url = "github:NixOS/nixos-hardware/master"; #https://github.com/NixOS/nixos-hardware/tree/master
       home-manager = {url = "github:nix-community/home-manager";
-                      # inputs.nixpkgs.follows = "nixpkgs-unstable";
+                      inputs.nixpkgs.follows = "nixpkgs-stable";
                       };
       nix-flatpak.url = "github:gmodena/nix-flatpak";
       hyprland = {url = "github:hyprwm/Hyprland";                                     # Requires "hyprland.nixosModules.default" to be added the host modules
@@ -52,7 +52,7 @@
 			location = "$HOME/.flake";
 			terminal = "alacritty";
 			editor = "vim";
-      stateVersion = "25.11";
+      stateVersion = "26.05";
 		};
     inherit (self) outputs;
 	in {

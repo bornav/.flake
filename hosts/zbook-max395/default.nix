@@ -94,7 +94,7 @@
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
-    inputs.flox.packages.${pkgs.system}.default
+    inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
     #pkgs-unstable.element-desktop
   ]
   ++ (with pkgs; [
