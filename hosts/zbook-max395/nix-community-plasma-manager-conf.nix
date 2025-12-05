@@ -236,6 +236,7 @@
       plasmashell."switch to previous activity" = [ ];
       plasmashell."toggle do not disturb" = [ ];
       "services/Alacritty.desktop"._launch = "Meta+T";
+      "services/net.local.thorium.desktop"._launch = "Meta+B";
       "services/org.kde.krunner.desktop".RunClipboard = [ ];
       "services/org.kde.krunner.desktop"._launch = [ ];
       "services/org.kde.kscreen.desktop".ShowOSD = "Meta+P";
@@ -251,7 +252,6 @@
       "services/org.kde.touchpadshortcuts.desktop".ToggleTouchpad = "Touchpad Toggle";
       "services/rofi-2.desktop"._launch = "Meta+Shift+Space";
       "services/rofi-3.desktop"._launch = "Meta+Space";
-      "services/thorium-browser.desktop"._launch = "Meta+B";
     };
     configFile = {
       baloofilerc."Basic Settings".Indexing-Enabled = false;
