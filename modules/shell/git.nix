@@ -11,12 +11,8 @@
         programs.git = {
             # package = pkgs.gitAndTools.gitFull;
             enable = true;
-            settings = {
-              user = {
-                name  = "bornav";
-                email = "borna.vincek1@gmail.com";
-              };
-            };
+            userName  = "bornav";
+            userEmail = "borna.vincek1@gmail.com";
         };
     };
 }
