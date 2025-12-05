@@ -114,6 +114,7 @@
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
+    (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
     (pkgs-unstable.callPackage ../../modules/custom_pkg/helium_browser.nix {})
     inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
 

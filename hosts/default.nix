@@ -90,13 +90,15 @@
         ./git
     ];
   };
-  zbook-max395 = inputs.nixpkgs-unstable.lib.nixosSystem {
+  zbook-max395 = inputs.nixpkgs-stable.lib.nixosSystem {
     system = "x86_64-linux";
     specialArgs = {
       inherit vars inputs;
       host = {
           hostName = "zbook-max395";
-          vars = vars;
+          vars = inputs.nixpkgs-stable.lib.recursiveUpdate vars {
+            stateVersion = "25.05";
+          };
           system = "x86_64-linux";
           gpu = "amd";
       };

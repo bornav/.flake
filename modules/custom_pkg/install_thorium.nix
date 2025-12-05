@@ -34,6 +34,7 @@ in
     environment = {
         systemPackages = with pkgs; [
             (pkgs.callPackage ./thorium2.nix {commandLineArgs = thorium-flags_dot_conf;})
+            # (pkgs.callPackage ./thorium2.nix {})
         ];}; #$XDG_CONFIG_HOME
     home-manager.users.${vars.user} = {
         # xdg.configFile = {

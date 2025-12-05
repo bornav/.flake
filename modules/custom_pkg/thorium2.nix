@@ -134,12 +134,15 @@ in
   stdenv.mkDerivation rec {
     pname = "thorium";
     version = "130.0.6723.174";
+    # version = "M138Beta1";
     # type="AVX";
     type="AVX2";
 
     src = fetchurl {
       url = "https://github.com/Alex313031/thorium/releases/download/M${version}/thorium-browser_${version}_${type}.deb";
       hash = "sha256-TeDwx7Bqy0NSaNBMuzCf4O+rgWjB/tmIvDgJQnGVSGY=";
+      # url = "https://github.com/Alex313031/thorium/releases/download/M138Beta1/thorium-browser_138.0.7204.193_BETA_1.deb";
+      # hash = "sha256-AWWMWd4kaAa7Fd11xHh730QOv6cNx0AeIMbcdlalEUg=";
     };
 
     dontConfigure = true;

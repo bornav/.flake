@@ -163,8 +163,7 @@
     users.${host.vars.user} = lib.mkMerge [
       (import ./home.nix)
       (import ../../modules/home-manager/mutability.nix)
-      (import ./nix-community-plasma-manager-conf.nix)
-      # (import ./home-mutable.nix)
+      # (import ./nix-community-plasma-manager-conf.nix)
     ];
   };
 

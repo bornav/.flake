@@ -13,7 +13,7 @@
       # };
       nixos-hardware.url = "github:NixOS/nixos-hardware/master"; #https://github.com/NixOS/nixos-hardware/tree/master
       home-manager = {url = "github:nix-community/home-manager";
-                      inputs.nixpkgs.follows = "nixpkgs-stable";
+                      # inputs.nixpkgs.follows = "nixpkgs-stable";
                       };
       nix-flatpak.url = "github:gmodena/nix-flatpak";
       hyprland = {url = "github:hyprwm/Hyprland";                                     # Requires "hyprland.nixosModules.default" to be added the host modules
