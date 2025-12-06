@@ -98,7 +98,7 @@
   devops.enable = true;
   rar.enable = true;
   docker.enable = true;
-  builder.builder1.self = true;
+  # builder.builder1.self = true;
   # builder.builder1.remote = true;
   # portainer.enable = false;
   ####
@@ -123,7 +123,7 @@
       "max-size" = "10m";
       # "tag" = "docker.{{.Name}}";
       "tag" = "local-{{.Name}}|{{.ImageName}}|{{.ID}}";
-      
+
       "labels" = "com.docker.compose.project";
       "env" = "os,customer";
     };

@@ -64,6 +64,7 @@
         # nur.nixosModules.nur
         ./configuration.nix
         ./dockeropen
+        .././modules
     ];
   };
   git = inputs.nixpkgs-stable.lib.nixosSystem {
