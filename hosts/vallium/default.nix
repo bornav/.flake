@@ -45,8 +45,8 @@
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_11;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  boot.kernelPackages = pkgs-master.linuxPackages_latest;
-  # boot.kernelPackages = pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
+  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
 
   # boot.consoleLogLevel  description of package -> The kernel console `loglevel`. All Kernel Messages with a log level smaller than this setting will be printed to the console.  https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/system/boot/kernel.nix
   boot.loader = {
