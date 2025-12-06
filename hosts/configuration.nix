@@ -79,7 +79,10 @@ in
   };
   programs.mtr.enable = true;
 
-  programs.nh.enable = true;
+  programs.nh = {
+    enable = true;
+    flake = "/home/user/.flake"; # sets NH_OS_FLAKE variable for you
+  };
   services = {
     printing.enable = true;
     pulseaudio.enable = false;

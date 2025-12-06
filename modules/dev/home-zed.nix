@@ -98,10 +98,12 @@
         YAML = {
           # formatter = "prettier";
           # linter = "yamllint";
+          colorize_brackets = true;
           tab_size = 2;
         };
         Nix = {
           tab_size = 2;
+          colorize_brackets = true;
           language_servers = [
             "nixd"
             "!nil"
@@ -231,6 +233,13 @@
         hide_hidden = false;
       };
 
+      indent_guides = {
+        enabled = true;
+        line_width = 1;
+        active_line_width = 2;
+        # coloring = "indent_aware";
+        # background_coloring = "indent_aware";
+      };
     };
   };
   home.packages = [
