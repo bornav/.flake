@@ -1,4 +1,4 @@
-{ config, inputs, system, host, lib, pkgs-unstable, pkgs, ... }:
+{ config, inputs, system, host, lib, pkgs, ... }:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -102,7 +102,7 @@ with lib;
     (lib.mkIf (config.ide.zed) {
       ide.enable = true;
       home-manager.users.${host.vars.user} =  lib.mkMerge [
-        (import ./home-zed.nix {inherit pkgs-unstable pkgs lib;} )
+        (import ./home-zed.nix {inherit pkgs lib;} )
         (import ./home-zed-keymap.nix)
         # (import ../../modules/home-manager/mutability.nix)
         # (import ./home-mutable.nix)

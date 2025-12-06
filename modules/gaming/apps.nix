@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, lib, pkgs, pkgs-stable, ... }:
+{ config, inputs, system, vars, lib, pkgs, ... }:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -26,18 +26,7 @@ with lib;
       # (bottles.override {
       #   removeWarningPopup = true;
       # })
-    ] ++
-    (with pkgs-stable; [
-      # heroic
-      # (heroic.override {
-      #   extraPkgs = pkgs: [
-      #     pkgs.gamescope
-      #   ];
-      # })
       shadps4
       umu-launcher
-      # bottles
-      # bottles-unwrapped
-
-    ]);
+    ];
 };}

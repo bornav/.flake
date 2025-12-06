@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, host, lib, pkgs, pkgs-unstable, pkgs-master, ... }:
+{ config, inputs, system, vars, host, lib, pkgs, ... }:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -66,14 +66,14 @@ with lib;
       pkgs.libpng
       pkgs.icu
       pkgs.mangohud
-      pkgs-unstable.gamemode
+      pkgs.gamemode
 
       # pkgs-unstable.wine
       # pkgs-unstable.wine-wayland
       # pkgs-unstable.wineWowPackages.unstableFull
       # pkgs-unstable.winetricks
-      pkgs-unstable.protontricks
-      pkgs-unstable.vulkan-tools
+      pkgs.protontricks
+      pkgs.vulkan-tools
       # Extra dependencies
       # https://github.com/lutris/docs/
       pkgs.gnutls

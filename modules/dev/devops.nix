@@ -1,4 +1,4 @@
-{ config, inputs, host, lib, pkgs, pkgs-stable, pkgs-unstable, ... }:
+{ config, inputs, host, lib, pkgs, ... }:
 # let
 #     pkgs-stable = import inputs.nixpkgs-stable {
 #         config.allowUnfree = true;
@@ -12,16 +12,13 @@
 with lib;
 {
   config = mkIf (config.devops.enable) {
-    environment.systemPackages = [
-      pkgs-unstable.k9s
-    ] ++(with pkgs-stable; [
+    environment.systemPackages = with pkgs; [
+      k9s
       thttpd # htpasswd
       lazygit
       dig
       tcpdump
       yq
-    ]) ++
-    (with pkgs-unstable; [
       flux
       fluxcd
       kubectl
@@ -42,8 +39,8 @@ with lib;
       kind
       yaml-language-server  # TODO look into
       inputs.compose2nix.packages.x86_64-linux.default
-    ]);
-      home-manager = {
+      ];
+    home-manager = {
       backupFileExtension = "backup";
       extraSpecialArgs = {inherit inputs;};
       users.${host.vars.user} =  lib.mkMerge [

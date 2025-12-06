@@ -1,6 +1,6 @@
 {inputs, config, pkgs, ... }:
 {
-# home.file."asdasd.sh".source = 
+# home.file."asdasd.sh".source =
 # let
 #   script = pkgs.writeShellScriptBin "asdasd.sh" ''
 #     asd

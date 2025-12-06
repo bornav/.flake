@@ -1,4 +1,4 @@
-{ config, lib, inputs, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
+{inputs, host, ... }:
 {
   environment.systemPackages = [
     inputs.winapps.packages."${host.system}".winapps

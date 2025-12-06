@@ -1,7 +1,6 @@
 {
-  pkgs,
   lib,
-  pkgs-unstable,
+  pkgs,
   ...
 }:
 
@@ -243,9 +242,9 @@
     };
   };
   home.packages = [
-    pkgs-unstable.nixd
-    pkgs-unstable.nil
-    pkgs-unstable.nixfmt
+    pkgs.nixd
+    pkgs.nil
+    pkgs.nixfmt
   ];
   home.file.".zed_server" = {
     source = "${pkgs.zed-editor.remote_server}/bin";

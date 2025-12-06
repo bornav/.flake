@@ -1,4 +1,4 @@
-{ config, lib, inputs, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
+{ ... }:
 {
   boot.initrd.kernelModules = [
     "vfio_pci"

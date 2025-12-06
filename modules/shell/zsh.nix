@@ -1,4 +1,4 @@
-{ config, inputs, system, host, lib, pkgs-unstable, pkgs, ... }:
+{ config, inputs, system, host, lib, pkgs, ... }:
 {
   imports = [
     ./zsh_config.nix
@@ -71,7 +71,7 @@
     };
   };
   environment.systemPackages = [
-      pkgs-unstable.atuin
+      pkgs.atuin
     ];
     #Enable zsh completion. Don’t forget to add
     environment.pathsToLink = [ "/share/zsh" ];

@@ -6,7 +6,7 @@
 #     };
 # in
 {   #zerotier-one -d run this to enable the svc
-    environment.systemPackages = with pkgs; [ 
+    environment.systemPackages = with pkgs; [
         zerotierone
     ];
 }

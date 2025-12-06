@@ -1,4 +1,4 @@
-{ config, lib, inputs, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
+{ pkgs, ... }:
 {
   boot.initrd.kernelModules = [
     "dm-snapshot" # when you are using snapshots
@@ -10,7 +10,7 @@
     enable = true;
     boot.thin.enable = true; # Potentially needed for tool paths
   };
-  environment.systemPackages = with pkgs-unstable; [
+  environment.systemPackages = with pkgs; [
     thin-provisioning-tools
   ];
 }
