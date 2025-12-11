@@ -15,28 +15,7 @@
         StrictHostKeyChecking no
         IdentityFile /home/user/.ssh/id_local
     Host dockeropen
-        HostName dockeropen.nix.local
-        Port 22
-        User root
-        IdentitiesOnly yes
-        StrictHostKeyChecking no
-        IdentityFile /home/user/.ssh/id_local
-    Host k3s-local-01
-        HostName k3s-local-01.local.icylair.com
-        Port 22
-        User root
-        IdentitiesOnly yes
-        StrictHostKeyChecking no
-        IdentityFile /home/user/.ssh/id_local
-    Host k3s-local-02
-        HostName k3s-local-02.local.icylair.com
-        Port 22
-        User root
-        IdentitiesOnly yes
-        StrictHostKeyChecking no
-        IdentityFile /home/user/.ssh/id_local
-    Host k3s-local
-        HostName k3s-local.local.icylair.com
+        HostName dockeropen.nix.internal
         Port 22
         User root
         IdentitiesOnly yes
@@ -185,7 +164,6 @@
         StrictHostKeyChecking no
         # IdentityFile /home/user/.ssh/cdn_key_pwless
         IdentityFile /home/user/.ssh/id_local
-
     Host rke2-local-node-02
         HostName rke2-local-node-02.local.icylair.com
         # HostName 2a01:4f8:c012:c800::1
@@ -195,14 +173,14 @@
         StrictHostKeyChecking no
         # IdentityFile /home/user/.ssh/cdn_key_pwless
         IdentityFile /home/user/.ssh/id_local
-    Host git
-        HostName git.local
+    Host git.icylair.com # gitea
+        HostName git.icylair.com
         # HostName 2a01:4f8:c012:c800::1
         Port 22
         User root
         IdentitiesOnly yes
         StrictHostKeyChecking no
-        # IdentityFile /home/user/.ssh/cdn_key_pwless
-        IdentityFile /home/user/.ssh/id_local
+        # IdentityFile /home/user/.ssh/gitea_key
+        IdentityFile /home/user/.ssh/gitea_key
     '';
 }

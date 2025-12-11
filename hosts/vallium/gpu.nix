@@ -36,14 +36,14 @@
   hardware = {
     nvidia = {
       # modesetting.enable = true;
-      open = true;
+      open = false;
       gsp.enable = config.hardware.nvidia.open; # if using closed drivers, lets assume you don't want gsp
       nvidiaSettings = false;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "590.44.01";
-        sha256_64bit = "sha256-VbkVaKwElaazojfxkHnz/nN/5olk13ezkw/EQjhKPms=";
+        version = "580.119.02";
+        sha256_64bit = "sha256-gCD139PuiK7no4mQ0MPSr+VHUemhcLqerdfqZwE47Nc=";
         openSha256 = "sha256-ft8FEnBotC9Bl+o4vQA1rWFuRe7gviD/j1B8t0MRL/o";
         usePersistenced = false;
         useSettings = false;

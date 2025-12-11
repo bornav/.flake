@@ -107,6 +107,12 @@
             "nixd"
             "!nil"
           ];
+          formatter = {
+            external = {
+              command = "alejandra";
+              arguments = ["--quiet"];
+            };
+          };
         };
 
       };
@@ -244,7 +250,8 @@
   home.packages = [
     pkgs.nixd
     pkgs.nil
-    pkgs.nixfmt
+    pkgs.nixfmt-rfc-style
+    pkgs.alejandra
   ];
   home.file.".zed_server" = {
     source = "${pkgs.zed-editor.remote_server}/bin";
