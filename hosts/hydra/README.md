@@ -12,5 +12,5 @@ hydra-create-user admin --full-name 'admin' --email-address 'admin@admin' --pass
 
 
 ### rebuilds the flake with the new configuration
-`nixos-rebuild switch --flake ~/.flake#dockeropen --target-host dockeropen` #how i updated the config on the remote system
+`nixos-rebuild switch --flake ~/.flake#hydra-01 --target-host root@10.2.11.26` #how i updated the config on the remote system
 aditional note, on update, seems local ip addres always switches

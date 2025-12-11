@@ -118,7 +118,7 @@
       "max-size" = "10m";
       # "tag" = "docker.{{.Name}}";
       "tag" = "local-{{.Name}}|{{.ImageName}}|{{.ID}}";
-      
+
       "labels" = "com.docker.compose.project";
       "env" = "os,customer";
     };
@@ -130,5 +130,15 @@
       RuntimeMaxUse=50M     # Maximum disk usage for runtime journal
       MaxRetentionSec=1month # How long to keep journal files
     '';
+  };
+
+  home-manager = {
+    backupFileExtension = "backup";
+    extraSpecialArgs = {inherit inputs;};
+    users.${host.vars.user} = lib.mkMerge [
+      # (import ./home.nix)
+      (import ../../modules/home-manager/mutability.nix)
+      # (import ./home-mutable.nix)
+    ];
   };
 }

@@ -23,28 +23,28 @@
       .././modules
     ];
   };
-  stealth = inputs.nixpkgs-unstable.lib.nixosSystem {
-    system = "x86_64-linux";
-    specialArgs = {
-      inherit vars inputs;
-      host = {
-          hostName = "stealth";
-          vars = vars;
-          system = "x86_64-linux";
-          gpu = "intel";
-      };
-      pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
-      pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
-      pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
-      system = "x86_64-linux";
-    };
-    modules = [
-      # nur.nixosModules.nur
-      ./configuration.nix
-      ./stealth
-      .././modules
-    ];
-  };
+  # stealth = inputs.nixpkgs-unstable.lib.nixosSystem {
+  #   system = "x86_64-linux";
+  #   specialArgs = {
+  #     inherit vars inputs;
+  #     host = {
+  #         hostName = "stealth";
+  #         vars = vars;
+  #         system = "x86_64-linux";
+  #         gpu = "intel";
+  #     };
+  #     pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
+  #     pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
+  #     pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
+  #     system = "x86_64-linux";
+  #   };
+  #   modules = [
+  #     # nur.nixosModules.nur
+  #     ./configuration.nix
+  #     ./stealth
+  #     .././modules
+  #   ];
+  # };
   dockeropen = inputs.nixpkgs-unstable.lib.nixosSystem {
     # system = "x86_64-linux";
     specialArgs = {
@@ -67,30 +67,30 @@
         .././modules
     ];
   };
-  git = inputs.nixpkgs-stable.lib.nixosSystem {
-    # system = "x86_64-linux";
-    specialArgs = {
-      inherit vars inputs;
-      host = {
-          hostName = "git";
-          # taking original value from root, but overwriting the state version
-          vars = inputs.nixpkgs-stable.lib.recursiveUpdate vars {
-            stateVersion = "25.05";
-          };
-          system = "x86_64-linux";
-          gpu = "none";
-      };
-      pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
-      pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
-      pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
-      system = "x86_64-linux";
-    };
-    modules = [
-        # nur.nixosModules.nur
-        ./configuration.nix
-        ./git
-    ];
-  };
+  # git = inputs.nixpkgs-stable.lib.nixosSystem {
+  #   # system = "x86_64-linux";
+  #   specialArgs = {
+  #     inherit vars inputs;
+  #     host = {
+  #         hostName = "git";
+  #         # taking original value from root, but overwriting the state version
+  #         vars = inputs.nixpkgs-stable.lib.recursiveUpdate vars {
+  #           stateVersion = "25.05";
+  #         };
+  #         system = "x86_64-linux";
+  #         gpu = "none";
+  #     };
+  #     pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
+  #     pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
+  #     pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
+  #     system = "x86_64-linux";
+  #   };
+  #   modules = [
+  #       # nur.nixosModules.nur
+  #       ./configuration.nix
+  #       ./git
+  #   ];
+  # };
   zbook-max395 = inputs.nixpkgs-stable.lib.nixosSystem {
     system = "x86_64-linux";
     specialArgs = {
