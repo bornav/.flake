@@ -66,4 +66,9 @@ in
   # networking.interfaces.wlp8s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  # TODO move
+  hardware.i2c.enable = true;
+  services.ddccontrol.enable = true;
+
 }
