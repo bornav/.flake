@@ -8,6 +8,9 @@
   pkgs-master,
   ...
 }: # TODO remove system, only when from all modules it is removed
+let
+  pkgs-oldkern   = import inputs.nixpkgs-6-16-kernel   {system = "x86_64-linux";config.allowUnfree = true;};
+in
 {
   imports = [
     # inputs.nix-flatpak.nixosModules.nix-flatpak
@@ -56,8 +59,12 @@
   networking.useDHCP = lib.mkForce false;
   networking.dhcpcd.enable = lib.mkForce false;
 
-  boot.kernelPackages = lib.mkDefault pkgs-unstable.linuxPackages_latest;
-
+  boot.kernelPackages = pkgs-oldkern.linuxKernel.packages.linux_6_16;
+  # boot.kernelPackages = lib.mkDefault pkgs-unstable.linuxPackages_latest;
+  # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
+  #
+  # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_latest;
+  #
   # Configure keymap in X11
   services.xserver = {
     xkb.layout = "us";
@@ -163,7 +170,7 @@
     users.${host.vars.user} = lib.mkMerge [
       (import ./home.nix)
       (import ../../modules/home-manager/mutability.nix)
-      # (import ./nix-community-plasma-manager-conf.nix)
+      (import ./nix-community-plasma-manager-conf.nix)
     ];
   };
 
@@ -236,4 +243,6 @@
   };
   services.lact.enable = true;
   services.fwupd.enable = true; # firmware upgrade tool
+
+  services.netbird.enable = true;
 }
