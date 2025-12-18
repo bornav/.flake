@@ -14,7 +14,7 @@
     ./gpu.nix
     ./hardware-configuration.nix
     ./pika-backup.nix
-    ./specialisation.nix
+    # ./specialisation.nix
     ./pcie-passtrough.nix
     ./my_modules.nix
     # ./winapps.nix
@@ -44,9 +44,24 @@
   #services.getty.autologinUser = "user";
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_11;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
+  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
+  # boot.kernelPackages = pkgs-master.linuxPackagesFor (pkgs-master.linux_latest.override {
+  #     argsOverride = rec {
+  #       # version = "6.19.0-rc1";
+  #       version = "6.18.1"; #https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/kernel/kernels-org.json
+  #       modDirVersion = version;
+  #       src = pkgs-master.fetchurl {
+  #         # url = "https://git.kernel.org/torvalds/t/linux-${version}.tar.gz";
+  #         url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.18.1.tar.xz";
+  #         sha256 = "sha256-0KeL8/DRKqoQrzta3K7VvHZ7W3hwXl74hdXpMLcuJdU=";
+  #       };
+
+  #       # Optional: ignore missing modules directories warning
+  #       ignoreConfigErrors = true;
+  #     };
+  #   });
+
 
   # boot.consoleLogLevel  description of package -> The kernel console `loglevel`. All Kernel Messages with a log level smaller than this setting will be printed to the console.  https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/system/boot/kernel.nix
   boot.loader = {
@@ -114,6 +129,7 @@
   ####
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [
+    pkgs.scx.full
     (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
     (pkgs-unstable.callPackage ../../modules/custom_pkg/helium_browser.nix {})
     inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -432,4 +448,9 @@
   #       });
   #     })
   #   ];
+
+  #  scheduler test
+  # services.scx.enable = true;
+  # services.scx.scheduler = "scx_rustland";
+  services.netbird.enable = true;
 }

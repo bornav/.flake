@@ -77,8 +77,18 @@
   services.nix-serve = {
     enable = true;
     openFirewall = true;
-    # nix-store --generate-binary-cache-key key-name /var/secret-key-file /var/public-key-file
+    # nix-store --generate-binary-cache-key binarycache.icylair.com /var/secret-key-file /var/public-key-file
     secretKeyFile = "/var/secret-key-file";
+  };
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    virtualHosts = {
+      # ... existing hosts config etc. ...
+      "binarycache.icylair.com" = {
+        locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
+      };
+    };
   };
 
   networking.firewall = {

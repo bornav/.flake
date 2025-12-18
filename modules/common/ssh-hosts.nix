@@ -129,7 +129,7 @@
         # IdentityFile /home/user/.ssh/cdn_key_pwless
         IdentityFile /home/user/.ssh/id_local
     Host lighthouse2
-        HostName 91.99.76.94
+        HostName 46.224.122.252
         # HostName 2a01:4f8:c012:c800::1
         Port 22
         User root

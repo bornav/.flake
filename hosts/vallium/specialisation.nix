@@ -1,29 +1,31 @@
 { config, lib, inputs, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
 {
-  # specialisation = {
-  #  gnome.configuration = {
-  #    gnome.enable = lib.mkForce true;
-  #    cosmic-desktop.enable =  lib.mkForce false;
+  specialisation = {
+   # gnome.configuration = {
+   #   gnome.enable = lib.mkForce true;
+   #   cosmic-desktop.enable =  lib.mkForce false;
+   #   plasma.enable = lib.mkForce false;
+   #   hyprland.enable = lib.mkForce false;
+   # };
+  #  hyprland.configuration = {
+  #    cosmic-desktop.enable = lib.mkForce false;
+  #    gnome.enable = lib.mkForce false;
   #    plasma.enable = lib.mkForce false;
+  #    hyprland.enable = lib.mkForce true;
+  #  };
+   cosmic.configuration = {
+     # cosmic-desktop.enable = lib.mkForce true;
+     # gnome.enable = lib.mkForce false;
+     plasma.enable = lib.mkForce false;
+     services.desktopManager.cosmic.enable = true;
+     services.displayManager.cosmic-greeter.enable = true;
+     # hyprland.enable = lib.mkForce false;
+   };
+  #  plasma.configuration = {
+  #    cosmic-desktop.enable = lib.mkForce false;
+  #    gnome.enable = lib.mkForce false;
+  #    plasma.enable = lib.mkForce true;
   #    hyprland.enable = lib.mkForce false;
   #  };
-  # #  hyprland.configuration = {
-  # #    cosmic-desktop.enable = lib.mkForce false;
-  # #    gnome.enable = lib.mkForce false;
-  # #    plasma.enable = lib.mkForce false;
-  # #    hyprland.enable = lib.mkForce true;
-  # #  };
-  # #  cosmic.configuration = {
-  # #    cosmic-desktop.enable = lib.mkForce true;
-  # #    gnome.enable = lib.mkForce false;
-  # #    plasma.enable = lib.mkForce false;
-  # #    hyprland.enable = lib.mkForce false;
-  # #  };
-  # #  plasma.configuration = {
-  # #    cosmic-desktop.enable = lib.mkForce false;
-  # #    gnome.enable = lib.mkForce false;
-  # #    plasma.enable = lib.mkForce true;
-  # #    hyprland.enable = lib.mkForce false;
-  # #  };
-  # };
+  };
 }

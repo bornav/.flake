@@ -2,9 +2,7 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   programs.zed-editor = {
     enable = true;
     ## This populates the userSettings "auto_install_extensions"
@@ -114,7 +112,6 @@
             };
           };
         };
-
       };
 
       vim_mode = false;
@@ -245,6 +242,28 @@
         # coloring = "indent_aware";
         # background_coloring = "indent_aware";
       };
+
+      #AI
+      disable_ai = true; # add if condition if locall ollama service is enabled or something
+      agent = {
+        default_model = {
+          provider = "ollama";
+          model = "qwen3-coder:30b";
+        };
+        model_parameters = [];
+        inline_alternatives = [
+          {
+            provider = "ollama";
+            model = "gpt-4-mini";
+          }
+        ];
+      };
+      language_models = {
+        ollama = {
+          api_url = "http://localhost:11434";
+          # auto_discover= true; # enabled by default
+        };
+      };
     };
   };
   home.packages = [
@@ -258,5 +277,4 @@
     # keeps the folder writable, but symlinks the binaries into it
     recursive = true;
   };
-
 }

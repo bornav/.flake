@@ -1,4 +1,13 @@
-{ config, lib, host, inputs, pkgs, pkgs-master, ... }:
+{
+  config,
+  lib,
+  host,
+  inputs,
+  pkgs,
+  pkgs-stable,
+  pkgs-master,
+  ...
+}:
 # let
 #   pkgs = import inputs.nixpkgs-unstable {
 #     system = host.system;
@@ -11,7 +20,8 @@
 # in
 {
   imports = [
-    inputs.home-manager.nixosModules.home-manager {
+    inputs.home-manager.nixosModules.home-manager
+    {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
     }
@@ -83,14 +93,14 @@
   users.users.${host.vars.user} = {
     isNormalUser = true;
     description = "${host.vars.user}";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     # packages = with pkgs; [];
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   };
   environment.sessionVariables = {
-    flake_name=host.hostName;
-    FLAKE="$HOME/.flake";
-    NIXOS_CONFIG="$HOME/.flake";
+    flake_name = host.hostName;
+    FLAKE = "$HOME/.flake";
+    NIXOS_CONFIG = "$HOME/.flake";
     # NIXOS_CONFIG="/home/${host.vars.user}/.flake";
   };
   #### modules
@@ -117,6 +127,7 @@
     # ];
   };
   virtualisation.docker.logDriver = lib.mkForce "json-file";
+  virtualisation.docker.package = pkgs-stable.docker; # latest docker is broken https://community.traefik.io/t/traefik-stops-working-it-uses-old-api-version-1-24/29019/9
   virtualisation.docker.daemon.settings = {
     "exec-opts" = ["native.cgroupdriver=cgroupfs"];
     "log-opts" = {
@@ -127,6 +138,9 @@
       "labels" = "com.docker.compose.project";
       "env" = "os,customer";
     };
+    "registry-mirrors" = [
+      "https://harbor.icylair.com/docker.io" # use my own docker cache
+    ];
   };
   services.journald = {
     extraConfig = ''

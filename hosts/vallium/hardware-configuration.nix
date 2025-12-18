@@ -70,5 +70,6 @@ in
   # TODO move
   hardware.i2c.enable = true;
   services.ddccontrol.enable = true;
+  # users.users.${host.vars.user}.extraGroups = [ "i2c"];
 
 }
