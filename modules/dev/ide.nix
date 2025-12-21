@@ -1,4 +1,4 @@
-{ config, inputs, system, host, lib, pkgs, ... }:
+{ config, inputs, pkgs-local, system, host, lib, pkgs, ... }:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -107,8 +107,35 @@ with lib;
         # (import ../../modules/home-manager/mutability.nix)
         # (import ./home-mutable.nix)
       ];
-      environment.systemPackages = with pkgs; [
-        # zed-editor
+      environment.systemPackages = [
+        # pkgs.zed-editor
+        # pkgs-local.zed-editor
+        # (pkgs.zed-editor.overrideAttrs (o: rec {
+        #     version = "0.217.3";
+        #     src = pkgs.fetchFromGitHub {
+        #       owner = "zed-industries";
+        #       repo = "zed";
+        #       tag = "v0.217.3";
+        #       hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
+        #     };
+        #     cargoDeps = pkgs.rustPlatform.importCargoLock { # make sure allow-import-from-derivation is enabled before doing this(one refresh required)
+        #       lockFile = src + "/Cargo.lock";
+        #       allowBuiltinFetchGit = true;
+        #     };
+        #   }))
+        (pkgs.zed-editor.overrideAttrs (o: rec {
+          version = "0.217.3";
+          src = pkgs.fetchFromGitHub {
+            owner = "zed-industries";
+            repo = "zed";
+            tag = "v0.217.3";
+            hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
+          };
+          cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+            inherit src;
+            hash = "sha256-it0g/jdqyuT3PAIkFoVxEj48QXtWoy5LBRM5wc3zRK4=";
+          };
+        }))
       ];
      })
     (lib.mkIf (config.ide.enable) {
