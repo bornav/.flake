@@ -60,6 +60,23 @@ in
   networking.dhcpcd.enable = lib.mkForce false;
 
   boot.kernelPackages = pkgs-oldkern.linuxKernel.packages.linux_6_16;
+  # boot.kernelPackages = pkgs-unstable.linuxPackagesFor (pkgs-master.linux_latest.override {
+  #     argsOverride = rec {
+  #       # version = "6.19.0-rc1";
+  #       version = "6.18.2"; #https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/kernel/kernels-org.json
+  #       modDirVersion = version;
+  #       src = pkgs-master.fetchurl {
+  #         # url = "https://git.kernel.org/torvalds/t/linux-${version}.tar.gz";
+  #         url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.18.2.tar.xz";
+  #         sha256 = "sha256-VYxrurdJSSs0+Zgn/oB7ADmnRGk8IdOn4Ds6SO2quWo=";
+  #       };
+
+  #       # Optional: ignore missing modules directories warning
+  #       ignoreConfigErrors = true;
+  #     };
+  #   });
+
+
   # boot.kernelPackages = lib.mkDefault pkgs-unstable.linuxPackages_latest;
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
   #

@@ -202,14 +202,14 @@
     enableSSHSupport = false;
   };
 
-  services.tailscale.enable = true;
-  networking.firewall = {
-    checkReversePath = "loose";
-    trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
-  };
-  # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
-  # headscale --namespace <namespace_name> nodes register --key <machine_key>
+  # # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
+  # # headscale --namespace <namespace_name> nodes register --key <machine_key>
+  # services.tailscale.enable = true;
+  # networking.firewall = {
+  #   checkReversePath = "loose";
+  #   trustedInterfaces = [ "tailscale0" ];
+  #   allowedUDPPorts = [ config.services.tailscale.port ];
+  # };
 
   systemd.network.wait-online.enable = false;
   boot.initrd.systemd.network.wait-online.enable = false;

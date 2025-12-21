@@ -36,7 +36,7 @@
   hardware = {
     nvidia = {
       # modesetting.enable = true;
-      open = false;
+      open = true;
       gsp.enable = config.hardware.nvidia.open; # if using closed drivers, lets assume you don't want gsp
       nvidiaSettings = false;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
@@ -44,7 +44,7 @@
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
         version = "590.48.01";
         sha256_64bit = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
-        openSha256 = "sha256-ft8FEnBotC9Bl+o4vQA1rWFuRe7gviD/j1B8t0MRL/o";
+        openSha256 = "sha256-hECHfguzwduEfPo5pCDjWE/MjtRDhINVr4b1awFdP44=";
         usePersistenced = false;
         useSettings = false;
       };
@@ -73,7 +73,7 @@
       __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json";
       # fix hw acceleration in bwrap (osu!lazer, wrapped appimages)
       __EGL_EXTERNAL_PLATFORM_CONFIG_DIRS = "/run/opengl-driver/share/egl/egl_external_platform.d";
-      CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
+      # CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
       CUDA_DISABLE_PERF_BOOST = 1; # TODO LOOK IF REMOVE NECESSARY
     };
   };
