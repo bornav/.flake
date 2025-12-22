@@ -59,6 +59,7 @@ in
   networking.useDHCP = lib.mkForce false;
   networking.dhcpcd.enable = lib.mkForce false;
 
+  # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
   boot.kernelPackages = pkgs-oldkern.linuxKernel.packages.linux_6_16;
   # boot.kernelPackages = pkgs-unstable.linuxPackagesFor (pkgs-master.linux_latest.override {
   #     argsOverride = rec {

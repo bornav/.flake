@@ -381,19 +381,20 @@
   # nixpkgs.overlays = [
   #   (final: prev: {
   #     zed-editor = prev.zed-editor.overrideAttrs (oldAttrs: rec {
-  #       version = "0.214.7";
+  #       version = "0.217.3";
 
   #       src = prev.fetchFromGitHub {
   #         owner = "zed-industries";
   #         repo = "zed";
   #         tag = "v${version}";
-  #         hash = "sha256-DHKwGE5/FL3gYm9DwM1sGRsdX8kbhojLmi4B00Grtqg=";
+  #         hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
   #       };
 
   #       cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
   #         name = "zed-editor-${version}-vendor.tar.gz";
   #         inherit src;
-  #         outputHash = "sha256-DHKwGE5/FL3gYm9DwM1sGRsdX8kbhojLmi4B00Grtqg=";
+  #               outputHash = "sha256-ZUHz93ImWj3S5kRaWsiLz4Xc0sdaWzy+4CxCW5cvEf0=";
+
   #       });
   #     });
   #   })
@@ -402,16 +403,16 @@
   #   overlays = [
   #     (final: prev: {
   #       zed-editor = prev.zed-editor.overrideAttrs (oldAttrs: rec {
-  #         version = "0.214.7";
+  #         version = "0.217.3";
   #         src = prev.fetchFromGitHub {
   #           owner = "zed-industries";
   #           repo = "zed";
   #           tag = "v${version}";
-  #           hash = "sha256-DHKwGE5/FL3gYm9DwM1sGRsdX8kbhojLmi4B00Grtqg=";
+  #           hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
   #         };
   #         cargoDeps = final.rustPlatform.fetchCargoVendor {
   #           inherit src;
-  #           hash = "sha256-bq1iMDj6x57GQPo2OjGYduzdasor3A7QXnPqNEHQlKg=";
+  #           hash = "sha256-it0g/jdqyuT3PAIkFoVxEj48QXtWoy5LBRM5wc3zRK4=";
   #         };
   #         patches = (oldAttrs.patches or [ ]);
   #       });

@@ -5,6 +5,21 @@
 }: {
   programs.zed-editor = {
     enable = true;
+    package = pkgs.zed-editor.overrideAttrs (o: rec {
+      # version = "v0.217.3";
+      version = "v0.218.3-pre";
+      src = pkgs.fetchFromGitHub {
+        owner = "zed-industries";
+        repo = "zed";
+        tag = version;
+        hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
+      };
+      cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+        inherit src;
+        hash = "sha256-ZUHz93ImWj3S5kRaWsiLz4Xc0sdaWzy+4CxCW5cvEf0=";
+        inherit (o.cargoDeps.vendorStaging) postBuild;
+      };
+    });
     ## This populates the userSettings "auto_install_extensions"
     extensions = [
       "nix"

@@ -1,6 +1,8 @@
 {
   description = "A very basic flake";
   inputs = {
+    # nix-pkgs-local.url = "git+file:////home/user/git/nixpkgs-custom";
+    nix-pkgs-local.url = "git+file:////home/user/git/nixpkgs";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";         # Unstable Nix Packages
     nixpkgs-master.url = "github:nixos/nixpkgs/master";

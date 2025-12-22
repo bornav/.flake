@@ -14,6 +14,7 @@
         pkgs-stable   = import inputs.nixpkgs-stable   {system = "x86_64-linux";config.allowUnfree = true;};
         pkgs-unstable = import inputs.nixpkgs-unstable {system = "x86_64-linux";config.allowUnfree = true;};
         pkgs-master   = import inputs.nixpkgs-master   {system = "x86_64-linux";config.allowUnfree = true;};
+        pkgs-local    = import inputs.nix-pkgs-local   {system = "x86_64-linux";config.allowUnfree = true;};
         # system = "x86_64-linux";
     };
     modules = [

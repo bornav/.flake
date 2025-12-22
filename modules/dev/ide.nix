@@ -1,12 +1,20 @@
-{ config, inputs, pkgs-local, system, host, lib, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs-local,
+  system,
+  host,
+  lib,
+  pkgs,
+  ...
+}:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
 #         inherit system;
 #     };
 # in
-with lib;
-{
+with lib; {
   config = lib.mkMerge [
     (lib.mkIf (config.ide.vscode) {
       ide.enable = true;
@@ -77,7 +85,7 @@ with lib;
           # };
         };
         home.file.".config/Code/User/settings.json" = {
-        #home.file.".config/VSCodium/User/settings.json" = {
+          #home.file.".config/VSCodium/User/settings.json" = {
           text = ''
             {
               "continue.showInlineTip": false,
@@ -93,16 +101,16 @@ with lib;
                 ]
               }
             }
-            '';
+          '';
           force = true;
           mutable = true;
         };
       };
-     })
+    })
     (lib.mkIf (config.ide.zed) {
       ide.enable = true;
-      home-manager.users.${host.vars.user} =  lib.mkMerge [
-        (import ./home-zed.nix {inherit pkgs lib;} )
+      home-manager.users.${host.vars.user} = lib.mkMerge [
+        (import ./home-zed.nix {inherit pkgs lib;})
         (import ./home-zed-keymap.nix)
         # (import ../../modules/home-manager/mutability.nix)
         # (import ./home-mutable.nix)
@@ -123,23 +131,26 @@ with lib;
         #       allowBuiltinFetchGit = true;
         #     };
         #   }))
-        (pkgs.zed-editor.overrideAttrs (o: rec {
-          version = "0.217.3";
-          src = pkgs.fetchFromGitHub {
-            owner = "zed-industries";
-            repo = "zed";
-            tag = "v0.217.3";
-            hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
-          };
-          cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-            inherit src;
-            hash = "sha256-it0g/jdqyuT3PAIkFoVxEj48QXtWoy5LBRM5wc3zRK4=";
-          };
-        }))
-      ];
-     })
-    (lib.mkIf (config.ide.enable) {
 
+        # (pkgs.zed-editor.overrideAttrs (o: rec { # home-zed.nix
+        #   # version = "v0.217.3";
+        #   version = "v0.218.3-pre";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "zed-industries";
+        #     repo = "zed";
+        #     # tag = "v0.217.3";
+        #     tag = version;
+        #     hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
+        #   };
+        #   cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+        #     inherit src;
+        #     hash = "sha256-ZUHz93ImWj3S5kRaWsiLz4Xc0sdaWzy+4CxCW5cvEf0=";
+        #     inherit (o.cargoDeps.vendorStaging) postBuild;
+        #   };
+        # }))
+      ];
+    })
+    (lib.mkIf (config.ide.enable) {
       programs.direnv.enable = true;
       environment.systemPackages = with pkgs; [
         # direnv
