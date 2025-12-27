@@ -1,7 +1,11 @@
-{ config, lib, inputs, ... }:
 {
+  config,
+  lib,
+  inputs,
+  ...
+}: {
   imports = [
-      inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
   ];
   #nvidia
   boot = {
@@ -13,12 +17,12 @@
     ];
     kernelParams = lib.mkMerge [
       [
-          "nvidia.NVreg_UsePageAttributeTable=1" # why this isn't default is beyond me.
-          "nvidia.NVreg_EnableResizableBar=1" # enable reBAR
-          "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # low-latency stuff
+        "nvidia.NVreg_UsePageAttributeTable=1" # why this isn't default is beyond me.
+        "nvidia.NVreg_EnableResizableBar=1" # enable reBAR
+        "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # low-latency stuff
       ]
       (lib.mkIf config.hardware.nvidia.powerManagement.enable [
-          "nvidia.NVreg_TemporaryFilePath=/var/tmp" # store on disk, not /tmp which is on RAM
+        "nvidia.NVreg_TemporaryFilePath=/var/tmp" # store on disk, not /tmp which is on RAM
       ])
     ];
     blacklistedKernelModules = [
@@ -74,7 +78,7 @@
       # fix hw acceleration in bwrap (osu!lazer, wrapped appimages)
       __EGL_EXTERNAL_PLATFORM_CONFIG_DIRS = "/run/opengl-driver/share/egl/egl_external_platform.d";
       # CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
-      CUDA_DISABLE_PERF_BOOST = 1; # TODO LOOK IF REMOVE NECESSARY
+      # CUDA_DISABLE_PERF_BOOST = 1; # TODO LOOK IF REMOVE NECESSARY
     };
   };
   ##### blacklist igpu
