@@ -1,5 +1,12 @@
-{ config, inputs, system, host, lib, pkgs, ... }:
 {
+  config,
+  inputs,
+  system,
+  host,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./zsh_config.nix
   ];
@@ -9,7 +16,7 @@
   programs.zsh.enable = true;
   home-manager.users.${host.vars.user} = {
     programs.zsh = {
-      enable=true;
+      enable = true;
       defaultKeymap = "emacs"; #emacs vicmd viins
       autosuggestion.enable = true;
       # autosuggestion.highlight = "fg=#ff00ff,bg=cyan,bold,underline";
@@ -27,17 +34,19 @@
       #   ignoreSpace = true;
       #   share = true; #?
       # };
-      initContent=''
-          source ~/.config/zsh/.zsh_binds
-          source ~/.config/zsh/.zsh_exports
-          source ~/.config/zsh/.zsh_aliases
-          source ~/.config/zsh/.zsh_extra_functions
-          source ~/.config/zsh/.zsh_shift_select
+      initContent = ''
+        source ~/.config/zsh/.zsh_binds
+        source ~/.config/zsh/.zsh_exports
+        source ~/.config/zsh/.zsh_aliases
+        source ~/.config/zsh/.zsh_extra_functions
+        source ~/.config/zsh/.zsh_shift_select
 
-          eval "$(atuin init zsh)"
-
-          unset SSH_AUTH_SOCK   # fuck you gnome keyring
-          PROMPT='%B%F{$(current_user_color)}%n%f@%F{blue}%M:%F{magenta}%~%f$(git_branch_name)%f>%b%f'
+        eval "$(atuin init zsh)"
+        ${lib.optionalString config.services.desktopManager.gnome.enable
+          ''
+            unset SSH_AUTH_SOCK   # fuck you gnome keyring
+          ''}
+        PROMPT='%B%F{$(current_user_color)}%n%f@%F{blue}%M:%F{magenta}%~%f$(git_branch_name)%f>%b%f'
       '';
 
       # prezto = { #seems bloated but might be worth considering
@@ -55,12 +64,10 @@
       oh-my-zsh = {
         enable = true;
         plugins = [
-            "git"
+          "git"
         ];
       };
     };
-
-
 
     #
     services.gpg-agent.enableZshIntegration = true;
@@ -71,8 +78,8 @@
     };
   };
   environment.systemPackages = [
-      pkgs.atuin
-    ];
-    #Enable zsh completion. Don’t forget to add
-    environment.pathsToLink = [ "/share/zsh" ];
+    pkgs.atuin
+  ];
+  #Enable zsh completion. Don’t forget to add
+  environment.pathsToLink = ["/share/zsh"];
 }
