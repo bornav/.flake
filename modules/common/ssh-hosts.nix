@@ -130,6 +130,7 @@
         IdentityFile /home/user/.ssh/id_local
     Host lighthouse2
         HostName 46.224.122.252
+       	# HostName 46.224.144.124
         # HostName 2a01:4f8:c012:c800::1
         Port 22
         User root
