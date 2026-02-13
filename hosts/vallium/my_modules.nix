@@ -19,7 +19,15 @@
   podman.enable = true;
   builder.builder1.remote = false;
   ide.vscode = true;
-  ide.zed = true;
+  ide.zed.enable = true;
+  ide.zed.language.nix = true;
+  ide.zed.language.go = true;
+  ide.zed.language.rust = true;
+  ide.zed.language.python = true;
+  ide.zed.language.nodejs = true;
+  ide.zed.language.yaml = true;
+  ide.zed.language.docker = true;
+  ide.zed.language.java = true;
   flatpak.enable = true;
 
   device.woothing = true;

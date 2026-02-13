@@ -42,7 +42,7 @@
       "docker.socket"
     ];
     script = ''
-        until findmnt | grep /docker | grep -qi /dev;do sleep 1; done
+        until ${pkgs.util-linux}/bin/findmnt | grep /docker | grep -qi /dev;do sleep 1; done
     '';
   };
   #diskmount
@@ -51,5 +51,8 @@
     fsType = "ext4";
     options = ["defaults" "_netdev" "noatime"];
   };
+  environment.systemPackages = with pkgs; [
+    util-linux
+  ];
   ### iscsi
 }

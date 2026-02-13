@@ -1,6 +1,9 @@
-{ config, lib, ... }:
-with lib;
 {
+  config,
+  lib,
+  ...
+}:
+with lib; {
   options = {
     ide = {
       enable = mkOption {
@@ -11,9 +14,46 @@ with lib;
         type = types.bool;
         default = false;
       };
-      zed = mkOption {
-        type = types.bool;
-        default = false;
+      zed = {
+        enable = mkOption {
+          type = types.bool;
+          default = false;
+        };
+        language = {
+          #https://zed.dev/docs/languages
+          go = mkOption {
+            type = types.bool;
+            default = false;
+          };
+          rust = mkOption {
+            type = types.bool;
+            default = false;
+          };
+          nodejs = mkOption {
+            type = types.bool;
+            default = false;
+          };
+          python = mkOption {
+            type = types.bool;
+            default = false;
+          };
+          yaml = mkOption {
+            type = types.bool;
+            default = false;
+          };
+          docker = mkOption {
+            type = types.bool;
+            default = false;
+          };
+          nix = mkOption {
+            type = types.bool;
+            default = false;
+          };
+          java = mkOption {
+            type = types.bool;
+            default = false;
+          };
+        };
       };
     };
     devops = {

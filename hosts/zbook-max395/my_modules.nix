@@ -16,7 +16,7 @@
   # storagefs.share.vega_nfs = true;
   # storagefs.share.vega_smb = true;
   ide.vscode = true;
-  ide.zed = true;
+  ide.zed.enable = true;
   docker.enable = true;
   ####
 }

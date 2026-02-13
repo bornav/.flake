@@ -14,7 +14,8 @@
 #         inherit system;
 #     };
 # in
-with lib; {
+with lib;
+{
   config = lib.mkMerge [
     (lib.mkIf (config.ide.vscode) {
       ide.enable = true;
@@ -107,10 +108,10 @@ with lib; {
         };
       };
     })
-    (lib.mkIf (config.ide.zed) {
+    (lib.mkIf (config.ide.zed.enable) {
       ide.enable = true;
       home-manager.users.${host.vars.user} = lib.mkMerge [
-        (import ./home-zed.nix {inherit pkgs lib;})
+        (import ./home-zed.nix { inherit config pkgs lib; })
         (import ./home-zed-keymap.nix)
         # (import ../../modules/home-manager/mutability.nix)
         # (import ./home-mutable.nix)

@@ -159,4 +159,6 @@
       # (import ./home-mutable.nix)
     ];
   };
+
+  services.alloy.enable = true;
 }

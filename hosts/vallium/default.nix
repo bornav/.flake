@@ -42,9 +42,9 @@
   };
   # services.gnome.core-apps.enable = true; # TODO why was this defined globally?
   #services.getty.autologinUser = "user";
-  # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_11;
+  boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_18;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
   # boot.kernelPackages = pkgs-master.linuxPackagesFor (pkgs-master.linux_latest.override {
   #     argsOverride = rec {
@@ -165,7 +165,7 @@
     nordic
     papirus-nord
     # pciutils # lspci
-    pika-backup
+
     gvfs
     libglibutil
     fuse
@@ -173,6 +173,19 @@
     btop
     nix-index
     ripgrep
+    teamspeak6-client
+
+
+    (orca-slicer.overrideAttrs (oldAttrs: rec {
+      version = "2.3.1";
+      src = pkgs.fetchFromGitHub {
+        owner = "SoftFever";
+        repo = "OrcaSlicer";
+        tag = "v${version}";
+        hash = "sha256-RdMBx/onLq58oI1sL0cHmF2SGDfeI9KkPPCbjyMqECI=";
+      };
+    }))
+
     # betterbird
     # teamspeak3
     python3
@@ -378,80 +391,9 @@
   #   })
   # ];
   #
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     zed-editor = prev.zed-editor.overrideAttrs (oldAttrs: rec {
-  #       version = "0.217.3";
-
-  #       src = prev.fetchFromGitHub {
-  #         owner = "zed-industries";
-  #         repo = "zed";
-  #         tag = "v${version}";
-  #         hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
-  #       };
-
-  #       cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
-  #         name = "zed-editor-${version}-vendor.tar.gz";
-  #         inherit src;
-  #               outputHash = "sha256-ZUHz93ImWj3S5kRaWsiLz4Xc0sdaWzy+4CxCW5cvEf0=";
-
-  #       });
-  #     });
-  #   })
-  # ];
-  # nixpkgs = {
-  #   overlays = [
-  #     (final: prev: {
-  #       zed-editor = prev.zed-editor.overrideAttrs (oldAttrs: rec {
-  #         version = "0.217.3";
-  #         src = prev.fetchFromGitHub {
-  #           owner = "zed-industries";
-  #           repo = "zed";
-  #           tag = "v${version}";
-  #           hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
-  #         };
-  #         cargoDeps = final.rustPlatform.fetchCargoVendor {
-  #           inherit src;
-  #           hash = "sha256-it0g/jdqyuT3PAIkFoVxEj48QXtWoy5LBRM5wc3zRK4=";
-  #         };
-  #         patches = (oldAttrs.patches or [ ]);
-  #       });
-  #     })
-  #   ];
-  # };
-  #
-  # nixpkgs.overlays = [
-  #     (final: prev: {
-  #       zed-editor = prev.zed-editor.overrideAttrs (oldAttrs: rec {
-  #         version = "0.214.7";
-
-  #         src = prev.fetchFromGitHub {
-  #           owner = "zed-industries";
-  #           repo = "zed";
-  #           tag = "v${version}";
-  #           hash = "sha256-DHKwGE5/FL3gYm9DwM1sGRsdX8kbhojLmi4B00Grtqg=";  # Get hash from build error
-  #         };
-  #         cargoDeps = oldAttrs.cargoDeps.overrideAttrs (previousAttrs: {
-  #                 vendorStaging = previousAttrs.vendorStaging.overrideAttrs {
-  #                   inherit (final) src;
-  #                   # Deliberately invalid hash -- I'm not sure how to effectively
-  #                   # pre-determine it.
-  #                   outputHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-  #                 };
-  #               }
-  #             );
-
-  #         # cargoHash = "sha256-0374lbhzb7fm1mcw967p9z5slgr02kapc3s4l9i2mqb";  # Get hash from build error
-  #         # cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-  #         #             inherit (final) src version;
-  #         #             hash = "${cargoHash}";
-  #         #           };
-  #       });
-  #     })
-  #   ];
-
   #  scheduler test
   # services.scx.enable = true;
   # services.scx.scheduler = "scx_rustland";
   services.netbird.enable = true;
+  programs.hyprland.enable = true;
 }

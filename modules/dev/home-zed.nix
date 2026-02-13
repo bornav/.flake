@@ -1,33 +1,38 @@
 {
+  config,
   lib,
   pkgs,
   ...
 }: {
   programs.zed-editor = {
     enable = true;
-    # package = pkgs.zed-editor.overrideAttrs (o: rec { # woking override as of 01.01.2025
-    #   # version = "v0.217.3";
-    #   version = "v0.218.3-pre";
-    #   src = pkgs.fetchFromGitHub {
-    #     owner = "zed-industries";
-    #     repo = "zed";
-    #     tag = version;
-    #     hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
-    #   };
-    #   cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-    #     inherit src;
-    #     hash = "sha256-ZUHz93ImWj3S5kRaWsiLz4Xc0sdaWzy+4CxCW5cvEf0=";
-    #     inherit (o.cargoDeps.vendorStaging) postBuild;
-    #   };
-    # });
+    #package = pkgs.zed-editor.overrideAttrs (o: rec { # woking override as of 01.01.2025
+    #  # version = "v0.217.3";
+    #  version = "v0.223.2-pre";
+    #  src = pkgs.fetchFromGitHub {
+    #    owner = "zed-industries";
+    #    repo = "zed";
+    #    tag = version;
+    #    hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
+    #  };
+    #  cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+    #    inherit src;
+    #    hash = "sha256-ZUHz93ImWj3S5kRaWsiLz4Xc0sdaWzy+4CxCW5cvEf0=";
+    #    inherit (o.cargoDeps.vendorStaging) postBuild;
+    #  };
+    #});
     ## This populates the userSettings "auto_install_extensions"
-    extensions = [
-      "nix"
-      "toml"
-      "make"
-      "catppuccin"
-      "vscode-dark-modern"
-    ];
+    extensions =
+      # of note once enabled they are not removed !
+      [
+        "toml"
+        "make"
+        "catppuccin"
+        "vscode-dark-modern"
+      ]
+      ++ lib.optionals config.ide.zed.language.docker ["dockerfile" "docker-compose"]
+      ++ lib.optionals config.ide.zed.language.nix ["nix"]
+      ++ lib.optionals config.ide.zed.language.java ["java" "kotlin"];
     userSettings = {
       features = {
         edit_prediction_provider = "none";
@@ -91,29 +96,44 @@
         button = true;
       };
       lsp = {
-        rust-analyzer = {
+        rust-analyzer = lib.optionalAttrs config.ide.zed.language.rust {
           binary = {
             path = lib.getExe pkgs.rust-analyzer;
             # path_lookup = true;
           };
         };
-        nix = {
+        nixd = lib.optionalAttrs config.ide.zed.language.nix {
           binary = {
             path = lib.getExe pkgs.nixd;
             # path_lookup = true;
+          };
+        };
+        jdtls = lib.optionalAttrs config.ide.zed.language.java {
+          settings = {
+            java_home = lib.getExe pkgs.javaPackages.compiler.openjdk21;
+          };
+          binary = {
+            path = lib.getExe pkgs.jdt-language-server;
+          };
+        };
+        kotlin-language-server = lib.optionalAttrs config.ide.zed.language.java {
+          binary = {
+            env = {
+              JAVA_HOME = lib.getExe pkgs.jdt-language-server;
+            };
           };
         };
       };
 
       format_on_save = "off";
       languages = {
-        YAML = {
+        YAML = lib.optionalAttrs config.ide.zed.language.yaml {
           # formatter = "prettier";
           # linter = "yamllint";
           colorize_brackets = true;
           tab_size = 2;
         };
-        Nix = {
+        Nix = lib.optionalAttrs config.ide.zed.language.nix {
           tab_size = 2;
           colorize_brackets = true;
           language_servers = [
@@ -123,7 +143,7 @@
           formatter = {
             external = {
               command = "alejandra";
-              arguments = ["--quiet"];
+              arguments = ["--quiet" "--"];
             };
           };
         };
@@ -281,12 +301,34 @@
       };
     };
   };
-  home.packages = [
-    pkgs.nixd
-    pkgs.nil
-    pkgs.nixfmt-rfc-style
-    pkgs.alejandra
-  ];
+  home.packages =
+    []
+    ++ lib.optionals config.ide.zed.language.nix [
+      pkgs.nixd
+      pkgs.alejandra
+    ]
+    ++ lib.optionals config.ide.zed.language.go [
+      pkgs.gopls
+      pkgs.go
+    ]
+    ++ lib.optionals config.ide.zed.language.rust [
+      pkgs.rustup
+    ]
+    ++ lib.optionals config.ide.zed.language.java [
+      pkgs.javaPackages.compiler.openjdk21
+      pkgs.kotlin-language-server
+      pkgs.jdt-language-server
+    ]
+    ++ lib.optionals config.ide.zed.language.python [
+      # pkgs.python3
+      (pkgs.python3.withPackages (p: [
+        # TODO improve
+        p.numpy # in case the package is already available in nix store, else manuall import needed
+      ]))
+    ]
+    ++ lib.optionals config.ide.zed.language.nodejs [
+      pkgs.vtsls
+    ];
   home.file.".zed_server" = {
     source = "${pkgs.zed-editor.remote_server}/bin";
     # keeps the folder writable, but symlinks the binaries into it
