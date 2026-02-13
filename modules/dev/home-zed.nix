@@ -128,7 +128,8 @@
       format_on_save = "off";
       languages = {
         YAML = lib.optionalAttrs config.ide.zed.language.yaml {
-          # formatter = "prettier";
+          language_servers = ["yaml-language-server" "!docker-compose"]; # the !docker-compose is important as for some reason when this is enabled yaml files with multidocs (---) are failing to parse
+          formatter = "language_server"; #prettier
           # linter = "yamllint";
           colorize_brackets = true;
           tab_size = 2;
