@@ -13,14 +13,14 @@ pkgs.appimageTools.wrapType2 rec {
       "aarch64-linux" = "arm64";
     };
 
-    platform = platformMap.${pkgs.system};
+    platform = platformMap.${pkgs.stdenv.hostPlatform.system};
 
     hashes = {
       "x86_64-linux" = "sha256-EHhIwNnLm7sTlbm5+OTWQl2FGnb1iaAD8S7P5RtIPu4=";
       "aarch64-linux" = "sha256-5l7oWs7ktJAjsuDoPd/tv0t1H9vJvCJ+s34H+wEB9go=";
     };
 
-    hash = hashes.${pkgs.system};
+    hash = hashes.${pkgs.stdenv.hostPlatform.system};
   in
     pkgs.fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-${platform}.AppImage";

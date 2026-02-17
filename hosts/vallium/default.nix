@@ -158,8 +158,8 @@
       # songrec gsettings-desktop-schemas gsettings-qt
       # lact2
       #
-      xorg.xkill
-      xorg.xeyes
+      xkill
+      xeyes
 
       lm_sensors
       openlinkhub

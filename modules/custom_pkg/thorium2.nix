@@ -110,7 +110,7 @@
       pipewire
       udev
       wayland
-      xorg.libxcb
+      libxcb
       zlib
       snappy
       vivaldi-ffmpeg-codecs

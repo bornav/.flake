@@ -31,7 +31,7 @@ with lib; {
               # gamemode
               libxcursor
               libxi
-              xorg.libXinerama
+              libXinerama
               libxscrnsaver
               libpng
               libpulseaudio

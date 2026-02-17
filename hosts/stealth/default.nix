@@ -90,7 +90,7 @@
     openssl
     distrobox
     qjournalctl
-    xorg.xkill
+    xkill
   ] ++
     (with pkgs-unstable; [
       zsh

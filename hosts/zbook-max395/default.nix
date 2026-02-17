@@ -140,7 +140,7 @@ in {
       openssl
       distrobox
       qjournalctl
-      xorg.xkill
+      xkill
 
       vulkan-tools
     ])
