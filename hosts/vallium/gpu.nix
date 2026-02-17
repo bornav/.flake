@@ -44,14 +44,14 @@
       gsp.enable = config.hardware.nvidia.open; # if using closed drivers, lets assume you don't want gsp
       nvidiaSettings = false;
       # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
-      package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #   version = "590.48.01";
-      #   sha256_64bit = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
-      #   openSha256 = "sha256-hECHfguzwduEfPo5pCDjWE/MjtRDhINVr4b1awFdP44=";
-      #   usePersistenced = false;
-      #   useSettings = false;
-      # };
+      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+       version = "580.126.18";
+       sha256_64bit = "sha256-p3gbLhwtZcZYCRTHbnntRU0ClF34RxHAMwcKCSqatJ0=";
+       openSha256 = "sha256-1Q2wuDdZ6KiA/2L3IDN4WXF8t63V/4+JfrFeADI1Cjg=";
+       usePersistenced = false;
+       useSettings = false;
+      };
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true;
       # powerManagement.finegrained = false;

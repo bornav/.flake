@@ -7,18 +7,21 @@
   pkgs-unstable,
   pkgs-master,
   ...
-}: # TODO remove system, only when from all modules it is removed
+}:
+# TODO remove system, only when from all modules it is removed
 let
-  pkgs-oldkern   = import inputs.nixpkgs-6-16-kernel   {system = "x86_64-linux";config.allowUnfree = true;};
-in
-{
+  pkgs-oldkern = import inputs.nixpkgs-6-16-kernel {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in {
   imports = [
     # inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager];
+      home-manager.sharedModules = [inputs.plasma-manager.homeModules.plasma-manager];
     }
     inputs.nixos-cosmic.nixosModules.default
     inputs.disko.nixosModules.disko
@@ -30,7 +33,7 @@ in
     ./my_modules.nix
     ./specialisation.nix
     # ./ai.nix
-    { _module.args.disks = [ "/dev/nvme0n1" ]; }
+    {_module.args.disks = ["/dev/nvme0n1"];}
   ];
   boot.loader = {
     #systemd-boot.enable = true;
@@ -77,7 +80,6 @@ in
   #     };
   #   });
 
-
   # boot.kernelPackages = lib.mkDefault pkgs-unstable.linuxPackages_latest;
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
   #
@@ -98,7 +100,7 @@ in
       "wheel"
       "docker"
     ];
-    packages = with pkgs; [ ];
+    packages = with pkgs; [];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"
     ];
@@ -118,39 +120,40 @@ in
   services.acpid.enable = true;
 
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = [
-    inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
-    #pkgs-unstable.element-desktop
-  ]
-  ++ (with pkgs; [
-    alacritty
-    kdePackages.dolphin
-    kdePackages.ark
-    kdePackages.breeze-icons
-    kdePackages.breeze-gtk
-    kdePackages.xdg-desktop-portal-kde
-    kdePackages.kde-gtk-config
-    kdePackages.kate
-    gnumake
-    haruna
-    jq
-    openssl
-    distrobox
-    qjournalctl
-    xorg.xkill
+  environment.systemPackages =
+    [
+      inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
+      #pkgs-unstable.element-desktop
+    ]
+    ++ (with pkgs; [
+      alacritty
+      kdePackages.dolphin
+      kdePackages.ark
+      kdePackages.breeze-icons
+      kdePackages.breeze-gtk
+      kdePackages.xdg-desktop-portal-kde
+      kdePackages.kde-gtk-config
+      kdePackages.kate
+      gnumake
+      haruna
+      jq
+      openssl
+      distrobox
+      qjournalctl
+      xorg.xkill
 
-    vulkan-tools
-  ])
-  ++ (with pkgs-unstable; [
-    zsh
-    btop
-    appimage-run # TODO
-    # orca-slicer
-    # openrgb
-    # zsh-completions
-    # zsh-autocomplete
-    # gpt4all-chat
-  ]);
+      vulkan-tools
+    ])
+    ++ (with pkgs-unstable; [
+      zsh
+      btop
+      appimage-run # TODO
+      # orca-slicer
+      # openrgb
+      # zsh-completions
+      # zsh-autocomplete
+      # gpt4all-chat
+    ]);
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = false;
@@ -177,14 +180,14 @@ in
           "Ubuntu"
           "Vazirmatn"
         ];
-        monospace = [ "Ubuntu Mono" ];
+        monospace = ["Ubuntu Mono"];
       };
     };
   };
 
   home-manager = {
     backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {inherit inputs;};
     users.${host.vars.user} = lib.mkMerge [
       (import ./home.nix)
       (import ../../modules/home-manager/mutability.nix)
@@ -245,8 +248,8 @@ in
   services.tailscale.enable = true;
   networking.firewall = {
     checkReversePath = "loose";
-    trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    trustedInterfaces = ["tailscale0"];
+    allowedUDPPorts = [config.services.tailscale.port];
   };
   # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
   # headscale --namespace <namespace_name> nodes register --key <machine_key>

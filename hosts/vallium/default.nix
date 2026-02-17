@@ -1,7 +1,17 @@
-{ config, lib, inputs, host, pkgs, pkgs-stable, pkgs-unstable, pkgs-master, ... }:
 {
+  config,
+  lib,
+  inputs,
+  host,
+  pkgs,
+  pkgs-stable,
+  pkgs-unstable,
+  pkgs-master,
+  ...
+}: {
   imports = [
-    inputs.home-manager.nixosModules.home-manager {
+    inputs.home-manager.nixosModules.home-manager
+    {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
     }
@@ -22,7 +32,8 @@
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
     # ./network-shares.nix
   ];
-  fonts = { ## TODO entire block untested if even used, would like to use the Hack font
+  fonts = {
+    ## TODO entire block untested if even used, would like to use the Hack font
     fontDir.enable = true;
     fontconfig.enable = true;
     packages = with pkgs; [
@@ -34,17 +45,17 @@
     ];
     fontconfig = {
       defaultFonts = {
-        serif = [  "Liberation Serif" "Vazirmatn" ];
-        sansSerif = [ "Ubuntu" "Vazirmatn" ];
-        monospace = [ "Ubuntu Mono" ];
+        serif = ["Liberation Serif" "Vazirmatn"];
+        sansSerif = ["Ubuntu" "Vazirmatn"];
+        monospace = ["Ubuntu Mono"];
       };
     };
   };
   # services.gnome.core-apps.enable = true; # TODO why was this defined globally?
   #services.getty.autologinUser = "user";
-  boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_18;
+  # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_18;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
   # boot.kernelPackages = pkgs-master.linuxPackagesFor (pkgs-master.linux_latest.override {
   #     argsOverride = rec {
@@ -61,7 +72,6 @@
   #       ignoreConfigErrors = true;
   #     };
   #   });
-
 
   # boot.consoleLogLevel  description of package -> The kernel console `loglevel`. All Kernel Messages with a log level smaller than this setting will be printed to the console.  https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/system/boot/kernel.nix
   boot.loader = {
@@ -111,15 +121,15 @@
     initialPassword = "nixos";
     isNormalUser = true;
     description = "${host.vars.user}";
-    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "i2c"];
+    extraGroups = ["networkmanager" "wheel" "docker" "wireshark" "i2c"];
     packages = with pkgs; [];
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGiVyNsVCk2KAGfCGosJUFig6PyCUwCaEp08p/0IDI7"];
   };
 
   environment.sessionVariables = {
-    flake_name=host.hostName;
-    FLAKE="$HOME/.flake";
-    NIXOS_CONFIG="$HOME/.flake";
+    flake_name = host.hostName;
+    FLAKE = "$HOME/.flake";
+    NIXOS_CONFIG = "$HOME/.flake";
     # NIXOS_CONFIG="/home/${host.vars.user}/.flake";
     # QT_STYLE_OVERRIDE="kvantum";
     WLR_NO_HARDWARE_CURSORS = "1"; # look into removing
@@ -128,79 +138,82 @@
 
   ####
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = [
-    pkgs.scx.full
-    (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
-    (pkgs-unstable.callPackage ../../modules/custom_pkg/helium_browser.nix {})
-    inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
+  environment.systemPackages =
+    [
+      pkgs.scx.full
+      (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
+      (pkgs-unstable.callPackage ../../modules/custom_pkg/helium_browser.nix {})
+      inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-    # pkgs-master.pciutils # pciutils
-    pkgs-unstable.pciutils # pciutils
-    # pkgs-unstable.element-desktop
-    # pkgs-unstable.coolercontrol.coolercontrol-gui
-    # pkgs-unstable.coolercontrol.coolercontrold
-    (pkgs-unstable.bottles.override {removeWarningPopup = true;}) #TODO investigate how this is done on the source and document, 14.06.2025 nixos-unstable
+      # pkgs-master.pciutils # pciutils
+      pkgs-unstable.pciutils # pciutils
+      # pkgs-unstable.element-desktop
+      # pkgs-unstable.coolercontrol.coolercontrol-gui
+      # pkgs-unstable.coolercontrol.coolercontrold
+      (pkgs-unstable.bottles.override {removeWarningPopup = true;}) #TODO investigate how this is done on the source and document, 14.06.2025 nixos-unstable
 
-    # pkgs-master.lact
-    ] ++ (with pkgs; [
-    # songrec gsettings-desktop-schemas gsettings-qt
-    # lact2
-    #
-    lm_sensors
-    openlinkhub
-    sbctl
-    mokutil
-    alacritty
-    kdePackages.okular            # PDF Viewer
-    haruna
-    jq
-    kdiskmark
-    appimage-run      # Runs AppImages on NixOS
-    distrobox
-    qjournalctl
-    # remmina          # XRDP & VNC Client
-    # sublime-merge
-    feh
-    gparted
-    nordic
-    papirus-nord
-    # pciutils # lspci
-
-    gvfs
-    libglibutil
-    fuse
-    borgbackup
-    btop
-    nix-index
-    ripgrep
-    teamspeak6-client
-
-
-    (orca-slicer.overrideAttrs (oldAttrs: rec {
-      version = "2.3.1";
-      src = pkgs.fetchFromGitHub {
-        owner = "SoftFever";
-        repo = "OrcaSlicer";
-        tag = "v${version}";
-        hash = "sha256-RdMBx/onLq58oI1sL0cHmF2SGDfeI9KkPPCbjyMqECI=";
-      };
-    }))
-
-    # betterbird
-    # teamspeak3
-    python3
-    egl-wayland
-    ((vim-full.override { }).customize {
-    name = "vim";
-      vimrcConfig.customRC = ''
-        set mouse=""
-        set backspace=indent,eol,start
-        syntax on
-      '';
-    })
-  ]) ++ (with pkgs-stable; [
+      # pkgs-master.lact
+    ]
+    ++ (with pkgs; [
+      # songrec gsettings-desktop-schemas gsettings-qt
+      # lact2
+      #
       xorg.xkill
       xorg.xeyes
+
+      lm_sensors
+      openlinkhub
+      sbctl
+      mokutil
+      alacritty
+      kdePackages.okular # PDF Viewer
+      haruna
+      jq
+      kdiskmark
+      appimage-run # Runs AppImages on NixOS
+      distrobox
+      qjournalctl
+      # remmina          # XRDP & VNC Client
+      # sublime-merge
+      feh
+      gparted
+      nordic
+      papirus-nord
+      # pciutils # lspci
+
+      gvfs
+      libglibutil
+      fuse
+      borgbackup
+      btop
+      nix-index
+      ripgrep
+      teamspeak6-client
+
+      (orca-slicer.overrideAttrs (oldAttrs: rec {
+        version = "2.3.1";
+        src = pkgs.fetchFromGitHub {
+          owner = "SoftFever";
+          repo = "OrcaSlicer";
+          tag = "v${version}";
+          hash = "sha256-RdMBx/onLq58oI1sL0cHmF2SGDfeI9KkPPCbjyMqECI=";
+        };
+      }))
+
+      # betterbird
+      # teamspeak3
+      python3
+      egl-wayland
+      ((vim-full.override {}).customize {
+        name = "vim";
+        vimrcConfig.customRC = ''
+          set mouse=""
+          set backspace=indent,eol,start
+          syntax on
+        '';
+      })
+    ])
+    ++ (with pkgs-stable; [
       wireshark
       # orca-slicer
       # openrgb
@@ -208,7 +221,7 @@
       kdePackages.kmail
       kdePackages.kmailtransport
       kdePackages.kmail-account-wizard
-  ]);
+    ]);
   programs.zsh.enable = true; # TODO REMOVE ME, temp
   programs.gnupg.agent = {
     enable = true;
@@ -231,7 +244,7 @@
   home-manager = {
     backupFileExtension = "backup";
     extraSpecialArgs = {inherit inputs;};
-    users.${host.vars.user} =  lib.mkMerge [
+    users.${host.vars.user} = lib.mkMerge [
       (import ./home.nix)
       (import ../../modules/home-manager/mutability.nix)
       (import ./home-mutable.nix)
@@ -261,7 +274,7 @@
   };
   # services.fwupd.enable = true; # firmware upgrade tool
   environment.variables = {
-    LD_LIBRARY_PATH=lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
+    LD_LIBRARY_PATH = lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
     # PIPEWIRE_LATENCY = "32/48000"; # TODO test
   };
   programs.nix-ld = {
@@ -326,8 +339,8 @@
 
   hardware.enableRedistributableFirmware = true;
   nixpkgs.config.permittedInsecurePackages = [
-  "qtwebengine-5.15.19"
-  ];# TODO REMOVE ME
+    "qtwebengine-5.15.19"
+  ]; # TODO REMOVE ME
   #
   # boot.extraModprobeConfig = ''
   #   # Replace 10de:1234 with your actual vendor:product ID
@@ -340,7 +353,6 @@
   #   "vfio-pci.ids=144d:a804"
   # ];
   # boot.kernelModules = [ "vfio" "vfio_iommu_type1" "vfio_pci" ];
-
 
   # programs.obs-studio = {
   #   enable = true;

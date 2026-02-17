@@ -29,10 +29,10 @@ with lib; {
               libpng
               icu
               # gamemode
-              xorg.libXcursor
-              xorg.libXi
+              libxcursor
+              libxi
               xorg.libXinerama
-              xorg.libXScrnSaver
+              libxscrnsaver
               libpng
               libpulseaudio
               libvorbis

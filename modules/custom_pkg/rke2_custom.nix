@@ -6,7 +6,6 @@
   go,
   makeWrapper,
   fetchzip,
-
   # Runtime dependencies
   procps,
   coreutils,
@@ -18,17 +17,14 @@
   iproute2,
   kmod,
   lvm2,
-
   # Killall Script dependencies
   systemd,
   gnugrep,
   gnused,
-
   # Testing dependencies
   nixosTests,
   testers,
   rke2,
-
   rke2Version ? "",
   rke2Commit ? "",
   rke2TarballHash ? "",
@@ -40,7 +36,6 @@
   ccmVersion ? "",
   dockerizedVersion ? "",
 }:
-
 buildGoModule rec {
   pname = "rke2";
   version = rke2Version;
@@ -52,7 +47,7 @@ buildGoModule rec {
 
   vendorHash = rke2VendorHash;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # Important utilities used by the kubelet.
   # See: https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-237202494
@@ -95,7 +90,7 @@ buildGoModule rec {
     "osusergo"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   installPhase = ''
     install -D $GOPATH/bin/rke2 $out/bin/rke2
@@ -105,12 +100,12 @@ buildGoModule rec {
     install -D ./bundle/bin/rke2-killall.sh $out/bin/rke2-killall.sh
     wrapProgram $out/bin/rke2-killall.sh \
       --prefix PATH : ${
-        lib.makeBinPath [
-          systemd
-          gnugrep
-          gnused
-        ]
-      } \
+      lib.makeBinPath [
+        systemd
+        gnugrep
+        gnused
+      ]
+    } \
       --prefix PATH : ${lib.makeBinPath buildInputs}
   '';
 
