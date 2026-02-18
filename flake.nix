@@ -5,6 +5,7 @@
     nix-pkgs-local.url = "git+file:////home/user/git/nixpkgs";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";         # Unstable Nix Packages
+    nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs-6-16-kernel.url = "github:nixos/nixpkgs/c86b434e0f777e57642eb573d003e7c72b73b0a2";
     nixpkgs-bornav.url = "github:bornav/nixpkgs/headscale-restart-fix";
