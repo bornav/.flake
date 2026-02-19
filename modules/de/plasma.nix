@@ -27,7 +27,7 @@ with lib;
   config = mkIf (config.plasma.enable) {
     services.xserver.enable = true;
     # services.xserver.displayManager.gdm.enable = lib.mkForce false;
-
+    services.displayManager.plasma-login-manager.enable = true;
     services.displayManager.sddm.enable = false;
     services.displayManager.sddm.wayland.enable = false;
     services.desktopManager.plasma6 = {

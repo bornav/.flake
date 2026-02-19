@@ -63,8 +63,8 @@ in {
   networking.dhcpcd.enable = lib.mkForce false;
 
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
-  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  boot.kernelPackages = pkgs-oldkern.linuxKernel.packages.linux_6_16;
+  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  # boot.kernelPackages = lib.mkForce pkgs-oldkern.linuxKernel.packages.linux_6_16;
   # boot.kernelPackages = pkgs-unstable.linuxPackagesFor (pkgs-master.linux_latest.override {
   #     argsOverride = rec {
   #       # version = "6.19.0-rc1";

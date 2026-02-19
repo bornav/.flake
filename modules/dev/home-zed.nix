@@ -34,9 +34,9 @@
       ++ lib.optionals config.ide.zed.language.nix ["nix"]
       ++ lib.optionals config.ide.zed.language.java ["java" "kotlin"];
     userSettings = {
-      features = {
-        edit_prediction_provider = "none";
-      };
+      # features = {
+      #   edit_prediction_provider = "none";
+      # };
       # assistant = {
       #     enabled = false;
       #     # version = "2";
@@ -220,12 +220,6 @@
       colorize_brackets = true; # Turn on colorization of brackets in editors (configurable per language)
       #########################
 
-      edit_predictions = {
-        mode = "eager"; # Automatically show (eager) or hold-alt (subtle)
-        enabled_in_text_threads = true; # Show/hide predictions in agent text threads
-      };
-      show_edit_predictions = true; # Show/hide predictions in editor
-
       ## TODO impo test every impo
       inlay_hints = {
         enabled = false;
@@ -280,13 +274,14 @@
       };
 
       #AI
-      disable_ai = true; # add if condition if locall ollama service is enabled or something
+      disable_ai = false; # add if condition if locall ollama service is enabled or something
       agent = {
         default_model = {
           provider = "ollama";
-          model = "qwen3-coder:30b";
+          model = "qwen2.5-coder:14b";
         };
         model_parameters = [];
+
         inline_alternatives = [
           {
             provider = "ollama";
@@ -300,6 +295,15 @@
           # auto_discover= true; # enabled by default
         };
       };
+      edit_predictions = {
+        provider = "ollama";
+        mode = "eager"; # Automatically show (eager) or hold-alt (subtle)
+        enabled_in_text_threads = true; # Show/hide predictions in agent text threads
+        ollama = {
+          model = "qwen2.5-coder:14b";
+        };
+      };
+      show_edit_predictions = true; # Show/hide predictions in editor
     };
   };
   home.packages =
