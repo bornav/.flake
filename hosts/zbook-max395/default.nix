@@ -26,8 +26,12 @@ in {
     inputs.nixos-cosmic.nixosModules.default
     inputs.disko.nixosModules.disko
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    # inputs.nixos-hardware.nixosModules.common-cpu-intel
-    # inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
+
+
     ./disk-config.nix
     ./hardware-configuration.nix
     ./my_modules.nix
@@ -63,8 +67,8 @@ in {
   networking.dhcpcd.enable = lib.mkForce false;
 
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
-  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  # boot.kernelPackages = lib.mkForce pkgs-oldkern.linuxKernel.packages.linux_6_16;
+  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  boot.kernelPackages = lib.mkForce pkgs-oldkern.linuxKernel.packages.linux_6_16;
   # boot.kernelPackages = pkgs-unstable.linuxPackagesFor (pkgs-master.linux_latest.override {
   #     argsOverride = rec {
   #       # version = "6.19.0-rc1";
