@@ -120,7 +120,16 @@
         StrictHostKeyChecking no
         IdentityFile /home/user/.ssh/id_local
     Host lighthouse
-        HostName 159.69.206.117
+        HostName lighthouse.icylair.com
+        # HostName 2a01:4f8:c012:c800::1
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        # IdentityFile /home/user/.ssh/cdn_key_pwless
+        IdentityFile /home/user/.ssh/id_local
+    Host gatekeeper
+        HostName gatekeeper.icylair.com
         # HostName 2a01:4f8:c012:c800::1
         Port 22
         User root
