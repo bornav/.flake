@@ -74,7 +74,7 @@ with lib; {
       pkgs.openssl
       pkgs.vkd3d
       pkgs.vkd3d-proton
-      pkgs.protonup-ng
+      # pkgs.protonup-ng
       pkgs.libpng
       pkgs.icu
       pkgs.mangohud

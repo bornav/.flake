@@ -7,9 +7,10 @@
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;
+  games.applications.enable = true;
   thorium.enable = true;
   rar.enable = true;
-  # wg-home.enable = true;
+  wg-home.enable = true;
   wg-home.local_ip = "10.10.1.3/32";
   wg-home.privateKeyFileLocation = "/home/user/.ssh/wg/zbook/priv.key";
   # flatpak.enable = true;

@@ -9,7 +9,7 @@
   # virtualization.waydroid = true;
   devops.enable = true;
   steam.enable = true;
-  emulation.switch = true;
+  emulation.switch = false;
   games.applications.enable = true;
   rar.enable = true;
   thorium.enable = true;
