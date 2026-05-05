@@ -1,4 +1,13 @@
-{ config, inputs, system, vars, lib, pkgs, ... }:
+{
+  config,
+  inputs,
+  system,
+  vars,
+  lib,
+  pkgs,
+  pkgs-stable,
+  ...
+}:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -9,24 +18,32 @@
 #         inherit system;
 #     };
 # in
-with lib;
-{
+with lib; {
   config = mkIf (config.games.applications.enable) {
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = [
       # airshipper
-      # heroic
       # heroic-unwrapped
-      (heroic.override {
-        extraPkgs = pkgs: [
-          pkgs.gamescope
-        ];
-      })
-      lutris
-      gogdl
+      pkgs-stable.heroic
+      # (heroic.override {
+      #   extraPkgs = pkgs: [
+      #     pkgs.gamescope
+      #   ];
+      # })
+      (pkgs-stable.bottles.override {removeWarningPopup = true;}) #TODO investigate how this is done on the source and document, 14.06.2025 nixos-unstable
+      # pkgs.lutris
+      pkgs-stable.lutris
+      pkgs.gogdl
       # (bottles.override {
       #   removeWarningPopup = true;
       # })
-      shadps4
-      umu-launcher
+      pkgs.shadps4
+      pkgs.umu-launcher
     ];
-};}
+    boot.kernelModules = [
+      "ntsync"
+    ];
+    services.udev.extraRules = ''
+      KERNEL=="ntsync", MODE="0644"
+    '';
+  };
+}

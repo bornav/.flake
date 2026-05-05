@@ -7,6 +7,8 @@
   pkgs-stable,
   pkgs-unstable,
   pkgs-master,
+  pkgs-local,
+  pkgs-custom,
   ...
 }: {
   imports = [
@@ -27,10 +29,21 @@
     # ./specialisation.nix
     ./pcie-passtrough.nix
     ./my_modules.nix
+    ./ai.nix
+
+    ./alloy.nix
+
+    # ./snapmaker-orca.nix
+
     # ./winapps.nix
     # ./lvm.nix
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
     # ./network-shares.nix
+    # ../../../modules/custom_pkg/librepods.nix
+    inputs.snapmaker-orca.nixosModules.default
+    {
+      programs.snapmaker-orca.enable = true;
+    }
   ];
   fonts = {
     ## TODO entire block untested if even used, would like to use the Hack font
@@ -96,14 +109,20 @@
     # };
     limine = {
       enable = true;
-      enableEditor = true;
+      enableEditor = false;
       efiSupport = true;
       # biosDevice = "nodev"; # default
       secureBoot.enable = true;
+      maxGenerations = 10;
       extraEntries = ''
         /Windows
-            protocol: efi
+            protocol: efi_chainload
             path: uuid(eafba258-d1ca-4c97-821d-9effdf1756d2):/EFI/Microsoft/Boot/bootmgfw.efi
+        /catchyos
+            protocol: linux
+            module_path: boot():/03a70d31514c48d6adab5699aa5b96d8/linux-cachyos/initramfs-linux-cachyos#9dd8bfde87941367ec61938bf788f679566ca823d7ea7694319ad927e6e1842eee336f4df099b32a25246b7766fd61eedf0e183ad8fcbde323c1bd23c74e245c
+            path: boot():/03a70d31514c48d6adab5699aa5b96d8/linux-cachyos/vmlinuz-linux-cachyos#14d26f1ce466a5c6bc1b1014fe971dd87d910517ed982fcfeb883f135e7cb599ab41d258f79143c2a6e5f0378bfe2e11cd77b9de60ac69d06957732f94bdc71c
+            cmdline: quiet nowatchdog splash rw root=UUID=95ad0cf4-4e45-47b0-8d5e-5cb54f61befc
       '';
     };
   };
@@ -140,9 +159,14 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages =
     [
+      # pkgs-custom.nano
+      # pkgs-local.beyla
+      # (pkgs-unstable.callPackage ../../modules/custom_pkg/temp.nix {})
       pkgs.scx.full
       (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
       (pkgs-unstable.callPackage ../../modules/custom_pkg/helium_browser.nix {})
+
+      # (pkgs.callPackage ./snapmaker-orca.nix {inherit (pkgs) orca-slicer;})
       inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       # pkgs-master.pciutils # pciutils
@@ -150,7 +174,6 @@
       # pkgs-unstable.element-desktop
       # pkgs-unstable.coolercontrol.coolercontrol-gui
       # pkgs-unstable.coolercontrol.coolercontrold
-      (pkgs-unstable.bottles.override {removeWarningPopup = true;}) #TODO investigate how this is done on the source and document, 14.06.2025 nixos-unstable
 
       # pkgs-master.lact
     ]
@@ -161,6 +184,11 @@
       xkill
       xeyes
 
+      vulkan-tools # both provide cli utilities to debug opengl/vulkan
+      virtualglLib #
+
+      freecad
+
       lm_sensors
       openlinkhub
       sbctl
@@ -170,7 +198,10 @@
       haruna
       jq
       kdiskmark
-      appimage-run # Runs AppImages on NixOS
+      # appimage-run # Runs AppImages on NixOS
+      (pkgs.appimage-run.override {
+        extraPkgs = pkgs: [pkgs.webkitgtk_4_1];
+      })
       distrobox
       qjournalctl
       # remmina          # XRDP & VNC Client
@@ -190,15 +221,20 @@
       ripgrep
       teamspeak6-client
 
-      (orca-slicer.overrideAttrs (oldAttrs: rec {
-        version = "2.3.1";
-        src = pkgs.fetchFromGitHub {
-          owner = "SoftFever";
-          repo = "OrcaSlicer";
-          tag = "v${version}";
-          hash = "sha256-RdMBx/onLq58oI1sL0cHmF2SGDfeI9KkPPCbjyMqECI=";
-        };
-      }))
+      librepods
+
+      nmap
+      winboat
+
+      # (orca-slicer.overrideAttrs (oldAttrs: rec {
+      #   version = "2.3.1";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "SoftFever";
+      #     repo = "OrcaSlicer";
+      #     tag = "v${version}";
+      #     hash = "sha256-RdMBx/onLq58oI1sL0cHmF2SGDfeI9KkPPCbjyMqECI=";
+      #   };
+      # }))
 
       # betterbird
       # teamspeak3
@@ -279,80 +315,21 @@
   };
   programs.nix-ld = {
     enable = true;
-    # libraries = with pkgs; [
-    #   alsa-lib
-    #   at-spi2-atk
-    #   at-spi2-core
-    #   atk
-    #   cairo
-    #   cups
-    #   curl
-    #   dbus
-    #   expat
-    #   fontconfig
-    #   freetype
-    #   fuse3
-    #   gdk-pixbuf
-    #   glib
-    #   gtk3
-    #   icu
-    #   libGL
-    #   libappindicator-gtk3
-    #   libdrm
-    #   libglvnd
-    #   libnotify
-    #   libpulseaudio
-    #   libunwind
-    #   libusb1
-    #   libuuid
-    #   libxkbcommon
-    #   libxml2
-    #   mesa
-    #   nspr
-    #   nss
-    #   openssl
-    #   pango
-    #   pipewire
-    #   stdenv.cc.cc
-    #   systemd
-    #   vulkan-loader
-    #   xorg.libX11
-    #   xorg.libXScrnSaver
-    #   xorg.libXcomposite
-    #   xorg.libXcursor
-    #   xorg.libXdamage
-    #   xorg.libXext
-    #   xorg.libXfixes
-    #   xorg.libXi
-    #   xorg.libXrandr
-    #   xorg.libXrender
-    #   xorg.libXtst
-    #   xorg.libxcb
-    #   xorg.libxkbfile
-    #   xorg.libxshmfence
-    #   zlib
-    #   # add any missing dynamic libraries for unpacked programs here, not in the environment.systemPackages
-    # ];
   };
+
   # programs.coolercontrol.enable = true;
   services.lact.enable = true;
 
   hardware.enableRedistributableFirmware = true;
   nixpkgs.config.permittedInsecurePackages = [
     "qtwebengine-5.15.19"
+    "libsoup-2.74.3"
   ]; # TODO REMOVE ME
   #
   # boot.extraModprobeConfig = ''
   #   # Replace 10de:1234 with your actual vendor:product ID
   #   options vfio-pci ids=144d:a804
   # '';
-
-  # boot.kernelParams = [
-  #   "amd_iommu=on"
-  #   "iommu=pt"
-  #   "vfio-pci.ids=144d:a804"
-  # ];
-  # boot.kernelModules = [ "vfio" "vfio_iommu_type1" "vfio_pci" ];
 
   # programs.obs-studio = {
   #   enable = true;
@@ -406,6 +383,7 @@
   #  scheduler test
   # services.scx.enable = true;
   # services.scx.scheduler = "scx_rustland";
+
   services.netbird.enable = true;
   programs.hyprland.enable = true;
 }

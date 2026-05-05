@@ -1,6 +1,6 @@
 {inputs, config, pkgs, ... }:
 {
-# home.file."asdasd.sh".source = 
+# home.file."asdasd.sh".source =
 # let
 #   script = pkgs.writeShellScriptBin "asdasd.sh" ''
 #     asd
@@ -17,7 +17,7 @@ filesystems=/run/current-system/sw/share/X11/fonts:ro;/nix/store:ro
 xdg.mime.enable = true;
 xdg.mimeApps.enable = true;
 ## this may be neccesary sometimes
-# xdg.configFile."mimeapps.list".force = true;
+xdg.configFile."mimeapps.list".force = true;
 ## from limited testing it is only applied if both sides are valid
 xdg.mimeApps.defaultApplications."text/html" = "thorium-browser.desktop";
 xdg.mimeApps.defaultApplications = {

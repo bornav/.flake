@@ -13,6 +13,7 @@ with lib;
 {
   config = mkIf (config.devops.enable) {
     environment.systemPackages = with pkgs; [
+      uv
       k9s
       thttpd # htpasswd
       lazygit
@@ -37,6 +38,7 @@ with lib;
       inetutils
       cilium-cli
       kind
+      opentofu
       yaml-language-server  # TODO look into
       inputs.compose2nix.packages.x86_64-linux.default
       ];

@@ -1,0 +1,76 @@
+logLevel: info
+healthCheckTimeout: 600
+startPort: 10002
+globalTTL: 480
+
+macros:
+  "latest-llama": >
+    /home/user/workspace/llama-swap/llama-swap/result/bin/llama-server
+    --host 0.0.0.0
+    --port ${PORT}
+    --jinja
+    --metrics
+
+models:
+  #Gemma4-31B:
+  #  cmd: >
+  #    ${latest-llama}
+  #    -hf unsloth/gemma-4-31B-it-GGUF:UD-Q4_K_XL
+  #    -c 20480
+  #    --temp 1
+  #    --top-p 0.95
+  #    --top-k 64
+
+  Gemma4-26B-A4B:
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/gemma-4-26B-A4B-it-GGUF:UD-Q4_K_M
+      -c 20480
+      --temp 1
+      --top-p 0.95
+      --top-k 64
+  Qwen3.6-27B-general:
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
+      -c 30000
+      --temp 1
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+      --presence-penalty 0.0
+      --repeat-penalty 1.0
+  Qwen3.6-27B-coding:
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
+      -c 40000
+      --temp 0.6
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+      --presence-penalty 0.0
+      --repeat-penalty 1.0
+  Qwen3.6-27B-Instruct:
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
+      -c 20480
+      --temp 0.7
+      --top-p 0.80
+      --top-k 20
+      --min-p 0.0
+      --presence-penalty 1.5
+      --repeat-penalty 1.0
+      --reasoning off
+  Qwen3.6-27B-coding-ctx-big:
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
+      -c 60000
+      --temp 0.6
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+      --presence-penalty 0.0
+      --repeat-penalty 1.0

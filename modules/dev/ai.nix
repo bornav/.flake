@@ -15,7 +15,7 @@ with lib;
         # gpt4all
         # tabby
         # nvidia-container-toolkit # TODO breaks normal docker(overwrites)
-        onnxruntime
+        # onnxruntime
       ];
     # services.tabby.enable = true;
     # networking.firewall = {

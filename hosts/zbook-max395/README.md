@@ -9,3 +9,4 @@ git/kubernetes/fluxcd#oracle-km1-1 root@141.144.255.9
 
 ### rebuilds the flake with the new configuration
 `nixos-rebuild switch --flake ~/.flake#zbook-max395 --target-host zbook-max395`
+`nh os switch ~/.flake -H zbook-max395 --target-host zbook-max395`

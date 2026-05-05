@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   inputs,
   ...
 }: {
@@ -15,18 +16,20 @@
       "nvidia_uvm"
       "nvidia_drm"
     ];
-    kernelParams = lib.mkMerge [
-      [
-        "nvidia.NVreg_UsePageAttributeTable=1" # why this isn't default is beyond me.
-        "nvidia.NVreg_EnableResizableBar=1" # enable reBAR
-        "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # low-latency stuff
-      ]
-      (lib.mkIf config.hardware.nvidia.powerManagement.enable [
-        "nvidia.NVreg_TemporaryFilePath=/var/tmp" # store on disk, not /tmp which is on RAM
-      ])
-    ];
+    # kernelParams = lib.mkMerge [
+    #   [
+    #     "nvidia.NVreg_UsePageAttributeTable=1" # why this isn't default is beyond me.
+    #     "nvidia.NVreg_EnableResizableBar=1" # enable reBAR
+    #     "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # low-latency stuff
+    #   ]
+    #   (lib.mkIf config.hardware.nvidia.powerManagement.enable [
+    #     "nvidia.NVreg_TemporaryFilePath=/var/tmp" # store on disk, not /tmp which is on RAM
+    #   ])
+    #   (lib.mkIf config.hardware.nvidia.open [
+    #     "nvidia.NVreg_UseKernelSuspendNotifiers=1"
+    #   ])
+    # ];
     blacklistedKernelModules = [
-      "amdgpu"
       "nouveau"
     ];
   };
@@ -41,22 +44,38 @@
     nvidia = {
       # modesetting.enable = true;
       open = true;
-      gsp.enable = config.hardware.nvidia.open; # if using closed drivers, lets assume you don't want gsp
+      # gsp.enable = config.hardware.nvidia.open; #default is config.hardware.nvidia.open == true || lib.versionAtLeast config.hardware.nvidia.package.version "555"
       nvidiaSettings = false;
-      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.beta;
-      # package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.latest;
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-       version = "580.126.18";
-       sha256_64bit = "sha256-p3gbLhwtZcZYCRTHbnntRU0ClF34RxHAMwcKCSqatJ0=";
-       openSha256 = "sha256-1Q2wuDdZ6KiA/2L3IDN4WXF8t63V/4+JfrFeADI1Cjg=";
-       usePersistenced = false;
-       useSettings = false;
-      };
+      branch = "bleeding_edge"; #production stable latest bleeding_edge vulkan_beta new_feature
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
+      # package = config.boot.kernelPackages.nvidiaPackages.latest;
+      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #   version = "610.43.02";
+      #   sha256_64bit = "sha256-MDSgVLtM33dS/43CclZMsQVROAS/9TU4lFkBsWyndGM=";
+      #   openSha256 = "sha256-hP5NVZZ4vGsACHLmUDKq4uckpd/kn1GxCSYnnJfAuBs="; #lib.fakeHash;
+      #   usePersistenced = false;
+      #   useSettings = false;
+      # };
       # forceFullCompositionPipeline = true;
-      powerManagement.enable = true;
+      powerManagement.enable = true; #!config.hardware.nvidia.open;
       # powerManagement.finegrained = false;
       #
-      videoAcceleration = true;
+      moduleParams = {
+        nvidia = {
+          NVreg_UsePageAttributeTable = 1; # why this isn't default is beyond me.
+          # NVreg_EnableResizableBar = 1; # enable reBAR
+          "NVreg_RegistryDwords=RmEnableAggressiveVblank" = 1; # low-latency stuff
+          # (lib.mkIf config.hardware.nvidia.open [ # find out how
+          #   "NVreg_UseKernelSuspendNotifiers" = 1;
+          # ])
+          # (lib.mkIf config.hardware.nvidia.powerManagement.enable [
+          #   "NVreg_TemporaryFilePath" = "/var/tmp"; # store on disk, not /tmp which is on RAM
+          # ])
+        };
+        nvidia-modeset = {
+          disable_vrr_memclk_switch = 1; # don't force P0 when VRR is active
+        };
+      };
     };
     graphics = {
       enable = true;
@@ -65,7 +84,7 @@
   };
   environment = {
     sessionVariables = {
-      VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json"; # if this missing getting warning terminator_CreateInstance in `vulkaninfo --summary`
+      VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.json"; # if this missing getting warning terminator_CreateInstance in `vulkaninfo --summary`
       # disable vsync
       __GL_SYNC_TO_VBLANK = "0";
       # enable gsync / vrr support
@@ -75,10 +94,16 @@
       __GL_MaxFramesAllowed = "1";
       # fix hw acceleration and native wayland on losslesscut
       __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json";
+      __EGL_VENDOR_LIBRARY_CONFIG_DIRS = "/run/opengl-driver/share/glvnd/egl_vendor.d";
       # fix hw acceleration in bwrap (osu!lazer, wrapped appimages)
-      __EGL_EXTERNAL_PLATFORM_CONFIG_DIRS = "/run/opengl-driver/share/egl/egl_external_platform.d";
+      __EGL_EXTERNAL_PLATFORM_CONFIG_DIRS = "/run/current-system/etc/egl/egl_external_platform.d";
       # CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
       # CUDA_DISABLE_PERF_BOOST = 1; # TODO LOOK IF REMOVE NECESSARY
+
+      DXVK_NVAPI_D3D12_NV_SHADER_EXTN = 1;
+      # also enable descriptor heap
+      VKD3D_CONFIG = "descriptor_heap";
+      DXVK_CONFIG = "dxvk.enableDescriptorHeap = True;";
     };
   };
   ##### blacklist igpu
@@ -106,4 +131,8 @@
   #     ];
   #   };
   # };
+  #
+  environment.systemPackages = [
+    pkgs.nvtopPackages.nvidia
+  ];
 }

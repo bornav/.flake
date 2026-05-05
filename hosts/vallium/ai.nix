@@ -1,0 +1,164 @@
+{
+  config,
+  lib,
+  system,
+  inputs,
+  host,
+  pkgs,
+  pkgs-unstable,
+  pkgs-master,
+  ...
+}:
+# TODO remove system, only when from all modules it is removed
+{
+  # boot.kernelParams = [
+  #   "ttm.pages_limit=${toString (55*1024*1024*1024/(1024*4))}" #(GB×1024×1024×1024)/(4×1024)
+  # ];
+
+  services = {
+    ollama = {
+      enable = false;
+      package = pkgs-unstable.ollama-vulkan;
+      # package = pkgs-master.ollama-cuda;
+      # acceleration = "rocm";
+      openFirewall = true;
+      # rocmOverrideGfx = "11.0.0";
+    };
+  };
+  environment.systemPackages = [
+    # pkgs.radeontop
+    # pkgs.amd-debug-tools
+    # pkgs.nvtopPackages.amd
+    pkgs.llama-cpp-vulkan
+    pkgs.aichat
+    pkgs.nodejs # for npm and so on
+
+    # pkgs-unstable.opencode
+    pkgs.pi-coding-agent
+
+    pkgs.libcap_ng
+
+  ];
+  programs.nix-ld = { #this here to fix openshell vm driver
+    enable = true;
+    libraries = with pkgs; [
+      libcap_ng
+    ];
+  };
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [11434 10001];
+    allowedUDPPorts = [11434 10001];
+  };
+
+  # # systemd.user.services.
+  # systemd.services.llama-swap = {
+  #   description = "Llama Swap - OpenAI Compatible Proxy";
+  #   after = ["network.target"];
+  #   wantedBy = ["multi-user.target"];
+  #   enable = true;
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     User = "${host.vars.user}";
+  #     Group = "users";
+  #     WorkingDirectory = "/home/user/workspace/llama-swap";
+
+  #     ExecStart = "${pkgs.bash}/bin/bash run.sh";
+
+  #     Restart = "always";
+  #     RestartSec = "5";
+  #     StandardOutput = "journal";
+  #     StandardError = "journal";
+  #   };
+  #   # StartLimit directives belong in [Unit], not [Service]
+  #   unitConfig = {
+  #     StartLimitBurst = "3";
+  #     StartLimitIntervalSec = "30"; # systemd uses IntervalSec, not Interval
+  #   };
+  # };
+
+  # systemd.user.services.
+  systemd.services.llama-swap = {
+    description = "Llama Swap - OpenAI Compatible Proxy";
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
+    enable = true;
+    serviceConfig = {
+      Type = "simple";
+      User = "${host.vars.user}";
+      Group = "users";
+      # WorkingDirectory = "/home/user/workspace/llama-swap";
+      ExecStart = "${pkgs.llama-swap}/bin/llama-swap -config /home/${host.vars.user}/.config/llama-swap/config.yaml --listen 0.0.0.0:10001 -watch-config";
+      Restart = "always";
+      RestartSec = "5";
+      StandardOutput = "journal";
+      StandardError = "journal";
+    };
+    # StartLimit directives belong in [Unit], not [Service]
+    unitConfig = {
+      StartLimitBurst = "3";
+      StartLimitIntervalSec = "30"; # systemd uses IntervalSec, not Interval
+    };
+  };
+
+  home-manager = {
+    backupFileExtension = "backup";
+    extraSpecialArgs = {inherit inputs pkgs-master;};
+    users.${host.vars.user} = lib.mkMerge [
+      (import ./ai-home.nix)
+    ];
+  };
+
+
+
+  # systemd.services.openshell-gateway = {
+  #   description = "OpenShell gateway (local, VM driver)";
+  #   documentation = [ "https://docs.nvidia.com/openshell/" ];
+
+  #   wantedBy = [ "default.target" ];
+  #   after = [ "network-online.target" ];
+  #   wants = [ "network-online.target" ];
+
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     User = "user"; # Change to your username if running as user
+  #     Group = "users";
+
+  #     # Environment variables
+  #     Environment = [ "OPENSHELL_LOG_LEVEL=info" ];
+
+  #     # ExecStart: Replace /var/lib/openshell with the actual home dir if different
+  #     # Note: You need to ensure 'openshell-gateway' is in pkgs or defined elsewhere
+  #     ExecStart = ''
+  #       /home/user/.local/bin/openshell-gateway \
+  #         --bind-address 127.0.0.1 \
+  #         --port 8085 \
+  #         --disable-tls \
+  #         --db-url sqlite:///home/user/.local/share/openshell/db.sqlite \
+  #         --drivers vm \
+  #         --driver-dir /home/user/.local/libexec/openshell \
+  #         --vm-driver-state-dir /home/user/.local/share/openshell/vm \
+  #         --grpc-endpoint http://host.containers.internal:8085
+  #     '';
+
+  #     Restart = "on-failure";
+  #     RestartSec = 3;
+
+  #     # Sandboxing options (mapped from original)
+  #     NoNewPrivileges = true;
+  #     ProtectSystem = "strict";
+  #     ReadWritePaths = [
+  #       "/home/user/.local/share/openshell"
+  #       "/tmp" # %t is typically /tmp or a private tmpfs in systemd, but NixOS handles PrivateTmp below
+  #     ];
+  #     ProtectHome = "read-only";
+  #     PrivateTmp = true;
+
+  #     # # Additional NixOS-specific hardening (optional but recommended)
+  #     # ProtectKernelTunables = true;
+  #     # ProtectControlGroups = true;
+  #     # RestrictSUIDSGID = true;
+  #     # SystemCallFilter = [ "@system-service" ];
+  #   };
+  # };
+}

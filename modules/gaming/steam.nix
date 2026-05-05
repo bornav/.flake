@@ -22,6 +22,13 @@ with lib; {
         remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
         dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
         package = pkgs.steam.override {
+          extraEnv = {
+            # allow using the nvidia reflex layer.
+            # according to nvidia it can cause issues in apps which
+            # don't even use reflex, so enable it in here only for steam
+            DXVK_NVAPI_VKREFLEX = 1;
+            MANGOHUD = 1;
+          };
           extraPkgs = pkgs:
             with pkgs; [
               mangohud
@@ -51,7 +58,7 @@ with lib; {
       gamemode.enable = true;
       gamescope = {
         enable = true;
-        capSysNice = true;
+        capSysNice = false;
       };
     };
     nixpkgs.config.packageOverrides = pkgs: {
@@ -97,6 +104,7 @@ with lib; {
       pkgs.xml2
       pkgs.SDL2
       pkgs.protonplus
+      pkgs.hidapi
     ];
     environment.sessionVariables = {
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";

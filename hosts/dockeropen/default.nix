@@ -33,7 +33,8 @@
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
     # ./nvidia.nix
-    ./iscsi.nix
+    # ./iscsi.nix
+    ./alloy.nix
     # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     # ./journald-gateway.nix
   ];
@@ -159,6 +160,10 @@
       # (import ./home-mutable.nix)
     ];
   };
-
-  services.alloy.enable = true;
+  fileSystems."/docker" = {
+    device = "/dev/disk/by-label/container-docker";
+    fsType = "ext4";
+    options = ["defaults" "_netdev" "noatime"];
+  };
+  services.netbird.enable = true;
 }

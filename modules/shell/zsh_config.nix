@@ -18,15 +18,16 @@
     alias kubectl_pod_status="kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'"
     #ide
     alias zed=zeditor
-    #alias code=codium
-    alias code=zeditor
+    # alias code=codium
+    # alias code=zeditor
 
     #nixos
-    alias nixos_config_update="nh os switch ~/.flake -H $flake_name --ask && nix-channel --update"
+    alias nixos_config_update="sudo nh os switch ~/.flake -H $flake_name --ask -R -d=always"
     #                         "nh os switch ~/.flake -H $flake_name --ask -- --builders ssh://nixbuilder_dockeropen"
     alias nixos_rebuild="~/.flake/rebuild.sh"
     alias nixos_rebuild_remote="sudo nixos-rebuild switch --flake ~/.flake#dockeropen --use-remote-sudo --target-host nixbuilder_dockeropen"
-    alias nixos_update="nix flake update --flake ~/.flake && nixos_config_update"
+    alias nixos_update="sudo nix flake update --flake ~/.flake && nixos_config_update"
+    alias nixos_update="sudo nix flake update --flake $FLAKE && nixos_config_update"
     alias nixos_garbage_collection="nix-collect-garbage --delete-older-than 30d && nixos_config_update"
     # nh clean all -k 15 this can be added to command above, untested how it works
     # alias nix_update="nixos_config_update --update"
@@ -79,6 +80,9 @@
 
     alias neofetch="fastfetch"
 
+
+    alias ask="opencode run --model llama-swap/Qwen3.6-27B-Instruct"
+
     #qemu
     vm_name="ubuntu24.04"
     alias qemu_start="sudo virsh start $vm_name"
@@ -89,7 +93,11 @@
     '';
     home.file.".config/zsh/.zsh_exports".text = ''
     export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt
-    export PATH=$PATH:~/.local/bin
+    export PATH=$PATH:$HOME/.local/bin:$HOME/.npm-global/bin
+    ${lib.optionalString config.services.flatpak.enable
+    ''
+    export XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
+    ''}
     '';
 
     home.file.".config/zsh/.zsh_binds".text = ''

@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   # gnome.enable = lib.mkDefault true;
   plasma.enable = lib.mkDefault true;
   # hyprland.enable = lib.mkForce false;

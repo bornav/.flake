@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, lib, pkgs, ... }:
+{...}:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -137,24 +137,12 @@
         StrictHostKeyChecking no
         # IdentityFile /home/user/.ssh/cdn_key_pwless
         IdentityFile /home/user/.ssh/id_local
-    Host lighthouse2
-        HostName 46.224.122.252
-       	# HostName 46.224.144.124
-        # HostName 2a01:4f8:c012:c800::1
+    Host rke2-secured-cp-01
+        HostName 10.2.12.6
         Port 22
         User root
         IdentitiesOnly yes
         StrictHostKeyChecking no
-        # IdentityFile /home/user/.ssh/cdn_key_pwless
-        IdentityFile /home/user/.ssh/id_local
-    Host rke2-local-example
-        HostName rke2-local-example.local.icylair.com
-        # HostName 2a01:4f8:c012:c800::1
-        Port 22
-        User root
-        IdentitiesOnly yes
-        StrictHostKeyChecking no
-        # IdentityFile /home/user/.ssh/cdn_key_pwless
         IdentityFile /home/user/.ssh/id_local
     Host rke2-local-cp-01
         HostName rke2-local-cp-01.local.icylair.com
@@ -183,6 +171,15 @@
         StrictHostKeyChecking no
         # IdentityFile /home/user/.ssh/cdn_key_pwless
         IdentityFile /home/user/.ssh/id_local
+    Host rke2-local-node-03
+        HostName rke2-local-node-03-secured.local.icylair.com
+        # HostName 2a01:4f8:c012:c800::1
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        # IdentityFile /home/user/.ssh/cdn_key_pwless
+        IdentityFile /home/user/.ssh/id_local
     Host git.icylair.com # gitea
         HostName git.icylair.com
         # HostName 2a01:4f8:c012:c800::1
@@ -192,5 +189,5 @@
         StrictHostKeyChecking no
         # IdentityFile /home/user/.ssh/gitea_key
         IdentityFile /home/user/.ssh/gitea_key
-    '';
+  '';
 }

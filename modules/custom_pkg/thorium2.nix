@@ -133,14 +133,18 @@
 in
   stdenv.mkDerivation rec {
     pname = "thorium";
-    version = "138.0.7204.303";
+    version = "144.0.7559.254";
     # version = "M138Beta1";
     # type="AVX";
-    type="AVX2"; # TODO LOOK IF IT APPEARS
-
+    type = "AVX2"; # TODO LOOK IF IT APPEARS
+    # src = ./thorium-browser_138.0.7204.303_amd64.deb;
+    # src = fetchurl {
+    #   url = "https://github.com/Alex313031/thorium/releases/download/M${version}/thorium-browser_${version}_${type}.deb";
+    #   hash = "sha256-3wVaXIqwsEN/EmX2mS3g1ZrEnricqhRY57lY2WmEepg=";
+    # };
     src = fetchurl {
-      url = "https://github.com/Alex313031/thorium/releases/download/M${version}/thorium-browser_${version}_${type}.deb";
-      hash = "sha256-3wVaXIqwsEN/EmX2mS3g1ZrEnricqhRY57lY2WmEepg=";
+      url = "https://github.com/gz83/thorium/releases/download/M144.0.7559.254/thorium-browser_144.0.7559.254_AVX2.deb";
+      hash = "sha256-qBc62egFfYq+NhtidIWZGjzUUWs5wxS8fklJmjU87bo=";
     };
 
     dontConfigure = true;
@@ -206,8 +210,6 @@ in
       substituteInPlace $out/share/applications/thorium-browser.desktop \
           --replace /usr/bin/thorium-browser $out/bin/thorium
       substituteInPlace $out/share/gnome-control-center/default-apps/thorium-browser.xml \
-          --replace /opt/chromium.org $out/opt/chromium.org
-      substituteInPlace $out/share/menu/thorium-browser.menu \
           --replace /opt/chromium.org $out/opt/chromium.org
       substituteInPlace $out/opt/chromium.org/thorium/default-app-block \
           --replace /opt/chromium.org $out/opt/chromium.org

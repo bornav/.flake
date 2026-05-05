@@ -17,7 +17,7 @@ with lib;
 
     (lib.mkIf (config.storagefs.share.vega_nfs) {
       fileSystems."/home/${vars.user}/.share/vega_nfs" = {#truenas nfs storage
-        device = "10.1.10.200:/mnt/vega/vega";
+        device = "10.1.10.200:/mnt/vega";
         fsType = "nfs";
         options = [ "soft" "timeo=50" "x-systemd.automount" "noauto" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
       };
@@ -32,5 +32,5 @@ with lib;
       in ["${automount_opts},mfsymlinks,uid=1000,gid=1000,credentials=/home/${vars.user}/.share/creds/vega"];
       };
     })
-  ]; 
+  ];
 }

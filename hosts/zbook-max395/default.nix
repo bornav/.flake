@@ -5,16 +5,10 @@
   host,
   pkgs,
   pkgs-unstable,
+  pkgs-stable,
   pkgs-master,
   ...
-}:
-# TODO remove system, only when from all modules it is removed
-let
-  pkgs-oldkern = import inputs.nixpkgs-6-16-kernel {
-    system = "x86_64-linux";
-    config.allowUnfree = true;
-  };
-in {
+}: {
   imports = [
     # inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.home-manager.nixosModules.home-manager
@@ -30,13 +24,16 @@ in {
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
     inputs.nixos-hardware.nixosModules.common-gpu-amd
-
+    inputs.snapmaker-orca.nixosModules.default
+    {
+      programs.snapmaker-orca.enable = true;
+    }
 
     ./disk-config.nix
     ./hardware-configuration.nix
     ./my_modules.nix
-    ./specialisation.nix
-    # ./ai.nix
+    # ./specialisation.nix
+    ./ai.nix
     {_module.args.disks = ["/dev/nvme0n1"];}
   ];
   boot.loader = {
@@ -68,7 +65,9 @@ in {
 
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
   # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  boot.kernelPackages = lib.mkOverride 51 pkgs-oldkern.linuxKernel.packages.linux_6_16;
+  #
+  boot.kernelPackages = lib.mkOverride 51 pkgs-stable.linuxPackages_latest;
+  # boot.kernelPackages = lib.mkOverride 51 pkgs-oldkern.linuxKernel.packages.linux_6_16;
   # boot.kernelPackages = pkgs-unstable.linuxPackagesFor (pkgs-master.linux_latest.override {
   #     argsOverride = rec {
   #       # version = "6.19.0-rc1";
@@ -147,12 +146,23 @@ in {
       qjournalctl
       xkill
 
-      vulkan-tools
+      vulkan-tools # both provide cli utilities to debug opengl/vulkan
+      virtualglLib #
+
+      librepods
     ])
     ++ (with pkgs-unstable; [
       zsh
       btop
-      appimage-run # TODO
+      # appimage-run # TODO
+      (pkgs.appimage-run.override {
+        extraPkgs = pkgs:
+          with pkgs; [
+            webkitgtk_4_1
+            # add others if needed:
+            # glib gdk-pixbuf
+          ];
+      })
       # orca-slicer
       # openrgb
       # zsh-completions
@@ -250,14 +260,17 @@ in {
   #     StrictHostKeyChecking no
   #     IdentityFile ~/.ssh/id_local
   # '';
-  services.tailscale.enable = true;
-  networking.firewall = {
-    checkReversePath = "loose";
-    trustedInterfaces = ["tailscale0"];
-    allowedUDPPorts = [config.services.tailscale.port];
-  };
-  # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
-  # headscale --namespace <namespace_name> nodes register --key <machine_key>
+
+  # ### tailscale #########################
+  # services.tailscale.enable = true;
+  # networking.firewall = {
+  #   checkReversePath = "loose";
+  #   trustedInterfaces = ["tailscale0"];
+  #   allowedUDPPorts = [config.services.tailscale.port];
+  # };
+  # # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/
+  # # headscale --namespace <namespace_name> nodes register --key <machine_key>
+  # #######################################
 
   # systemd.network.enable = true;
   # services.resolved.dnssec = "allow-downgrade";
@@ -271,4 +284,17 @@ in {
   services.fwupd.enable = true; # firmware upgrade tool
 
   services.netbird.enable = true;
+
+  services.flatpak.enable = true;
+  systemd.services.flatpak-repo = {
+    wantedBy = ["multi-user.target"];
+    path = [pkgs.flatpak];
+    script = ''
+      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    '';
+  };
+
+  networking.resolvconf.enable = false;
+
+  programs.nix-ld.enable = true;
 }

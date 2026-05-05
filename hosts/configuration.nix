@@ -67,6 +67,10 @@
 
   programs.nh = {
     enable = true;
+    # clean = {
+    #   enable = true;
+    #   extraArgs = "--kyeep 5 --keep-since 30d";
+    # };
     flake = "/home/user/.flake"; # sets NH_OS_FLAKE variable for you
   };
   services = {

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": {
+    "nixd": {
+      "command": ["/etc/profiles/per-user/user/bin/nixd"]
+    }
+  },
+  "permission": {
+    "edit": "deny",
+    "grep": "allow",
+    "glob": "allow",
+    "bash": {
+      "*": "ask",
+      "cat *": "allow",
+      "echo *": "allow",
+      "grep *": "allow",
+      "ls *": "allow",
+      "find *": "allow",
+      "git status *": "allow"
+    },
+    "webfetch": "ask",
+    "websearch": "ask",
+    "read": {
+      "/home/user/git/*": "allow"
+    }
+  },
+  "provider": {
+    "ollama": {
+      "models": {
+        "qwen3.5": {
+          "name": "qwen3.5"
+        }
+      },
+      "name": "Ollama",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      }
+    },
+    "llama-swap": {
+      "models": {
+        "Gemma4-26B-A4B": {},
+        "Qwen3.6-27B-general": {},
+        "Qwen3.6-27B-coding": {},
+        "Qwen3.6-27B-Instruct": {},
+        "Qwen3.6-27B-coding-ctx-big": {}
+      },
+      "name": "llama-swap",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://zbook-max395.nb.internal:10001/v1"
+      }
+    }
+  }
+}

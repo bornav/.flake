@@ -21,8 +21,11 @@ with lib;
       name = "pathfinder_udev";
       text = ''
         # orbital-pathfinder
-        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1915", TAG+="uaccess"
-        SUBSYSTEM=="usb", ATTRS{idVendor}=="1915", TAG+="uaccess"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="0746", MODE="0666"
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="0746", MODE="0666"
+
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="0747", MODE="0666"
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="0747", MODE="0666"
       '';
       destination = "/etc/udev/rules.d/99-orbital-pathfinder.rules";
     })

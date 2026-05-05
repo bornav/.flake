@@ -277,15 +277,19 @@
       disable_ai = false; # add if condition if locall ollama service is enabled or something
       agent = {
         default_model = {
-          provider = "ollama";
-          model = "qwen2.5-coder:14b";
+          provider = "llama-swap";
+          model = "llama-swap/Qwen3.6-27B-coding";
         };
+        # default_model = {
+        #   provider = "ollama";
+        #   model = "qwen2.5-coder:14b";
+        # };
         model_parameters = [];
 
         inline_alternatives = [
           {
-            provider = "ollama";
-            model = "gpt-4-mini";
+            provider = "llama-swap";
+            model = "llama-swap/Qwen3.6-27B-coding";
           }
         ];
       };
@@ -293,6 +297,21 @@
         ollama = {
           api_url = "http://localhost:11434";
           # auto_discover= true; # enabled by default
+        };
+        openai_compatible = {
+          llama-swap = {
+            api_url = "http://0.0.0.0:10001/v1";
+            available_models = [
+              {
+                name = "llama-swap/Qwen3.6-27B-coding"; # todo fix
+                max_tokens = 30000;
+              }
+            ];
+          };
+          # opencode = {
+          #   api_url = "http://0.0.0.0:10002";
+          #   available_models = [];
+          # };
         };
       };
       edit_predictions = {
