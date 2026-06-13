@@ -7,7 +7,8 @@
   # docker_socket = "unix:///var/run/podman/podman.sock";
   prometheus_ingest = "http://prometheus.internal:9090/api/v1/write";
   loki_ingest = "http://loki.internal:3100/loki/api/v1/push";
-  otel_ingest = "tempo.internal:4317";
+  otel_ingest = "otel-collector.internal:4318";
+  # otel_ingest = "10.2.11.42:3418";
   pytoscope_ingest = "http://pyroscope.internal:4100";
 in {
   ####################### all required in order for alloy to have perm access to docker/podman socket
@@ -19,60 +20,65 @@ in {
   services.alloy.enable = true;
   services.alloy.extraFlags = ["--disable-reporting"]; # this removes the anon usage statistics
   environment.etc."alloy/config.alloy".text = lib.mkForce ''
-    prometheus.remote_write "local" {
-      endpoint {
-        url = "${prometheus_ingest}"
-      }
-    }
-    loki.write "local" {
-      endpoint {
-        url = "${loki_ingest}"
-      }
-    }
-    otelcol.exporter.otlp "local" {
+    otelcol.exporter.otlphttp "local" {
       client {
-        endpoint = "${otel_ingest}"
+        endpoint = "http://${otel_ingest}"
+        timeout = "30s"
+        tls {
+          insecure = true
+        }
       }
     }
-    pyroscope.write "local" {
-      endpoint {
-        url = "${pytoscope_ingest}"
+    otelcol.processor.batch "default" {
+      timeout = "10s"
+      send_batch_size = 100
+      send_batch_max_size = 200
+      output {
+        logs = [otelcol.exporter.otlphttp.local.input]
+        metrics = [otelcol.exporter.otlphttp.local.input]
+        traces = [otelcol.exporter.otlphttp.local.input]
       }
     }
-    prometheus.scrape "linux_node" {
-      targets = prometheus.exporter.unix.node.targets
-      forward_to = [
-        prometheus.remote_write.local.receiver,
-      ]
+    otelcol.receiver.loki "default" {
+      output {
+        logs = [otelcol.processor.batch.default.input]
+      }
+    }
+    otelcol.receiver.prometheus "default" {
+      output {
+        metrics = [otelcol.processor.batch.default.input]
+      }
     }
     prometheus.exporter.unix "node" {}
+    prometheus.scrape "linux_node" {
+      targets = prometheus.exporter.unix.node.targets
+      forward_to = [otelcol.receiver.prometheus.default.receiver]
+    }
     loki.relabel "journal" {
       forward_to = []
       rule {
         source_labels = ["__journal__systemd_unit"]
-        target_label  = "unit"
+        target_label = "unit"
       }
       rule {
         source_labels = ["__journal__boot_id"]
-        target_label  = "boot_id"
+        target_label = "boot_id"
       }
       rule {
         source_labels = ["__journal__transport"]
-        target_label  = "transport"
+        target_label = "transport"
       }
       rule {
         source_labels = ["__journal_priority_keyword"]
-        target_label  = "level"
+        target_label = "level"
       }
       rule {
         source_labels = ["__journal__hostname"]
-        target_label  = "instance"
+        target_label = "instance"
       }
     }
     loki.source.journal "read" {
-      forward_to = [
-        loki.write.local.receiver,
-      ]
+      forward_to = [otelcol.receiver.loki.default.receiver]
       relabel_rules = loki.relabel.journal.rules
       labels = {
         "job" = "integrations/node_exporter",
@@ -82,7 +88,7 @@ in {
       host = "${docker_socket}"
     }
     discovery.relabel "logs_integrations_docker" {
-        targets = []
+        targets = discovery.docker.linux.targets
         rule {
             target_label = "job"
             replacement  = "integrations/docker"
@@ -103,12 +109,10 @@ in {
     }
     loki.source.docker "default" {
       host = "${docker_socket}"
-      targets = discovery.docker.linux.targets
+      targets = discovery.relabel.logs_integrations_docker.output
       relabel_rules = discovery.relabel.logs_integrations_docker.rules
       labels = {}
-      forward_to = [
-        loki.write.local.receiver,
-      ]
+      forward_to = [otelcol.receiver.loki.default.receiver]
     }
   '';
 
