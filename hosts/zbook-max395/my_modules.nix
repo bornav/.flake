@@ -3,7 +3,6 @@
   #### modules
   gnome.enable = lib.mkDefault false;
   plasma.enable = lib.mkDefault true;
-  cosmic-desktop.enable = lib.mkDefault false;
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;

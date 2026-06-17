@@ -16,7 +16,6 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
     }
-    inputs.nixos-cosmic.nixosModules.default
     inputs.disko.nixosModules.disko
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-intel
@@ -61,7 +60,6 @@
   };
   #### modules
   gnome.enable = true;
-  cosmic-desktop.enable = false;
   virtualization.enable = true;
   devops.enable = true;
   steam.enable = true;

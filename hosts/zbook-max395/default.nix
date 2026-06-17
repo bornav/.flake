@@ -17,7 +17,6 @@
       home-manager.useUserPackages = true;
       home-manager.sharedModules = [inputs.plasma-manager.homeModules.plasma-manager];
     }
-    inputs.nixos-cosmic.nixosModules.default
     inputs.disko.nixosModules.disko
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-amd

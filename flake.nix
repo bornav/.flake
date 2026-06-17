@@ -16,8 +16,6 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     hyprland.url = "github:hyprwm/Hyprland"; # Requires "hyprland.nixosModules.default" to be added the host modules
     hyprland.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic"; # TODO look into removing, as now in stable
-    nixos-cosmic.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nur.url = "github:nix-community/NUR";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs-unstable";

@@ -6,7 +6,6 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;}
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-cosmic.nixosModules.default
     inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.disko.nixosModules.disko
     ./hardware-configuration.nix

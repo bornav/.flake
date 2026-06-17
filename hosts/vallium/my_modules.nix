@@ -2,7 +2,6 @@
   # gnome.enable = lib.mkDefault true;
   plasma.enable = lib.mkDefault true;
   # hyprland.enable = lib.mkForce false;
-  cosmic-desktop.enable = lib.mkDefault false;
   virtualization.enable = true;
   virtualization.qemu = true;
   # virtualization.waydroid = true;
@@ -32,6 +31,7 @@
   device.woothing = true;
   device.finalmouse = true;
   device.orbital-pathfinder = true;
+  device.platformio = true;
 
   storagefs.share.vega_nfs = true;
 }

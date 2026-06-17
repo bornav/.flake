@@ -21,7 +21,6 @@
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-cosmic.nixosModules.default
     # inputs.nix-flatpak.nixosModules.nix-flatpak
     ./gpu.nix
     ./hardware-configuration.nix
@@ -226,15 +225,8 @@
       nmap
       winboat
 
-      # (orca-slicer.overrideAttrs (oldAttrs: rec {
-      #   version = "2.3.1";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "SoftFever";
-      #     repo = "OrcaSlicer";
-      #     tag = "v${version}";
-      #     hash = "sha256-RdMBx/onLq58oI1sL0cHmF2SGDfeI9KkPPCbjyMqECI=";
-      #   };
-      # }))
+      firecracker
+
 
       # betterbird
       # teamspeak3
@@ -351,39 +343,14 @@
   #   ];
   # };
 
-  # nixpkgs.overlays = [
-  #   (self: super: {
-  #     kdePackages = super.kdePackages.overrideScope (kfinal: kprev: {
-  #       kwin = kprev.kwin.overrideAttrs (oldAttrs: {
-  #         src = self.fetchFromGitLab {
-  #           domain = "invent.kde.org";
-  #           owner = "plasma";
-  #           repo = "kwin";
-  #           rev = "2f3ae324ba430b2f4582473eefbe6db2e2a2a567";
-  #           hash = "sha256-Hq6Ko3SRhfLjQ3wZXDzm89ktaFvc4qxmtOOObrR5nbs=";
-  #         };
-  #       });
-  #     });
-  #   })
-  # ];
-
-  # nixpkgs.overlays = [
-  #   (self: super: {
-  #     kdePackages = super.kdePackages.overrideScope (kfinal: kprev: {
-  #       kwin = kprev.kwin.overrideAttrs (oldAttrs: {
-  #         src = builtins.fetchGit {
-  #           url = "https://invent.kde.org/plasma/kwin";
-  #           rev = "2f3ae324ba430b2f4582473eefbe6db2e2a2a567";
-  #         };
-  #       });
-  #     });
-  #   })
-  # ];
   #
   #  scheduler test
   # services.scx.enable = true;
   # services.scx.scheduler = "scx_rustland";
 
   services.netbird.enable = true;
+  # services.netbird.package = pkgs-master.netbird;
+  services.netbird.ui.enable = true;
+
   programs.hyprland.enable = true;
 }
