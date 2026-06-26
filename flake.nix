@@ -27,7 +27,6 @@
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
     plasma-manager.url = "github:nix-community/plasma-manager";
     plasma-manager.inputs.home-manager.follows = "home-manager";
-    flox.url = "github:flox/flox/latest";
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs-unstable";
     snapmaker-orca.url = "github:chrstnwhlrt/nix-snapmaker-orca";

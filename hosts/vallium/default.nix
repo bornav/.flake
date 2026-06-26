@@ -166,7 +166,6 @@
       (pkgs-unstable.callPackage ../../modules/custom_pkg/helium_browser.nix {})
 
       # (pkgs.callPackage ./snapmaker-orca.nix {inherit (pkgs) orca-slicer;})
-      inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       # pkgs-master.pciutils # pciutils
       pkgs-unstable.pciutils # pciutils
@@ -227,6 +226,7 @@
 
       firecracker
 
+      handbrake
 
       # betterbird
       # teamspeak3

@@ -65,7 +65,7 @@
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
   # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
   #
-  boot.kernelPackages = lib.mkOverride 51 pkgs-stable.linuxPackages_latest;
+  # boot.kernelPackages = lib.mkOverride 51 pkgs-stable.linuxPackages_latest;
   # boot.kernelPackages = lib.mkOverride 51 pkgs-oldkern.linuxKernel.packages.linux_6_16;
   # boot.kernelPackages = pkgs-unstable.linuxPackagesFor (pkgs-master.linux_latest.override {
   #     argsOverride = rec {
@@ -125,7 +125,6 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages =
     [
-      inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
       #pkgs-unstable.element-desktop
     ]
     ++ (with pkgs; [

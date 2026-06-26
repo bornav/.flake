@@ -29,13 +29,12 @@ with lib; {
       #     pkgs.gamescope
       #   ];
       # })
-      (pkgs-stable.bottles.override {removeWarningPopup = true;}) #TODO investigate how this is done on the source and document, 14.06.2025 nixos-unstable
-      # pkgs.lutris
-      pkgs-stable.lutris
+      # (pkgs-stable.bottles.override {removeWarningPopup = true;}) #TODO investigate how this is done on the source and document, 14.06.2025 nixos-unstable
+      (pkgs.bottles.override {removeWarningPopup = true;})
+      # pkgs.bottles
+      pkgs.lutris
+      # pkgs-stable.lutris
       pkgs.gogdl
-      # (bottles.override {
-      #   removeWarningPopup = true;
-      # })
       pkgs.shadps4
       pkgs.umu-launcher
     ];

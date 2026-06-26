@@ -74,3 +74,14 @@ models:
       --min-p 0.0
       --presence-penalty 0.0
       --repeat-penalty 1.0
+  Gemma-4-12B:
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/gemma-4-12B-it-qat-GGUF:UD-Q4_K_XL
+      -c 60000
+      --temp 1
+      --top-p 0.95
+      --top-k 64
+      --min-p 0.0
+      --presence-penalty 0.0
+      --repeat-penalty 1.0
