@@ -166,6 +166,7 @@
       # zsh-completions
       # zsh-autocomplete
       # gpt4all-chat
+      #
     ]);
   programs.gnupg.agent = {
     enable = true;

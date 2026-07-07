@@ -158,6 +158,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages =
     [
+      pkgs-local.openshell
       # pkgs-custom.nano
       # pkgs-local.beyla
       # (pkgs-unstable.callPackage ../../modules/custom_pkg/temp.nix {})
@@ -169,7 +170,7 @@
 
       # pkgs-master.pciutils # pciutils
       pkgs-unstable.pciutils # pciutils
-      # pkgs-unstable.element-desktop
+      pkgs-stable.element-desktop
       # pkgs-unstable.coolercontrol.coolercontrol-gui
       # pkgs-unstable.coolercontrol.coolercontrold
 
@@ -314,8 +315,8 @@
 
   hardware.enableRedistributableFirmware = true;
   nixpkgs.config.permittedInsecurePackages = [
-    "qtwebengine-5.15.19"
-    "libsoup-2.74.3"
+    #"qtwebengine-5.15.19"
+    #"libsoup-2.74.3"
   ]; # TODO REMOVE ME
   #
   # boot.extraModprobeConfig = ''

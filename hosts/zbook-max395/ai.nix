@@ -33,6 +33,7 @@
     pkgs.pi-coding-agent
     pkgs.sqlite
     pkgs.libkrun
+    pkgs.libcap
   ];
 
   # systemd.user.services.
