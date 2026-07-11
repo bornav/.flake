@@ -163,7 +163,7 @@
       # pkgs-local.beyla
       # (pkgs-unstable.callPackage ../../modules/custom_pkg/temp.nix {})
       pkgs.scx.full
-      (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
+      # (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
       (pkgs-unstable.callPackage ../../modules/custom_pkg/helium_browser.nix {})
 
       # (pkgs.callPackage ./snapmaker-orca.nix {inherit (pkgs) orca-slicer;})
@@ -186,7 +186,7 @@
       vulkan-tools # both provide cli utilities to debug opengl/vulkan
       virtualglLib #
 
-      freecad
+      # freecad
 
       lm_sensors
       openlinkhub
@@ -225,10 +225,8 @@
       nmap
       winboat
 
-      firecracker
-
-      handbrake
-
+      # firecracker
+      # handbrake
       # betterbird
       # teamspeak3
       python3

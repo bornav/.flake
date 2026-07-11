@@ -1,9 +1,15 @@
 logLevel: info
 healthCheckTimeout: 600
-startPort: 10002
+startPort: 10003
 globalTTL: 480
 
 macros:
+  "default-llama": >
+    /run/current-system/sw/bin/llama-server
+    --host 0.0.0.0
+    --port ${PORT}
+    --jinja
+    --metrics
   "latest-llama": >
     /home/user/workspace/llama-swap/llama-swap/result/bin/llama-server
     --host 0.0.0.0
@@ -25,7 +31,7 @@ models:
     capabilities:
       context: 20000
     cmd: >
-      ${latest-llama}
+      ${default-llama}
       -hf unsloth/gemma-4-26B-A4B-it-GGUF:UD-Q4_K_M
       -c 20000
       --temp 1
@@ -73,27 +79,43 @@ models:
       --reasoning off
   Qwen3.6-27B-coding-ctx-big:
     capabilities:
-      context: 60000
+      context: 90000
     cmd: >
       ${latest-llama}
       -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
-      -c 60000
+      -c 90000
       --temp 0.6
       --top-p 0.95
       --top-k 20
       --min-p 0.0
       --presence-penalty 0.0
       --repeat-penalty 1.0
-  Gemma-4-12B:
+  Gemma4-12B:
     capabilities:
-      context: 60000
+      context: 250000
     cmd: >
-      ${latest-llama}
+      ${default-llama}
       -hf unsloth/gemma-4-12B-it-qat-GGUF:UD-Q4_K_XL
-      -c 60000
+      -c 250000
       --temp 1
       --top-p 0.95
       --top-k 64
       --min-p 0.0
       --presence-penalty 0.0
       --repeat-penalty 1.0
+      --spec-type draft-mtp
+      --spec-draft-n-max 3
+  Qwen3.6-NVFP4:
+    capabilities:
+      context: 60000
+    cmd: >
+      ${default-llama}
+      -hf CodeFault/Nvidia-Qwen3.6-27B-NVFP4-GGUF
+      -hff Nvidia-Qwen3.6-27B-NVFP4-A.gguf
+      -c 60000
+      --temp 0.6
+      --top-p 0.95
+      --top-k 20
+      --repeat-penalty 1.1
+      --spec-type draft-mtp
+      --spec-draft-n-max 2

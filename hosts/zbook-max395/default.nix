@@ -296,4 +296,6 @@
   networking.resolvconf.enable = false;
 
   programs.nix-ld.enable = true;
+
+  hardware.amdgpu.overdrive.enable = true;
 }

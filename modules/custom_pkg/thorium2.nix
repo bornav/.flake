@@ -133,7 +133,7 @@
 in
   stdenv.mkDerivation rec {
     pname = "thorium";
-    version = "144.0.7559.254";
+    version = "150.0.7871.47";
     # version = "M138Beta1";
     # type="AVX";
     type = "AVX2"; # TODO LOOK IF IT APPEARS
@@ -143,8 +143,8 @@ in
     #   hash = "sha256-3wVaXIqwsEN/EmX2mS3g1ZrEnricqhRY57lY2WmEepg=";
     # };
     src = fetchurl {
-      url = "https://github.com/gz83/thorium/releases/download/M144.0.7559.254/thorium-browser_144.0.7559.254_AVX2.deb";
-      hash = "sha256-qBc62egFfYq+NhtidIWZGjzUUWs5wxS8fklJmjU87bo=";
+      url = "https://github.com/gz83/thorium/releases/download/M150.0.7871.47/thorium-browser_150.0.7871.47_AVX2.deb";
+      hash = "sha256-Hbm11HUcTCGEY13o++HJo8aQ8u9kwYMs+SKX8ChSH/M=";
     };
 
     dontConfigure = true;
