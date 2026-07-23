@@ -25,8 +25,8 @@
   };
   home.file.".config/llama-swap/config.yaml" = {
     source = ./llama-swap-config.yaml;
-    force = true;
-    mutable = true;
+    # force = true;
+    # mutable = true;
   };
   # home.file.".config/opencode/opencode.json" = {
   #   source = ./opencode-config.json;

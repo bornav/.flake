@@ -62,9 +62,10 @@
       #
       moduleParams = {
         nvidia = {
-          NVreg_UsePageAttributeTable = 1; # why this isn't default is beyond me.
+          # NVreg_UsePageAttributeTable = 1; # why this isn't default is beyond me.
+          # "NVreg_RegistryDwords=RmEnableAggressiveVblank" = 1; # low-latency stuff
+
           # NVreg_EnableResizableBar = 1; # enable reBAR
-          "NVreg_RegistryDwords=RmEnableAggressiveVblank" = 1; # low-latency stuff
           # (lib.mkIf config.hardware.nvidia.open [ # find out how
           #   "NVreg_UseKernelSuspendNotifiers" = 1;
           # ])
@@ -72,9 +73,9 @@
           #   "NVreg_TemporaryFilePath" = "/var/tmp"; # store on disk, not /tmp which is on RAM
           # ])
         };
-        nvidia-modeset = {
-          disable_vrr_memclk_switch = 1; # don't force P0 when VRR is active
-        };
+        # nvidia-modeset = {
+        #   disable_vrr_memclk_switch = 1; # don't force P0 when VRR is active
+        # };
       };
     };
     graphics = {
@@ -86,9 +87,9 @@
     sessionVariables = {
       VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.json"; # if this missing getting warning terminator_CreateInstance in `vulkaninfo --summary`
       # disable vsync
-      __GL_SYNC_TO_VBLANK = "0";
-      # enable gsync / vrr support
-      __GL_VRR_ALLOWED = "1";
+      # __GL_SYNC_TO_VBLANK = "0";
+      # # enable gsync / vrr support
+      # __GL_VRR_ALLOWED = "1";
 
       # lowest frame buffering -> lower latency
       __GL_MaxFramesAllowed = "1";
@@ -100,10 +101,10 @@
       # CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
       # CUDA_DISABLE_PERF_BOOST = 1; # TODO LOOK IF REMOVE NECESSARY
 
-      DXVK_NVAPI_D3D12_NV_SHADER_EXTN = 1;
+      # DXVK_NVAPI_D3D12_NV_SHADER_EXTN = 1;
       # also enable descriptor heap
-      VKD3D_CONFIG = "descriptor_heap";
-      DXVK_CONFIG = "dxvk.enableDescriptorHeap = True;";
+      # VKD3D_CONFIG = "descriptor_heap";
+      # DXVK_CONFIG = "dxvk.enableDescriptorHeap = True;";
     };
   };
   ##### blacklist igpu

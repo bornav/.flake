@@ -28,7 +28,7 @@
       programs.snapmaker-orca.enable = true;
     }
 
-    ./disk-config.nix
+    # ./disk-config.nix # some disc corruption issues
     ./hardware-configuration.nix
     ./my_modules.nix
     # ./specialisation.nix
@@ -65,6 +65,7 @@
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
   # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
   #
+  # boot.kernelPackages = lib.mkOverride 51 pkgs.linuxKernel.packages.linux_7_0;
   # boot.kernelPackages = lib.mkOverride 51 pkgs-stable.linuxPackages_latest;
   # boot.kernelPackages = lib.mkOverride 51 pkgs-oldkern.linuxKernel.packages.linux_6_16;
   # boot.kernelPackages = pkgs-unstable.linuxPackagesFor (pkgs-master.linux_latest.override {
@@ -297,5 +298,7 @@
 
   programs.nix-ld.enable = true;
 
-  hardware.amdgpu.overdrive.enable = true;
+  # hardware.amdgpu.overdrive.enable = true;
+  #
+  nixpkgs.config.allowInsecurePredicate = _: true; # stop stupid insecure warnings, i dont care
 }

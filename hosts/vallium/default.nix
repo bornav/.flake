@@ -158,6 +158,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages =
     [
+      pkgs-master.ghostty
       pkgs-local.openshell
       # pkgs-custom.nano
       # pkgs-local.beyla
@@ -352,4 +353,7 @@
   services.netbird.ui.enable = true;
 
   programs.hyprland.enable = true;
+
+
+  nixpkgs.config.allowInsecurePredicate = _: true; # stop stupid insecure warnings, i dont care
 }
