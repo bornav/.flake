@@ -1,53 +1,37 @@
-{ config, lib, inputs, host, pkgs, pkgs-unstable, ... }:
-let
-  pkgs-rc6 = import inputs.nixpkgs-kernel-rc6 {
-    system = "x86_64-linux";
-    config.allowUnfree = true;
-  };
-  pkgs-rc5 = import inputs.nixpkgs-kernel-rc5 {
-    system = "x86_64-linux";
-    config.allowUnfree = true;
-  };
-
-in
-{
-
+{lib, ...}: {
   specialisation = {
-    # k1-unmodified.configuration = {
-    #   boot.kernelPackages = lib.mkForce pkgs-oldkern.linuxKernel.packages.linux_6_17;};
-    # k2-patched.configuration = {
-    #   boot.kernelPackages = lib.mkForce pkgs-oldkern.linuxKernel.packages.linux_6_17;
-    #   boot.kernelPatches = [
-    #           { name = "amdgpu-patch";
-    #             patch = ./kernel.patch;
-    #           }
-    #         ];
-    # };
-    k6.configuration = {
-      boot.kernelPackages = lib.mkForce pkgs-rc6.linuxPackages_testing;
-    };
-  #   # k4.configuration = {boot.kernelPackages = lib.mkForce pkgs-unstable.linuxKernel.packages.linux_6_11;};
-    k5.configuration = {
-      boot.kernelPackages = lib.mkForce pkgs-rc5.linuxPackages_testing;
-    };
 
-  # };
+    headless.configuration = {
+      # dont sleep device on lid close
+      services.logind.settings.Login = {
+        HandleLidSwitch = "ignore";
+        HandleLidSwitchExternalPower = "ignore";
+        HandleLidSwitchDocked = "ignore";
+      };
 
-  # specialisation = {
-  # #  gnome.configuration = {
-  # #    gnome.enable = lib.mkForce true;
-  # #    plasma.enable = lib.mkForce false;
-  # #    hyprland.enable = lib.mkForce false;
-  # #  };
-  # #  hyprland.configuration = {
-  # #    gnome.enable = lib.mkForce false;
-  # #    plasma.enable = lib.mkForce false;
-  # #    hyprland.enable = lib.mkForce true;
-  # #  };
-  #  plasma.configuration = {
-  #    gnome.enable = lib.mkForce false;
-  #    plasma.enable = lib.mkForce true;
-  #    hyprland.enable = lib.mkForce false;
-  #  };
+      #### modules
+      gnome.enable = lib.mkForce false;
+      plasma.enable = lib.mkForce false;
+      virtualization.enable = lib.mkForce true;
+      devops.enable = true;
+      steam.enable = lib.mkForce true;
+      games.applications.enable = lib.mkForce true;
+      thorium.enable = lib.mkForce true;
+      rar.enable = true;
+      wg-home.enable = lib.mkForce false;
+      wg-home.local_ip = "10.10.1.3/32";
+      wg-home.privateKeyFileLocation = "/home/user/.ssh/wg/zbook/priv.key";
+      flatpak.enable = lib.mkForce false;
+      storagefs.share.vega_nfs = lib.mkForce false;
+      # storagefs.share.vega_smb = true;
+      ide.vscode = lib.mkForce true;
+      ide.zed.enable = lib.mkForce true;
+      docker.enable = lib.mkForce true;
+      podman.enable = lib.mkForce true;
+      ####
+      #
+      device.woothing = lib.mkForce false;
+      device.orbital-pathfinder = lib.mkForce false;
+    };
   };
 }

@@ -127,7 +127,7 @@
   };
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = true;
-  networking.firewall.enable = lib.mkForce false;
+  # networking.firewall.enable = lib.mkForce false;
 
   # Configure keymap in X11
   services.xserver = {

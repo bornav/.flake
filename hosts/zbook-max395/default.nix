@@ -31,7 +31,7 @@
     # ./disk-config.nix # some disc corruption issues
     ./hardware-configuration.nix
     ./my_modules.nix
-    # ./specialisation.nix
+    ./specialisation.nix
     ./ai.nix
     {_module.args.disks = ["/dev/nvme0n1"];}
   ];
@@ -54,13 +54,13 @@
   };
   networking.hostName = host.hostName; # Define your hostname.
   networking.networkmanager.enable = lib.mkForce true;
-  networking.firewall.enable = lib.mkForce false;
+  # networking.firewall.enable = lib.mkForce false;
   # networking.firewall.checkReversePath = false;
   # networking.firewall.checkReversePath = "loose";
 
   # networking.networkmanager.dns = "none";
-  networking.useDHCP = lib.mkForce false;
-  networking.dhcpcd.enable = lib.mkForce false;
+  # networking.useDHCP = lib.mkForce false;
+  # networking.dhcpcd.enable = lib.mkForce false;
 
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing;
   # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
@@ -285,16 +285,7 @@
 
   services.netbird.enable = true;
 
-  services.flatpak.enable = true;
-  systemd.services.flatpak-repo = {
-    wantedBy = ["multi-user.target"];
-    path = [pkgs.flatpak];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
-
-  networking.resolvconf.enable = false;
+  # networking.resolvconf.enable = false;
 
   programs.nix-ld.enable = true;
 
