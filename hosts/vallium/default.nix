@@ -25,7 +25,7 @@
     ./gpu.nix
     ./hardware-configuration.nix
     ./pika-backup.nix
-    # ./specialisation.nix
+    ./specialisation.nix
     ./pcie-passtrough.nix
     ./my_modules.nix
     ./ai.nix
@@ -208,7 +208,7 @@
       # sublime-merge
       feh
       gparted
-      nordic
+      # nordic
       papirus-nord
       # pciutils # lspci
 
@@ -309,8 +309,9 @@
     enable = true;
   };
 
-  # programs.coolercontrol.enable = true;
+  # programs.coolercontrol.enable = true;minifyStaticFiles
   services.lact.enable = true;
+  services.lact.package = pkgs-stable.lact;
 
   hardware.enableRedistributableFirmware = true;
   nixpkgs.config.permittedInsecurePackages = [
@@ -322,26 +323,6 @@
   #   # Replace 10de:1234 with your actual vendor:product ID
   #   options vfio-pci ids=144d:a804
   # '';
-
-  # programs.obs-studio = {
-  #   enable = true;
-
-  #   # optional Nvidia hardware acceleration
-  #   package = (
-  #     pkgs.obs-studio.override {
-  #       cudaSupport = true;
-  #     }
-  #   );
-
-  #   plugins = with pkgs.obs-studio-plugins; [
-  #     wlrobs
-  #     obs-backgroundremoval
-  #     obs-pipewire-audio-capture
-  #     obs-vaapi #optional AMD hardware acceleration
-  #     obs-gstreamer
-  #     obs-vkcapture
-  #   ];
-  # };
 
   #
   #  scheduler test

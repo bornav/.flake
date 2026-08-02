@@ -26,7 +26,8 @@
     pkgs.radeontop
     pkgs.amd-debug-tools
     pkgs.nvtopPackages.amd
-    pkgs.llama-cpp-vulkan
+    # pkgs.llama-cpp-vulkan
+    pkgs.llama-cpp-rocm
     pkgs.opencode
 
     # pkgs.openshell

@@ -280,7 +280,7 @@
     enable = true;
     enable32Bit = true;
   };
-  services.lact.enable = true;
+  # services.lact.enable = true;
   services.fwupd.enable = true; # firmware upgrade tool
 
   services.netbird.enable = true;
