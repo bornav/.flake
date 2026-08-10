@@ -54,11 +54,11 @@ with lib;
       # dolphin-plugins
       # spectacle
       # ffmpegthumbs
-      pkgs.kdePackages.krdp
+      # pkgs.kdePackages.krdp
 
-      # pkgs.kdePackages.kwallet
-      # pkgs.kdePackages.kwallet-pam # provides helper service
-      # pkgs.kdePackages.kwalletmanager
+      pkgs.kdePackages.kwallet
+      pkgs.kdePackages.kwallet-pam # provides helper service
+      pkgs.kdePackages.kwalletmanager
     ];
     environment = {
       systemPackages = with pkgs; [
@@ -102,7 +102,8 @@ with lib;
         # (import ./home-mutable.nix)
       ];
     };
-
+    security.pam.services.login.kwallet.enable = lib.mkForce false;
+    security.pam.services.kde.kwallet.enable = lib.mkForce false;
     security.wrappers = {
       "mount.nfs" = {
         program = "mount.nfs";

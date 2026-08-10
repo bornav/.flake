@@ -31,8 +31,10 @@
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs-unstable";
     snapmaker-orca.url = "github:chrstnwhlrt/nix-snapmaker-orca";
     snapmaker-orca.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
-  outputs = {self, ...} @ inputs:
+  outputs = {self, deploy-rs, ...} @ inputs:
   # Function telling flake which inputs to use
   let
     vars = {
@@ -57,5 +59,12 @@
     # 	inherit inputs nixpkgs nixpkgs-unstable home-manager vars;
     # 	}
     # );
+    #
+    deploy.nodes.myserver = {
+      hostname = "10.1.10.10";
+      profule.system = {
+        path = self.nixoscinfiguration.vallium;
+      };
+    };
   };
 }

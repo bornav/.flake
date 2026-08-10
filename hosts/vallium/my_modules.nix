@@ -31,6 +31,7 @@
   device.woothing = true;
   device.finalmouse = true;
   device.orbital-pathfinder = true;
+  device.akko = true;
   device.platformio = true;
 
   storagefs.share.vega_nfs = true;

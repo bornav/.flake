@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs,
+  pkgs-unstable-small,
   ...
 }: {
   imports = [
@@ -33,8 +34,8 @@
       "nouveau"
     ];
   };
-  nixpkgs.config.allowUnfree = !config.hardware.nvidia.gsp.enable;
-  nixpkgs.config.nvidia.acceptLicense = !config.hardware.nvidia.gsp.enable;
+  nixpkgs.config.allowUnfree = (!config.hardware.nvidia.gsp.enable);
+  nixpkgs.config.nvidia.acceptLicense = (!config.hardware.nvidia.gsp.enable);
   # nixpkgs.overlays = [
   #   (final: _: {
   #     egl-wayland = final.customPkgs.egl-wayland2;
@@ -47,6 +48,10 @@
       # gsp.enable = config.hardware.nvidia.open; #default is config.hardware.nvidia.open == true || lib.versionAtLeast config.hardware.nvidia.package.version "555"
       nvidiaSettings = false;
       branch = "bleeding_edge"; #production stable latest bleeding_edge vulkan_beta new_feature
+      # package = config.boot.kernelPackages.nvidiaPackages.${config.hardware.nvidia.branch}.overrideAttrs (old: {
+      #   inherit (pkgs-unstable-small.linuxPackages.nvidiaPackages.${config.hardware.nvidia.branch}) src version;
+      # });
+
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
       # package = config.boot.kernelPackages.nvidiaPackages.latest;
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {

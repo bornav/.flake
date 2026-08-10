@@ -15,7 +15,7 @@ with lib;
       };
     };
   };
-  
+
   config = mkIf (config.gnome.enable) {
     programs = {
       kdeconnect = {                                    # GSConnect
@@ -23,6 +23,7 @@ with lib;
         package = pkgs.gnomeExtensions.gsconnect;
       };
     };
+
     services = {
       xserver = {
         enable = true;
@@ -40,6 +41,7 @@ with lib;
       displayManager.gdm.autoSuspend = false;
       desktopManager.gnome.enable = true;             # Desktop Environment
       gnome.core-apps.enable = true; # TODO why was this defined globally?
+      gnome.gnome-keyring.enable = lib.mkForce false;
     };
     environment = {
       systemPackages = with pkgs; [                     # System-Wide Packages
@@ -160,7 +162,7 @@ with lib;
           clock-menu-position-offset = 7;
         };
       };
-      
+
       home.packages = with pkgs.gnomeExtensions; [
         tray-icons-reloaded
         clipboard-indicator

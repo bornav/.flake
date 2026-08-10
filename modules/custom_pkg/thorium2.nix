@@ -143,7 +143,7 @@ in
     #   hash = "sha256-3wVaXIqwsEN/EmX2mS3g1ZrEnricqhRY57lY2WmEepg=";
     # };
     src = fetchurl {
-      url = "https://github.com/gz83/thorium/releases/download/M150.0.7871.47/thorium-browser_150.0.7871.47_AVX2.deb";
+      url = "https://github.com/gz83/thorium/releases/download/M${version}/thorium-browser_${version}_${type}.deb";
       hash = "sha256-Hbm11HUcTCGEY13o++HJo8aQ8u9kwYMs+SKX8ChSH/M=";
     };
 

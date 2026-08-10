@@ -32,7 +32,6 @@
 
     ./alloy.nix
 
-    # ./snapmaker-orca.nix
 
     # ./winapps.nix
     # ./lvm.nix
@@ -155,7 +154,7 @@
   };
 
   ####
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = lib.mkForce true;
   environment.systemPackages =
     [
       pkgs-master.ghostty
@@ -332,9 +331,6 @@
   services.netbird.enable = true;
   # services.netbird.package = pkgs-master.netbird;
   services.netbird.ui.enable = true;
-
-  programs.hyprland.enable = true;
-
 
   nixpkgs.config.allowInsecurePredicate = _: true; # stop stupid insecure warnings, i dont care
 }
