@@ -104,6 +104,16 @@ with lib;
     };
     security.pam.services.login.kwallet.enable = lib.mkForce false;
     security.pam.services.kde.kwallet.enable = lib.mkForce false;
+    nixpkgs.overlays = [
+      (final: prev: {
+        kdePackages = prev.kdePackages // {
+          kwallet = prev.runCommand "kwallet-stub" { } "mkdir -p $out";
+          kwallet-pam = prev.runCommand "kwallet-pam-stub" { } "mkdir -p $out";
+          kwalletmanager = prev.runCommand "kwalletmanager-stub" { } "mkdir -p $out";
+        };
+      })
+    ];
+
     security.wrappers = {
       "mount.nfs" = {
         program = "mount.nfs";

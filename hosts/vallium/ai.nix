@@ -29,7 +29,7 @@
     # pkgs.radeontop
     # pkgs.amd-debug-tools
     # pkgs.nvtopPackages.amd
-    pkgs.llama-cpp-vulkan
+    pkgs.llama-cpp-vulkan #todo find out how to install cuda version
     pkgs.aichat
     pkgs.nodejs # for npm and so on
 
@@ -37,6 +37,8 @@
     pkgs.pi-coding-agent
 
     pkgs.libcap_ng
+
+    # pkgs.vllm
 
   ];
   programs.nix-ld = { #this here to fix openshell vm driver

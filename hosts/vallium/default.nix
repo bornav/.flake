@@ -245,9 +245,9 @@
       # orca-slicer
       # openrgb
       avahi
-      kdePackages.kmail
-      kdePackages.kmailtransport
-      kdePackages.kmail-account-wizard
+      # kdePackages.kmail
+      # kdePackages.kmailtransport
+      # kdePackages.kmail-account-wizard
     ]);
   programs.zsh.enable = true; # TODO REMOVE ME, temp
   programs.gnupg.agent = {

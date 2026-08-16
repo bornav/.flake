@@ -16,6 +16,7 @@ macros:
     --port ${PORT}
     --jinja
     --metrics
+    --offline
 
 models:
   #Gemma4-31B:
@@ -50,46 +51,6 @@ models:
       --min-p 0.0
       --presence-penalty 0.0
       --repeat-penalty 1.0
-  Qwen3.6-27B-coding:
-    capabilities:
-      context: 40000
-    cmd: >
-      ${latest-llama}
-      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
-      -c 40000
-      --temp 0.6
-      --top-p 0.95
-      --top-k 20
-      --min-p 0.0
-      --presence-penalty 0.0
-      --repeat-penalty 1.0
-  Qwen3.6-27B-Instruct:
-    capabilities:
-      context: 20000
-    cmd: >
-      ${latest-llama}
-      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
-      -c 20000
-      --temp 0.7
-      --top-p 0.80
-      --top-k 20
-      --min-p 0.0
-      --presence-penalty 1.5
-      --repeat-penalty 1.0
-      --reasoning off
-  Qwen3.6-27B-coding-ctx-big:
-    capabilities:
-      context: 90000
-    cmd: >
-      ${latest-llama}
-      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
-      -c 90000
-      --temp 0.6
-      --top-p 0.95
-      --top-k 20
-      --min-p 0.0
-      --presence-penalty 0.0
-      --repeat-penalty 1.0
   Gemma4-12B:
     capabilities:
       context: 250000
@@ -105,17 +66,116 @@ models:
       --repeat-penalty 1.0
       --spec-type draft-mtp
       --spec-draft-n-max 3
-  Qwen3.6-NVFP4:
+
+  Qwen3.6-27B-Instruct:
     capabilities:
-      context: 60000
+      context: 20000
     cmd: >
-      ${default-llama}
-      -hf CodeFault/Nvidia-Qwen3.6-27B-NVFP4-GGUF
-      -hff Nvidia-Qwen3.6-27B-NVFP4-A.gguf
-      -c 60000
+      ${latest-llama}
+      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
+      -c 20000
+      --temp 0.7
+      --top-p 0.80
+      --top-k 20
+      --min-p 0.0
+      --presence-penalty 1.5
+      --repeat-penalty 1.0
+      --reasoning off
+  Qwen3.6-27B-coding:
+    capabilities:
+      context: 40000
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
+      -c 40000
       --temp 0.6
       --top-p 0.95
       --top-k 20
-      --repeat-penalty 1.1
-      --spec-type draft-mtp
-      --spec-draft-n-max 2
+      --min-p 0.0
+      --presence-penalty 0.0
+      --repeat-penalty 1.0
+  Qwen3.6-27B-coding-ctx-big:
+    capabilities:
+      context: 90000
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
+      -c 90000
+      --temp 0.6
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+      --presence-penalty 0.0
+      --repeat-penalty 1.0
+
+  Qwen3.8-27B-Instruct:
+    capabilities:
+      context: 20000
+    cmd: >
+      ${default-llama}
+      -hf unsloth/Qwen3.8-27B-GGUF:Q4_K_M
+      -c 20000
+      --temp 0.7
+      --top-p 0.80
+      --top-k 20
+      --min-p 0.0
+      --presence_penalty 1.5
+      --repeat-penalty 1.0
+      --reasoning off
+  Qwen3.8-27B-coding:
+    capabilities:
+      context: 40000
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/Qwen3.8-27B-GGUF:Q4_K_M
+      -c 40000
+      --temp 1
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+      --presence_penalty 0.0
+      --repeat-penalty 1.0
+      --offline
+  Qwen3.8-27B-coding-ctx-big:
+    capabilities:
+      context: 90000
+    cmd: >
+      ${default-llama}
+      -hf unsloth/Qwen3.8-27B-GGUF:Q4_K_M
+      -c 90000
+      --temp 1
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+      --presence_penalty 0.0
+      --repeat-penalty 1.0
+
+  # Qwen3.6-NVFP4:
+  #   capabilities:
+  #     context: 60000
+  #   cmd: >
+  #     ${default-llama}
+  #     -hf CodeFault/Nvidia-Qwen3.6-27B-NVFP4-GGUF
+  #     -hff Nvidia-Qwen3.6-27B-NVFP4-A.gguf
+  #     -c 60000
+  #     --temp 0.6
+  #     --top-p 0.95
+  #     --top-k 20
+  #     --repeat-penalty 1.1
+  #     --spec-type draft-mtp
+  #     --spec-draft-n-max 2
+  # Qwen3.8-NVFP4:
+  #   capabilities:
+  #     context: 60000
+  #   cmd: >
+  #     ${default-llama}
+  #     -hf unsloth/Qwen3.8-27B-NVFP4
+  #     -c 60000
+  #     --temp 1
+  #     --top-p 0.95
+  #     --top-k 20
+  #     --min-p 0.0
+  #     --presence_penalty 0.0
+  #     --repeat-penalty 1.0
+  #     --spec-type draft-mtp
+  #     --spec-draft-n-max 2
