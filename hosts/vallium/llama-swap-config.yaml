@@ -10,12 +10,17 @@ macros:
     --port ${PORT}
     --jinja
     --metrics
+    --cache-type-k q8_0
+    --cache-type-v q8_0
+    --offline
   "latest-llama": >
     /home/user/workspace/llama-swap/llama-swap/result/bin/llama-server
     --host 0.0.0.0
     --port ${PORT}
     --jinja
     --metrics
+    --cache-type-k q8_0
+    --cache-type-v q8_0
     --offline
 
 models:
@@ -30,21 +35,21 @@ models:
 
   Gemma4-26B-A4B:
     capabilities:
-      context: 20000
+      context: 20480
     cmd: >
       ${default-llama}
       -hf unsloth/gemma-4-26B-A4B-it-GGUF:UD-Q4_K_M
-      -c 20000
+      -c 20480
       --temp 1
       --top-p 0.95
       --top-k 64
   Qwen3.6-27B-general:
     capabilities:
-      context: 30000
+      context: 30720
     cmd: >
       ${latest-llama}
       -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
-      -c 30000
+      -c 30720
       --temp 1
       --top-p 0.95
       --top-k 20
@@ -53,11 +58,11 @@ models:
       --repeat-penalty 1.0
   Gemma4-12B:
     capabilities:
-      context: 250000
+      context: 25600
     cmd: >
       ${default-llama}
       -hf unsloth/gemma-4-12B-it-qat-GGUF:UD-Q4_K_XL
-      -c 250000
+      -c 25600
       --temp 1
       --top-p 0.95
       --top-k 64
@@ -69,11 +74,11 @@ models:
 
   Qwen3.6-27B-Instruct:
     capabilities:
-      context: 20000
+      context: 20480
     cmd: >
       ${latest-llama}
       -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
-      -c 20000
+      -c 20480
       --temp 0.7
       --top-p 0.80
       --top-k 20
@@ -83,11 +88,11 @@ models:
       --reasoning off
   Qwen3.6-27B-coding:
     capabilities:
-      context: 40000
+      context: 40960
     cmd: >
       ${latest-llama}
       -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
-      -c 40000
+      -c 40960
       --temp 0.6
       --top-p 0.95
       --top-k 20
@@ -96,11 +101,11 @@ models:
       --repeat-penalty 1.0
   Qwen3.6-27B-coding-ctx-big:
     capabilities:
-      context: 90000
+      context: 92160
     cmd: >
       ${latest-llama}
       -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M
-      -c 90000
+      -c 92160
       --temp 0.6
       --top-p 0.95
       --top-k 20
@@ -110,11 +115,11 @@ models:
 
   Qwen3.8-27B-Instruct:
     capabilities:
-      context: 20000
+      context: 20480
     cmd: >
       ${default-llama}
       -hf unsloth/Qwen3.8-27B-GGUF:Q4_K_M
-      -c 20000
+      -c 20480
       --temp 0.7
       --top-p 0.80
       --top-k 20
@@ -124,11 +129,11 @@ models:
       --reasoning off
   Qwen3.8-27B-coding:
     capabilities:
-      context: 40000
+      context: 40960
     cmd: >
       ${latest-llama}
       -hf unsloth/Qwen3.8-27B-GGUF:Q4_K_M
-      -c 40000
+      -c 40960
       --temp 1
       --top-p 0.95
       --top-k 20
@@ -138,11 +143,11 @@ models:
       --offline
   Qwen3.8-27B-coding-ctx-big:
     capabilities:
-      context: 90000
+      context: 122880
     cmd: >
       ${default-llama}
       -hf unsloth/Qwen3.8-27B-GGUF:Q4_K_M
-      -c 90000
+      -c 122880
       --temp 1
       --top-p 0.95
       --top-k 20

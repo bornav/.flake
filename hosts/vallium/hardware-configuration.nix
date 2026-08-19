@@ -73,6 +73,6 @@ in {
 
   # TODO move
   hardware.i2c.enable = true;
-  services.ddccontrol.enable = true;
+  # services.ddccontrol.enable = true; # todo reanable, temp dissable as 7.2 kernel breaks it
   # users.users.${host.vars.user}.extraGroups = [ "i2c"];
 }

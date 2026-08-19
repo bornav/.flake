@@ -39,6 +39,7 @@
     pkgs.libcap_ng
 
     # pkgs.vllm
+    pkgs.qwen-code
 
   ];
   programs.nix-ld = { #this here to fix openshell vm driver

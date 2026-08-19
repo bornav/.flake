@@ -9,6 +9,7 @@
   pkgs-master,
   pkgs-local,
   pkgs-custom,
+  pkgs-unstable-small,
   ...
 }: {
   imports = [
@@ -67,6 +68,7 @@
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_18;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  # boot.kernelPackages = pkgs-unstable-small.linuxPackages_latest;
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
   # boot.kernelPackages = pkgs-master.linuxPackagesFor (pkgs-master.linux_latest.override {
   #     argsOverride = rec {
@@ -299,7 +301,7 @@
       };
     };
   };
-  # services.fwupd.enable = true; # firmware upgrade tool
+  services.fwupd.enable = lib.mkForce false; # firmware upgrade tool
   environment.variables = {
     LD_LIBRARY_PATH = lib.mkForce "$NIX_LD_LIBRARY_PATH"; ## may break stuff
     # PIPEWIRE_LATENCY = "32/48000"; # TODO test
