@@ -32,6 +32,8 @@
     snapmaker-orca.url = "github:chrstnwhlrt/nix-snapmaker-orca";
     snapmaker-orca.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    llm-agents.url = "github:numtide/llm-agents.nix"; #llm-agents
+
     deploy-rs.url = "github:serokell/deploy-rs";
   };
   outputs = {self, deploy-rs, ...} @ inputs:

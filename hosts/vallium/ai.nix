@@ -11,6 +11,7 @@
 }:
 # TODO remove system, only when from all modules it is removed
 {
+  nixpkgs.overlays = [inputs.llm-agents.overlays.shared-nixpkgs];
   # boot.kernelParams = [
   #   "ttm.pages_limit=${toString (55*1024*1024*1024/(1024*4))}" #(GB×1024×1024×1024)/(4×1024)
   # ];
@@ -36,13 +37,18 @@
     # pkgs-unstable.opencode
     pkgs.pi-coding-agent
 
-    pkgs.libcap_ng
+    pkgs.libcap_ng #this here to fix openshell vm driver
 
     # pkgs.vllm
-    pkgs.qwen-code
 
+    pkgs.llm-agents.pi
+    pkgs.llm-agents.dsh
+    # pkgs.llm-agents.opencode
+    pkgs.llm-agents.opencode2
+    pkgs.llm-agents.qwen-code
   ];
-  programs.nix-ld = { #this here to fix openshell vm driver
+  programs.nix-ld = {
+    #this here to fix openshell vm driver
     enable = true;
     libraries = with pkgs; [
       libcap_ng
@@ -50,8 +56,8 @@
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [11434 10001];
-    allowedUDPPorts = [11434 10001];
+    allowedTCPPorts = [11434 10002 10001 10000];
+    allowedUDPPorts = [11434 10002 10001 10000];
   };
 
   # # systemd.user.services.
@@ -112,7 +118,30 @@
     ];
   };
 
-
+  # dsh deepseek harness
+  # systemd.user.services.
+  systemd.services.dsh = {
+    description = "Deepseek harness";
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
+    enable = true;
+    serviceConfig = {
+      Type = "simple";
+      User = "${host.vars.user}";
+      Group = "users";
+      # WorkingDirectory = "/home/user/workspace/llama-swap";
+      ExecStart = "${pkgs.llm-agents.dsh}/bin/dsh --profile web --port 10000";
+      Restart = "always";
+      RestartSec = "5";
+      StandardOutput = "journal";
+      StandardError = "journal";
+    };
+    # StartLimit directives belong in [Unit], not [Service]
+    unitConfig = {
+      StartLimitBurst = "3";
+      StartLimitIntervalSec = "30"; # systemd uses IntervalSec, not Interval
+    };
+  };
 
   # systemd.services.openshell-gateway = {
   #   description = "OpenShell gateway (local, VM driver)";

@@ -18,6 +18,7 @@
     softdep amdgpu pre: vfio-pci
     softdep snd_hda_intel pre: vfio-pci
     options vfio_iommu_type1 allow_unsafe_interrupts=1
+    options kvm_amd avic=0
   '';
   #   options vfio-pci ids=144d:a80a
   #   options vfio-pci ids=1002:164e,1002:1640

@@ -334,5 +334,7 @@
   # services.netbird.package = pkgs-master.netbird;
   services.netbird.ui.enable = true;
 
+  programs.coolercontrol.enable = true;
+
   nixpkgs.config.allowInsecurePredicate = _: true; # stop stupid insecure warnings, i dont care
 }
