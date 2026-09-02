@@ -13,6 +13,7 @@ macros:
     --cache-type-k q8_0
     --cache-type-v q8_0
     --offline
+    -ngl all
   "latest-llama": >
     /home/user/workspace/llama-swap/llama-swap/result/bin/llama-server
     --host 0.0.0.0
@@ -22,6 +23,7 @@ macros:
     --cache-type-k q8_0
     --cache-type-v q8_0
     --offline
+    -ngl all
 
 models:
   #Gemma4-31B:
@@ -127,76 +129,62 @@ models:
       --presence_penalty 1.5
       --repeat-penalty 1.0
       --reasoning off
-  Qwen3.8-27B-coding:
-    capabilities:
-      context: 102400
-    cmd: >
-      ${latest-llama}
-      -hf unsloth/Qwen3.8-27B-GGUF:IQ4_XS
-      -c 102400
-      --temp 1
-      --top-p 0.95
-      --top-k 20
-      --min-p 0.0
-      --presence_penalty 0.0
-      --repeat-penalty 1.0
-      --offline
-  Qwen3.8-27B-coding-ctx-big:
-    capabilities:
-      context: 122880
-    cmd: >
-      ${default-llama}
-      -hf unsloth/Qwen3.8-27B-GGUF:IQ4_XS
-      -c 122880
-      --temp 1
-      --top-p 0.95
-      --top-k 20
-      --min-p 0.0
-      --presence_penalty 0.0
-      --repeat-penalty 1.0
-  Qwen3.8-coding-mtp:
-    capabilities:
-      context: 40960
-    cmd: >
-      ${latest-llama}
-      -hf unsloth/Qwen3.8-27B-GGUF:IQ4_XS
-      -c 40960
-      --temp 1
-      --top-p 0.95
-      --top-k 20
-      --min-p 0.0
-      --presence_penalty 0.0
-      --repeat-penalty 1.0
-      --offline
-      --spec-type draft-mtp --spec-draft-n-max 2
-      --cache-type-k-draft q4_0 --cache-type-v-draft q4_0
-
-  # Qwen3.6-NVFP4:
+  # Qwen3.8-27B-coding:
   #   capabilities:
-  #     context: 60000
+  #     context: 102400
   #   cmd: >
-  #     ${default-llama}
-  #     -hf CodeFault/Nvidia-Qwen3.6-27B-NVFP4-GGUF
-  #     -hff Nvidia-Qwen3.6-27B-NVFP4-A.gguf
-  #     -c 60000
-  #     --temp 0.6
-  #     --top-p 0.95
-  #     --top-k 20
-  #     --repeat-penalty 1.1
-  #     --spec-type draft-mtp
-  #     --spec-draft-n-max 2
-  # Qwen3.8-NVFP4:
-  #   capabilities:
-  #     context: 60000
-  #   cmd: >
-  #     ${default-llama}
-  #     -hf unsloth/Qwen3.8-27B-NVFP4
-  #     -c 60000
+  #     ${latest-llama}
+  #     -hf unsloth/Qwen3.8-27B-GGUF:IQ4_XS
+  #     -c 102400
   #     --temp 1
   #     --top-p 0.95
   #     --top-k 20
   #     --min-p 0.0
   #     --presence_penalty 0.0
   #     --repeat-penalty 1.0
-  #     --spec-type draft-mtp
-  #     --spec-draft-n-max 2
+  #     --offline
+  # Qwen3.8-27B-coding-ctx-big:
+  #   capabilities:
+  #     context: 122880
+  #   cmd: >
+  #     ${default-llama}
+  #     -hf unsloth/Qwen3.8-27B-GGUF:IQ4_XS
+  #     -c 122880
+  #     --temp 1
+  #     --top-p 0.95
+  #     --top-k 20
+  #     --min-p 0.0
+  #     --presence_penalty 0.0
+  #     --repeat-penalty 1.0
+  Qwen3.8-coding-mtp:
+    capabilities:
+      context: 81920
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/Qwen3.8-27B-GGUF:IQ4_XS
+      -c 81920
+      --temp 1
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+      --presence_penalty 0.0
+      --repeat-penalty 1.0
+      --offline
+      --spec-type draft-mtp --spec-draft-n-max 3
+      --cache-type-k-draft q4_0 --cache-type-v-draft q4_0
+  Qwen3.8-coding-mtp-big:
+    capabilities:
+      context: 143360
+    cmd: >
+      ${latest-llama}
+      -hf unsloth/Qwen3.8-27B-GGUF:IQ4_XS
+      -c 143360
+      --temp 1
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+      --presence_penalty 0.0
+      --repeat-penalty 1.0
+      --offline
+      --spec-type draft-mtp --spec-draft-n-max 3
+      --cache-type-k-draft q4_0 --cache-type-v-draft q4_0
