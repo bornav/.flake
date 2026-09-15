@@ -33,7 +33,6 @@
 
     ./alloy.nix
 
-
     # ./winapps.nix
     # ./lvm.nix
     # inputs.nixos-facter-modules.nixosModules.facter{ config.facter.reportPath = ./facter.json; }
@@ -43,6 +42,15 @@
     {
       programs.snapmaker-orca.enable = true;
     }
+
+    # inputs.freetoken.nixosModules.freetoken
+    # {
+    #   programs.freetoken-desktop.enable = true;
+    #   services.freetoken = {
+    #     enable = true;
+    #     model = "/var/lib/freetoken/models/Qwen3.6-35B-A3B";
+    #   };
+    # }
   ];
   fonts = {
     ## TODO entire block untested if even used, would like to use the Hack font
@@ -226,13 +234,11 @@
 
       nmap
       winboat
-
       # firecracker
       # handbrake
       # betterbird
       # teamspeak3
       python3
-      egl-wayland
       ((vim-full.override {}).customize {
         name = "vim";
         vimrcConfig.customRC = ''

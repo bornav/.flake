@@ -11,26 +11,12 @@
 }:
 # TODO remove system, only when from all modules it is removed
 {
-  nixpkgs.overlays = [inputs.llm-agents.overlays.shared-nixpkgs];
-  # boot.kernelParams = [
-  #   "ttm.pages_limit=${toString (55*1024*1024*1024/(1024*4))}" #(GB×1024×1024×1024)/(4×1024)
-  # ];
+  nixpkgs.overlays = [
+    inputs.llm-agents.overlays.shared-nixpkgs
+  ];
 
-  services = {
-    ollama = {
-      enable = false;
-      package = pkgs-unstable.ollama-vulkan;
-      # package = pkgs-master.ollama-cuda;
-      # acceleration = "rocm";
-      openFirewall = true;
-      # rocmOverrideGfx = "11.0.0";
-    };
-  };
   environment.systemPackages = [
-    # pkgs.radeontop
-    # pkgs.amd-debug-tools
-    # pkgs.nvtopPackages.amd
-    pkgs.llama-cpp-vulkan #todo find out how to install cuda version
+    pkgs.llama-cpp-cuda
     pkgs.aichat
     pkgs.nodejs # for npm and so on
 
@@ -43,8 +29,8 @@
 
     pkgs.llm-agents.pi
     pkgs.llm-agents.dsh
-    # pkgs.llm-agents.opencode
-    pkgs.llm-agents.opencode2
+    pkgs.llm-agents.opencode
+    # pkgs.llm-agents.opencode2
     pkgs.llm-agents.qwen-code
   ];
   programs.nix-ld = {
@@ -59,32 +45,6 @@
     allowedTCPPorts = [11434 10002 10001 10000];
     allowedUDPPorts = [11434 10002 10001 10000];
   };
-
-  # # systemd.user.services.
-  # systemd.services.llama-swap = {
-  #   description = "Llama Swap - OpenAI Compatible Proxy";
-  #   after = ["network.target"];
-  #   wantedBy = ["multi-user.target"];
-  #   enable = true;
-  #   serviceConfig = {
-  #     Type = "simple";
-  #     User = "${host.vars.user}";
-  #     Group = "users";
-  #     WorkingDirectory = "/home/user/workspace/llama-swap";
-
-  #     ExecStart = "${pkgs.bash}/bin/bash run.sh";
-
-  #     Restart = "always";
-  #     RestartSec = "5";
-  #     StandardOutput = "journal";
-  #     StandardError = "journal";
-  #   };
-  #   # StartLimit directives belong in [Unit], not [Service]
-  #   unitConfig = {
-  #     StartLimitBurst = "3";
-  #     StartLimitIntervalSec = "30"; # systemd uses IntervalSec, not Interval
-  #   };
-  # };
 
   # systemd.user.services.
   systemd.services.llama-swap = {
@@ -146,19 +106,15 @@
   # systemd.services.openshell-gateway = {
   #   description = "OpenShell gateway (local, VM driver)";
   #   documentation = [ "https://docs.nvidia.com/openshell/" ];
-
   #   wantedBy = [ "default.target" ];
   #   after = [ "network-online.target" ];
   #   wants = [ "network-online.target" ];
-
   #   serviceConfig = {
   #     Type = "simple";
   #     User = "user"; # Change to your username if running as user
   #     Group = "users";
-
   #     # Environment variables
   #     Environment = [ "OPENSHELL_LOG_LEVEL=info" ];
-
   #     # ExecStart: Replace /var/lib/openshell with the actual home dir if different
   #     # Note: You need to ensure 'openshell-gateway' is in pkgs or defined elsewhere
   #     ExecStart = ''
@@ -172,10 +128,8 @@
   #         --vm-driver-state-dir /home/user/.local/share/openshell/vm \
   #         --grpc-endpoint http://host.containers.internal:8085
   #     '';
-
   #     Restart = "on-failure";
   #     RestartSec = 3;
-
   #     # Sandboxing options (mapped from original)
   #     NoNewPrivileges = true;
   #     ProtectSystem = "strict";
@@ -185,7 +139,6 @@
   #     ];
   #     ProtectHome = "read-only";
   #     PrivateTmp = true;
-
   #     # # Additional NixOS-specific hardening (optional but recommended)
   #     # ProtectKernelTunables = true;
   #     # ProtectControlGroups = true;

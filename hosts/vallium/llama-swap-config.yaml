@@ -174,11 +174,11 @@ models:
       --cache-type-k-draft q4_0 --cache-type-v-draft q4_0
   Qwen3.8-coding-mtp-big:
     capabilities:
-      context: 143360
+      context: 122880
     cmd: >
       ${latest-llama}
       -hf unsloth/Qwen3.8-27B-GGUF:IQ4_XS
-      -c 143360
+      -c 122880
       --temp 1
       --top-p 0.95
       --top-k 20

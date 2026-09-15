@@ -54,13 +54,13 @@
 
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
       # package = config.boot.kernelPackages.nvidiaPackages.latest;
-      # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #   version = "610.43.02";
-      #   sha256_64bit = "sha256-MDSgVLtM33dS/43CclZMsQVROAS/9TU4lFkBsWyndGM=";
-      #   openSha256 = "sha256-hP5NVZZ4vGsACHLmUDKq4uckpd/kn1GxCSYnnJfAuBs="; #lib.fakeHash;
-      #   usePersistenced = false;
-      #   useSettings = false;
-      # };
+      #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #  version = "615.71.09";
+      #  sha256_64bit = "sha256-zc7tIrvrYSSNGm3qvCWWZz46ZQFpjucayNL9wo87cP4=";
+      #  openSha256 = "sha256-3gByMYIwFzRaLdDG+roCEOuKRRJDrljG9AlLnRZTirM="; #lib.fakeHash;
+      #  usePersistenced = false;
+      #  useSettings = false;
+      #};
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true; #!config.hardware.nvidia.open;
       # powerManagement.finegrained = false;
@@ -140,5 +140,6 @@
   #
   environment.systemPackages = [
     pkgs.nvtopPackages.nvidia
+    # pkgs.egl-wayland # TODO look into removing
   ];
 }
