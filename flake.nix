@@ -57,6 +57,7 @@
       terminal = "alacritty";
       editor = "vim";
       stateVersion = "26.11";
+      stateVersionHomeManager = "26.11";
     };
     inherit (self) outputs;
   in {

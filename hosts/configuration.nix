@@ -113,7 +113,8 @@
   # ''; # sets the systemd stopjob timeout to somethng else than 90 seconds
   systemd.settings.Manager.RebootWatchdogSec = "3m";
   home-manager.users.${host.vars.user} = {       # Home-Manager Settings
-    home.stateVersion = "${host.vars.stateVersion}";
+    home.stateVersion = "${host.vars.stateVersionHomeManager}";
+    home.enableNixpkgsReleaseCheck = false; # <-- Add this line
     programs.home-manager.enable = true;
     xdg.enable= true;
     # xdg.desktopEntries = {
