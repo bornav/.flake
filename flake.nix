@@ -17,11 +17,13 @@
     hyprland.url = "github:hyprwm/Hyprland"; # Requires "hyprland.nixosModules.default" to be added the host modules
     hyprland.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs-unstable";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs-unstable";
     compose2nix.url = "github:aksiksi/compose2nix";
     compose2nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
     wirenix.url = "sourcehut:~msalerno/wirenix";
+    wirenix.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -39,8 +41,13 @@
     freetoken.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
-  outputs = {self, deploy-rs, ...} @ inputs:
+  outputs = {
+    self,
+    deploy-rs,
+    ...
+  } @ inputs:
   # Function telling flake which inputs to use
   let
     vars = {
