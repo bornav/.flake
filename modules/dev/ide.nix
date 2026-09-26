@@ -1,7 +1,6 @@
 {
   config,
   inputs,
-  pkgs-local,
   system,
   host,
   lib,
@@ -118,7 +117,7 @@ with lib;
       ];
       environment.systemPackages = [
         # pkgs.zed-editor
-        # pkgs-local.zed-editor
+        # pkgs-custom.zed-editor
         # (pkgs.zed-editor.overrideAttrs (o: rec {
         #     version = "0.217.3";
         #     src = pkgs.fetchFromGitHub {

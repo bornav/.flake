@@ -1,9 +1,10 @@
 {
   description = "A very basic flake";
   inputs = {
-    nixpkgs-custom.url = "git+file:////home/user/git/nixpkgs-test";
+    # nixpkgs-custom.url = "git+https://forgejo.icylair.com/bornav/nixpkgs-custom";
+    nix-pkgs-local.url = "git+file:////home/user/git/nixpkgs-test";
     # nix-pkgs-local.url = "git+file:////home/user/git/nixpkgs-custom";
-    nix-pkgs-local.url = "git+file:////home/user/git/nixpkgs";
+    # nix-pkgs-local.url = "git+file:////home/user/git/nixpkgs";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
     nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";

@@ -1,6 +1,6 @@
 {
   lib,
-  pkgs-local,
+  pkgs-custom,
   ...
 }: let
   docker_socket = "unix:///var/run/docker.sock";
@@ -136,14 +136,14 @@ in {
     after = ["network.target"];
     # environment = { BEYLA_NETWORK_PRINT_FLOWS = "true";};
     serviceConfig = {
-      ExecStart = "${pkgs-local.beyla}/bin  /beyla -config /etc/beyla/config.yaml";
+      ExecStart = "${pkgs-custom.beyla}/bin  /beyla -config /etc/beyla/config.yaml";
       Restart = "on-failure";
       RestartSec = "5s";
       RemainAfterExit = true;
     };
     wantedBy = ["multi-user.target"];
   };
-  environment.systemPackages = [pkgs-local.beyla];
+  environment.systemPackages = [pkgs-custom.beyla];
   environment.etc."beyla/config.yaml".text = lib.mkForce ''
     network:
       enable: true

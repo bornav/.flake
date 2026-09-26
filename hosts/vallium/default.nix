@@ -7,7 +7,6 @@
   pkgs-stable,
   pkgs-unstable,
   pkgs-master,
-  pkgs-local,
   pkgs-custom,
   pkgs-unstable-small,
   ...
@@ -168,9 +167,10 @@
   environment.systemPackages =
     [
       pkgs-master.ghostty
-      pkgs-local.openshell
+      pkgs-custom.beyla
+      pkgs-custom.openshell
       # pkgs-custom.nano
-      # pkgs-local.beyla
+      # pkgs-custom.beyla
       # (pkgs-unstable.callPackage ../../modules/custom_pkg/temp.nix {})
       pkgs.scx.full
       # (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
