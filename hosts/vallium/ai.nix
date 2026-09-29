@@ -7,6 +7,7 @@
   pkgs,
   pkgs-unstable,
   pkgs-master,
+  pkgs-custom,
   ...
 }:
 # TODO remove system, only when from all modules it is removed
@@ -32,6 +33,9 @@
     pkgs.llm-agents.opencode
     # pkgs.llm-agents.opencode2
     pkgs.llm-agents.qwen-code
+
+    pkgs-custom.penguin-burner
+    pkgs-custom.ninfer-4090
   ];
   programs.nix-ld = {
     #this here to fix openshell vm driver

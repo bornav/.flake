@@ -32,7 +32,8 @@
   device.finalmouse = true;
   device.orbital-pathfinder = true;
   device.akko = true;
-  device.platformio = true;
+  device.platformio = false;
+  device.steam = true;
 
   storagefs.share.vega_nfs = true;
 }

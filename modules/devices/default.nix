@@ -5,5 +5,6 @@
   ./orbital-pathfinder.nix
   ./akko.nix
   ./platformio.nix
+  ./steam.nix
   ];
 }

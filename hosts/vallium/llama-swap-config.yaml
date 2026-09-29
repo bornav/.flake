@@ -24,7 +24,8 @@ macros:
     --cache-type-v q8_0
     --offline
     -ngl all
-
+  "ninfer": >
+    /run/current-system/sw/bin/ninfer-serve
 models:
   #Gemma4-31B:
   #  cmd: >
@@ -188,3 +189,20 @@ models:
       --offline
       --spec-type draft-mtp --spec-draft-n-max 3
       --cache-type-k-draft q4_0 --cache-type-v-draft q4_0
+  Qwen3.8-ninfer:
+    cmd: >
+      ${ninfer}
+      /home/user/projects/ai/models/qwen3_8_27b.ninfer
+      --host 0.0.0.0
+      --port ${PORT}
+      --max-context 102032
+      --kv-capacity 102032
+      --max-concurrency 1
+      --max-pending-requests 16
+      --pending-timeout-ms 600000
+      --prefill-chunk 1024
+      --kv-dtype int8
+      --spec mtp
+      --draft-tokens 3
+      --lm-head-draft
+      --preserve-thinking

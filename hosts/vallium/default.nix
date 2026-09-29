@@ -260,7 +260,8 @@
   programs.zsh.enable = true; # TODO REMOVE ME, temp
   programs.gnupg.agent = {
     enable = true;
-    enableSSHSupport = false;
+    enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-curses;
   };
 
   # # tailscale up --login-server <headscale.<domain>>  https://carlosvaz.com/posts/setting-up-headscale-on-nixos/

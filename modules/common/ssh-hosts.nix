@@ -137,6 +137,15 @@
         StrictHostKeyChecking no
         # IdentityFile /home/user/.ssh/cdn_key_pwless
         IdentityFile /home/user/.ssh/id_local
+    Host harbor
+        HostName harbor.icylair.com
+        # HostName 2a01:4f8:c012:c800::1
+        Port 22
+        User root
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        # IdentityFile /home/user/.ssh/cdn_key_pwless
+        IdentityFile /home/user/.ssh/id_local
     Host rke2-secured-cp-01
         HostName 10.2.12.6
         Port 22
