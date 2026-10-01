@@ -10,6 +10,15 @@
   pkgs-custom,
   ...
 }:
+let
+# dsh needs a Node build without zerocallusedregs hardening
+  # (see nixpkgs#565667). Scoped to dsh only, so nothing else rebuilds.
+  dsh = pkgs.llm-agents.dsh.override {
+    nodejs = pkgs.nodejs-slim.overrideAttrs {
+      hardeningDisable = ["zerocallusedregs"];
+    };
+  };
+in
 # TODO remove system, only when from all modules it is removed
 {
   nixpkgs.overlays = [
@@ -17,7 +26,7 @@
   ];
 
   environment.systemPackages = [
-    pkgs.llama-cpp-cuda
+    pkgs-master.llama-cpp-cuda
     pkgs.aichat
     pkgs.nodejs # for npm and so on
 
@@ -29,7 +38,8 @@
     # pkgs.vllm
 
     pkgs.llm-agents.pi
-    pkgs.llm-agents.dsh
+    # pkgs.llm-agents.dsh
+    dsh # revert back once this is closed https://github.com/numtide/llm-agents.nix/issues/9994
     pkgs.llm-agents.opencode
     # pkgs.llm-agents.opencode2
     pkgs.llm-agents.qwen-code
@@ -84,28 +94,28 @@
 
   # dsh deepseek harness
   # systemd.user.services.
-  systemd.services.dsh = {
-    description = "Deepseek harness";
-    after = ["network.target"];
-    wantedBy = ["multi-user.target"];
-    enable = true;
-    serviceConfig = {
-      Type = "simple";
-      User = "${host.vars.user}";
-      Group = "users";
-      # WorkingDirectory = "/home/user/workspace/llama-swap";
-      ExecStart = "${pkgs.llm-agents.dsh}/bin/dsh --profile web --port 10000";
-      Restart = "always";
-      RestartSec = "5";
-      StandardOutput = "journal";
-      StandardError = "journal";
-    };
-    # StartLimit directives belong in [Unit], not [Service]
-    unitConfig = {
-      StartLimitBurst = "3";
-      StartLimitIntervalSec = "30"; # systemd uses IntervalSec, not Interval
-    };
-  };
+  # systemd.services.dsh = {
+  #   description = "Deepseek harness";
+  #   after = ["network.target"];
+  #   wantedBy = ["multi-user.target"];
+  #   enable = true;
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     User = "${host.vars.user}";
+  #     Group = "users";
+  #     # WorkingDirectory = "/home/user/workspace/llama-swap";
+  #     ExecStart = "${pkgs.llm-agents.dsh}/bin/dsh --profile web --port 10000";
+  #     Restart = "always";
+  #     RestartSec = "5";
+  #     StandardOutput = "journal";
+  #     StandardError = "journal";
+  #   };
+  #   # StartLimit directives belong in [Unit], not [Service]
+  #   unitConfig = {
+  #     StartLimitBurst = "3";
+  #     StartLimitIntervalSec = "30"; # systemd uses IntervalSec, not Interval
+  #   };
+  # };
 
   # systemd.services.openshell-gateway = {
   #   description = "OpenShell gateway (local, VM driver)";

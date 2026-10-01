@@ -190,9 +190,12 @@ models:
       --spec-type draft-mtp --spec-draft-n-max 3
       --cache-type-k-draft q4_0 --cache-type-v-draft q4_0
   Qwen3.8-ninfer:
+    capabilities:
+      context: 102032
     cmd: >
       ${ninfer}
       /home/user/projects/ai/models/qwen3_8_27b.ninfer
+      --model-id Qwen3.8-ninfer
       --host 0.0.0.0
       --port ${PORT}
       --max-context 102032
@@ -202,6 +205,26 @@ models:
       --pending-timeout-ms 600000
       --prefill-chunk 1024
       --kv-dtype int8
+      --spec mtp
+      --draft-tokens 3
+      --lm-head-draft
+      --preserve-thinking
+  Qwen3.8-ninfer196:
+    capabilities:
+      context: 200704
+    cmd: >
+      ${ninfer}
+      /home/user/projects/ai/models/qwen3_8_27b.ninfer
+      --model-id Qwen3.8-ninfer196
+      --host 0.0.0.0
+      --port ${PORT}
+      --max-context 200704
+      --kv-capacity 200704
+      --max-concurrency 1
+      --max-pending-requests 16
+      --pending-timeout-ms 600000
+      --prefill-chunk 1024
+      --kv-dtype rk4v4-e8
       --spec mtp
       --draft-tokens 3
       --lm-head-draft

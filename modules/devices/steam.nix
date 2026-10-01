@@ -28,6 +28,9 @@ with lib; {
           # Valve USB devices
           SUBSYSTEMS=="usb", ATTRS{idVendor}=="28de", MODE="0660", TAG+="uaccess"
 
+          # Valve 802.11ax WLAN adapter
+          SUBSYSTEMS=="usb", ATTRS{idVendor}=="28de", ATTRS{idProduct}=="2432", MODE="0660", TAG+="uaccess"
+
           # Steam Controller udev write access
           KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"
 

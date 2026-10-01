@@ -117,5 +117,18 @@ with lib; {
         (import ./home-mutable-mangohud.nix)
       ];
     };
+
+    networking.firewall = {
+      allowedTCPPorts = [
+        27036
+        27037
+      ];
+      allowedUDPPorts = [
+        27031
+        27036
+        10400
+        1040
+      ];
+    };
   };
 }
