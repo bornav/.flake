@@ -27,7 +27,7 @@
     softdep snd_hda_intel pre: vfio-pci
     options vfio_iommu_type1 allow_unsafe_interrupts=1
 
-    options kvmfr static_size_mb=32
+    options kvmfr static_size_mb=128
   '';
 
   environment.systemPackages = [

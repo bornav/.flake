@@ -7,6 +7,7 @@
   pkgs,
   pkgs-unstable,
   pkgs-master,
+  pkgs-custom,
   ...
 }:
 # TODO remove system, only when from all modules it is removed
@@ -35,6 +36,8 @@
     pkgs.sqlite
     pkgs.libkrun
     pkgs.libcap
+
+    # pkgs-custom.strix-llama-cpp
   ];
 
   # systemd.user.services.
