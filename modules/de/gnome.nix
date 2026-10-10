@@ -131,7 +131,7 @@ with lib;
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
           binding = "<super>t";
-          command = "alacritty";
+          command = "alacritty"; # TODO find why this not work "${host.vars.terminal}";
           name = "open-terminal";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {

@@ -209,6 +209,7 @@ models:
       --draft-tokens 3
       --lm-head-draft
       --preserve-thinking
+      --prefill-activations int8
   Qwen3.8-ninfer196:
     capabilities:
       context: 200704
@@ -229,3 +230,4 @@ models:
       --draft-tokens 3
       --lm-head-draft
       --preserve-thinking
+      --prefill-activations int8

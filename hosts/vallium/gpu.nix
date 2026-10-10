@@ -54,13 +54,13 @@
 
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
       # package = config.boot.kernelPackages.nvidiaPackages.latest;
-      #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #  version = "615.71.09";
-      #  sha256_64bit = "sha256-zc7tIrvrYSSNGm3qvCWWZz46ZQFpjucayNL9wo87cP4=";
-      #  openSha256 = "sha256-3gByMYIwFzRaLdDG+roCEOuKRRJDrljG9AlLnRZTirM="; #lib.fakeHash;
-      #  usePersistenced = false;
-      #  useSettings = false;
-      #};
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+       version = "615.78.08";
+       sha256_64bit = "sha256-Pj9t3cLudnoIGFMAr3vjyyhuznZpjS3eNSRZl4LQf/4=";
+       openSha256 = "sha256-HBINiOjL0ZJLIAJeNIBYHBnwgUXtNwPPtnFpAI1YwF4="; #lib.fakeHash;
+       usePersistenced = false;
+       useSettings = false;
+      };
       # forceFullCompositionPipeline = true;
       powerManagement.enable = true; #!config.hardware.nvidia.open;
       # powerManagement.finegrained = false;

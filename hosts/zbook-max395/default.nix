@@ -126,6 +126,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages =
     [
+      # pkgs-master.ghostty # do not use till they fix one crashing taking every terminal with it
       #pkgs-unstable.element-desktop
     ]
     ++ (with pkgs; [

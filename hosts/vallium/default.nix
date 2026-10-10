@@ -166,7 +166,7 @@
   nixpkgs.config.allowUnfree = lib.mkForce true;
   environment.systemPackages =
     [
-      pkgs-master.ghostty
+      # pkgs-master.ghostty # do not use till they fix one crashing taking every terminal with it
       pkgs-custom.beyla
       pkgs-custom.openshell
       # pkgs-custom.nano
@@ -319,7 +319,7 @@
 
   # programs.coolercontrol.enable = true;minifyStaticFiles
   services.lact.enable = true;
-  services.lact.package = pkgs-stable.lact;
+  # services.lact.package = pkgs-stable.lact;
 
   hardware.enableRedistributableFirmware = true;
   nixpkgs.config.permittedInsecurePackages = [

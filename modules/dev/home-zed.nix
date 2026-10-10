@@ -75,7 +75,7 @@
           };
         };
         env = {
-          TERM = "alacritty";
+          TERM = "alacritty"; # TODO find why this not work "${host.vars.terminal}";
         };
         font_family = "Hack Nerd Font Mono";
         font_features = null;
@@ -246,7 +246,7 @@
         dock = "left";
         entry_spacing = "comfortable";
         file_icons = true;
-        folder_icons = true;
+        folder_indicator = "both";
         git_status = true;
         indent_size = 10;
         auto_reveal_entries = true;
@@ -317,10 +317,9 @@
       edit_predictions = {
         provider = "ollama";
         mode = "eager"; # Automatically show (eager) or hold-alt (subtle)
-        enabled_in_text_threads = true; # Show/hide predictions in agent text threads
-        ollama = {
-          model = "qwen2.5-coder:14b";
-        };
+        # ollama = {
+        #   model = "qwen2.5-coder:14b";
+        # };
       };
       show_edit_predictions = true; # Show/hide predictions in editor
     };
