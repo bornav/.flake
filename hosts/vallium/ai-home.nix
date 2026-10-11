@@ -9,7 +9,7 @@
 }: {
   programs = {
     opencode = {
-      # package = pkgs-master.opencode;
+      package = pkgs.llm-agents.opencode;
       enable = true;
       web.enable = true;
       web.extraArgs= [

@@ -40,12 +40,13 @@ in
     pkgs.llm-agents.pi
     # pkgs.llm-agents.dsh
     dsh # revert back once this is closed https://github.com/numtide/llm-agents.nix/issues/9994
-    pkgs.llm-agents.opencode
+    # pkgs.llm-agents.opencode # defined in programs.opencode
     # pkgs.llm-agents.opencode2
     pkgs.llm-agents.qwen-code
 
     pkgs-custom.penguin-burner
     pkgs-custom.ninfer-4090
+    pkgs-custom.unbiased-strata
   ];
   programs.nix-ld = {
     #this here to fix openshell vm driver
@@ -91,6 +92,12 @@ in
       (import ./ai-home.nix)
     ];
   };
+
+  # this sets ulimit -l to unlimited from current 8192
+  security.pam.loginLimits = [
+    { domain = "*"; type = "soft"; item = "memlock"; value = "unlimited"; }
+    { domain = "*"; type = "hard"; item = "memlock"; value = "unlimited"; }
+  ];
 
   # dsh deepseek harness
   # systemd.user.services.

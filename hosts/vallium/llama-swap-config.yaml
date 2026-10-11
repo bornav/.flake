@@ -26,6 +26,8 @@ macros:
     -ngl all
   "ninfer": >
     /run/current-system/sw/bin/ninfer-serve
+  "unbiased-strata": >
+    /run/current-system/sw/bin/unbiased-strata
 models:
   #Gemma4-31B:
   #  cmd: >
@@ -231,3 +233,18 @@ models:
       --lm-head-draft
       --preserve-thinking
       --prefill-activations int8
+  # UnbiasedStrata (Strata engine + C++ front end), IQ3_S shards. llama-swap rewrites the
+  # reported model id, so clients see this name (the binary itself says iq3_xxs internally)
+  Qwen3.8-flash-next-iq3_s:
+    capabilities:
+      context: 262144
+    cmd: >
+      ${unbiased-strata}
+      --model /home/user/projects/ai/models/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf
+      --pack /home/user/git/UnbiasedStrata/build/pack-iq3-s
+      --mtp /home/user/git/UnbiasedStrata/build/mtp-bf16/rt
+      --ctx 262144
+      --threads 24
+      --host 0.0.0.0
+      --port ${PORT}
+      -- --mmap-experts --resident-budget-gib 16 --ple-io direct
