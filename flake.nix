@@ -36,9 +36,6 @@
     llm-agents.url = "github:numtide/llm-agents.nix"; #llm-agents
     llm-agents.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    freetoken.url = "github:lcleveland/freetoken";
-    freetoken.inputs.nixpkgs.follows = "nixpkgs-unstable";
-
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };

@@ -238,6 +238,32 @@ models:
   Qwen3.8-flash-next-iq3_s:
     capabilities:
       context: 262144
+      # context: 204800
+    cmd: >
+      ${unbiased-strata}
+      --model /home/user/projects/ai/models/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf
+      --pack /home/user/git/UnbiasedStrata/build/pack-iq3-s
+      --mtp /home/user/git/UnbiasedStrata/build/mtp-bf16/rt
+      --ctx 262144
+      --threads 24
+      --host 0.0.0.0
+      --port ${PORT}
+  Qwen3.8-flash-next-iq3_s_v:
+    capabilities:
+      context: 262144
+    cmd: >
+      ${unbiased-strata}
+      --model /home/user/projects/ai/models/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf
+      --pack /home/user/git/UnbiasedStrata/build/pack-iq3-s
+      --mtp /home/user/git/UnbiasedStrata/build/mtp-bf16/rt
+      --mmproj /home/user/projects/ai/models/mmproj-Qwen3.8-Flash-Next-BF16.gguf
+      --ctx 262144
+      --threads 24
+      --host 0.0.0.0
+      --port ${PORT}
+  Qwen3.8-flash-next-iq3_s_low:
+    capabilities:
+      context: 262144
     cmd: >
       ${unbiased-strata}
       --model /home/user/projects/ai/models/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf

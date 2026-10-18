@@ -42,7 +42,7 @@ in
     dsh # revert back once this is closed https://github.com/numtide/llm-agents.nix/issues/9994
     # pkgs.llm-agents.opencode # defined in programs.opencode
     # pkgs.llm-agents.opencode2
-    pkgs.llm-agents.qwen-code
+    # pkgs.llm-agents.qwen-code
 
     pkgs-custom.penguin-burner
     pkgs-custom.ninfer-4090

@@ -42,15 +42,6 @@
     {
       programs.snapmaker-orca.enable = true;
     }
-
-    # inputs.freetoken.nixosModules.freetoken
-    # {
-    #   programs.freetoken-desktop.enable = true;
-    #   services.freetoken = {
-    #     enable = true;
-    #     model = "/var/lib/freetoken/models/Qwen3.6-35B-A3B";
-    #   };
-    # }
   ];
   fonts = {
     ## TODO entire block untested if even used, would like to use the Hack font
@@ -170,8 +161,7 @@
       # pkgs-master.ghostty # do not use till they fix one crashing taking every terminal with it
       pkgs-custom.beyla
       pkgs-custom.openshell
-      # pkgs-custom.nano
-      # pkgs-custom.beyla
+      pkgs-custom.solidcraft
       # (pkgs-unstable.callPackage ../../modules/custom_pkg/temp.nix {})
       pkgs.scx.full
       # (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
