@@ -34,6 +34,7 @@
   device.akko = true;
   device.platformio = false;
   device.steam = true;
+  device.cannonmg-4200 = true;
 
   storagefs.share.vega_nfs = true;
 }

@@ -6,5 +6,6 @@
   ./akko.nix
   ./platformio.nix
   ./steam.nix
+  ./cannonmg-mg4200.nix
   ];
 }

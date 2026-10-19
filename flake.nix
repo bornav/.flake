@@ -33,6 +33,8 @@
     snapmaker-orca.url = "github:chrstnwhlrt/nix-snapmaker-orca";
     snapmaker-orca.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    cannonmg.url = "git+file:///home/user/git/cannonmg-4200-setup"; # Canon MG4200 USB printer driver (cnijfilter 3.80 + proot)
+
     llm-agents.url = "github:numtide/llm-agents.nix"; #llm-agents
     llm-agents.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
