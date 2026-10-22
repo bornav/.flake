@@ -13,11 +13,11 @@
 let
 # dsh needs a Node build without zerocallusedregs hardening
   # (see nixpkgs#565667). Scoped to dsh only, so nothing else rebuilds.
-  dsh = pkgs.llm-agents.dsh.override {
-    nodejs = pkgs.nodejs-slim.overrideAttrs {
-      hardeningDisable = ["zerocallusedregs"];
-    };
-  };
+  # dsh = pkgs.llm-agents.dsh.override {
+  #   nodejs = pkgs.nodejs-slim.overrideAttrs {
+  #     hardeningDisable = ["zerocallusedregs"];
+  #   };
+  # };
 in
 # TODO remove system, only when from all modules it is removed
 {
@@ -39,7 +39,8 @@ in
 
     pkgs.llm-agents.pi
     # pkgs.llm-agents.dsh
-    dsh # revert back once this is closed https://github.com/numtide/llm-agents.nix/issues/9994
+    # dsh # revert back once this is closed https://github.com/numtide/llm-agents.nix/issues/9994
+    pkgs-custom.dsh
     # pkgs.llm-agents.opencode # defined in programs.opencode
     # pkgs.llm-agents.opencode2
     # pkgs.llm-agents.qwen-code

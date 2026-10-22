@@ -66,8 +66,8 @@
   #services.getty.autologinUser = "user";
   # boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_6_18;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  # boot.kernelPackages = pkgs-unstable-small.linuxPackages_latest;
+  # boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  boot.kernelPackages = pkgs-unstable-small.linuxPackages_latest;
   # boot.kernelPackages = lib.mkForce pkgs-master.linuxPackages_testing; # this installs linux release candidate #untested, does not compule cus nvidia
   # boot.kernelPackages = pkgs-master.linuxPackagesFor (pkgs-master.linux_latest.override {
   #     argsOverride = rec {

@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  lib,
   pkgs-stable,
   pkgs,
   ...
@@ -36,8 +37,32 @@
     # (config.boot.kernelPackages).kvmfr
   ];
 
+  # WORKAROUND — remove once https://github.com/NixOS/nixpkgs/pull/576883 ("kvmfr: signed with .ko.cer")
+  # is merged into nixos-unstable (tracks https://github.com/NixOS/nixpkgs/issues/575192).
+  # kvmfr's installPhase only installs kvmfr.ko and drops the .ko.cer certificate that
+  # aggregateModules now concatenates into modules.cer, so linux-*-modules fails with:
+  #   cat: kernel/drivers/misc/kvmfr.ko.cer: No such file or directory  (exit 123)
+  # Fix: use the kernel's modules_install (which runs the kmodigest cmd_sign hook) instead of
+  # hand-installing the .ko, mirroring the upstream PR.
   boot.extraModulePackages = [
-    config.boot.kernelPackages.kvmfr
+    (let
+      kpkgs = config.boot.kernelPackages;
+    in
+      kpkgs.kvmfr.overrideAttrs (
+        old: {
+          installPhase = ''
+            runHook preInstall
+
+            make -C ${kpkgs.kernel.dev}/lib/modules/${kpkgs.kernel.modDirVersion}/build \
+              M=$PWD \
+              INSTALL_MOD_PATH=$out \
+              ${lib.escapeShellArgs kpkgs.kernelModuleMakeFlags} \
+              modules_install
+
+            runHook postInstall
+          '';
+        }
+      ))
   ];
 
   services.udev.extraRules = ''
