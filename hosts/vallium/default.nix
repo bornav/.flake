@@ -165,7 +165,7 @@
       # (pkgs-unstable.callPackage ../../modules/custom_pkg/temp.nix {})
       pkgs.scx.full
       # (pkgs-unstable.callPackage ../../modules/custom_pkg/pince/package.nix {})
-      (pkgs-unstable.callPackage ../../modules/custom_pkg/helium_browser.nix {})
+      pkgs-custom.helium # package moved to nixpkgs-local (pkgs/h/helium/package.nix)
 
       # (pkgs.callPackage ./snapmaker-orca.nix {inherit (pkgs) orca-slicer;})
 

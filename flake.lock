@@ -905,11 +905,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1792763686,
-        "narHash": "sha256-jOUoVqT5//MNJv3j9JxJQskxZkH1rx6aLdOzPkLG8GM=",
+        "lastModified": 1792765861,
+        "narHash": "sha256-79CcIeHtHfNXQRxuqCj3TqeKVrWywtUaGZCMRg/wZRs=",
         "ref": "refs/heads/master",
-        "rev": "93aa57075d7097b99afbd7346689206830317b10",
-        "revCount": 42,
+        "rev": "8114e4a6081439bf70f8b21d0c4e8906244204dd",
+        "revCount": 43,
         "type": "git",
         "url": "https://forgejo.icylair.com/bornav/nixpkgs-local"
       },
@@ -1013,11 +1013,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1776169885,
-        "narHash": "sha256-l/iNYDZ4bGOAFQY2q8y5OAfBBtrDAaPuRQqWaFHVRXM=",
+        "lastModified": 1792502884,
+        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4bd9165a9165d7b5e33ae57f3eecbcb28fb231c9",
+        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
         "type": "github"
       },
       "original": {

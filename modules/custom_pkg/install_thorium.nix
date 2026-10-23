@@ -1,4 +1,4 @@
-{ config, inputs, system, vars, lib, pkgs, ... }:
+{ config, inputs, system, vars, lib, pkgs, pkgs-custom, ... }:
 # let
 #     pkgs = import inputs.nixpkgs-unstable {
 #         config.allowUnfree = true;
@@ -33,8 +33,9 @@ in
   config = mkIf (config.thorium.enable) {
     environment = {
         systemPackages = with pkgs; [
-            (pkgs.callPackage ./thorium2.nix {commandLineArgs = thorium-flags_dot_conf;})
-            # (pkgs.callPackage ./thorium2.nix {})
+            # package now lives in the nixpkgs-local repo (pkgs/t/thorium/package.nix),
+            # consumed via the pkgs-custom specialArg (import inputs.nixpkgs-local)
+            (pkgs-custom.thorium.override { commandLineArgs = thorium-flags_dot_conf; })
         ];}; #$XDG_CONFIG_HOME
     home-manager.users.${vars.user} = {
         # xdg.configFile = {
