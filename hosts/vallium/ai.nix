@@ -58,8 +58,8 @@ in
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [11434 10002 10001 10000];
-    allowedUDPPorts = [11434 10002 10001 10000];
+    allowedTCPPorts = [11434 10002 10001 10000 9999];
+    allowedUDPPorts = [11434 10002 10001 10000 9999];
   };
 
   # systemd.user.services.
@@ -102,28 +102,32 @@ in
 
   # dsh deepseek harness
   # systemd.user.services.
-  # systemd.services.dsh = {
-  #   description = "Deepseek harness";
-  #   after = ["network.target"];
-  #   wantedBy = ["multi-user.target"];
-  #   enable = true;
-  #   serviceConfig = {
-  #     Type = "simple";
-  #     User = "${host.vars.user}";
-  #     Group = "users";
-  #     # WorkingDirectory = "/home/user/workspace/llama-swap";
-  #     ExecStart = "${pkgs.llm-agents.dsh}/bin/dsh --profile web --port 10000";
-  #     Restart = "always";
-  #     RestartSec = "5";
-  #     StandardOutput = "journal";
-  #     StandardError = "journal";
-  #   };
-  #   # StartLimit directives belong in [Unit], not [Service]
-  #   unitConfig = {
-  #     StartLimitBurst = "3";
-  #     StartLimitIntervalSec = "30"; # systemd uses IntervalSec, not Interval
-  #   };
-  # };
+  systemd.services.dsh = {
+    description = "Deepseek harness (dsh web profile)";
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
+    enable = true;
+    serviceConfig = {
+      Type = "simple";
+      User = "${host.vars.user}";
+      Group = "users";
+      ExecStart = "${pkgs-custom.dsh}/bin/dsh --profile web --port 9999 --no-auth --host 0.0.0.0";
+      Restart = "always";
+      RestartSec = "5";
+      # Termination policy: do not block shutdown — give dsh 10s to exit on
+      # SIGTERM, then SIGKILL the whole cgroup (dsh spawns child agent procs).
+      TimeoutStopSec = "10";
+      KillMode = "control-group";
+      SendSIGKILL = true;
+      StandardOutput = "journal";
+      StandardError = "journal";
+    };
+    # StartLimit directives belong in [Unit], not [Service]
+    unitConfig = {
+      StartLimitBurst = "3";
+      StartLimitIntervalSec = "30"; # systemd uses IntervalSec, not Interval
+    };
+  };
 
   # systemd.services.openshell-gateway = {
   #   description = "OpenShell gateway (local, VM driver)";
